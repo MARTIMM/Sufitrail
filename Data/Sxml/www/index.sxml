@@ -15,10 +15,10 @@ $html xmlns=http://www.w3.org/1999/xhtml xml:lang=en [
 
     # only css load here, scripts are at the end
     $link rel=stylesheet type=text/css href=css/ol.css
-#    $link rel=stylesheet type=text/css href=css/demo.css
     $link rel=stylesheet type=text/css href=css/index-tabpane.css
-#    $link rel=stylesheet type=text/css href=css/index.css
-    $!css.style [
+
+    #===========================================================================
+    $!css.style compress=0 [
       $!css.reset type=condensed-universal
       $!colors.palette base-hsl='180 100 50'
                        type=color-scheme mode=monochromatic
@@ -84,6 +84,7 @@ $html xmlns=http://www.w3.org/1999/xhtml xml:lang=en [
     $title [ Sufi Trail ]
   ]
 
+  #=============================================================================
   $body [
     $div id=tabpane [
       $div id=mapContainer [
