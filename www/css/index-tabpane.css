@@ -1,0 +1,178 @@
+/*
+  Author: Marcel Timmerman
+
+  Source from google closure
+*/
+
+
+#tabpane {
+  height:             600px;
+}
+
+.goog-tabpane {
+/*
+  background: threedface;
+  background: #88ddff;
+  color: #88ddff;
+*/
+  padding-left:       0px;
+  position:           relative;
+
+  background:         -o-linear-gradient(bottom, #301030 5%, #ffaaff 9%, #301030 14%);
+  background:         -moz-linear-gradient(bottom, #301030 5%, #ffaaff 9%, #301030 14%);
+  background:         -webkit-linear-gradient(bottom, #301030 5%, #ffaaff 9%, #301030 14%);
+  background:         -ms-linear-gradient(bottom, #301030 5%, #ffaaff 9%, #301030 14%);
+  background:         linear-gradient(to top,#301030 5%, #ffaaff 9%, #301030 14%);
+}
+
+.goog-tabpane-tabs {
+  list-style:         none;
+  margin:             0px;
+  padding:            0px;
+  position:           relative;
+  font-size:          50px;
+  width:              0;
+  /*width:              200px;*/
+  /*display: none;*/
+  /*height:             100%;*/
+}
+
+/* Tabs are on the right so this is not used
+.goog-tabpane-left .goog-tabpane-tabs {
+  float: left;
+}
+
+.goog-tabpane-left .goog-tabpane-tab {
+  border-radius:      15px 0 0 15px;
+}
+*/
+
+.goog-tabpane-right .goog-tabpane-tabs {
+  float: right;
+}
+
+.goog-tabpane-right .goog-tabpane-tab {
+  border-radius:      0 15px 15px 0;
+  border-color:         #ff40ff #401040 #401040 #ff40ff;
+}
+
+.goog-tabpane-cont {
+  overflow: auto;
+  color: #ff40ff;
+/*  background:         rgba( 255, 255, 255, 0.40);*/
+/*
+  background: #88ddff;
+  background: threedface;
+  border: 1px solid;
+  border-color: threedhighlight threedshadow threedshadow threedhighlight;
+*/
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  font-size: 25px;
+}
+
+.goog-tabpane-tab, .goog-tabpane-tab-selected {
+  display: block;
+  padding: 3px 6px;
+/*
+  background: threedface;
+  background: #88ddff;
+*/
+/*  background:         rgba( 255, 255, 255, 0.40);*/
+  background:       #802080;
+  color:            #ff40ff;
+  border:           3px solid;
+  margin:           1px;
+}
+
+/* Tabs are on the right so this is not used
+.goog-tabpane-left .goog-tabpane-tab-selected {
+  border-radius:      15px 0 0 15px;
+}
+*/
+
+.goog-tabpane-right .goog-tabpane-tab-selected {
+  border-radius:      0 15px 15px 0;
+}
+
+.goog-tabpane-top .goog-tabpane-tab,
+.goog-tabpane-top .goog-tabpane-tab-selected,
+.goog-tabpane-bottom .goog-tabpane-tab,
+.goog-tabpane-bottom .goog-tabpane-tab-selected {
+  float: left;
+}
+
+.goog-tabpane-top .goog-tabpane-tab,
+.goog-tabpane-top .goog-tabpane-tab-selected {
+/*  border-color: threedhighlight threedshadow threedface threedhighlight;*/
+/*  border-color:        #ffafff #200020 #ff40ff #ffafff;*/
+/*  #ff40ff #301030 */
+}
+
+.goog-tabpane-bottom .goog-tabpane-tab,
+.goog-tabpane-bottom .goog-tabpane-tab-selected {
+/*  border-color: threedface threedshadow threedshadow threedhighlight;*/
+/*  border-color:        #ff40ff #200020 #200020 #ff40ff;*/
+}
+
+.goog-tabpane-left .goog-tabpane-tab,
+.goog-tabpane-left .goog-tabpane-tab-selected {
+/*  border-color: threedhighlight threedface threedshadow threedhighlight;*/
+/*  border-color:        #ffafff #ff40ff #200020 #ffafff;*/
+}
+
+.goog-tabpane-right .goog-tabpane-tab,
+.goog-tabpane-right .goog-tabpane-tab-selected {
+/*  border-color: threedhighlight threedshadow threedshadow threedface;*/
+/*  border-color:        #ffafff #200020 #200020 #ff40ff;*/
+}
+
+.goog-tabpane-top .goog-tabpane-tab {
+  margin-top: 3px;
+}
+
+.goog-tabpane-tab-selected {
+  font-weight: bold;
+  border-color:         #ff40ff #502050 #502050 #ff40ff;
+  background:           rgba( 180, 80, 100, 0.4);
+  /*color:              rgba( 255, 255, 255, 0.8);*/
+}
+
+.goog-tabpane-tab-selected,
+.goog-tabpane-tab-selected {
+/*
+  padding-bottom: 2px;
+  padding-top: 2px;
+*/
+}
+
+.goog-tabpane-top .goog-tabpane-tab-selected {
+  position: relative;
+  top: 1px;
+}
+
+.goog-tabpane-bottom .goog-tabpane-tab-selected {
+  position: relative;
+  top: -1px;
+}
+
+.goog-tabpane-left .goog-tabpane-tab-selected {
+  position: relative;
+  /*left: 1px;*/
+}
+
+.goog-tabpane-right .goog-tabpane-tab-selected {
+  position: relative;
+  left: -1px;
+}
+
+/*
+#tabpane2 .goog-tabpane-tab {
+  margin-top: 0px;
+}
+*/
+
+p {
+  margin-top: 0px;
+}
