@@ -1,0 +1,14 @@
+*/.precomp/*
+node_modules/*
+platforms/*
+plugins/*
+Old/*
+www/css/ol.css
+www/css/demo.css
+www/js/goog/*
+www/js/goog-new*/*
+www/js/jquery*
+www/tracks/*
+www/js/lzma*
+www/js/ol*.js
+www/js/polyfill*.js
