@@ -1,0 +1,194 @@
+# Run: sxml2xml.pl6 --in=html --out=index Data/Sxml/www/index.sxml
+
+$html xmlns=http://www.w3.org/1999/xhtml xml:lang=en [
+  # ============================================================================
+  $!SxmlCore.comment [!=
+    Author: Marcel Timmerman
+    License: ...
+    Copyright: © Sufitrail 2017
+  !]
+
+  $head [
+    $meta charset=UTF-8
+    $meta name=viewport
+          content="width=device-width, height=device-height, initial-scale=1"
+
+    # only css load here, scripts are at the end
+    $link rel=stylesheet type=text/css href=css/ol.css
+#    $link rel=stylesheet type=text/css href=css/demo.css
+    $link rel=stylesheet type=text/css href=css/index-tabpane.css
+#    $link rel=stylesheet type=text/css href=css/index.css
+    $!css.style [
+      $!css.reset type=condensed-universal
+      $!colors.palette base-hsl='180 100 50'
+                       type=color-scheme mode=monochromatic
+                       lighten=15 ncolors=6 outspec=rgbhex
+
+      $!css.b s='*' [
+        box-sizing: border-box;
+      ]
+
+      $!css.b s='#mapContainer' [
+        border:               0 solid;
+        margin:               0;
+        height:               100%;
+      ]
+
+      $!css.b s='#mymap' [
+        height:               100%;
+        position:             relative;
+        border:               0;
+        padding:              0;
+        margin:               0;
+      ]
+
+      $!css.b s=.hreftype [
+        text-decoration:      underline;
+        cursor:               hand;
+        cursor:               pointer;
+      ]
+
+      $!css.b s=.strong [
+        font-weight:          bold;
+      ]
+
+      $!css.b s=.tight-fit [
+        margin:               0;
+        border:               0;
+        padding:              0;
+        height:               100%;
+      ]
+
+      $!css.b s=p [
+        padding: 2px;
+      ]
+
+      $!css.b s='table#about' [
+        margin-left:          20%;
+        margin-right:         80%;
+        width:                80%;
+
+        $!css.b s='tr th' [
+          text-align:         left;
+        ]
+      ]
+
+      $!css.b s=.open-menu [
+        top:                  65px;
+        right:                .5em;
+      ]
+
+
+    ]
+
+    $title [ Sufi Trail ]
+  ]
+
+  $body [
+    $div id=tabpane [
+      $div id=mapContainer [
+        $h2 [ Map ]
+        $div id=mymap class=map
+      ]
+
+      $div [
+        $h2 [ Info ]
+      ]
+
+      $div [
+        # generate tracks from directory www/tracks
+        $!tracks.list gpx-dir=www/tracks prefix-path=./tracks/
+      ]
+
+      $div [
+        $h2 [ Feature ]
+        $div [
+          $h1 [ Location Lutjebroek ]
+          $p [ Very nice surroundings with view on the meadows of past times. ]
+        ]
+      ]
+
+      $div [
+        $h2 [ Start ]
+        #$p [ ]
+      ]
+
+      $div [
+        $h2 [ About ]
+
+        #$p [
+          $table id=about [
+            $tr [ $th [ &nbsp; ] ]
+            $tr [ $th [ Sultans Trail Teammates ] ]
+            $tr [ $th [ &nbsp; ] ]
+            $tr [
+              $th colspan=2 [ Trail Blazers ]
+            ]
+            $tr [
+              $td [ Sedat Çakir ]
+              $td [ Project leader ]
+            ]
+
+            $tr [
+              $td [ Rob Polko ]
+              $td [ Map Design ]
+            ]
+            $tr [
+              $td [ Pijke Wees ]
+              $td [ Cartographer ]
+            ]
+
+            $tr [
+              $td [ Merel van Essen ]
+              $td [ Handbook Writer ]
+            ]
+
+            $tr [
+              $td [ Tine Lambers ]
+              $td [ Office Manager ]
+            ]
+
+            $tr [
+              $td [ Iris Bezuijen ]
+              $td [ Web Master ]
+            ]
+            $tr [
+              $td [ Marcel Timmerman ]
+              $td [ Developer ]
+            ]
+
+            $tr [ $th [ &nbsp; ] ]
+            $tr [
+              $th [ Current App Version ]
+            ]
+            $tr [
+              $td [ 0.4.2 ]
+            ]
+          ]
+        #]
+      ]
+
+      $div [
+        $h2 [ Exit ]
+        #$p [ ]
+      ]
+    ]
+
+    # ==========================================================================
+    #  Loading of javascript program and libraries at the end
+#    $script src=cordova.js
+
+#    $script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"
+#    $script src=js/polyfill.min.js
+    $script src=js/goog/base.js
+    $script [!=
+      goog.require('goog.ui.TabPane');
+      goog.require('goog.fx');
+      goog.require('goog.fx.dom');
+    !]
+    $script src=js/ol.js
+    #$script src=js/lzma-min.js
+    $script src=js/index.js
+
+  ] # body
+] # html
