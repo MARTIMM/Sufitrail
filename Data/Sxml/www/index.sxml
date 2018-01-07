@@ -1,22 +1,39 @@
-# Run: sxml2xml.pl6 --in=html --out=index Data/Sxml/www/index.sxml
+# Run: sxml2xml.pl6 --in=html --out=html Data/Sxml/www/index.sxml
 
 $html xmlns=http://www.w3.org/1999/xhtml xml:lang=en [
   # ============================================================================
-  $!SxmlCore.comment [!=
+  $!SxmlCore.comment {=
     Author: Marcel Timmerman
     License: ...
     Copyright: © Sufitrail 2017
-  !]
+  }
 
   $head [
+    #===========================================================================
+    $title [ Sufi Trail Walking Program ]
+
+    #===========================================================================
     $meta charset=UTF-8
     $meta name=viewport
           content="width=device-width, height=device-height, initial-scale=1"
 
-    # only css load here, scripts are at the end
-    $link rel=stylesheet type=text/css href=css/ol.css
-    $link rel=stylesheet type=text/css href=css/index-tabpane.css
+    $meta name=description content='Sufi Trail Walking Program'
+    $meta name=keywords content='Walk Hike Trail'
+    $meta http-equiv=language content=EN
+    $meta http-equiv=Content-Style-Type content=text/css
 
+    #===========================================================================
+    # reset default css settings of any browser
+    $!css.style compress=0 id=reset [
+      $!css.reset type=condensed-universal
+    ]
+
+    #===========================================================================
+    # links to css style sheets
+    $link rel=stylesheet type=text/css href=css/ol.css
+#    $link rel=stylesheet type=text/css href=css/index-tabpane.css
+
+$!SxmlCore.drop «
     #===========================================================================
     $!css.style compress=0 [
       $!css.reset type=condensed-universal
@@ -80,44 +97,68 @@ $html xmlns=http://www.w3.org/1999/xhtml xml:lang=en [
 
 
     ]
-
-    $title [ Sufi Trail ]
+»
   ]
 
   #=============================================================================
   $body [
-    $div id=tabpane [
-      $div id=mapContainer [
-        $h2 [ Map ]
-        $div id=mymap class=map
+    #---------------------------------------------------------------------------
+    $!menu.container side=right [
+
+      #-------------------------------------------------------------------------
+      # main page shows the map
+      $!menu.entry title=Map id=map-page =!home-button [
+        $div id=sufitrail-map class=map
       ]
 
-      $div [
-        $h2 [ Info ]
-      ]
-
-      $div [
-        # generate tracks from directory www/tracks
-        $!tracks.list gpx-dir=www/tracks prefix-path=./tracks/
-      ]
-
-      $div [
-        $h2 [ Feature ]
+      #-------------------------------------------------------------------------
+      $!menu.entry title=Info id=info-page [
         $div [
-          $h1 [ Location Lutjebroek ]
-          $p [ Very nice surroundings with view on the meadows of past times. ]
+          $h2 [ Info ]
         ]
       ]
 
-      $div [
-        $h2 [ Start ]
-        #$p [ ]
+      #-------------------------------------------------------------------------
+      $!menu.entry title=Tracks id=track-page [
+        $div [
+          # generate tracks from directory www/tracks
+          $!tracks.list gpx-dir=www/tracks prefix-path=./tracks/
+        ]
       ]
 
-      $div [
-        $h2 [ About ]
+      #-------------------------------------------------------------------------
+      $!menu.entry title=Feature id=feature-page [
+        $div [
+          $h2 [ Feature ]
+          $div [
+            $h1 [ Location Lutjebroek ]
+            $p [
+              Very nice surroundings with view on the meadows of past times.
+            ]
+          ]
+        ]
+      ]
 
-        #$p [
+      #-------------------------------------------------------------------------
+      $!menu.entry title=Start id=start-page [
+        $div [
+          $h2 [ Start ]
+          #$p [ ]
+        ]
+      ]
+
+      #-------------------------------------------------------------------------
+      $!menu.entry title=Exit id=exit-page [
+        $div [
+          $h2 [ Exit ]
+          #$p [ ]
+        ]
+      ]
+
+      #-------------------------------------------------------------------------
+      $!menu.entry title=About id=about-page [
+        $h1 [ About ]
+        $p [
           $table id=about [
             $tr [ $th [ &nbsp; ] ]
             $tr [ $th [ Sultans Trail Teammates ] ]
@@ -163,9 +204,48 @@ $html xmlns=http://www.w3.org/1999/xhtml xml:lang=en [
               $th [ Current App Version ]
             ]
             $tr [
-              $td [ 0.4.2 ]
+              $td [ 0.0.1 ]
             ]
           ]
+        ]
+      ]
+    ]
+
+
+
+$!SxmlCore.drop «
+    $div id=tabpane [
+      $div id=mapContainer [
+        $h2 [ Map ]
+        $div id=mymap class=map
+      ]
+
+      $div [
+        $h2 [ Info ]
+      ]
+
+      $div [
+        # generate tracks from directory www/tracks
+        $!tracks.list gpx-dir=www/tracks prefix-path=./tracks/
+      ]
+
+      $div [
+        $h2 [ Feature ]
+        $div [
+          $h1 [ Location Lutjebroek ]
+          $p [ Very nice surroundings with view on the meadows of past times. ]
+        ]
+      ]
+
+      $div [
+        $h2 [ Start ]
+        #$p [ ]
+      ]
+
+      $div [
+        $h2 [ About ]
+
+        #$p [
         #]
       ]
 
@@ -174,6 +254,7 @@ $html xmlns=http://www.w3.org/1999/xhtml xml:lang=en [
         #$p [ ]
       ]
     ]
+»
 
     # ==========================================================================
     #  Loading of javascript program and libraries at the end
@@ -181,12 +262,14 @@ $html xmlns=http://www.w3.org/1999/xhtml xml:lang=en [
 
 #    $script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"
 #    $script src=js/polyfill.min.js
+$!SxmlCore.drop «
     $script src=js/goog/base.js
-    $script [!=
+    $script {=
       goog.require('goog.ui.TabPane');
       goog.require('goog.fx');
       goog.require('goog.fx.dom');
-    !]
+    }
+»
     $script src=js/ol.js
     #$script src=js/lzma-min.js
     $script src=js/index.js
