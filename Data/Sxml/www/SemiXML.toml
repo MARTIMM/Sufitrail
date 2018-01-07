@@ -23,6 +23,7 @@
   colors        = 'SxmlLib::Colors'
   css           = 'SxmlLib::Css'
   lorem         = 'SxmlLib::LoremIpsum'
+  menu          = 'SxmlLib::Html::Menu'
   tracks        = 'Tracks;/home/marcel/Projects/Mobile/Projects/lib'
 
 #------------------------------------------------------------------------------
