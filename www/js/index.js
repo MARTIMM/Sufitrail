@@ -4,11 +4,11 @@
 */
 //use strict;
 
-goog.provide('SultanstrailMobileApp');
+//goog.provide('SufitrailMobileApp');
 
 
 // Application object
-var SultansTrailMobileApp = {
+var SufiTrailMobileApp = {
 
   // ==========================================================================
   mapLayers:      [],
@@ -105,6 +105,7 @@ var SultansTrailMobileApp = {
     }
   },
 
+/*
   // ==========================================================================
   openMenu: function ( e ) {
     console.log('open menu: ' + e );
@@ -134,12 +135,13 @@ var SultansTrailMobileApp = {
 
     anim.play();
   },
+*/
 
   // ==========================================================================
   openMenuControl: function ( opts ) {
 
-    // 'this' is the Control object! -> use SultansTrailMobileApp
-    var app = SultansTrailMobileApp;
+    // 'this' is the Control object! -> use SufiTrailMobileApp
+    var app = SufiTrailMobileApp;
 
     // build a control to show on map
     var options = opts || {};
@@ -168,18 +170,20 @@ var SultansTrailMobileApp = {
 
     // ------------------------------------------------------------------------
     // make a tabpane
-    var tabPane = new goog.ui.TabPane(
-      document.querySelector('div#tabpane'),
-      goog.ui.TabPane.TabLocation.RIGHT
-    );
+    //var tabPane = new goog.ui.TabPane(
+    //  document.querySelector('div#tabpane'),
+    //  goog.ui.TabPane.TabLocation.RIGHT
+    //);
 
     // ------------------------------------------------------------------------
     // get size of viewport and modify the tabpane to fit
     //TODO make it dynamic
-    console.log('width=' + window.innerWidth + ', height=' + window.innerHeight);
-    document.getElementById('tabpane').style.cssText =
-      "width: " + window.innerWidth + 'px;' +
-      "height: " + window.innerHeight + 'px;';
+    console.log(
+      'width=' + window.innerWidth + ', height=' + window.innerHeight
+    );
+    //document.getElementById('tabpane').style.cssText =
+    //  "width: " + window.innerWidth + 'px;' +
+    //  "height: " + window.innerHeight + 'px;';
 
     // ------------------------------------------------------------------------
     // Activate exit button
@@ -192,9 +196,9 @@ var SultansTrailMobileApp = {
 
     //-------------------------------------------------------------------------
     // listen to click on map tab
-    var maptab = document.querySelector('div#tabpane ul li');
-console.log(maptab);
-    maptab.addEventListener( "click", SultansTrailMobileApp.closeMenu,);
+    //var maptab = document.querySelector('div#tabpane ul li');
+//console.log(maptab);
+    //maptab.addEventListener( "click", SufiTrailMobileApp.closeMenu,);
 
     // ------------------------------------------------------------------------
     // initialize layers, features and view
@@ -249,7 +253,7 @@ console.log('load track from ' + trackFile);
     // ------------------------------------------------------------------------
     // show map
     this.map = new ol.Map( {
-        target:       'mymap',
+        target:       'sufitrail-map',
         layers:       this.mapLayers,
         view:         this.mapView,
         controls:     [
@@ -305,8 +309,8 @@ console.log('load track from ' + trackFile);
   // ==========================================================================
   setView: function( ) {
 
-    // This transformation is what I'm looking for. Longitude/Latitude of
-    // Google map of our home.
+    // This transformation is what I'm looking for. Longitude/Latitude
+    // found using Google map of our home.
     this.mapView = new ol.View( {
       center: this.transform( [ 4.632367, 52.390413]),
       zoom: 10
@@ -570,4 +574,4 @@ console.log("Loaded after " + (Date.now() - app.timeStart) + " msec");
 
 // http://thanpol.as/javascript/you-dont-need-dom-ready
 // Don't wait for event ready, just place script at the end of <body>
-SultansTrailMobileApp.makeItHappen();
+SufiTrailMobileApp.makeItHappen();
