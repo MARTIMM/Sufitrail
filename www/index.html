@@ -3,7 +3,7 @@
 Author: Marcel Timmerman
 License: ...
 Copyright: © Sufitrail 2017
---><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, height=device-height, initial-scale=1"/><link rel="stylesheet" href="css/ol.css" type="text/css"/><link rel="stylesheet" href="css/index-tabpane.css" type="text/css"/><style>
+--><head><title>Sufi Trail Walking Program</title><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, height=device-height, initial-scale=1"/><meta name="description" content="Sufi Trail Walking Program"/><meta name="keywords" content="Walk Hike Trail"/><meta content="EN" http-equiv="language"/><meta content="text/css" http-equiv="Content-Style-Type"/><link rel="stylesheet" href="css/ol.css" type="text/css"/><style>
 * { vertical-align: baseline;
    font-weight: inherit;
    font-family: inherit;
@@ -14,62 +14,121 @@ Copyright: © Sufitrail 2017
    padding: 0;
    margin: 0;
 }
-* {
-   box-sizing: border-box;
+</style><style>/* The side navigation menu */
+.sidenav {
+    height:     100%;               /* 100% Full-height */
+    width:      0;                  /* 0 width - change this with JavaScript */
+    position:   fixed;              /* Stay in place */
+    z-index:    1;                  /* Stay on top */
+    top:        0;                  /* Stay at the top */
+    right:      0;
+    background-color:   #111;       /* Black*/
+    overflow-x:         hidden;     /* Disable horizontal scroll */
+    padding-top:        60px;       /* Place content 60px from the top */
+    transition:         0.5s;       /* 0.5 second transition effect to slide in the sidenav */
 }
 
-#mapContainer {
-   border: 0 solid;
-   margin: 0;
-   height: 100%;
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
 }
 
-#mymap {
-   height: 100%;
-   position: relative;
-   border: 0;
-   padding: 0;
-   margin: 0;
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #f1f1f1;
 }
 
-.hreftype {
-   text-decoration: underline;
-   cursor: hand;
-   cursor: pointer;
+/* Position and style the close button (top right corner) */
+.sidenav .menu-close-button {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
 }
 
-.strong {
-   font-weight: bold;
+/* Position and style the close button (top right corner) */
+.menu-open-button {
+  font-size: 30px;
+  cursor: pointer;
 }
 
-.tight-fit {
-   margin: 0;
-   border: 0;
-   padding: 0;
-   height: 100%;
+.menu-home-button {
+  font-size: 30px;
+  cursor: pointer;
 }
 
-p {
-   padding: 2px;
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
 }
 
-table#about {
-   margin-left: 20%;
-   margin-right: 80%;
-   width: 80%;
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
 }
 
-table#about tr th {
-   text-align: left;
-}
+</style></head><body><div id="SideNav" class="sidenav"><a href="javascript:void(0)" onclick="menu.showPage('map-page')">Map</a>  <a href="javascript:void(0)" onclick="menu.showPage('info-page')">Info</a>  <a href="javascript:void(0)" onclick="menu.showPage('track-page')">Tracks</a>  <a href="javascript:void(0)" onclick="menu.showPage('feature-page')">Feature</a>  <a href="javascript:void(0)" onclick="menu.showPage('start-page')">Start</a>  <a href="javascript:void(0)" onclick="menu.showPage('about-page')">About</a>  <a href="javascript:void(0)" onclick="menu.showPage('exit-page')">Exit</a>  <a href="javascript:void(0)" class="menu-close-button" onclick="menu.closeNavigation()">&#x2716;</a></div><div id="map-page" class="menu-page" style="display: block;"><a href="javascript:void(0)" class="menu-open-button" onclick="menu.openNavigation()">&#9776;</a>  <div class="map" id="sufitrail-map"></div></div><div id="info-page" class="menu-page" style="display: none"><a href="javascript:void(0)" class="menu-home-button" onclick="menu.showPage('map-page')">&#x1F3E0;</a>  <a href="javascript:void(0)" class="menu-open-button" onclick="menu.openNavigation()">&#9776;</a>  <div><h2>Info</h2></div></div><div id="track-page" class="menu-page" style="display: none"><a href="javascript:void(0)" class="menu-home-button" onclick="menu.showPage('map-page')">&#x1F3E0;</a>  <a href="javascript:void(0)" class="menu-open-button" onclick="menu.openNavigation()">&#9776;</a>  <div><h2>Tracks</h2><ul><li id="track1" class="hreftype" data-gpx-file="./tracks/Austria_21_04_2015.gpx">Austria 21 04 2015</li><li id="track2" class="hreftype" data-gpx-file="./tracks/Croatia15_02_2015GPX.gpx">Croatia15 02 2015GPX</li><li id="track3" class="hreftype" data-gpx-file="./tracks/Iris-NiskabanjaGPX.gpx">Iris NiskabanjaGPX</li><li id="track4" class="hreftype" data-gpx-file="./tracks/Romania_Totaal_10_03_2015.gpx">Romania Totaal 10 03 2015</li><li id="track5" class="hreftype" data-gpx-file="./tracks/Slovakia_Totaal_V24_03_2015.gpx">Slovakia Totaal V24 03 2015</li><li id="track6" class="hreftype" data-gpx-file="./tracks/Turkije_Totaal_05_09_2017.gpx">Turkije Totaal 05 09 2017</li><li id="track7" class="hreftype" data-gpx-file="./tracks/st-01 belgrade-avala-track.gpx">st 01 belgrade avala track</li><li id="track8" class="hreftype" data-gpx-file="./tracks/st-02 avala-grocka-track.gpx">st 02 avala grocka track</li><li id="track9" class="hreftype" data-gpx-file="./tracks/st-03 grocka-smederevo-track.gpx">st 03 grocka smederevo track</li><li id="track10" class="hreftype" data-gpx-file="./tracks/st-04 smederevo-mihajlovac-track.gpx">st 04 smederevo mihajlovac track</li><li id="track11" class="hreftype" data-gpx-file="./tracks/st-05 mihajlovac- sm.palanka-track.gpx">st 05 mihajlovac  sm palanka track</li><li id="track12" class="hreftype" data-gpx-file="./tracks/st-06 sm.palanka - sviljanac-track.gpx">st 06 sm palanka   sviljanac track</li><li id="track13" class="hreftype" data-gpx-file="./tracks/st-07 sviljanac- despotovac-track.gpx">st 07 sviljanac  despotovac track</li><li id="track14" class="hreftype" data-gpx-file="./tracks/st-08 despotovac-cuprija-track.gpx">st 08 despotovac cuprija track</li><li id="track15" class="hreftype" data-gpx-file="./tracks/st-09 cuprija-paracin-track.gpx">st 09 cuprija paracin track</li><li id="track16" class="hreftype" data-gpx-file="./tracks/st-10 paracin-varvarin-track.gpx">st 10 paracin varvarin track</li><li id="track17" class="hreftype" data-gpx-file="./tracks/st-11 varvarin-krusevac-track.gpx">st 11 varvarin krusevac track</li><li id="track18" class="hreftype" data-gpx-file="./tracks/st-12 krusevac-aleksinac-track.gpx">st 12 krusevac aleksinac track</li><li id="track19" class="hreftype" data-gpx-file="./tracks/st-13 aleksinac-nis-track.gpx">st 13 aleksinac nis track</li><li id="track20" class="hreftype" data-gpx-file="./tracks/st-14 nis-niska banja-track.gpx">st 14 nis niska banja track</li><li id="track21" class="hreftype" data-gpx-file="./tracks/st-15 niska-banja-bela-palanka.gpx">st 15 niska banja bela palanka</li><li id="track22" class="hreftype" data-gpx-file="./tracks/st-16 bela palanka-pirot-track.gpx">st 16 bela palanka pirot track</li><li id="track23" class="hreftype" data-gpx-file="./tracks/st-17 pirot-dimitrovgrad-track.gpx">st 17 pirot dimitrovgrad track</li><li id="track24" class="hreftype" data-gpx-file="./tracks/st-18 dimitrovgrad-sofia-track.gpx">st 18 dimitrovgrad sofia track</li><li id="track25" class="hreftype" data-gpx-file="./tracks/zandvoort 2016-05-17_12-58_Tue.gpx">zandvoort 2016 05 17 12 58 Tue</li></ul></div></div><div id="feature-page" class="menu-page" style="display: none"><a href="javascript:void(0)" class="menu-home-button" onclick="menu.showPage('map-page')">&#x1F3E0;</a>  <a href="javascript:void(0)" class="menu-open-button" onclick="menu.openNavigation()">&#9776;</a>  <div><h2>Feature</h2><div><h1>Location Lutjebroek</h1><p>Very nice surroundings with view on the meadows of past times. </p></div></div></div><div id="start-page" class="menu-page" style="display: none"><a href="javascript:void(0)" class="menu-home-button" onclick="menu.showPage('map-page')">&#x1F3E0;</a>  <a href="javascript:void(0)" class="menu-open-button" onclick="menu.openNavigation()">&#9776;</a>  <div><h2>Start</h2></div></div><div id="about-page" class="menu-page" style="display: none"><a href="javascript:void(0)" class="menu-home-button" onclick="menu.showPage('map-page')">&#x1F3E0;</a>  <a href="javascript:void(0)" class="menu-open-button" onclick="menu.openNavigation()">&#9776;</a>  <h1>About</h1><p><table id="about"><tr><th>&nbsp;</th></tr><tr><th>Sultans Trail Teammates</th></tr><tr><th>&nbsp;</th></tr><tr><th colspan="2">Trail Blazers</th></tr><tr><td>Sedat Çakir</td><td>Project leader</td></tr><tr><td>Rob Polko</td><td>Map Design</td></tr><tr><td>Pijke Wees</td><td>Cartographer</td></tr><tr><td>Merel van Essen</td><td>Handbook Writer</td></tr><tr><td>Tine Lambers</td><td>Office Manager</td></tr><tr><td>Iris Bezuijen</td><td>Web Master</td></tr><tr><td>Marcel Timmerman</td><td>Developer</td></tr><tr><th>&nbsp;</th></tr><tr><th>Current App Version</th></tr><tr><td>0.0.1</td></tr></table></p></div><div id="exit-page" class="menu-page" style="display: none"><a href="javascript:void(0)" class="menu-home-button" onclick="menu.showPage('map-page')">&#x1F3E0;</a>  <a href="javascript:void(0)" class="menu-open-button" onclick="menu.openNavigation()">&#9776;</a>  <div><h2>Exit</h2></div></div>  <script src="js/ol.js"></script>  <script src="js/index.js"></script>  <script>var menu = {
+  openNavigation: function ( ) {
+    document.getElementById('SideNav').style.width = "250px";
+  },
 
-.open-menu {
-   top: 65px;
-   right: .5em;
-}
+  closeNavigation: function ( ) {
+    document.getElementById('SideNav').style.width = "0";
+  },
 
-</style><title>Sufi Trail</title></head><body><div id="tabpane"><div id="mapContainer"><h2>Map</h2><div class="map" id="mymap"></div></div><div><h2>Info</h2></div><div><h2>Tracks</h2><ul><li id="track1" class="hreftype" data-gpx-file="./tracks/Austria_21_04_2015.gpx">Austria 21 04 2015</li><li id="track2" class="hreftype" data-gpx-file="./tracks/Croatia15_02_2015GPX.gpx">Croatia15 02 2015GPX</li><li id="track3" class="hreftype" data-gpx-file="./tracks/Iris-NiskabanjaGPX.gpx">Iris NiskabanjaGPX</li><li id="track4" class="hreftype" data-gpx-file="./tracks/Romania_Totaal_10_03_2015.gpx">Romania Totaal 10 03 2015</li><li id="track5" class="hreftype" data-gpx-file="./tracks/Slovakia_Totaal_V24_03_2015.gpx">Slovakia Totaal V24 03 2015</li><li id="track6" class="hreftype" data-gpx-file="./tracks/Turkije_Totaal_05_09_2017.gpx">Turkije Totaal 05 09 2017</li><li id="track7" class="hreftype" data-gpx-file="./tracks/st-01 belgrade-avala-track.gpx">st 01 belgrade avala track</li><li id="track8" class="hreftype" data-gpx-file="./tracks/st-02 avala-grocka-track.gpx">st 02 avala grocka track</li><li id="track9" class="hreftype" data-gpx-file="./tracks/st-03 grocka-smederevo-track.gpx">st 03 grocka smederevo track</li><li id="track10" class="hreftype" data-gpx-file="./tracks/st-04 smederevo-mihajlovac-track.gpx">st 04 smederevo mihajlovac track</li><li id="track11" class="hreftype" data-gpx-file="./tracks/st-05 mihajlovac- sm.palanka-track.gpx">st 05 mihajlovac  sm palanka track</li><li id="track12" class="hreftype" data-gpx-file="./tracks/st-06 sm.palanka - sviljanac-track.gpx">st 06 sm palanka   sviljanac track</li><li id="track13" class="hreftype" data-gpx-file="./tracks/st-07 sviljanac- despotovac-track.gpx">st 07 sviljanac  despotovac track</li><li id="track14" class="hreftype" data-gpx-file="./tracks/st-08 despotovac-cuprija-track.gpx">st 08 despotovac cuprija track</li><li id="track15" class="hreftype" data-gpx-file="./tracks/st-09 cuprija-paracin-track.gpx">st 09 cuprija paracin track</li><li id="track16" class="hreftype" data-gpx-file="./tracks/st-10 paracin-varvarin-track.gpx">st 10 paracin varvarin track</li><li id="track17" class="hreftype" data-gpx-file="./tracks/st-11 varvarin-krusevac-track.gpx">st 11 varvarin krusevac track</li><li id="track18" class="hreftype" data-gpx-file="./tracks/st-12 krusevac-aleksinac-track.gpx">st 12 krusevac aleksinac track</li><li id="track19" class="hreftype" data-gpx-file="./tracks/st-13 aleksinac-nis-track.gpx">st 13 aleksinac nis track</li><li id="track20" class="hreftype" data-gpx-file="./tracks/st-14 nis-niska banja-track.gpx">st 14 nis niska banja track</li><li id="track21" class="hreftype" data-gpx-file="./tracks/st-15 niska-banja-bela-palanka.gpx">st 15 niska banja bela palanka</li><li id="track22" class="hreftype" data-gpx-file="./tracks/st-16 bela palanka-pirot-track.gpx">st 16 bela palanka pirot track</li><li id="track23" class="hreftype" data-gpx-file="./tracks/st-17 pirot-dimitrovgrad-track.gpx">st 17 pirot dimitrovgrad track</li><li id="track24" class="hreftype" data-gpx-file="./tracks/st-18 dimitrovgrad-sofia-track.gpx">st 18 dimitrovgrad sofia track</li><li id="track25" class="hreftype" data-gpx-file="./tracks/zandvoort 2016-05-17_12-58_Tue.gpx">zandvoort 2016 05 17 12 58 Tue</li></ul></div><div><h2>Feature</h2><div><h1>Location Lutjebroek</h1><p>Very nice surroundings with view on the meadows of past times.</p></div></div><div><h2>Start</h2></div><div><h2>About</h2><table id="about"><tr><th>&nbsp;</th></tr><tr><th>Sultans Trail Teammates</th></tr><tr><th>&nbsp;</th></tr><tr><th colspan="2">Trail Blazers</th></tr><tr><td>Sedat Çakir</td><td>Project leader</td></tr><tr><td>Rob Polko</td><td>Map Design</td></tr><tr><td>Pijke Wees</td><td>Cartographer</td></tr><tr><td>Merel van Essen</td><td>Handbook Writer</td></tr><tr><td>Tine Lambers</td><td>Office Manager</td></tr><tr><td>Iris Bezuijen</td><td>Web Master</td></tr><tr><td>Marcel Timmerman</td><td>Developer</td></tr><tr><th>&nbsp;</th></tr><tr><th>Current App Version</th></tr><tr><td>0.4.2</td></tr></table></div><div><h2>Exit</h2></div></div><script src="js/goog/base.js"></script><script>
-goog.require('goog.ui.TabPane');
-goog.require('goog.fx');
-goog.require('goog.fx.dom');
-</script><script src="js/ol.js"></script><script src="js/index.js"></script></body></html>
+  showPage: function ( id ) {
+    this.closeNavigation();
+    setTimeout(
+      function ( ) {
+
+        var node = document.getElementById(id);
+        var divNodes = node.parentNode.getElementsByTagName('div');
+        for ( var i=0; i < divNodes.length; i++) {
+          if ( divNodes[i].className == 'menu-page' ) {
+            divNodes[i].style.display = "none";
+          }
+        }
+
+        document.getElementById(id).style.display = "block";
+      },
+      750
+    );
+  }
+}
+var menu = {
+  openNavigation: function ( ) {
+    document.getElementById('SideNav').style.width = "250px";
+  },
+
+  closeNavigation: function ( ) {
+    document.getElementById('SideNav').style.width = "0";
+  },
+
+  showPage: function ( id ) {
+    this.closeNavigation();
+    setTimeout(
+      function ( ) {
+
+        var node = document.getElementById(id);
+        var divNodes = node.parentNode.getElementsByTagName('div');
+        for ( var i=0; i < divNodes.length; i++) {
+          if ( divNodes[i].className == 'menu-page' ) {
+            divNodes[i].style.display = "none";
+          }
+        }
+
+        document.getElementById(id).style.display = "block";
+      },
+      750
+    );
+  }
+}
+</script></body></html>
