@@ -24,80 +24,9 @@ $html xmlns=http://www.w3.org/1999/xhtml xml:lang=en [
 
     #===========================================================================
     # reset default css settings of any browser
-    $!css.style compress=0 id=reset [
+    $!css.style compress=0 id=reset =!map [
       $!css.reset type=condensed-universal
     ]
-
-    #===========================================================================
-    # links to css style sheets
-    $link rel=stylesheet type=text/css href=css/ol.css
-#    $link rel=stylesheet type=text/css href=css/index-tabpane.css
-
-$!SxmlCore.drop «
-    #===========================================================================
-    $!css.style compress=0 [
-      $!css.reset type=condensed-universal
-      $!colors.palette base-hsl='180 100 50'
-                       type=color-scheme mode=monochromatic
-                       lighten=15 ncolors=6 outspec=rgbhex
-
-      $!css.b s='*' [
-        box-sizing: border-box;
-      ]
-
-      $!css.b s='#mapContainer' [
-        border:               0 solid;
-        margin:               0;
-        height:               100%;
-      ]
-
-      $!css.b s='#mymap' [
-        height:               100%;
-        position:             relative;
-        border:               0;
-        padding:              0;
-        margin:               0;
-      ]
-
-      $!css.b s=.hreftype [
-        text-decoration:      underline;
-        cursor:               hand;
-        cursor:               pointer;
-      ]
-
-      $!css.b s=.strong [
-        font-weight:          bold;
-      ]
-
-      $!css.b s=.tight-fit [
-        margin:               0;
-        border:               0;
-        padding:              0;
-        height:               100%;
-      ]
-
-      $!css.b s=p [
-        padding: 2px;
-      ]
-
-      $!css.b s='table#about' [
-        margin-left:          20%;
-        margin-right:         80%;
-        width:                80%;
-
-        $!css.b s='tr th' [
-          text-align:         left;
-        ]
-      ]
-
-      $!css.b s=.open-menu [
-        top:                  65px;
-        right:                .5em;
-      ]
-
-
-    ]
-»
   ]
 
   #=============================================================================
@@ -107,8 +36,8 @@ $!SxmlCore.drop «
 
       #-------------------------------------------------------------------------
       # main page shows the map
-      $!menu.entry title=Map id=map-page =!home-button [
-        $div id=sufitrail-map class=map
+      $!menu.entry title=Map id=map-page =!home-button =open-button [
+        $div id=SufiTrailMap class=map
       ]
 
       #-------------------------------------------------------------------------
@@ -143,14 +72,6 @@ $!SxmlCore.drop «
       $!menu.entry title=Start id=start-page [
         $div [
           $h2 [ Start ]
-          #$p [ ]
-        ]
-      ]
-
-      #-------------------------------------------------------------------------
-      $!menu.entry title=Exit id=exit-page [
-        $div [
-          $h2 [ Exit ]
           #$p [ ]
         ]
       ]
@@ -209,52 +130,83 @@ $!SxmlCore.drop «
           ]
         ]
       ]
+
+      #-------------------------------------------------------------------------
+      $!menu.entry title=Exit id=exit-page [
+        $div [
+          $h2 [ Exit ]
+          #$p [ ]
+        ]
+      ]
     ]
 
 
+    #===========================================================================
+    # links to css style sheets
+    $link rel=stylesheet type=text/css href=css/ol.css
+#    $link rel=stylesheet type=text/css href=css/index-tabpane.css
 
-$!SxmlCore.drop «
-    $div id=tabpane [
-      $div id=mapContainer [
-        $h2 [ Map ]
-        $div id=mymap class=map
+$!SxmlCore.drop «»
+    #===========================================================================
+    $!css.style compress=0 [
+      $!colors.palette base-hsl='180 100 50'
+                       type=color-scheme mode=monochromatic
+                       lighten=15 ncolors=6 outspec=rgbhex
+
+      $!css.b s='*' [
+        box-sizing: border-box;
       ]
 
-      $div [
-        $h2 [ Info ]
+      $!css.b s='#mapContainer' [
+        border:               0 solid;
+        margin:               0;
+        height:               100%;
       ]
 
-      $div [
-        # generate tracks from directory www/tracks
-        $!tracks.list gpx-dir=www/tracks prefix-path=./tracks/
+      $!css.b s='#SufiTrailMap' [
+        height:               100%;
+        position:             relative;
+        border:               0;
+        padding:              0;
+        margin:               0;
       ]
 
-      $div [
-        $h2 [ Feature ]
-        $div [
-          $h1 [ Location Lutjebroek ]
-          $p [ Very nice surroundings with view on the meadows of past times. ]
+      $!css.b s=.hreftype [
+        text-decoration:      underline;
+        cursor:               hand;
+        cursor:               pointer;
+      ]
+
+      $!css.b s=.strong [
+        font-weight:          bold;
+      ]
+
+      $!css.b s=.tight-fit [
+        margin:               0;
+        border:               0;
+        padding:              0;
+        height:               100%;
+      ]
+
+      $!css.b s=p [
+        padding: 2px;
+      ]
+
+      $!css.b s='table#about' [
+        margin-left:          20%;
+        margin-right:         80%;
+        width:                80%;
+
+        $!css.b s='tr th' [
+          text-align:         left;
         ]
       ]
 
-      $div [
-        $h2 [ Start ]
-        #$p [ ]
-      ]
-
-      $div [
-        $h2 [ About ]
-
-        #$p [
-        #]
-      ]
-
-      $div [
-        $h2 [ Exit ]
-        #$p [ ]
+      $!css.b s=.open-menu [
+        top:                  65px;
+        right:                .5em;
       ]
     ]
-»
 
     # ==========================================================================
     #  Loading of javascript program and libraries at the end
@@ -262,17 +214,13 @@ $!SxmlCore.drop «
 
 #    $script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"
 #    $script src=js/polyfill.min.js
-$!SxmlCore.drop «
-    $script src=js/goog/base.js
-    $script {=
-      goog.require('goog.ui.TabPane');
-      goog.require('goog.fx');
-      goog.require('goog.fx.dom');
-    }
-»
-    $script src=js/ol.js
-    #$script src=js/lzma-min.js
-    $script src=js/index.js
+#    $script src=js/lzma-min.js
 
+    # must have these scripts at the very end of the body because the menu
+    # javascript is also mapped to the end
+    $sxml:remap map-to=/html/body [
+      $script src=js/ol.js
+      $script src=js/index.js
+    ]
   ] # body
 ] # html

@@ -147,7 +147,7 @@ var SufiTrailMobileApp = {
     var options = opts || {};
     var openMenuBttn = document.createElement('button');
     openMenuBttn.innerHTML = '<img src="images/responsive.png" />';
-    openMenuBttn.addEventListener( "click", app.openMenu);
+    openMenuBttn.addEventListener( "click", menu.openNavigation());
 
     // ol-unselectable and ol-control are classes defined in ol.css.
     // open-menu is defined in index.html which positiones the widget
@@ -253,7 +253,7 @@ console.log('load track from ' + trackFile);
     // ------------------------------------------------------------------------
     // show map
     this.map = new ol.Map( {
-        target:       'sufitrail-map',
+        target:       'sufiTrailMap',
         layers:       this.mapLayers,
         view:         this.mapView,
         controls:     [
