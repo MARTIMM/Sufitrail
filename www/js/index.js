@@ -2,7 +2,7 @@
    License: ...
    Copyright: © Sufitrail 2017
 */
-//use strict;
+"use strict";
 
 //goog.provide('SufitrailMobileApp');
 
@@ -10,7 +10,7 @@
 // Application object
 var SufiTrailMobileApp = {
 
-  // ==========================================================================
+  // ===========================================================================
   mapLayers:      [],
   mapVector:      '',
   mapFeatures:    [],
@@ -25,7 +25,7 @@ var SufiTrailMobileApp = {
   //sufiTrailTrackGpx: './tracks/zandvoort 2016-05-17_12-58_Tue.gpx',
   trackGpxDom:    null,
 
-  // ==========================================================================
+  // ===========================================================================
   vector: null,
   /*
   new ol.layer.Vector( {
@@ -38,7 +38,7 @@ var SufiTrailMobileApp = {
   ),
   */
 
-  // ==========================================================================
+  // ===========================================================================
   style: {
     'Point': new ol.style.Style( {
         image: new ol.style.Circle( {
@@ -73,7 +73,7 @@ var SufiTrailMobileApp = {
     )
   },
 
-  // ==========================================================================
+  // ===========================================================================
   exitButton: function ( e ) {
 
     if ( typeof cordova !== 'undefined' ) {
@@ -106,7 +106,7 @@ var SufiTrailMobileApp = {
   },
 
 /*
-  // ==========================================================================
+  // ===========================================================================
   openMenu: function ( e ) {
     console.log('open menu: ' + e );
     var menu = document.querySelector('div#tabpane ul.goog-tabpane-tabs');
@@ -121,7 +121,7 @@ var SufiTrailMobileApp = {
     anim.play();
   },
 
-  // ==========================================================================
+  // ===========================================================================
   closeMenu: function ( e ) {
 
     var menu = document.querySelector('div#tabpane ul.goog-tabpane-tabs');
@@ -137,7 +137,7 @@ var SufiTrailMobileApp = {
   },
 */
 
-  // ==========================================================================
+  // ===========================================================================
   openMenuControl: function ( opts ) {
 
     // 'this' is the Control object! -> use SufiTrailMobileApp
@@ -147,7 +147,7 @@ var SufiTrailMobileApp = {
     var options = opts || {};
     var openMenuBttn = document.createElement('button');
     openMenuBttn.innerHTML = '<img src="images/responsive.png" />';
-    openMenuBttn.addEventListener( "click", menu.openNavigation());
+#    openMenuBttn.addEventListener( "click", menu.openNavigation());
 
     // ol-unselectable and ol-control are classes defined in ol.css.
     // open-menu is defined in index.html which positiones the widget
@@ -165,17 +165,17 @@ var SufiTrailMobileApp = {
     );
   },
 
-  // ==========================================================================
+  // ===========================================================================
   makeItHappen: function() {
 
-    // ------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
     // make a tabpane
     //var tabPane = new goog.ui.TabPane(
     //  document.querySelector('div#tabpane'),
     //  goog.ui.TabPane.TabLocation.RIGHT
     //);
 
-    // ------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
     // get size of viewport and modify the tabpane to fit
     //TODO make it dynamic
     console.log(
@@ -185,28 +185,28 @@ var SufiTrailMobileApp = {
     //  "width: " + window.innerWidth + 'px;' +
     //  "height: " + window.innerHeight + 'px;';
 
-    // ------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
     // Activate exit button
     //var exitBttn = goog.dom.getElement('exit-bttn');
     //exitBttn.addEventListener( "click",  this.exitButton);
 
-    //-------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     // inherit menu control
     ol.inherits( this.openMenuControl, ol.control.Control);
 
-    //-------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     // listen to click on map tab
     //var maptab = document.querySelector('div#tabpane ul li');
 //console.log(maptab);
     //maptab.addEventListener( "click", SufiTrailMobileApp.closeMenu,);
 
-    // ------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
     // initialize layers, features and view
     this.addLayers();
     this.addMapFeatures();
     this.setView();
 
-    // ------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
     // make series of tracks clickable
     var app = this;
     var gpxElement;
@@ -250,7 +250,7 @@ console.log('load track from ' + trackFile);
       gpxElement.addEventListener( "click", loadTrack(gpxFile));
     }
 
-    // ------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
     // show map
     this.map = new ol.Map( {
         target:       'sufiTrailMap',
@@ -277,7 +277,7 @@ console.log('load track from ' + trackFile);
       }
     );
 
-    // ------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
     // click on features
     var app = this;
     app.map.on(
@@ -306,7 +306,7 @@ console.log('load track from ' + trackFile);
     //app.loadTrack(app.sufiTrailTrackGpx);
   },
 
-  // ==========================================================================
+  // ===========================================================================
   setView: function( ) {
 
     // This transformation is what I'm looking for. Longitude/Latitude
@@ -317,7 +317,7 @@ console.log('load track from ' + trackFile);
     } );
   },
 
-  // ==========================================================================
+  // ===========================================================================
   addLayers: function ( ) {
 
     // Take a standard openstreetmap and a tileset  which shows raster and data
@@ -333,7 +333,7 @@ console.log('load track from ' + trackFile);
     this.mapLayers.push(new ol.layer.Tile( { source: s2 } ));
   },
 
-  // ==========================================================================
+  // ===========================================================================
   // See also https://openlayers.org/en/latest/examples/icon-color.html
   addMapFeatures: function ( ) {
 
@@ -399,7 +399,7 @@ console.log('load track from ' + trackFile);
     } ) );
   },
 
-  // ==========================================================================
+  // ===========================================================================
   loadTrack: function ( file ) {
 
 console.log('Load: ' + file);
@@ -421,7 +421,7 @@ console.log('Load: ' + file);
     app.loadGpxFile(file);
   },
 
-  // ==========================================================================
+  // ===========================================================================
   loadGpxFile: function ( file ) {
 
     var app = this;
@@ -501,7 +501,7 @@ console.log("Loaded after " + (Date.now() - app.timeStart) + " msec");
     }
   },
 
-  // ==========================================================================
+  // ===========================================================================
   scaleAndFocus: function ( app ) {
 
     // Find the extensions in the gpx root
@@ -534,13 +534,13 @@ console.log("Loaded after " + (Date.now() - app.timeStart) + " msec");
     );
   },
 
-  // ==========================================================================
+  // ===========================================================================
   transform: function ( coordinate ) {
 
     return ol.proj.transform( coordinate, 'EPSG:4326', 'EPSG:3857');
   },
 
-  // ==========================================================================
+  // ===========================================================================
   // From http://osgeo-org.1560.x6.nabble.com/Downloading-tiles-to-local-file-system-td4991005.html
   getTile: function ( x, y, zoom ) {
     // make tile object. It will hold x, y and path fields
@@ -556,7 +556,7 @@ console.log("Loaded after " + (Date.now() - app.timeStart) + " msec");
     return tile;
   },
 
-  // ==========================================================================
+  // ===========================================================================
   // From http://osgeo-org.1560.x6.nabble.com/Downloading-tiles-to-local-file-system-td4991005.html
   // Get all tiles for given region and zoom level
   getTiles: function ( bounds, zoom) {
