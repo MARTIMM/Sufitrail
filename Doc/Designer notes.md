@@ -77,15 +77,17 @@ object OSM {
 }
 
 Cache "1" --* SufiData
-SufiTrack "*" --* SufiData
-SufiFeature "*" --* SufiData
+DataHandler "1" --* SufiData
 SufiData "1" --* SufiCenter
 
 SufiCenter .. Menu
-SufiCenter *-- "1" SufiMap
+SufiCenter *- "1" SufiMap
 SufiCenter .. Network
 SufiCenter .. GSM
 SufiCenter .. OSM
+
+SufiTrack "*" --* SufiMap
+SufiFeature "*" --* SufiMap
 
 
 ```
@@ -119,3 +121,4 @@ SufiCenter .. OSM
 [XML]: https://developer.mozilla.org/en-US/docs/Web/Guide/Parsing_and_serializing_XML
 [DOM1]: https://stackoverflow.com/questions/16664205/what-is-the-difference-between-getelementsbytagname-and-getelementsbyname-in-jav
 [GPX]: http://www.topografix.com/GPX/1/1/
+[OnOffLine]: https://www.html5rocks.com/en/mobile/workingoffthegrid/
