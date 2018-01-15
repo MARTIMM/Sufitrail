@@ -15,7 +15,7 @@ var SufiMap = {
   mapElementName: null,
   mapLayers:      [],
   mapView:        null,
-  //mapVector:      null,
+  mapVector:      null,
   map:            null,
 
 
@@ -159,5 +159,54 @@ var SufiMap = {
   transform: function ( coordinate ) {
 
     return ol.proj.transform( coordinate, 'EPSG:4326', 'EPSG:3857');
+  },
+
+  // ---------------------------------------------------------------------------
+  loadTrack: function ( file ) {
+
+    return SufiTrack.loadTrack(file);
+  },
+
+  // ---------------------------------------------------------------------------
+  zoomOnTrack: function ( boundaries ) {
+
+    return SufiTrack.zoomOnTrack(boundaries);
   }
+}
+
+// =============================================================================
+var SufiTrack = {
+
+  loadTrack: function ( file ) {
+
+console.log('Load: ' + file);
+    SufiMap.map.removeLayer(SufiMap.vector);
+    SufiMap.vector = new ol.layer.Vector( {
+        source: new ol.source.Vector( {
+            url: file,
+            format: new ol.format.GPX()
+          }
+        )
+        /*,
+        style: function ( feature ) {
+          return SufiMap.style['LineString'];     // [feature.getGeometry().getType()];
+        }
+        */
+      }
+    );
+
+    SufiMap.map.addLayer(SufiMap.vector);
+    SufiCenter.loadXMLFile(file);
+  },
+
+  // ---------------------------------------------------------------------------
+  // zoom in on the selected track
+  zoomOnTrack: function ( boundaries ) {
+
+    SufiMap.mapView.fit( boundaries, SufiMap.map.getSize());
+  }
+}
+
+// =============================================================================
+var SufiFeature = {
 }
