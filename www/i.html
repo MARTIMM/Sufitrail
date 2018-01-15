@@ -14,6 +14,7 @@ Copyright: © Sufitrail 2017
   <meta name="keywords" content="Walk Hike Trail" />
   <meta content="EN" http-equiv="language" />
   <meta content="text/css" http-equiv="Content-Style-Type" />
+  <link rel="stylesheet" href="css/ol.css" type="text/css" />
   <style>
     * {
       vertical-align: baseline;
@@ -114,18 +115,17 @@ Copyright: © Sufitrail 2017
       box-sizing: border-box;
     }
 
-    #mapContainer {
-      border: 0 solid;
-      margin: 0;
-      height: 100%;
+    body {
+      overflow: hidden;
     }
 
     #SufiTrailMap {
       height: 100%;
-      position: relative;
-      border: 0;
-      padding: 0;
-      margin: 0;
+      /*overflow: hidden;*/
+    }
+/* new */
+    .menu-page {
+      height: 100%;
     }
 
     .hreftype {
@@ -138,6 +138,7 @@ Copyright: © Sufitrail 2017
       font-weight: bold;
     }
 
+/*
     .tight-fit {
       margin: 0;
       border: 0;
@@ -148,6 +149,7 @@ Copyright: © Sufitrail 2017
     p {
       padding: 2px;
     }
+*/
 
     table#about {
       margin-left: 20%;
@@ -160,16 +162,19 @@ Copyright: © Sufitrail 2017
     }
 
     .open-menu {
-      top: 65px;
+      top: 34px;
       right: .5em;
     }
   </style>
 </head>
 
-<body>
+<!-- new -->
+<body id="SufiApp">
   <div id="SideNav" class="sidenav"><a href="javascript:void(0)" onclick="menu.showPage('map-page')">Map</a> <a href="javascript:void(0)" onclick="menu.showPage('info-page')">Info</a> <a href="javascript:void(0)" onclick="menu.showPage('track-page')">Tracks</a> <a href="javascript:void(0)"
       onclick="menu.showPage('feature-page')">Feature</a> <a href="javascript:void(0)" onclick="menu.showPage('start-page')">Start</a> <a href="javascript:void(0)" onclick="menu.showPage('about-page')">About</a> <a href="javascript:void(0)" onclick="menu.showPage('exit-page')">Exit</a>    <a href="javascript:void(0)" class="menu-close-button" onclick="menu.closeNavigation()">&#x2716;</a></div>
-  <div id="map-page" class="menu-page" style="display: block;"><a href="javascript:void(0)" class="menu-open-button" onclick="menu.openNavigation()">&#9776;</a>
+  <div id="map-page" class="menu-page" style="display: block;">
+    <!-- a href="javascript:void(0)" class="menu-open-button" onclick="menu.openNavigation()">&#9776;
+    </a -->
     <div class="map" id="SufiTrailMap"></div>
   </div>
   <div id="info-page" class="menu-page" style="display: none"><a href="javascript:void(0)" class="menu-home-button" onclick="menu.showPage('map-page')">&#x1F3E0;</a> <a href="javascript:void(0)" class="menu-open-button" onclick="menu.openNavigation()">&#9776;</a>
@@ -281,18 +286,17 @@ Copyright: © Sufitrail 2017
     <div>
       <h2>Exit</h2></div>
   </div>
-  <link rel="stylesheet" href="css/ol.css" type="text/css" />
   <script>
     var menu = {
-      openNavigation: function() {
+      openNavigation: function ( ) {
         document.getElementById('SideNav').style.width = "250px";
       },
 
-      closeNavigation: function() {
+      closeNavigation: function ( ) {
         document.getElementById('SideNav').style.width = "0";
       },
 
-      showPage: function(id) {
+      showPage: function ( id ) {
         this.closeNavigation();
         setTimeout(
           function() {
@@ -311,9 +315,19 @@ Copyright: © Sufitrail 2017
         );
       }
     }
+
+    // be shure that the menu is closed
+    menu.closeNavigation();
   </script>
-  <script src="js/ol.js"></script>
-  <script src="js/index.js"></script>
+  <script src="js/ol-debug.js"></script>
+
+  <!-- new -->
+  <script src="js/SufiData.js"></script>
+  <script src="js/SufiMap.js"></script>
+  <script src="js/SufiCenter.js"></script>
+  <!-- script src="js/Start.js"></script -->
+
+  <!-- script src="js/index.js"></script -->
 </body>
 
 </html>
