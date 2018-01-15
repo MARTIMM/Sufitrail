@@ -17,9 +17,9 @@ The application helps the user to find his/her way on a trail called the Sufi tr
 ### What the application must do
 
 ### Where the Application must run
+* [x] Cordova. Is needed to embed the App written in HTML and JavaScript in such a way that it can use the SDK of Android/IOS/Windows to access the device.
 * [x] Android. This will be the first target.
   * Android SDK. This piece of software and toolbox is needed between the App and the device.
-  * Cordova. Is needed to embed the App written in HTML and JavaScript in such a way that it can use the SDK to access the device.
 * [ ] IOS.
 * [ ] Windows.
 * [x] Linux on the desktop computer. This is necessary to develop the application.
@@ -29,7 +29,7 @@ The application helps the user to find his/her way on a trail called the Sufi tr
 * [ ] Mobile phones of several sizes.
 
 ### Events to listen to
-There are several events which can happen upon changing conditions in a device. These must be captured for further actions. No events are described wgich are caused by pressing a button or something like that.
+There are several events which occur upon changing conditions in a device. These events must be captured for further actions.
 * [ ] Battery conditions:
   * Warn user of battery low state. Can dim display or other options to save energy.
 * [ ] Gps information.
@@ -38,8 +38,8 @@ There are several events which can happen upon changing conditions in a device. 
 * [ ] Network on and off line mode. When on then
   * It is possible to update maps
   * Send out walked tracks
-* [ ] Device orientation.
-  * To show map correctly pointing the map-north to the real north.
+* [x] Device orientation. To show map correctly pointing the map-north to the real north.
+* [x] Resize events to change from portrait to landscape mode and back.
 * [ ] Camera.
   * To add the picture as a point on the map when saved.
 * [ ] Time and clock.
@@ -47,41 +47,68 @@ There are several events which can happen upon changing conditions in a device. 
 
 
 
-# The views shown on the device
+# The pages of the application
+A series of screen descriptions the application can show.
 
 ## Splash screen
-  * [ ] Show a screen with a Sufitrail icon. Keep this displayed until everything is initialized.
-## Start page
+A splash screen is always nice to display information in such a way that it makes a connection between the hiking and biking literature published by the Sufi trail group. The other purpose is that the application can start in the background and when it is ready, the splash screen is removed.
 
-  * [ ] Map displayed, move around with swipe.
-    * [ ] Map should fill page automatically as well as the other pages.
-    * [ ] Map, Menu and buttons must be adjusted when device is rotated.
+  * [ ] Show a screen with a Sufitrail icon. Keep this displayed until everything is initialized.
+
+## Start page
+The start page is the home page named **Map** below in the list of menu entries. On this page the following is shown;
+
+  * Map. The map is displayed over the full width and height of the device.
+    * [x] Map displayed, move around with swipe.
+    * [x] Map should fill page automatically.
+    * [x] Map, Menu and buttons must be adjusted when device is rotated.
     * [ ] Show features for starting scale of map.
-  * [ ] Zoom buttons
-    * [ ] zooming with buttons.
-    * [ ] zooming by pinching (on mobile device).
+  * Zoom buttons. The buttons are placed on the left side.
+    * [x] zooming with buttons.
+    * [x] zooming by pinching (on mobile device).
     * [ ] Reveal more features when zooming in.
     * [ ] Remove features when zooming out.
-  * [ ] ![NorthArrow](https://i.imgur.com/YXlRYff.png) North arrow button, click action aligns map to the north.
-  * [ ] OSM attribution.
-  * [ ] ![responsive](https://i.imgur.com/AX1bM22.png) Open menu on the right side with some choices.
+  * North arrow button on the top right side.
+    * [x] Click action aligns map to the north.
+  * Open menu button ☰. Button is placed just below the north arrow.
+    * [x] Click action shows the menu on the right side of the page.
+  * Open street map attribute on the bottom right of the map.
+    * [x] OSM attribution is displayed.
 
 ### When track is shown
   * [ ] Show current location using GPS.
   * [ ] Show dashed line from current location to closest point on the trail when off trail (further than, lets say, 1 kilometer).
 
-### Pressing Menu button
-Pressing the responsive button will open a pane from the side to show a menu of options.
+### The Menu
+Pressing the menu button ☰ shown on the map, will open a pane from the side to show a menu of options. A click on an entry will show a page. Each page may have a shortcut to the home page: **Map** next to a menu button. When selecting an entry, the menu is closed and a page will appear.
 
-  * [ ] **Map**: show map and remove menu when clicked
-  * [ ] **Info**: show route info
-  * [ ] **Tracks**: Select a track. Show map again when a selection is made. The route is centered and fitted.
-  * [ ] **Feature** show all of the history, or other info. Is filled when feature is clicked. First a balloon is showed on the map pointing to the feature with text and a 'more ...' on the bottom.
-  * [ ] **Start**: record your track data
-  * [ ] **About**: show a page with version, people and contacts
-  * [ ] **Exit**: close the application
+  * [x] **Map**: Show map, explained above
+  * [ ] **Info**: Show route info
+  * [ ] **Tracks**: Select a track
+  * [ ] **Feature** Show history, or other info.
+  * [ ] **Start**: Record your track data
+  * [x] **About**: Show a page with version, people and contacts
+  * [ ] **Exit**: Close the application
 
-## Items or problems to think about
+## The info page
+
+## The Tracks page
+ Show map again when a selection is made. The route is centered and fitted.
+
+## The Features page
+ Is filled when feature is clicked. First a balloon is showed on the map pointing to the feature with text and a 'more ...' on the bottom.
+
+## The Start page
+
+## The About page
+
+## The Exit page
+This should show a dialog to ask the user if he/she really wants to quit the program.
+  * [ ] Show quit dialog
+  * [ ] When really exiting, a recorded track must be saved.
+
+
+# Items or problems to think about
   * [ ] Color mapping must match that of the maps printed on paper.
   * [ ] Add ability to choose other color maps for visual impaired or color blind people.
   * [ ] By what license should the project be protected
@@ -94,7 +121,7 @@ Pressing the responsive button will open a pane from the side to show a menu of 
     * [ ] When confirmed, refresh maps in cache
     * [ ] Try to get weather forecast and cache this information too
 
-## Track data
+# Track data
 The app uses gpx data to read track information, show it and focus on it when first loaded. These gpx files must be edited (by a separate program) to add some data in the metadata section and extensions section of the gpx file.
 * [x] Program to make the calculations and store in gpx file: `gpx-edit.pl6`.
   * [x] Calculate minimum and maximum of longitude and latitude so the app doesn't have to do it.

@@ -12,30 +12,37 @@
   * OpenLayers 3 is necessary
 
 
-## Implementing Model View Control pattern
+## Implementation
+The program will be using a Model–view–adapter (MVA) or mediating-controller Model View Control (MVC) pattern, see [Wikipedia article][MVA].
 This pattern is used to separate the storage from its view. All modification to the data is done via the control part. Each of the parts can consist of more objects to handle specific details.
 
-### Data in the model
+### Data in the model: `SufiData`
 * Current location
 * Track data
 * Cache of map tiles
 * Feature data
 * Links to external sites
+* Get data from `SufiCenter`
 
-### Viewed on display
+### Viewed on display: `SufiMap`
 * Map around current location at start
 * Map around the track
 * Informational pages
 * Menu to select pages
 * Features on map
 
-### Control
-* Process gps device
-* Process state of network
-*
+### Control: `SufiCenter`
+* Track gps device data -> `SufiMap`/`SufiData`
+* Track state of network -> `SufiData`
+* Process user input/gestures -> `SufiMap`/`SufiData`
+* Process data changes -> `SufiMap`
 
 
 ``` plantuml
+
+class Cache {
+
+}
 
 class SufiData {
 }
@@ -43,21 +50,51 @@ class SufiData {
 class SufiMap {
 }
 
+class SufiTrack {
+}
+
+class SufiFeature {
+}
+
 class SufiCenter {
 }
 
 'note "Menu is a javscript object" as M
 object Menu {
+
 }
-'Menu .. M
+
+object Network {
+
+}
+
+object GSM {
+
+}
+
+object OSM {
+
+}
+
+Cache "1" --* SufiData
+SufiTrack "*" --* SufiData
+SufiFeature "*" --* SufiData
+SufiData "1" --* SufiCenter
+
+SufiCenter .. Menu
+SufiCenter *-- "1" SufiMap
+SufiCenter .. Network
+SufiCenter .. GSM
+SufiCenter .. OSM
+
 
 ```
 
 
 # Articles
-* [You Don't Need the DOM Ready Event](http://thanpol.as/javascript/you-dont-need-dom-ready)
-* [Practical Considerations, Hypertext Transfer Protocol -- HTTP/1.1]( https://www.w3.org/Protocols/rfc2616/rfc2616-sec8.html#sec8.1.4)
-* [Hypertext Transfer Protocol -- HTTP/1.1](https://www.w3.org/Protocols/rfc2616/rfc2616.html)
+* [You Don't Need the DOM Ready Event][DOMR]
+* [Practical Considerations, Hypertext Transfer Protocol -- HTTP/1.1][HYP1]
+* [Hypertext Transfer Protocol -- HTTP/1.1][HYP2]
 
 
 # Contacts from Sufitrail
@@ -71,3 +108,14 @@ object Menu {
 | Merel van Essen | | Writer of handbook and designer
 | Pijke Wees | pijkev@hotmail.com | Cartographer
 | Marcel Timmerman | mt1957@gmail.com | Application builder
+
+<!-- References -->
+[DOMR]: http://thanpol.as/javascript/you-dont-need-dom-ready
+[MVA]: https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93adapter
+[HYP1]: https://www.w3.org/Protocols/rfc2616/rfc2616-sec8.html#sec8.1.4
+[HYP2]: https://www.w3.org/Protocols/rfc2616/rfc2616.html
+[XHR]: https://xhr.spec.whatwg.org/
+[HTTP1]: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
+[XML]: https://developer.mozilla.org/en-US/docs/Web/Guide/Parsing_and_serializing_XML
+[DOM1]: https://stackoverflow.com/questions/16664205/what-is-the-difference-between-getelementsbytagname-and-getelementsbyname-in-jav
+[GPX]: http://www.topografix.com/GPX/1/1/
