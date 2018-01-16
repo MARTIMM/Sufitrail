@@ -2,7 +2,7 @@
    License: ...
    Copyright: © Sufitrail 2017
 */
-"use strict";
+//use strict;
 
 //goog.provide('SufitrailMobileApp');
 
