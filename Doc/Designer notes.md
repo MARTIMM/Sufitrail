@@ -113,12 +113,17 @@ SufiFeature "*" --* SufiMap
 
 <!-- References -->
 [DOMR]: http://thanpol.as/javascript/you-dont-need-dom-ready
-[MVA]: https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93adapter
 [HYP1]: https://www.w3.org/Protocols/rfc2616/rfc2616-sec8.html#sec8.1.4
 [HYP2]: https://www.w3.org/Protocols/rfc2616/rfc2616.html
+
 [XHR]: https://xhr.spec.whatwg.org/
 [HTTP1]: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
 [XML]: https://developer.mozilla.org/en-US/docs/Web/Guide/Parsing_and_serializing_XML
 [DOM1]: https://stackoverflow.com/questions/16664205/what-is-the-difference-between-getelementsbytagname-and-getelementsbyname-in-jav
+
 [GPX]: http://www.topografix.com/GPX/1/1/
+
 [OnOffLine]: https://www.html5rocks.com/en/mobile/workingoffthegrid/
+
+[MVA]: https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93adapter
+[Observer]: http://www.dofactory.com/javascript/observer-design-pattern

@@ -93,7 +93,11 @@ Pressing the menu button ☰ shown on the map, will open a pane from the side to
 ## The info page
 
 ## The Tracks page
- Show map again when a selection is made. The route is centered and fitted.
+  * [ ] Generate the page from the directory contents. This is usable later when several tracks for other walks are loaded. Also those made by the hiker can be placed there.
+  * [x] Show map when a selection is made.
+  * [x] The route is displayed
+  * [x] The route is centered on page
+  * [ ] The route is zoomed so as to fit the page.
 
 ## The Features page
  Is filled when feature is clicked. First a balloon is showed on the map pointing to the feature with text and a 'more ...' on the bottom.
@@ -101,6 +105,8 @@ Pressing the menu button ☰ shown on the map, will open a pane from the side to
 ## The Start page
 
 ## The About page
+  * [x] Show the members of the Sufi trail group.
+  * [x] Show current version of the program. Can be kept elsewhere, e.g. android manifest, and inserted here by using JavaScript.
 
 ## The Exit page
 This should show a dialog to ask the user if he/she really wants to quit the program.
@@ -120,6 +126,9 @@ This should show a dialog to ask the user if he/she really wants to quit the pro
   * When online
     * [ ] When confirmed, refresh maps in cache
     * [ ] Try to get weather forecast and cache this information too
+  * Cache. Several forms of caching are possible.
+    * [ ] The program needs to keep a cache for map tiles.
+    * [ ] There might be a cache used internally by Android/IOS/Windows to store external JavaScript files and style sheets. This is useful to keep the libraries up to date automatically.
 
 # Track data
 The app uses gpx data to read track information, show it and focus on it when first loaded. These gpx files must be edited (by a separate program) to add some data in the metadata section and extensions section of the gpx file.
