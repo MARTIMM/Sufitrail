@@ -18,6 +18,41 @@ var SufiMap = {
   mapVector:      null,
   map:            null,
 
+  style: {
+    'Point': new ol.style.Style( {
+        image: new ol.style.Circle( {
+            fill:     new ol.style.Fill(
+              { color: 'rgba(255,255,0,0.4)'}
+            ),
+            radius:   5,
+            stroke:   new ol.style.Stroke( {
+                color: '#ff0',
+                width: 1
+              }
+            )
+          }
+        )
+      }
+    ),
+
+    'LineString1': new ol.style.Style( {
+        stroke: new ol.style.Stroke( {
+            color: '#a48',
+            width: 4
+          }
+        )
+      }
+    ),
+
+    'LineString2': new ol.style.Style( {
+        stroke: new ol.style.Stroke( {
+            color: '#0f0',
+            width: 4
+          }
+        )
+      }
+    )
+  },
 
   // ---------------------------------------------------------------------------
   init: function ( controller, mapElementName ) {
@@ -186,12 +221,12 @@ console.log('Load: ' + file);
             url: file,
             format: new ol.format.GPX()
           }
-        )
-        /*,
+        ),
+
         style: function ( feature ) {
-          return SufiMap.style['LineString'];     // [feature.getGeometry().getType()];
+          return SufiMap.style['LineString1'];
+          // [feature.getGeometry().getType()];
         }
-        */
       }
     );
 
@@ -203,7 +238,23 @@ console.log('Load: ' + file);
   // zoom in on the selected track
   zoomOnTrack: function ( boundaries ) {
 
-    SufiMap.mapView.fit( boundaries, SufiMap.map.getSize());
+//console.log("B1: " + boundaries);
+    boundaries[0] = SufiMap.transform(boundaries[0]);
+    boundaries[1] = SufiMap.transform(boundaries[1]);
+/*
+console.log("B2: " +
+  boundaries[0][0] + ', ' + boundaries[0][1] + ', ' +
+  boundaries[1][0] + ', ' + boundaries[1][1]
+);
+console.log("B3: " + SufiMap.map.getSize());
+*/
+
+    SufiMap.mapView.fit( [
+        boundaries[0][0], boundaries[0][1],
+        boundaries[1][0], boundaries[1][1]
+      ],
+      SufiMap.map.getSize()
+    );
   }
 }
 

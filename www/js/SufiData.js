@@ -7,12 +7,18 @@
 // =============================================================================
 var SufiData = {
 
-  // Adaptor/mediator
+  // adaptor/mediator
   control:                null,
 
   features:               [],
+
+  // xml data of a selected track
   currentXMLTrack:        null,
-  currentXMLTrackBounds:  [ 0, 0, 0, 0],
+
+  // boundaries of the track in the currentXMLTrack
+  currentXMLTrackBounds:  [ [ 0, 0], [ 0, 0]],
+
+  // temporary load time measurements
   timeStart:              0,
 
   // ---------------------------------------------------------------------------
@@ -72,21 +78,13 @@ console.log('send... ' + file);
       'gpx extensions'
     );
 
-    // get the minima and maxima
-    var bottomLeft = SufiCenter.transform( [
+    SufiData.currentXMLTrackBounds = [ [
         parseFloat(gpxExtensions.querySelector('lon').getAttribute('min')),
-        parseFloat(gpxExtensions.querySelector('lat').getAttribute('min')),
-      ]
-    );
-
-    var topRight = SufiCenter.transform( [
+        parseFloat(gpxExtensions.querySelector('lat').getAttribute('min'))
+      ], [
         parseFloat(gpxExtensions.querySelector('lon').getAttribute('max')),
         parseFloat(gpxExtensions.querySelector('lat').getAttribute('max'))
       ]
-    );
-
-    SufiData.currentXMLTrackBounds = [
-      bottomLeft[0], bottomLeft[1], topRight[0], topRight[1]
     ];
   }
 }

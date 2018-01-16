@@ -109,13 +109,6 @@ console.log('load track from ' + trackFile);
 
     SufiMap.zoomOnTrack(boundaries);
   },
-
-  // ---------------------------------------------------------------------------
-  // direct ot SufiMap
-  transform: function ( coordinate ) {
-
-    return SufiMap.transform(coordinate);
-  }
 }
 
 // this way we keep dependencies only to this spot
