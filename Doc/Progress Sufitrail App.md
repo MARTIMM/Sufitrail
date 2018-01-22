@@ -39,7 +39,7 @@ There are several events which occur upon changing conditions in a device. These
   * It is possible to update maps
   * Send out walked tracks
 * [x] Device orientation. To show map correctly pointing the map-north to the real north.
-* [x] Resize events to change from portrait to landscape mode and back.
+* [x] Resize events to change from portrait to landscape mode and back. Responsive.
 * [ ] Camera.
   * To add the picture as a point on the map when saved.
 * [ ] Time and clock.
@@ -53,7 +53,7 @@ A series of screen descriptions the application can show.
 ## Splash screen
 A splash screen is always nice to display information in such a way that it makes a connection between the hiking and biking literature published by the Sufi trail group. The other purpose is that the application can start in the background and when it is ready, the splash screen is removed.
 
-  * [ ] Show a screen with a Sufitrail icon. Keep this displayed until everything is initialized.
+  * [ ] Show a screen with a Sufitrail icon. Keep this displayed until everything is initialized. This provides for a better user experience.
 
 ## Start page
 The start page is the home page named **Map** below in the list of menu entries. On this page the following is shown;
@@ -97,7 +97,7 @@ Pressing the menu button ☰ shown on the map, will open a pane from the side to
   * [x] Show map when a selection is made.
   * [x] The route is displayed
   * [x] The route is centered on page
-  * [ ] The route is zoomed so as to fit the page.
+  * [x] The route is zoomed so as to fit the page.
 
 ## The Features page
  Is filled when feature is clicked. First a balloon is showed on the map pointing to the feature with text and a 'more ...' on the bottom.
@@ -143,15 +143,15 @@ The app uses gpx data to read track information, show it and focus on it when fi
     * [x] link; "http://www.sultanstrail.com/".
     * [x] time; date and time of conversion.
     * [x] keywords; "hike", "Vienna", "Istanbul" and some others taken from the filename.
-    * [ ] bounds; not used
+    * [x] bounds; not used, Garmin uses it!
     * [ ] extensions; not used
 
 * [x] Remove all spaces between elements thereby making the gpx file smaller.
 * [x] Program to convert all tracks using above program: `convert-all-tracks.pl6`.
   * [x] Convert tracks one by one.
   * [ ] Compress the track to a smaller format to make the payload smaller.
-* [ ] Start showing the sultanstrail icon and only show content when everything is ready in the background. This provides a better user experience.
-
+  * [ ] Sufi track is in one gpx file. Need to split them up to have a smaller footprint, especially when more features are put into the gpx as waypoints.
+  * [ ] Extract the waypoints from the sufi track gpx file into separate file.
 
 # Bugs
 * [ ] Android. Hangup after a while when swiping etc. over the map
