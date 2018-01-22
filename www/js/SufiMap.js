@@ -252,8 +252,11 @@ console.log("B3: " + SufiMap.map.getSize());
     SufiMap.mapView.fit( [
         boundaries[0][0], boundaries[0][1],
         boundaries[1][0], boundaries[1][1]
-      ],
-      SufiMap.map.getSize()
+      ], {
+        size: SufiMap.map.getSize(),
+        // easing: 1000,                     // Needs ol-deps.js and goog libs
+        duration: 2000
+      }
     );
   }
 }

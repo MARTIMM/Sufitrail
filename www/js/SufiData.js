@@ -73,18 +73,44 @@ console.log('send... ' + file);
   // calculate boundaries of current track
   calculateBounds: function ( ) {
 
-    // Find the extensions in the gpx root
-    var gpxExtensions = SufiData.currentXMLTrack.documentElement.querySelector(
-      'gpx extensions'
+    // Find the boundaries of in the gpx trail. first the Garmin way.
+    var gpxBounds = SufiData.currentXMLTrack.documentElement.querySelector(
+      'gpx metadata bounds'
     );
 
-    SufiData.currentXMLTrackBounds = [ [
-        parseFloat(gpxExtensions.querySelector('lon').getAttribute('min')),
-        parseFloat(gpxExtensions.querySelector('lat').getAttribute('min'))
-      ], [
-        parseFloat(gpxExtensions.querySelector('lon').getAttribute('max')),
-        parseFloat(gpxExtensions.querySelector('lat').getAttribute('max'))
-      ]
-    ];
+    if ( gpxBounds !== null ) {
+      SufiData.currentXMLTrackBounds = [ [
+          parseFloat(gpxBounds.getAttribute('minlon')),
+          parseFloat(gpxBounds.getAttribute('minlat'))
+        ], [
+          parseFloat(gpxBounds.getAttribute('maxlon')),
+          parseFloat(gpxBounds.getAttribute('maxlat'))
+        ]
+      ];
+    }
+
+    // try to look elsewhere.
+    // TODO: program needs adjustments to set the boundaries the same way as
+    // for Garmin
+    else {
+      // Find the extensions in the gpx root
+      gpxBounds = SufiData.currentXMLTrack.documentElement.querySelector(
+        'gpx extensions'
+      );
+
+      if ( gpxBounds !== null ) {
+
+        SufiData.currentXMLTrackBounds = [ [
+            parseFloat(gpxBounds.querySelector('lon').getAttribute('min')),
+            parseFloat(gpxBounds.querySelector('lat').getAttribute('min'))
+          ], [
+            parseFloat(gpxBounds.querySelector('lon').getAttribute('max')),
+            parseFloat(gpxBounds.querySelector('lat').getAttribute('max'))
+          ]
+        ];
+      }
+    }
+console.log("gpx bounds: " + gpxBounds);
+console.log("gpx CXT: " + SufiData.currentXMLTrack);
   }
 }
