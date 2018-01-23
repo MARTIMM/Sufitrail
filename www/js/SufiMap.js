@@ -8,7 +8,7 @@
 var SufiMap = {
 
   // Adaptor/mediator
-  control:        null,
+  center:         null,
 
   viewport:       { width: 0, height: 0},
 
@@ -57,7 +57,7 @@ var SufiMap = {
   // ---------------------------------------------------------------------------
   init: function ( controller, mapElementName ) {
 
-    this.control = controller;
+    this.center = controller;
     this.mapElementName = mapElementName;
 
     // get the width and height of the viewport. add also an eventlistener.
@@ -81,6 +81,10 @@ var SufiMap = {
 
     // show the map using layers, view, etc.
     this.setMap();
+
+    // now we can observe changes
+    this.center.observers.subscribe( 'gpxFile', SufiTrack, 'loadTrack');
+    this.center.observers.subscribe( 'trackBounds', SufiTrack, 'zoomOnTrack');
   },
 
   // ---------------------------------------------------------------------------
@@ -134,7 +138,7 @@ var SufiMap = {
     openMenuBttn.addEventListener(
       "click",
       function ( ) {
-        SufiMap.control.menu.openNavigation();
+        SufiMap.center.menu.openNavigation();
       }
     );
 
@@ -157,7 +161,7 @@ var SufiMap = {
     ol.inherits( control, ol.control.Control);
 
     // be sure the menu is closed, then return control object
-    SufiMap.control.menu.closeNavigation();
+    SufiMap.center.menu.closeNavigation();
     return control;
   },
 
@@ -202,11 +206,13 @@ var SufiMap = {
     return SufiTrack.loadTrack(file);
   },
 
+/*
   // ---------------------------------------------------------------------------
   zoomOnTrack: function ( boundaries ) {
 
     return SufiTrack.zoomOnTrack(boundaries);
   }
+*/
 }
 
 // =============================================================================
@@ -231,7 +237,7 @@ console.log('Load: ' + file);
     );
 
     SufiMap.map.addLayer(SufiMap.vector);
-    SufiCenter.loadXMLFile(file);
+    //SufiCenter.loadXMLFile(file);
   },
 
   // ---------------------------------------------------------------------------

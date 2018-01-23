@@ -40,8 +40,7 @@ This pattern is used to separate the storage from its view. All modification to 
 
 ``` plantuml
 
-class Cache {
-
+class Observer {
 }
 
 class SufiData {
@@ -76,10 +75,9 @@ object OSM {
 
 }
 
-Cache "1" --* SufiData
-DataHandler "1" --* SufiData
 SufiData "1" --* SufiCenter
 
+Observer "1" -* SufiCenter
 SufiCenter .. Menu
 SufiCenter *- "1" SufiMap
 SufiCenter .. Network
@@ -89,9 +87,15 @@ SufiCenter .. OSM
 SufiTrack "*" --* SufiMap
 SufiFeature "*" --* SufiMap
 
-
 ```
+#### Keys of values used in the observer
 
+| Key Name | Owner | Description |
+|------|-------|-------------|
+| track | SufiData | The XML representation of the GPX data |
+| trackBounds | SufiData | Calculated boundaries lon/lat of the GPX data |
+| gpxFile | SufiCenter | GPX file selected from a menu |
+| networkState | SufiCenter | Boolean value to show we are on/offline |
 
 # Articles
 * [You Don't Need the DOM Ready Event][DOMR]
