@@ -152,6 +152,7 @@ The app uses gpx data to read track information, show it and focus on it when fi
   * [ ] Compress the track to a smaller format to make the payload smaller.
   * [ ] Sufi track is in one gpx file. Need to split them up to have a smaller footprint, especially when more features are put into the gpx as waypoints.
   * [ ] Extract the waypoints from the sufi track gpx file into separate file.
+  * [ ] Adjust program to check for the Garmin way of storing boundaries and if not there use the same format.
 
 # Bugs
 * [ ] Android. Hangup after a while when swiping etc. over the map
