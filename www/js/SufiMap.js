@@ -244,24 +244,16 @@ console.log('Load: ' + file);
   // zoom in on the selected track
   zoomOnTrack: function ( boundaries ) {
 
-//console.log("B1: " + boundaries);
     boundaries[0] = SufiMap.transform(boundaries[0]);
     boundaries[1] = SufiMap.transform(boundaries[1]);
-/*
-console.log("B2: " +
-  boundaries[0][0] + ', ' + boundaries[0][1] + ', ' +
-  boundaries[1][0] + ', ' + boundaries[1][1]
-);
-console.log("B3: " + SufiMap.map.getSize());
-*/
 
     SufiMap.mapView.fit( [
         boundaries[0][0], boundaries[0][1],
         boundaries[1][0], boundaries[1][1]
       ], {
-        size: SufiMap.map.getSize(),
-        // easing: 1000,                     // Needs ol-deps.js and goog libs
-        duration: 2000
+        size: SufiMap.map.getSize() //,
+        // easing: 1000,                    // Needs ol-deps.js and goog libs
+        // duration: 10000                  // Does not show map while moving
       }
     );
   }

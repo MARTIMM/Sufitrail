@@ -60,7 +60,8 @@ console.log(
 
     var trackBounds = [ [ 0, 0], [ 0, 0]];
 
-    // Find the boundaries of in the gpx trail. first the Garmin way.
+    // Find the boundaries of in the gpx trail. this is also
+    // where Garmin stores its data.
     var gpxBounds = xmldoc.documentElement.querySelector('gpx metadata bounds');
 
     if ( gpxBounds !== null ) {
@@ -74,29 +75,6 @@ console.log(
       ];
     }
 
-    // try to look elsewhere.
-    // TODO: program needs adjustments to set the boundaries the same way as
-    // for Garmin
-    else {
-      // Find the extensions in the gpx root
-      gpxBounds = xmldoc.documentElement.querySelector('gpx extensions');
-
-      if ( gpxBounds !== null ) {
-
-        trackBounds = [ [
-            parseFloat(gpxBounds.querySelector('lon').getAttribute('min')),
-            parseFloat(gpxBounds.querySelector('lat').getAttribute('min'))
-          ], [
-            parseFloat(gpxBounds.querySelector('lon').getAttribute('max')),
-            parseFloat(gpxBounds.querySelector('lat').getAttribute('max'))
-          ]
-        ];
-      }
-    }
-/*
-console.log("gpx bounds: " + gpxBounds);
-console.log("gpx CXT: " + trackBounds);
-*/
     SufiData.center.observers.set( 'trackBounds', trackBounds);
   }
 }
