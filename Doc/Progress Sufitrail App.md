@@ -131,28 +131,28 @@ This should show a dialog to ask the user if he/she really wants to quit the pro
     * [ ] There might be a cache used internally by Android/IOS/Windows to store external JavaScript files and style sheets. This is useful to keep the libraries up to date automatically.
 
 # Track data
-The app uses gpx data to read track information, show it and focus on it when first loaded. These gpx files must be edited (by a separate program) to add some data in the metadata section and extensions section of the gpx file.
-* [x] Program to make the calculations and store in gpx file: `gpx-edit.pl6`.
-  * [x] Calculate minimum and maximum of longitude and latitude so the app doesn't have to do it.
-  * [x] Calculate the center of the track for the same reason.
-  * [x] metadata
-    * [x] name; filename without '.gpx' and punctuation replaced by spaces.
-    * [x] desc; "hiking routes from Vienna to Istanbul".
-    * [x] author; "Sultanstrail".
-    * [x] copyright; "Sultanstrail".
-    * [x] link; "http://www.sultanstrail.com/".
-    * [x] time; date and time of conversion.
-    * [x] keywords; "hike", "Vienna", "Istanbul" and some others taken from the filename.
-    * [x] bounds; not used, Garmin uses it!
-    * [ ] extensions; not used
+The app uses gpx data from a file to read track information. It is shown and zoomed in on it when first loaded. These gpx files must be edited (by a separate program) to add some data in the `metadata` section of the gpx file.
+* [x] Program to make the calculations and store in gpx file: `gpx-edit.pl6`. It makes use of module Tracks.pm6.
+* [x] Program `convert-all-tracks.pl6` to find all gpx files from `./Data/Tracks original` and call `gpx-edit.pl6` for each file found. The results are saved in `./www/tracks`.
+* [x] The program `gpx-edit.pl6` calculates minimum and maximum of longitude and latitude and stores it in the xpath `/gpx/metadata/bounds`.
+* [x] The program also stores other data in the xpath `/gpx/metadata` of the gpx file.
+  * [x] `name`; filename without '.gpx' and punctuation replaced by spaces.
+  * [x] `desc`; **hiking routes from Istanbul to Konya**.
+  * [x] `author`; **Sufi trail**.
+  * [x] `copyright`; **Sufi trail**.
+  * [x] `link` reference; **http://www.sufitrail.com/**. Its link text is **Sufi Trail Hike**.
+  * [x] `time`; date and time of conversion.
+  * [x] `keywords`; **hike**, **Konya**, **Istanbul** and some others taken from the filename.
+  * [x] `bounds`; (mentioned above). It is set if it is not available. When found, it is not overwritten. This is how Garmin uses it!
+  * [ ] `extensions`; not used
 
 * [x] Remove all spaces between elements thereby making the gpx file smaller.
-* [x] Program to convert all tracks using above program: `convert-all-tracks.pl6`.
+* [ ] Other wishes.
   * [x] Convert tracks one by one.
   * [ ] Compress the track to a smaller format to make the payload smaller.
   * [ ] Sufi track is in one gpx file. Need to split them up to have a smaller footprint, especially when more features are put into the gpx as waypoints.
   * [ ] Extract the waypoints from the sufi track gpx file into separate file.
-  * [ ] Adjust program to check for the Garmin way of storing boundaries and if not there use the same format.
+  * [x] Adjust program to check for the Garmin way of storing boundaries and if not there use the same format.
 
 # Bugs
 * [ ] Android. Hangup after a while when swiping etc. over the map
