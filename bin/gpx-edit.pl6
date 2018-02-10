@@ -1,11 +1,10 @@
 #!/usr/bin/env perl6
 
 use v6;
-#use lib 'lib';
 use SufiTrail::Tracks;
 
-use XML;
-use XML::XPath;
+#use XML;
+#use XML::XPath;
 #use Archive::SimpleZip;
 
 #note "A: ", @*ARGS.join(" ");
