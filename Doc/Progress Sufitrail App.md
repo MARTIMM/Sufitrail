@@ -151,12 +151,13 @@ The app uses gpx data from a file to read track information. It is shown and zoo
   * [x] Convert tracks one by one.
   * [ ] Compress the track to a smaller format to make the payload smaller.
   * [ ] Sufi track is in one gpx file. Need to split them up to have a smaller footprint, especially when more features are put into the gpx as waypoints.
-  * [ ] Extract the waypoints from the sufi track gpx file into separate file.
+  * [x] Extract the waypoints from the sufi track gpx file into separate file.
+  * [x] Extract separate tracks from the total sufi trail
   * [x] Adjust program to check for the Garmin way of storing boundaries and if not there use the same format.
 
 # Bugs
 * [ ] Android. Hangup after a while when swiping etc. over the map
-* [ ] Gpx files are missing a proper xml prefix after conversion
+* [x] Gpx files are missing a proper xml prefix after conversion
 
 <!--
 # Planning
