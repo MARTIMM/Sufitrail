@@ -14,7 +14,7 @@ $cmd.push:
 
 
 # do for each of the gpx files
-for dir('Data/Tracks original').grep(/ '.gpx' $/) -> $track {
+for dir('../Data/Tracks original').grep(/ '.gpx' $/) -> $track {
 
   # device a name for the metadata
   my Str $name = $track.IO.basename;
@@ -29,4 +29,5 @@ for dir('Data/Tracks original').grep(/ '.gpx' $/) -> $track {
 
   # compress result LZMA
   #run( 'xz', '-z', '-k', $track.IO.basename);
+last
 }
