@@ -200,13 +200,14 @@ var SufiMap = {
     return ol.proj.transform( coordinate, 'EPSG:4326', 'EPSG:3857');
   },
 
+/*
   // ---------------------------------------------------------------------------
   loadTrack: function ( file ) {
 
     return SufiTrack.loadTrack(file);
   },
 
-/*
+
   // ---------------------------------------------------------------------------
   zoomOnTrack: function ( boundaries ) {
 
