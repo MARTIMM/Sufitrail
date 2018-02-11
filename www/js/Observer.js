@@ -49,7 +49,7 @@ console.log("Key: ", key + ', ' + callback[1]);
       // If no callbacks were registered for the key, make first an empty array
       if ( !this.callbacks[key] ) { this.callbacks[key] = []; }
       this.callbacks[key].push( [ callbackObject, callbackToAdd]);
-console.log('CB: ' + this.callbacks[key][0][1]);
+console.log('CB: ' + this.callbacks[key]);
     }
 
     // Removes a callback that listening for changes
