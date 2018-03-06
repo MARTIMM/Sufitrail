@@ -17,13 +17,20 @@ What is stored here is only a part of the project. Everything generated from sou
 
 # Changes
 
+* 0.4.0
+  * Total track split in 41 pieces and made visible.
+  * Extracted way points from track, however it does not seem usable. Must get way points from OSM.
+* 0.3.0
+  * Javacript file split in several modules.
+  * Added an observer/producer module.
+  * Total track is visible.
 * 0.2.0
-  * map is visible
-  * map and buttons adapt to several screen sizes and changes.
+  * Map is visible.
+  * Map and buttons adapt to several screen sizes and changes.
 * 0.1.0
-  * Basic page selection from a menu opening from the side
+  * Basic page selection from a menu opening from the side.
 * 0.0.1
-  * Basic setup
+  * Basic setup.
 
 <!-- references -->
 [website]: http://sufitrail.com/

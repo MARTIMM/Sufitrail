@@ -5,22 +5,26 @@
 ## Purpose of the document
 Purpose of this document is to make a record of requirements and to show which of the requirements are implemented, which are not implemented yet or even not feasible.
 
-Communication will be done by sending this document to the contacts after which there will be some comments, additions, changes or removals. This will be visible later in this document in the design and planning.
+Communication will be done by sending this document from time to time to the contacts after which there will be some comments, additions, changes or removals. This will be made visible later in this document in the design and planning.
 
 
 # Requirements
 
 ## Purpose of the application
 
-The application helps the user to find his/her way on a trail called the Sufi trail. This is a route between Istanbul to Konya. The GPS on the devices is used to show the location of the user.
+The application helps the user to find his/her way on a trail called the Sufi trail. This is a route between Istanbul to Konya. The GPS on the devices is used to show the location of the user and to create a track for the hicker.
 
 ### What the application must do
 
+
+
 ### Where the Application must run
-* [x] Cordova. Is needed to embed the App written in HTML and JavaScript in such a way that it can use the SDK of Android/IOS/Windows to access the device.
 * [x] Android. This will be the first target.
-  * Android SDK. This piece of software and toolbox is needed between the App and the device.
-* [ ] IOS.
+  * [x] Android SDK. This piece of software and toolbox is needed between the App and the device.
+  * [x] Cordova. Is needed to embed the App written in HTML and JavaScript in such a way that it can use the SDK of Android to access the device.
+* [ ] IOS. This os is for Apple devices.
+  * [ ] IOS SDK. This will prove difficult because for the SDK to work it needs a apple operating system.
+  * [x] Cordova. Is needed to embed the App written in HTML and JavaScript in such a way that it can use the SDK of IOS to access the device.
 * [ ] Windows.
 * [x] Linux on the desktop computer. This is necessary to develop the application.
 
