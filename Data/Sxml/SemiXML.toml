@@ -1,0 +1,40 @@
+# Setup for devices.sxml using the default options --in=xml --out=xml
+#------------------------------------------------------------------------------
+[ C ]
+  tracing       = true
+
+[ C.config ]
+  xml-show      = true
+
+#------------------------------------------------------------------------------
+[ R.xml ]
+  config        = 'xmllint --format - > %op/%of.%oe'
+
+#------------------------------------------------------------------------------
+[ S ]
+  fileext       = 'xml'
+
+[ S.config ]
+  rootpath      = '.'
+
+#------------------------------------------------------------------------------
+[ ML.xml ]
+#  epub2         = 'SxmlLib::EPub::EPub2Builder'
+#  epub3         = 'SxmlLib::EPub::EPub3Builder'
+
+#------------------------------------------------------------------------------
+# Tracing tables
+[ T ]
+#  config-search = false
+  config          = false
+  tables          = true
+  modules         = false
+  parse           = false
+  parse-result    = false
+  file-handling   = true
+
+#------------------------------------------------------------------------------
+[ X ]
+  xml-version     = '1.0'
+  xml-encoding    = 'UTF-8'
+  xml-standalone  = 'no'

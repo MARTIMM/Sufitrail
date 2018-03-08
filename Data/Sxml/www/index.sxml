@@ -1,0 +1,320 @@
+# Run: sxml2xml.pl6 --in=html --out=html Data/Sxml/www/index.sxml
+
+$html xml:lang=en [
+  # ============================================================================
+  $sxml:comment =sxml:keep {
+    Author: Marcel Timmerman
+    License: ...
+    Copyright: © Sufitrail 2017
+  }
+
+  $head [
+    #===========================================================================
+    $title [ Sufi Trail Walking Program ]
+
+    #===========================================================================
+    $meta charset=UTF-8 []
+    $meta name=viewport
+          content="width=device-width, height=device-height, initial-scale=1" []
+
+    $meta name=description content='Sufi Trail Walking Program' []
+    $meta name=keywords content='walk hike trail sufi' []
+    $meta http-equiv=language content=EN []
+    $meta http-equiv=Content-Style-Type content=text/css []
+
+    #===========================================================================
+    # generate color values for css
+    $!colors.palette base-hsl='180 100 50'
+                     type=color-scheme mode=monochromatic
+                     lighten=15 ncolors=6 outspec=rgbhex []
+
+    #===========================================================================
+    # reset default css settings of any browser
+    $!css.reset type=condensed-universal id=reset []
+
+
+    $!css.style id=menu-style [
+
+      $!css.b s=.sidenav {
+        height: 100%;
+        /* 100% Full-height */
+        width: 0;
+        /* 0 width - change this with JavaScript */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Stay on top */
+        top: 0;
+        /* Stay at the top */
+        right: 0;
+        background-color: #111;
+        /* Black*/
+        overflow-x: hidden;
+        /* Disable horizontal scroll */
+        padding-top: 60px;
+        /* Place content 60px from the top */
+        transition: 0.5s;
+        /* 0.5 second transition effect to slide in the sidenav */
+      }
+
+      /* The navigation menu links */
+
+      $!css.b s='.sidenav a' {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+      }
+
+      /* When you mouse over the navigation links, change their color */
+
+      $!css.b s='.sidenav a:hover' {
+        color: #f1f1f1;
+      }
+
+      /* Position and style the close button (top right corner) */
+
+      $!css.b s='.sidenav .menu-close-button' {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+      }
+
+      /* Position and style the close button (top right corner) */
+
+      $!css.b s=.menu-open-button {
+        font-size: 30px;
+        cursor: pointer;
+      }
+
+      $!css.b s=.menu-home-button {
+        font-size: 30px;
+        cursor: pointer;
+      }
+
+      /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+
+      $!css.b s='#main' {
+        transition: margin-left .5s;
+        padding: 20px;
+      }
+
+      /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+
+      @media screen and (max-height: 450px) {
+        $!css.b s=.sidenav {
+          padding-top: 15px;
+        }
+        $!css.b s='.sidenav a' {
+          font-size: 18px;
+        }
+      }
+    ]
+
+
+    $!css.style id=pages-style [
+      $!css.b s='*' [
+        box-sizing: border-box;
+      ]
+/*
+      $!css.b s='#mapContainer' [
+        border:               0 solid;
+        margin:               0;
+        height:               100%;
+      ]
+
+      $!css.b s='#SufiTrailMap' [
+        height:               100%;
+        position:             relative;
+        border:               0;
+        padding:              0;
+        margin:               0;
+      ]
+*/
+      $!css.b s='#SufiTrailMap' {
+        height: 100%;
+        /*overflow: hidden;*/
+      }
+  /* new */
+      $!css.b s=.menu-page {
+        height: 100%;
+      }
+
+      $!css.b s=.hreftype [
+        text-decoration:      underline;
+        cursor:               hand;
+        cursor:               pointer;
+      ]
+
+      $!css.b s=.strong [
+        font-weight:          bold;
+      ]
+/*
+      $!css.b s=.tight-fit [
+        margin:               0;
+        border:               0;
+        padding:              0;
+        height:               100%;
+      ]
+
+      $!css.b s=p [
+        padding: 2px;
+      ]
+*/
+
+      $!css.b s='table#about' [
+        margin-left:          20%;
+        margin-right:         80%;
+        width:                80%;
+
+        $!css.b s='tr th' [
+          text-align:         left;
+        ]
+      ]
+
+      $!css.b s=.open-menu [
+        top:                  34px;
+        right:                .5em;
+      ]
+    ]
+  ]
+
+  #=============================================================================
+  $body [
+    #---------------------------------------------------------------------------
+    $!menu.container side=right style-pivot-id=reset insert-style=after
+                     script-pivot-id=observer-script insert-script=before [
+
+      #-------------------------------------------------------------------------
+      # main page shows the map
+      $!menu.entry title=Map id=map-page =!home-button =!open-button [
+        $div id=SufiTrailMap class=map []
+      ]
+
+      #-------------------------------------------------------------------------
+      $!menu.entry title=Info id=info-page [
+        $div [
+          $h2 [ Info ]
+        ]
+      ]
+
+      #-------------------------------------------------------------------------
+      $!menu.entry title=Tracks id=track-page [
+        $div [
+          # generate tracks from directory www/tracks
+          #$!tracks.list gpx-dir=www/tracks prefix-path=./tracks/ []
+        ]
+      ]
+
+      #-------------------------------------------------------------------------
+      $!menu.entry title=Feature id=feature-page [
+        $div [
+          $h2 [ Feature ]
+          $div [
+            $h1 [ Location Lutjebroek ]
+            $p [
+              Very nice surroundings with view on the meadows of past times.
+            ]
+          ]
+        ]
+      ]
+
+      #-------------------------------------------------------------------------
+      $!menu.entry title=Start id=start-page [
+        $div [
+          $h2 [ Start ]
+          #$p [ ]
+        ]
+      ]
+
+      #-------------------------------------------------------------------------
+      $!menu.entry title=About id=about-page [
+        $h1 [ About ]
+        $p [
+          $table id=about [
+            $tr [ $th [ &nbsp; ] ]
+            $tr [ $th [ Sultans Trail Teammates ] ]
+            $tr [ $th [ &nbsp; ] ]
+            $tr [
+              $th colspan=2 [ Trail Blazers ]
+            ]
+            $tr [
+              $td [ Sedat Çakir ]
+              $td [ Project leader ]
+            ]
+
+            $tr [
+              $td [ Rob Polko ]
+              $td [ Map Design ]
+            ]
+            $tr [
+              $td [ Pijke Wees ]
+              $td [ Cartographer ]
+            ]
+
+            $tr [
+              $td [ Merel van Essen ]
+              $td [ Handbook Writer ]
+            ]
+
+            $tr [
+              $td [ Tine Lambers ]
+              $td [ Office Manager ]
+            ]
+
+            $tr [
+              $td [ Iris Bezuijen ]
+              $td [ Web Master ]
+            ]
+            $tr [
+              $td [ Marcel Timmerman ]
+              $td [ Developer ]
+            ]
+
+            $tr [ $th [ &nbsp; ] ]
+            $tr [
+              $th [ Current App Version ]
+            ]
+            $tr [
+              $td [ 0.4.0 ]
+            ]
+          ]
+        ]
+      ]
+
+      #-------------------------------------------------------------------------
+      $!menu.entry title=Exit id=exit-page [
+        $div [
+          $h2 [ Exit ]
+          #$p [ ]
+        ]
+      ]
+    ]
+
+
+    #===========================================================================
+    # links to css style sheets
+    $link rel=stylesheet type=text/css href=css/ol.css []
+#    $link rel=stylesheet type=text/css href=css/index-tabpane.css
+
+    # ==========================================================================
+    #  Loading of javascript program and libraries at the end
+#    $script src=cordova.js
+
+#    $script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"
+#    $script src=js/polyfill.min.js
+#    $script src=js/lzma-min.js
+
+    $script src=js/ol.js id=ol-script []
+
+    $script src=js/Observer.js id=observer-script []
+    $script src=js/SufiData.js id=data-script []
+    $script src=js/SufiMap.js id=map-script []
+    $script src=js/SufiCenter.js id=center-script []
+
+  ] # body
+] # html
