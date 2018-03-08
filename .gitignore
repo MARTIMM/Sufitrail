@@ -1,6 +1,5 @@
 */.precomp/*
 .directory
-Data/*
 node_modules/*
 platforms/*
 plugins/*
