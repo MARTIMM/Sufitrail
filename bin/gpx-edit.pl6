@@ -34,3 +34,31 @@ sub MAIN (
   note "Save converted track to $new-gpx";
   $t.save(:filename($new-gpx));
 }
+
+#-------------------------------------------------------------------------------
+sub USAGE ( ) {
+
+  note Q:to/EOHELP/
+
+    Calculate and add area bounds to the track data. This will be skipped if the
+    track comes from Garmin devices. These already have bounds information.
+    Furthermore, metadata can be added to the track. The modified file is copied
+    to directory ./www/tracks.
+
+    Usage:
+      gpx-edit.pl6 [--name=<Str>] [--description=<Str>] [--author=<Str>] [--copy=<Str>] [--keys=<Str>] [--linkText=<Str>] [--linkRef=<Str>] <gpx-file>
+
+    Arguments:
+      gpx-file              file with track information
+
+    Options:
+      --name=<Str>          metadata info: name of track
+      --description=<Str>   metadata info: description of track
+      --author=<Str>        metadata info: person or group who walked the track
+      --copy=<Str>          metadata info: copyrights of the track
+      --keys=<Str>          metadata info: keywords describing the track
+      --linkText=<Str>      metadata info: text used to describe the link below
+      --linkRef=<Str>       metadata info: reference to a site for this track
+
+  EOHELP
+}
