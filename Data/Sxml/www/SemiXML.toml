@@ -24,7 +24,7 @@
   lorem         = 'SxmlLib::LoremIpsum'
   css           = 'SxmlLib::Html::Css'
   menu          = 'SxmlLib::Html::Menu'
-#  tracks        = 'Tracks;/home/marcel/Projects/Mobile/Projects/lib'
+  tracks        = 'SufiTrail::Sxml::Tracks;/home/marcel/Projects/Mobile/Projects/lib'
 
 #------------------------------------------------------------------------------
 # Tracing tables
