@@ -206,7 +206,7 @@ $html xml:lang=en [
       $!menu.entry title=Tracks id=track-page [
         $div [
           # generate tracks from directory www/tracks
-          #$!tracks.list gpx-dir=www/tracks prefix-path=./tracks/ []
+          $!tracks.list gpx-dir=www/tracks prefix-path=./tracks/ []
         ]
       ]
 
