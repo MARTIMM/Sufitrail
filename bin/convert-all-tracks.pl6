@@ -16,7 +16,7 @@ $cmd.push:
 # do for each of the gpx files
 for dir('../Data/Tracks original').grep(/ '.gpx' $/) -> $track {
 
-  # device a name for the metadata
+  # devise a name for the metadata
   my Str $name = $track.IO.basename;
   $name ~~ s/ '.gpx' $//;
   $name ~~ s:g/ <.punct> / /;
