@@ -15,7 +15,8 @@ Communication will be done by sending this document from time to time to the con
 The application helps the user to find his/her way on a trail called the Sufi trail. This is a route between Istanbul to Konya. The GPS on the devices is used to show the location of the user and to create a track for the hicker.
 
 ### What the application must do
-
+* When starting the program, the app must show a splash screen with the sufitrail emblem on it while the program gets ready in the background. Let the splash screen be shown for at least 5 seconds or longer as needed.
+* When the program is initialized it must show the map of the current location using the gps information of the device.
 
 
 ### Where the Application must run
@@ -29,8 +30,8 @@ The application helps the user to find his/her way on a trail called the Sufi tr
 * [x] Linux on the desktop computer. This is necessary to develop the application.
 
 ### On what devices must the application run
-* [ ] Tablets of several sizes.
-* [ ] Mobile phones of several sizes.
+* [x] Tablets of several sizes.
+* [x] Mobile phones of several sizes.
 
 ### Events to listen to
 There are several events which occur upon changing conditions in a device. These events must be captured for further actions.
@@ -86,22 +87,74 @@ The start page is the home page named **Map** below in the list of menu entries.
 ### The Menu
 Pressing the menu button ☰ shown on the map, will open a pane from the side to show a menu of options. A click on an entry will show a page. Each page may have a shortcut to the home page: **Map** next to a menu button. When selecting an entry, the menu is closed and a page will appear.
 
+  * [ ] Layout of all pages must be coherent and matching the pages and colors from the book.
+
+  The pages to select from the menu
   * [x] **Map**: Show map, explained above
-  * [ ] **Info**: Show route info
-  * [ ] **Tracks**: Select a track
+  * [ ] **Info**: Show route information
+  * [x] **Tracks**: Select a track.
   * [ ] **Feature** Show history, or other info.
   * [ ] **Start**: Record your track data
   * [x] **About**: Show a page with version, people and contacts
   * [ ] **Exit**: Close the application
 
 ## The info page
+  The info page shows information of the currently selected track. There are 40 tracks to walk in 40 days so we need 40 pages of data.
+
+  * [ ] Fill the info page after selecting a track. Previous data must be removed.
+
+  <progress value="0" max="40" />
+
+  The following pages must have some info
+  * [ ] 01 Istanbul City
+  * [ ] 02 Yalova Gökçedere
+  * [ ] 03 Gökçedere Güneyköy
+  * [ ] 04 Güneyköy Orhangazi
+  * [ ] 05 Orhangazi Çakırlı
+  * [ ] 06 Çakırlı Mahmudiye
+  * [ ] 07 Mahmudiyei İznik
+  * [ ] 08 Iznik Bereket
+  * [ ] 09 Bereket Osmaneli
+  * [ ] 10 Osmaneli Vezirhan
+  * [ ] 11 Vezirhan Bilecik
+  * [ ] 12 Bilecik Küre
+  * [ ] 13 Küre Sögüt
+  * [ ] 14 Sögüt Yeşilyurt
+  * [ ] 15 Yeşilyurt Alınca
+  * [ ] 16 Alınca Eskişehir
+  * [ ] 17 Eskişehir Süpüren
+  * [ ] 18 Süpüren Sarayören
+  * [ ] 19 Sarayören Seyitgazi
+  * [ ] 20 Seyitgazi Sükranlı
+  * [ ] 21 Sükranlı Ağlarca
+  * [ ] 22 Ağlarca Muratkoru
+  * [ ] 23 Muratkoru Gömü
+  * [ ] 24 Gömü Emirdağ
+  * [ ] 25 Emirdag Karacalar
+  * [ ] 26 Karacalar Emirdede Tepesi
+  * [ ] 27 Emirdede Tepesi Kemerkaya
+  * [ ] 28 Kemerkaya Taşağıl
+  * [ ] 29 Taşağıl Çay
+  * [ ] 30 Çay Yakasenek
+  * [ ] 31 Yakasenek Ulupinar
+  * [ ] 32 Ulupinar Akşehir
+  * [ ] 33 Akşehir Çakırlar
+  * [ ] 34 Çakırlar Doganhisarn
+  * [ ] 35 Doganhisar Aşağı Çığıl
+  * [ ] 36 Aşağı Çığıl Derbent
+  * [ ] 37 Derbent Salahattin
+  * [ ] 38 Basarakavak Küçükmuhsine
+  * [ ] 39 Küçükmuhsine Sille
+  * [ ] 40 Sille Konya
+
 
 ## The Tracks page
-  * [ ] Generate the page from the directory contents. This is usable later when several tracks for other walks are loaded. Also those made by the hiker can be placed there.
+  * [x] Generate the page from the directory contents and the gpx track name found in those files.
+  * [ ] Place for user created tracks. When this page is displayed, the tracks must be shown on that page.
   * [x] Show map when a selection is made.
-  * [x] The route is displayed
-  * [x] The route is centered on page
-  * [x] The route is zoomed so as to fit the page.
+  * [x] The route is displayed.
+  * [x] The route is centered on page. This depends if information is available in the user track.
+  * [x] The route is zoomed so as to fit the page. This depends if information is available in the user track.
 
 ## The Features page
  Is filled when feature is clicked. First a balloon is showed on the map pointing to the feature with text and a 'more ...' on the bottom.
