@@ -12,6 +12,7 @@ www/js/goog/*
 www/js/goog-new*/*
 www/js/jquery*
 www/tracks/*
+www/waypoints/*
 www/js/lzma*
 www/js/ol*.js
 www/js/polyfill*.js
