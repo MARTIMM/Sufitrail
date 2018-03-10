@@ -1,9 +1,8 @@
-# Setup for index.sxml using the default options --in=html --out=html
 #------------------------------------------------------------------------------
 [ C ]
   tracing       = true
 
-[ C.index ]
+[ C.info ]
   doctype-show  = true
   xml-show      = false
 
@@ -15,13 +14,14 @@
 [ S ]
   rootpath      = 'www'
 
-#[ S.index ]
-#  fileext       = 'html'
+[ S.info ]
+  fileext       = 'xml'
+  rootpath      = 'www/info'
 
 #------------------------------------------------------------------------------
 [ ML.html ]
   colors        = 'SxmlLib::Colors'
-  lorem         = 'SxmlLib::LoremIpsum'
+#  lorem         = 'SxmlLib::LoremIpsum'
   css           = 'SxmlLib::Html::Css'
   menu          = 'SxmlLib::Html::Menu'
   tracks        = 'SufiTrail::Sxml::Tracks;/home/marcel/Projects/Mobile/Projects/lib'
