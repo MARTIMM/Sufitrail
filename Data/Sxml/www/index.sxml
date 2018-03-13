@@ -24,7 +24,7 @@ $html xml:lang=en [
 
     #===========================================================================
     # generate color values for css
-    $!colors.palette base-hsl='180 100 50'
+    $!colors.palette base-rgb='#56af32' outspec=hsl
                      type=color-scheme mode=monochromatic
                      lighten=15 ncolors=6 outspec=rgbhex []
 
@@ -33,58 +33,44 @@ $html xml:lang=en [
     $!css.reset type=condensed-universal id=reset []
 
 
+    # The navigation menu
     $!css.style id=menu-style [
 
-      $!css.b s=.sidenav {
-        height: 100%;
-        /* 100% Full-height */
-        width: 0;
-        /* 0 width - change this with JavaScript */
-        position: fixed;
-        /* Stay in place */
-        z-index: 1;
-        /* Stay on top */
-        top: 0;
-        /* Stay at the top */
-        right: 0;
-        background-color: #111;
-        /* Black*/
-        overflow-x: hidden;
-        /* Disable horizontal scroll */
-        padding-top: 60px;
-        /* Place content 60px from the top */
-        transition: 0.5s;
-        /* 0.5 second transition effect to slide in the sidenav */
-      }
+      $!css.b s=.sidenav [
+        background-color: rgb( 5, 5, 5);
 
-      /* The navigation menu links */
+        $!css.b s=a [
+          margin: 1px;
+          padding: 1px;
+          background-color: rgb( 0, 100, 100);
+          color: rgb( 0, 200, 200);
+        ]
 
-      $!css.b s='.sidenav a' {
-        padding: 8px 8px 8px 32px;
-        text-decoration: none;
-        font-size: 25px;
-        color: #818181;
-        display: block;
-        transition: 0.3s;
-      }
+        $!css.b s=a:hover [
+          color: rgb( 0, 240, 240);
+        ]
 
-      /* When you mouse over the navigation links, change their color */
+        /* The navigation menu links */
+        $!css.b s=a {
+          padding: 8px 8px 8px 32px;
+          text-decoration: none;
+          font-size: 25px;
+          color: #818181;
+          display: block;
+          transition: 0.3s;
+        }
 
-      $!css.b s='.sidenav a:hover' {
-        color: #f1f1f1;
-      }
+        $!css.b s=.menu-close-button [
+          padding: 0 0 2px 2px;
+          color: $sxml:var-ref name=scheme-color4 [];
+        ]
 
-      /* Position and style the close button (top right corner) */
-
-      $!css.b s='.sidenav .menu-close-button' {
-        position: absolute;
-        top: 0;
-        right: 25px;
-        font-size: 36px;
-        margin-left: 50px;
-      }
-
-      /* Position and style the close button (top right corner) */
+        $!css.b s=.menu-entry [
+          background-color: $sxml:var-ref name=scheme-color1 [];
+          border-color: $sxml:var-ref name=scheme-color3 [];
+          color: $sxml:var-ref name=scheme-color4 [];
+        ]
+      ]
 
       $!css.b s=.menu-open-button {
         font-size: 30px;
@@ -106,10 +92,10 @@ $html xml:lang=en [
       /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 
       @media screen and (max-height: 450px) {
-        $!css.b s=.sidenav {
+        .sidenav {
           padding-top: 15px;
         }
-        $!css.b s='.sidenav a' {
+        .sidenav a {
           font-size: 18px;
         }
       }
@@ -120,26 +106,12 @@ $html xml:lang=en [
       $!css.b s='*' [
         box-sizing: border-box;
       ]
-/*
-      $!css.b s='#mapContainer' [
-        border:               0 solid;
-        margin:               0;
-        height:               100%;
-      ]
 
-      $!css.b s='#SufiTrailMap' [
-        height:               100%;
-        position:             relative;
-        border:               0;
-        padding:              0;
-        margin:               0;
-      ]
-*/
       $!css.b s='#SufiTrailMap' {
         height: 100%;
         /*overflow: hidden;*/
       }
-  /* new */
+
       $!css.b s=.menu-page {
         height: 100%;
       }
@@ -153,18 +125,6 @@ $html xml:lang=en [
       $!css.b s=.strong [
         font-weight:          bold;
       ]
-/*
-      $!css.b s=.tight-fit [
-        margin:               0;
-        border:               0;
-        padding:              0;
-        height:               100%;
-      ]
-
-      $!css.b s=p [
-        padding: 2px;
-      ]
-*/
 
       $!css.b s='table#about' [
         margin-left:          20%;
@@ -176,16 +136,41 @@ $html xml:lang=en [
         ]
       ]
 
+      /* button on map, first page */
       $!css.b s=.open-menu [
         top:                  34px;
         right:                .5em;
       ]
 
       /* info pages */
-      $!css.b s=.info-svg [
-        width:                20px;
-        height:               20px;
-      ]
+      $!css.b s='#info-page' {
+        padding: 2px;
+      }
+
+      $!css.b s='.info-text' {
+        padding: 4px;
+      }
+
+      $!css.b s=.info-svg {
+        width: 18px;
+        height: 18px;
+        padding-right: 3px;
+      }
+
+      $!css.b s=.info-header {
+        color: white;
+        background-color: #56af32;
+        padding-left: 2px;
+        font-size: 18pt;
+      }
+
+      $!css.b s=".info-tips" {
+        border: 3px solid #56af32;
+        border-radius: 8px;
+        width: 300px;
+        padding: 5px;
+        margin: 10px 0 10px 0;
+      }
     ]
   ]
 
@@ -203,83 +188,16 @@ $html xml:lang=en [
 
       #-------------------------------------------------------------------------
       $!menu.entry title=Info id=info-page [
-        $div id=info-data [
-$article [
-  $h1 class=info-header1 [ Information for Istanbul city ]
-  $p class=info-text [
-
-    $ul [
-      $li [
-        $img src=images/Svg/Stempel.svg class=info-svg [] Take the first step and collect your first stamp in your Sufi Trail Passport.
-      ]
-
-      $li [
-        $img src=images/Svg/Persoon.svg class=info-svg [] Bahariye Mevlevihanesi
-        Human and Civilization Movement
-        Murat İnkaya
-        assistant Secretary General
-      ]
-
-      $li [ $img src=images/Svg/Adres.svg class=info-svg [] Silahtarağa Cad. 12 Eyüp ]
-      $li [ $img src=images/Svg/Telefoon.svg class=info-svg [] +90 212 5013171/+90 533 397 87 79 ]
-      $li [ $img src=images/Svg/Email.svg class=info-svg [] minkaya@imh.org.tr ]
-      $li [ $img src=images/Svg/WWW-adres.svg class=info-svg [] www.imh.org.tr ]
-    ]
-
-    From Bahariye Mevlevihane cross
-    to Bahariye caddesi street and enter
-    Şirin Sokak. Follow the signs of the
-    Sufi Trail or the Sultan’s Trail and the
-    signs of Piyer Loti to the hill with the
-    same name where the cafeterias and
-    the houses are located. Beside the
-    hotel Turquhouse there is the tomb
-    of His Excellency Sufi Hasan Dede.
-    Before the tomb there is a tiny place
-    to find peace before your long walk.
-    Please keep in mind Sufi Trail is
-    enjoyed most when you take time to
-    contemplate on each and every
-    mystical place.
-    Then walk to the cafeteria and view
-    point by the inclined area. Here you
-    have an excellent view over the
-    Golden horn, Eyup mosque,
-    Istanbul’s beautiful skyline. When
-    you make pictures don’t forget to
-    make a picture in your heart of this
-    wonderful moment.
-    Halfway there is the tomb and the
-    mosque of Kaşgari Murtaza Efendi.
-    In the courtyard you find a small tea
-    house in an oasis of tranquility; this
-    section of the Eyup cemetery is full
-    of tombs of Nakshibandi Sufi masters.
-    Locals call it the Nakshibandi fields.
-    If you have some spare time we
-    recommend that you spend extra
-    days in Eyup and surroundings.
-    From the Kaşgari Murtaza Efendi
-    mosque you walk down to the end
-    and turn right, there you will find the
-    hammam of Eyüp. Immediately after
-    the hammam you arrive at the lively
-    Eyup mosque square. On your left
-    you see the entrance of the Eyüp
-    mosque.
-  ]
-
-  $footer [
-  ]
-]
-        ]
+        # info is filled with data from www/info/*.xml after selecting a track
+        $div id=info-data [ ]
       ]
 
       #-------------------------------------------------------------------------
       $!menu.entry title=Tracks id=track-page [
         $div [
           # generate tracks from directory www/tracks
-          $!tracks.list gpx-dir=www/tracks prefix-path=./tracks/ []
+          $!tracks.list gpx-dir=www/tracks tracks-path=./tracks/
+                        info-path=./info/ []
         ]
       ]
 
