@@ -85,6 +85,7 @@ var SufiMap = {
     // now we can observe changes
     this.center.observers.subscribe( 'gpxFile', SufiTrack, 'loadTrack');
     this.center.observers.subscribe( 'trackBounds', SufiTrack, 'zoomOnTrack');
+    this.center.observers.subscribe( 'timeInterval', mapLocation, 'show');
   },
 
   // ---------------------------------------------------------------------------
@@ -257,6 +258,14 @@ console.log('Load: ' + file);
         // duration: 10000                  // Does not show map while moving
       }
     );
+  }
+}
+
+// =============================================================================
+var mapLocation = {
+  show: function ( count ) {
+    console.log( 'map count: ' + count );
+    
   }
 }
 

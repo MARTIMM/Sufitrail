@@ -36,7 +36,7 @@ class Observer {
       if( this.callbacks[key] ) {
         this.callbacks[key].forEach(
           function ( callback ) {
-console.log("Key: ", key + ', ' + callback[1]);
+console.log("Key: ", key + ', ' + callback[1] + ', ' + value);
             callback[0][callback[1]](value);
           }
         );

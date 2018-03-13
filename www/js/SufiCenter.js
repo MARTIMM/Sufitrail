@@ -41,6 +41,15 @@ var SufiCenter = {
     // set an event on each of the tracks found in the document
     this.setTrackEvents();
 
+    // set a time interval to have an event every so much seconds
+    this.count = 0;
+    this.timeInterval = window.setInterval(
+      function ( ) {
+        SufiCenter.observers.set( 'timeInterval', SufiCenter.count++);
+      },
+      5000
+    );
+
     // do the other initializations
     this.view.init( this, mapElementName);
     this.model.init(this);
