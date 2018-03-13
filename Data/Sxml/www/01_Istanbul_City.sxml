@@ -1,3 +1,5 @@
+# run 'sxml2xml.pl6 --in=html --out=info Data/Sxml/www/01_Istanbul_City.sxml'
+
 $!tracks.article title='01 Istanbul city' [
 
   $!tracks.info type=stamp [
