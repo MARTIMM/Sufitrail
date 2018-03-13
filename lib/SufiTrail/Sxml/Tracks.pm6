@@ -10,26 +10,26 @@ use SemiXML::Element;
 #-------------------------------------------------------------------------------
 class Sxml::Tracks {
 
-#  has Str $!gpx-file;
-#  has XML::XPath $!gpx-dom;
-#  has Hash $!bounds;
-#  has XML::Element $!meta;
-
-  #-----------------------------------------------------------------------------
-#  submethod BUILD ( Str:D :$!gpx-file ) {
-#    $!gpx-dom .= new(:file($!gpx-file));
-#  }
+  has Bool $!initialized = False;
+  has SemiXML::Element $!article;
+  has SemiXML::Element $!section;
+  has SemiXML::Element $!dl;
 
   #-----------------------------------------------------------------------------
   # $!tracks.list gpx-dir
   method list ( SemiXML::Element $m ) {
 
-    $m.before( 'h2', :text<Tracks>);
+    $m.before(
+      'h2',
+      :attributes({:class<info-header>}),
+      :text('List of tracks')
+    );
     my SemiXML::Element $ul = $m.before('ul');
 
     my $count = 1;
     my $gpx-dir = $m.attributes<gpx-dir>.Str // '.';
-    my $prefix-path = $m.attributes<prefix-path>.Str // '.';
+    my $tracks-path = $m.attributes<tracks-path>.Str // '.';
+    my $info-path = $m.attributes<info-path>.Str // '.';
 
     for dir($gpx-dir).grep(/ '.gpx' $/).sort -> $gpx-file {
 
@@ -46,19 +46,132 @@ class Sxml::Tracks {
         $text ~~ s/ '.gpx' $//;
       }
 
-note "Name: $text";
+      note "Track: $text";
+      my Str $data-info-file = $text;
+      $data-info-file ~~ s:g/ \s+ /_/;
+      $data-info-file = $info-path ~ $data-info-file ~ '.xml';
+
+      my Str $data-gpx-file = $tracks-path ~ $gpx-file.basename;
 
       $ul.append(
         'li',
         :attributes( hash(
-            :id('track' ~ $count++),
-            :class("hreftype"),
-            :data-gpx-file($prefix-path ~ $gpx-file.basename),
+            :id('track' ~ $count++), :class("hreftype"),
+            :$data-gpx-file, :$data-info-file,
           )
         ),
         :$text
       );
+
+      # be sure the info file exists
+      unless "www/$data-info-file".IO ~~ :e {
+        # default content
+        my Str $info-text = Q:s:to/EOINFO/;
+        <article>
+          <section class="info-text">
+            <h1 class="info-header"> $text </h1>
+            No information available yet
+          </section>
+        </article>
+        EOINFO
+
+        "www/$data-info-file".IO.spurt($info-text);
+      }
     }
+  }
+
+  #-----------------------------------------------------------------------------
+  method initialize ( SemiXML::Element $m ) {
+
+    unless $!initialized {
+      $!article .= new(:name<article>);
+      $!section = $!article.append(
+        'section', :attributes({:class<info-text>})
+      );
+
+      $!dl = $!section.append(
+        'dl', :attributes({:class<info-tips>})
+      );
+
+      $!initialized = True;
+    }
+  }
+
+  #-----------------------------------------------------------------------------
+  method article ( SemiXML::Element $m ) {
+
+    # set title of track info
+    $!dl.before(
+      'h1',
+      :attributes({:class<info-header>}),
+      :text(($m.attributes<title>//'No Title').Str)
+    );
+
+    # place article in the root
+    $m.before($!article);
+
+    # remove dl when there are no entries
+    $!dl.remove unless $!dl.nodes.elems;
+    $!initialized = False;
+  }
+
+  #-----------------------------------------------------------------------------
+  method info ( SemiXML::Element $m ) {
+
+    my SemiXML::Element $dd = $!dl.append('dd');
+    $dd.insert($_) for $m.nodes.reverse;
+
+    given ($m.attributes<type>//'').Str {
+      when 'stamp' {
+        $dd.insert(
+          'img',
+          :attributes({:src('images/Svg/Stempel.svg'), :class<info-svg>})
+        );
+      }
+
+      when 'person' {
+        $dd.insert(
+          'img',
+          :attributes({:src('images/Svg/Persoon.svg'), :class<info-svg>})
+        );
+      }
+
+      when 'address' {
+        $dd.insert(
+          'img',
+          :attributes({:src('images/Svg/Adres.svg'), :class<info-svg>})
+        );
+      }
+
+      when 'telephone' {
+        $dd.insert(
+          'img',
+          :attributes({:src('images/Svg/Telefoon.svg'), :class<info-svg>})
+        );
+      }
+
+      when 'email' {
+        $dd.insert(
+          'img',
+          :attributes({:src('images/Svg/Email.svg'), :class<info-svg>})
+        );
+      }
+
+      when 'www' {
+        $dd.insert(
+          'img',
+          :attributes({:src('images/Svg/WWW-adres.svg'), :class<info-svg>})
+        );
+      }
+    }
+  }
+
+  #-----------------------------------------------------------------------------
+  method text ( SemiXML::Element $m ) {
+
+    my SemiXML::Element $hook = $!dl.after('sxml:hook');
+    $hook.after($_) for $m.nodes.reverse;
+    $hook.remove;
   }
 
   #-----------------------------------------------------------------------------
