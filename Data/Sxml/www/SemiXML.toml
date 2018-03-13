@@ -3,7 +3,7 @@
   tracing       = true
 
 [ C.info ]
-  doctype-show  = true
+  doctype-show  = false
   xml-show      = false
 
 #------------------------------------------------------------------------------
@@ -26,14 +26,16 @@
   menu          = 'SxmlLib::Html::Menu'
   tracks        = 'SufiTrail::Sxml::Tracks;/home/marcel/Projects/Mobile/Projects/lib'
 
+[ ML.info ]
+  tracks        = 'SufiTrail::Sxml::Tracks;/home/marcel/Projects/Mobile/Projects/lib'
+
 #------------------------------------------------------------------------------
 # Tracing tables
 [ T ]
-#  config-search   = false
 #  config          = true
 #  tables          = true
-  modules         = true
-  parse           = true
+#  modules         = true
+#  parse           = true
 #  parse-result    = true
   file-handling   = true
 
