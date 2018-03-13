@@ -32,8 +32,12 @@ $html xml:lang=en [
     # reset default css settings of any browser
     $!css.reset type=condensed-universal id=reset []
 
+    # menu generated style gets inserted here
 
-    # The navigation menu
+    # open layers styles
+    $link rel=stylesheet type=text/css href=css/ol.css []
+
+    # the navigation menu
     $!css.style id=menu-style [
 
       $!css.b s=.sidenav [
@@ -101,7 +105,7 @@ $html xml:lang=en [
       }
     ]
 
-
+    # layout of pages
     $!css.style id=pages-style [
       $!css.b s='*' [
         box-sizing: border-box;
@@ -286,22 +290,20 @@ $html xml:lang=en [
       ]
     ]
 
-
-    #===========================================================================
-    # links to css style sheets
-    $link rel=stylesheet type=text/css href=css/ol.css []
-#    $link rel=stylesheet type=text/css href=css/index-tabpane.css
-
     # ==========================================================================
-    #  Loading of javascript program and libraries at the end
-#    $script src=cordova.js
+    # cordova and plugins library
+    $script src=cordova.js []
 
-#    $script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"
-#    $script src=js/polyfill.min.js
-#    $script src=js/lzma-min.js
+#    $script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL" []
+#    $script src=js/polyfill.min.js []
+#    $script src=js/lzma-min.js []
 
+    # open layers library
     $script src=js/ol.js id=ol-script []
 
+    # menu generated javascript gets inserted here
+
+    # the programs script code
     $script src=js/Observer.js id=observer-script []
     $script src=js/SufiData.js id=data-script []
     $script src=js/SufiMap.js id=map-script []
