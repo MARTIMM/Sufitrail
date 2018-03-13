@@ -1,8 +1,11 @@
 # Sufi trail hiking application
 
-This application is used to help hikers and bikers to stroll along the trail from Istanbul to Konya. See also [the sufi trail web site][website]. The goal of the project is to create an app which should be possible to install on all types of mobile devices.
+This application is used to help hikers to stroll along the trail from Istanbul to Konya. See also [the sufi trail web site][website]. The goal of the project is to create an app which should be possible to install on all types of mobile devices but is started for Android devices only.
 
 What is stored here is only a part of the project. Everything generated from sources, SDK's and what not, is not available here. Also the app cannot be found here. Later the app can be bought from the store on the web site mentioned above.
+
+## Privacy conciderations
+The program makes use of the gps device on your tablet or phone to show the location of your position on the map. The program also can store this information on disk to create a track of where you have walked.
 
 # Bugs
 ```
@@ -17,6 +20,8 @@ What is stored here is only a part of the project. Everything generated from sou
 
 # Changes
 
+* 0.5.0
+  * Added code to generate and show information of a track. The first track is described and the rest has a default message.
 * 0.4.0
   * Total track split in 41 pieces and made visible.
   * Extracted way points from track, however it does not seem usable. Must get way points from OSM.

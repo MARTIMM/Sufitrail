@@ -89,9 +89,11 @@ Pressing the menu button ☰ shown on the map, will open a pane from the side to
 
   * [ ] Layout of all pages must be coherent and matching the pages and colors from the book.
 
-  The pages to select from the menu
+####  The pages to select from the menu
+<progress value="4" max="8" />
+
   * [x] **Map**: Show map, explained above
-  * [ ] **Info**: Show route information
+  * [x] **Info**: Show route information
   * [x] **Tracks**: Select a track.
   * [ ] **Feature** Show history, or other info.
   * [ ] **Start**: Record your track data
@@ -99,14 +101,15 @@ Pressing the menu button ☰ shown on the map, will open a pane from the side to
   * [ ] **Exit**: Close the application
 
 ## The info page
-  The info page shows information of the currently selected track. There are 40 tracks to walk in 40 days so we need 40 pages of data.
+  The info page shows information of the currently selected track. There are 40 tracks to walk in 40 days so we need 40 pages of data. The info page is loaded from a file from the `www/info` directory when a track is selected.
 
-  * [ ] Fill the info page after selecting a track. Previous data must be removed.
+  * [x] Fill the info page after selecting a track. Previous data must be removed.
 
-  <progress value="0" max="40" />
+#### The information pages for each track
+<progress value="1" max="40" />
 
   The following pages must have some info
-  * [ ] 01 Istanbul City
+  * [x] 01 Istanbul City
   * [ ] 02 Yalova Gökçedere
   * [ ] 03 Gökçedere Güneyköy
   * [ ] 04 Güneyköy Orhangazi
@@ -149,6 +152,8 @@ Pressing the menu button ☰ shown on the map, will open a pane from the side to
 
 
 ## The Tracks page
+<progress value="5" max="6" />
+
   * [x] Generate the page from the directory contents and the gpx track name found in those files.
   * [ ] Place for user created tracks. When this page is displayed, the tracks must be shown on that page.
   * [x] Show map when a selection is made.
@@ -159,14 +164,25 @@ Pressing the menu button ☰ shown on the map, will open a pane from the side to
 ## The Features page
  Is filled when feature is clicked. First a balloon is showed on the map pointing to the feature with text and a 'more ...' on the bottom.
 
+<progress value="0" max="6" />
+
+
 ## The Start page
 
+<progress value="0" max="6" />
+
+
 ## The About page
+<progress value="0" max="6" />
+
   * [x] Show the members of the Sufi trail group.
   * [x] Show current version of the program. Can be kept elsewhere, e.g. android manifest, and inserted here by using JavaScript.
 
 ## The Exit page
 This should show a dialog to ask the user if he/she really wants to quit the program.
+
+<progress value="0" max="6" />
+
   * [ ] Show quit dialog
   * [ ] When really exiting, a recorded track must be saved.
 
@@ -189,6 +205,8 @@ This should show a dialog to ask the user if he/she really wants to quit the pro
 
 # Track data
 The app uses gpx data from a file to read track information. It is shown and zoomed in on it when first loaded. These gpx files must be edited (by a separate program) to add some data in the `metadata` section of the gpx file.
+<progress value="5" max="6" />
+
 * [x] Program to make the calculations and store in gpx file: `gpx-edit.pl6`. It makes use of module Tracks.pm6.
 * [x] Program `convert-all-tracks.pl6` to find all gpx files from `./Data/Tracks original` and call `gpx-edit.pl6` for each file found. The results are saved in `./www/tracks`.
 * [x] The program `gpx-edit.pl6` calculates minimum and maximum of longitude and latitude and stores it in the xpath `/gpx/metadata/bounds`.
@@ -207,7 +225,7 @@ The app uses gpx data from a file to read track information. It is shown and zoo
 * [ ] Other wishes.
   * [x] Convert tracks one by one.
   * [ ] Compress the track to a smaller format to make the payload smaller.
-  * [ ] Sufi track is in one gpx file. Need to split them up to have a smaller footprint, especially when more features are put into the gpx as waypoints.
+  * [x] Sufi track is in one gpx file. Need to split them up to have a smaller footprint, especially when more features are put into the gpx as waypoints.
   * [x] Extract the waypoints from the sufi track gpx file into separate file.
   * [x] Extract separate tracks from the total sufi trail
   * [x] Adjust program to check for the Garmin way of storing boundaries and if not there use the same format.
