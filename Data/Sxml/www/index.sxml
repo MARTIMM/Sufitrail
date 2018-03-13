@@ -204,7 +204,7 @@ $html xml:lang=en [
       #-------------------------------------------------------------------------
       $!menu.entry title=Feature id=feature-page [
         $div [
-          $h2 [ Feature ]
+          $h2 class=info-header [ Feature ]
           $div [
             $h1 [ Location Lutjebroek ]
             $p [
@@ -217,14 +217,14 @@ $html xml:lang=en [
       #-------------------------------------------------------------------------
       $!menu.entry title=Start id=start-page [
         $div [
-          $h2 [ Start ]
+          $h2 class=info-header [ Start ]
           #$p [ ]
         ]
       ]
 
       #-------------------------------------------------------------------------
       $!menu.entry title=About id=about-page [
-        $h1 [ About ]
+        $h1 class=info-header [ About ]
         $p [
           $table id=about [
             $tr [ $th [ &nbsp; ] ]
@@ -271,7 +271,7 @@ $html xml:lang=en [
               $th [ Current App Version ]
             ]
             $tr [
-              $td [ 0.4.0 ]
+              $td [ 0.5.0 ]
             ]
           ]
         ]
@@ -280,7 +280,7 @@ $html xml:lang=en [
       #-------------------------------------------------------------------------
       $!menu.entry title=Exit id=exit-page [
         $div [
-          $h2 [ Exit ]
+          $h2 class=info-header [ Exit ]
           #$p [ ]
         ]
       ]
