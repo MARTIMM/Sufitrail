@@ -19,6 +19,7 @@ var SufiData = {
   init: function ( controller ) {
     this.center = controller;
     this.center.observers.subscribe( 'gpxFile', SufiData, 'loadXMLFile');
+    this.center.observers.subscribe( 'infoFile', SufiData, 'loadInfoFile');
     this.center.observers.subscribe( 'track', SufiData, 'calculateBounds');
   },
 
@@ -28,17 +29,9 @@ var SufiData = {
     SufiData.timeStart = Date.now();
     var fileRequest = new XMLHttpRequest();
     fileRequest.onreadystatechange = function ( ) {
-console.log(
-  'State: ' + this.readyState + ', ' + this.status + ', ' + this.statusText
-);
-
       if ( this.readyState === 4 ) {
         if ( this.status === 200 ) {
-          //SufiData.currentXMLTrack = this.responseXML;
           SufiData.center.observers.set( 'track', this.responseXML);
-          //DataHandler.calculateBounds();
-          //SufiCenter.zoomOnTrack(SufiData.currentXMLTrackBounds);
-//console.log("Loaded after " + (Date.now() - SufiData.timeStart) + " msec");
         }
 
         else {
@@ -50,7 +43,38 @@ console.log(
     }
 
     fileRequest.open( "GET", file, true);
-//console.log('send... ' + file);
+    fileRequest.send();
+  },
+
+  // ---------------------------------------------------------------------------
+  loadInfoFile: function ( file ) {
+
+    SufiData.timeStart = Date.now();
+    var fileRequest = new XMLHttpRequest();
+    fileRequest.onreadystatechange = function ( ) {
+      if ( this.readyState === 4 ) {
+        if ( this.status === 200 ) {
+          var infoText = this.responseText;
+
+          // remove the previous article
+          var infoData = document.getElementById("info-data");
+          while ( infoData.firstChild ) {
+            infoData.removeChild(infoData.firstChild);
+          }
+
+          // insert new info text
+          infoData.innerHTML = infoText;
+        }
+
+        else {
+          console.log(
+            "Not Found; Path to file or filename probably spelled wrong"
+          );
+        }
+      }
+    }
+
+    fileRequest.open( "GET", file, true);
     fileRequest.send();
   },
 

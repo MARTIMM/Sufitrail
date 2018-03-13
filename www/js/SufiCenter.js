@@ -24,7 +24,7 @@ var SufiCenter = {
     // must be set first: init's might refer to it
     this.menu = menuObject;
 
-    // check for online
+    // check for networking offline/online
     SufiCenter.observers.set( 'networkState', navigator.onLine);
     window.addEventListener(
       'offline', function ( ) {
@@ -56,31 +56,34 @@ var SufiCenter = {
 // TODO generate the html from a directory list
     // each track filename is stored in the data-gpx-file attribute of a 'li'
     // element. This element can be found through its id starting with track
-    // followed by a number. E.g. track1.
+    // followed by a number. E.g. track1. Also info data is found using the
+    // data-info-file attribute.
     while ( gpxElement = document.querySelector('#track' + trackCount) ) {
 
       // get the filename from the data attribute
       var gpxFile = gpxElement.getAttribute('data-gpx-file');
+      var infoFile = gpxElement.getAttribute('data-info-file');
       trackCount++;
 
       // define a function returning a handler which shows a track and
       // focus as well as fits the track on screen
-      function loadTrack ( trackFile ) {
+      function loadTrack ( trackFile, trackInfo ) {
         return function ( ) {
 
           // show map again
           SufiCenter.menu.showPage('map-page');
 
 console.log('load track from ' + trackFile);
-          // use the defined function to center and fit on this particular file
-          //SufiCenter.view.loadTrack(trackFile);
+console.log('load info from ' + trackInfo);
+          // sent a hint that the filenames are ready to process
           SufiCenter.observers.set( 'gpxFile', trackFile);
+          SufiCenter.observers.set( 'infoFile', trackInfo);
         };
       }
 
       // set a click handler on the li element to close the menu and
       // to show the map again.
-      gpxElement.addEventListener( "click", loadTrack(gpxFile));
+      gpxElement.addEventListener( "click", loadTrack( gpxFile, infoFile));
     }
   }
 }
