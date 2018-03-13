@@ -1,0 +1,20 @@
+$!tracks.article title='01 Istanbul city' [
+
+  $!tracks.info type=stamp [
+    Collect your first stamp in your Sufi Trail passport.
+  ]
+
+  $!tracks.info type=person [
+    Bahariye Mevlevihanesi Human and Civilization Movement.
+    Murat İnkaya assistant Secretary General.
+  ]
+
+  $!tracks.info type=address [ Silahtarağa Cad. 12 Eyüp ]
+  $!tracks.info type=telephone [ +90 212 5013171/+90 533 397 87 79 ]
+  $!tracks.info type=email [ minkaya@imh.org.tr ]
+  $!tracks.info type=www [  www.imh.org.tr ]
+
+  $!tracks.text [
+    This route is a route through the european part of Istanbul starting at Bahariye Mevlevihane cross. This route visits all kinds of places from holy and mystical to cafetarias and restaurants.
+  ]
+]
