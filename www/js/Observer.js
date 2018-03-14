@@ -36,7 +36,7 @@ class Observer {
       if( this.callbacks[key] ) {
         this.callbacks[key].forEach(
           function ( callback ) {
-console.log("Key: ", key + ', ' + callback[1] + ', ' + value);
+//console.log("Key: ", key + ', ' + callback[1] + ', ' + value);
             callback[0][callback[1]](value);
           }
         );
@@ -49,7 +49,7 @@ console.log("Key: ", key + ', ' + callback[1] + ', ' + value);
       // If no callbacks were registered for the key, make first an empty array
       if ( !this.callbacks[key] ) { this.callbacks[key] = []; }
       this.callbacks[key].push( [ callbackObject, callbackToAdd]);
-console.log('CB: ' + this.callbacks[key]);
+//console.log('CB: ' + this.callbacks[key]);
     }
 
     // Removes a callback that listening for changes

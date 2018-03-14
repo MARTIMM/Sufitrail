@@ -21,7 +21,7 @@ var SufiData = {
     this.center.observers.subscribe( 'gpxFile', SufiData, 'loadXMLFile');
     this.center.observers.subscribe( 'infoFile', SufiData, 'loadInfoFile');
     this.center.observers.subscribe( 'track', SufiData, 'calculateBounds');
-    this.center.observers.subscribe( 'timeInterval', trackLocation, 'show');
+    //this.center.observers.subscribe( 'timeInterval', TrackLocation, 'show');
   },
 
   // ---------------------------------------------------------------------------
@@ -104,9 +104,11 @@ var SufiData = {
   }
 }
 
+/*
 // =============================================================================
-var trackLocation = {
+var TrackLocation = {
   show: function ( count ) {
     console.log( 'track count: ' + count );
   }
 }
+*/

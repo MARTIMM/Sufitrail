@@ -85,7 +85,7 @@ var SufiMap = {
     // now we can observe changes
     this.center.observers.subscribe( 'gpxFile', SufiTrack, 'loadTrack');
     this.center.observers.subscribe( 'trackBounds', SufiTrack, 'zoomOnTrack');
-    this.center.observers.subscribe( 'timeInterval', mapLocation, 'show');
+    //this.center.observers.subscribe( 'timeInterval', MapLocation, 'show');
   },
 
   // ---------------------------------------------------------------------------
@@ -196,6 +196,51 @@ var SufiMap = {
   },
 
   // ---------------------------------------------------------------------------
+  geolocation: null,
+  positionFeature: null,
+  geoLocCoords: null,
+  geoLocate: function ( tracking ) {
+    console.log( 'map count: ' + count );
+
+    // setup loation feature
+    if ( SufiMap.positionFeature === null ) {
+      SufiMap.positionFeature = new ol.Feature();
+      SufiMap.positionFeature.setStyle(
+        new ol.style.Style( {
+          image: new ol.style.Circle( {
+              radius: 6,
+              fill: new ol.style.Fill({ color: '#3399CC'}),
+              stroke: new ol.style.Stroke({ color: '#fff', width: 2})
+            }
+          )
+        }
+      )
+    );
+
+    // setup geolocation object
+    if ( SufiMap.geolocation === null ) {
+      SufiMap.geolocation = new ol.Geolocation(
+        { // take the projection to use from the map's view
+          projection: SufiMap.mapView.getProjection()
+        }
+      );
+    }
+
+    // listen to changes in position
+    SufiMap.geolocation.on(
+      'change',
+      function(evt) {
+        SufiMap.geoLocCoords = SufiMap.geolocation.getPosition();
+        positionFeature.setGeometry(
+          SufiMap.geoLocCoords
+            ? new ol.geom.Point(SufiMap.geoLocCoords)
+            : null
+        );
+      }
+    );
+  },
+
+  // ---------------------------------------------------------------------------
   transform: function ( coordinate ) {
 
     return ol.proj.transform( coordinate, 'EPSG:4326', 'EPSG:3857');
@@ -261,13 +306,47 @@ console.log('Load: ' + file);
   }
 }
 
-// =============================================================================
-var mapLocation = {
+/*// =============================================================================
+var MapLocation = {
+
   show: function ( count ) {
     console.log( 'map count: ' + count );
-    
+
+    var geolocation = new ol.Geolocation({
+      // take the projection to use from the map's view
+      projection: SufiMap.mapView.getProjection()
+    });
+
+
+    if ( SufiMap.center.device.platform === 'android' ) {
+      GPSLocation.getCurrentPosition(
+        MapLocation.geolocationSuccess,
+        MapLocation.geolocationError
+      );
+    }
+  },
+
+  geolocationSuccess: function ( position ) {
+    console.log(
+      'Latitude: '          + position.coords.latitude          + '\n' +
+      'Longitude: '         + position.coords.longitude         + '\n' +
+      'Altitude: '          + position.coords.altitude          + '\n' +
+      'Accuracy: '          + position.coords.accuracy          + '\n' +
+      'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+      'Heading: '           + position.coords.heading           + '\n' +
+      'Speed: '             + position.coords.speed             + '\n' +
+      'Timestamp: '         + position.timestamp                + '\n'
+    );
+  },
+
+  geolocationError: function onError(error) {
+    console.log(
+      'code: '    + error.code    + '\n' +
+      'message: ' + error.message + '\n'
+    );
   }
 }
+*/
 
 // =============================================================================
 var SufiFeature = {

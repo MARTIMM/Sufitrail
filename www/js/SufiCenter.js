@@ -15,8 +15,14 @@ var SufiCenter = {
 
   menu:             null,
 
+  device:           { },
+
+  mapElementName:   null,
+
   // ---------------------------------------------------------------------------
   init: function ( mapElementName, menuObject ) {
+
+    this.mapElementName = mapElementName;
 
     // initialize the observers object
     this.observers = new Observer();
@@ -41,19 +47,41 @@ var SufiCenter = {
     // set an event on each of the tracks found in the document
     this.setTrackEvents();
 
+    // set a counter. value is given to the interval timer when fired
+    //this.count = 0;
+
+    // now wait for the device is ready for further processing. some
+    // details must come from the devices hardware.
+    setTimeout(
+      function () {
+        document.addEventListener(
+          'deviceready', SufiCenter.onDeviceReady, false
+        );
+      }, 9000
+    );
+  },
+
+  // after device is ready get the devices state and initialize the
+  // other objects.
+  onDeviceReady: function ( ) {
+
+    SufiCenter.device = device;
+
+    // do the other initializations
+    SufiCenter.view.init( SufiCenter, SufiCenter.mapElementName);
+    SufiCenter.model.init(SufiCenter);
+
+/*
     // set a time interval to have an event every so much seconds
-    this.count = 0;
     this.timeInterval = window.setInterval(
       function ( ) {
         SufiCenter.observers.set( 'timeInterval', SufiCenter.count++);
       },
       5000
     );
-
-    // do the other initializations
-    this.view.init( this, mapElementName);
-    this.model.init(this);
+*/
   },
+
 
   // ---------------------------------------------------------------------------
   // make series of tracks clickable
