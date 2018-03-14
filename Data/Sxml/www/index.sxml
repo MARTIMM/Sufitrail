@@ -291,7 +291,8 @@ $html xml:lang=en [
     ]
 
     # ==========================================================================
-    # cordova and plugins library
+    # cordova and plugins library. this can only be tested in the cordova
+    # device environment.
     $script src=cordova.js []
 
 #    $script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL" []
