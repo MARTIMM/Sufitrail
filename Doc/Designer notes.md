@@ -97,6 +97,10 @@ SufiFeature "*" --* SufiMap
 | gpxFile | SufiCenter | GPX file selected from a menu |
 | networkState | SufiCenter | Boolean value to show we are on/offline |
 
+# Installed plugins
+* cordova-plugin-geolocation
+* cordova-plugin-device
+
 # Articles
 * [You Don't Need the DOM Ready Event][DOMR]
 * [Practical Considerations, Hypertext Transfer Protocol -- HTTP/1.1][HYP1]
