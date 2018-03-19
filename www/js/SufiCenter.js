@@ -22,6 +22,7 @@ var SufiCenter = {
   // ---------------------------------------------------------------------------
   init: function ( mapElementName, menuObject ) {
 
+    // save the map elementname
     this.mapElementName = mapElementName;
 
     // initialize the observers object
@@ -59,6 +60,8 @@ var SufiCenter = {
         );
       }, 9000
     );
+
+    console.log('Initialization complete');
   },
 
   // after device is ready get the devices state and initialize the

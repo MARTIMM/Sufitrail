@@ -18,6 +18,10 @@ var SufiMap = {
   mapVector:      null,
   map:            null,
 
+  geolocation:    null,
+  positionFeature: null,
+  geoLocCoords:   null,
+
   style: {
     'Point': new ol.style.Style( {
         image: new ol.style.Circle( {
@@ -81,6 +85,9 @@ var SufiMap = {
 
     // show the map using layers, view, etc.
     this.setMap();
+
+    // start geo location to show current position
+    this.geoLocate();
 
     // now we can observe changes
     this.center.observers.subscribe( 'gpxFile', SufiTrack, 'loadTrack');
@@ -196,43 +203,56 @@ var SufiMap = {
   },
 
   // ---------------------------------------------------------------------------
-  geolocation: null,
-  positionFeature: null,
-  geoLocCoords: null,
   geoLocate: function ( tracking ) {
-    console.log( 'map count: ' + count );
+    //console.log( 'map count: ' + count );
 
     // setup loation feature
     if ( SufiMap.positionFeature === null ) {
+console.log('set feature');
       SufiMap.positionFeature = new ol.Feature();
       SufiMap.positionFeature.setStyle(
         new ol.style.Style( {
-          image: new ol.style.Circle( {
-              radius: 6,
-              fill: new ol.style.Fill({ color: '#3399CC'}),
-              stroke: new ol.style.Stroke({ color: '#fff', width: 2})
-            }
-          )
-        }
-      )
-    );
+            image: new ol.style.Circle( {
+                radius: 6,
+                fill: new ol.style.Fill({ color: '#3399CC'}),
+                stroke: new ol.style.Stroke({ color: '#fff', width: 2})
+              }
+            )
+          }
+        )
+      );
+    }
 
     // setup geolocation object
     if ( SufiMap.geolocation === null ) {
+console.log('set geolocator');
       SufiMap.geolocation = new ol.Geolocation(
         { // take the projection to use from the map's view
-          projection: SufiMap.mapView.getProjection()
+          projection: 'EPSG:3857',  // SufiMap.mapView.getProjection(),
+          tracking: true
         }
       );
     }
+/*
+    // show it once. it is possible that it does not change a lot
+    SufiMap.geoLocCoords = SufiMap.geolocation.getPosition();
+console.log('location changed: ' + SufiMap.geoLocCoords);
+    SufiMap.positionFeature.setGeometry(
+      SufiMap.geoLocCoords
+        ? new ol.geom.Point(SufiMap.transform(SufiMap.geoLocCoords))
+        : null
+    );
+*/
 
     // listen to changes in position
     SufiMap.geolocation.on(
       'change',
       function(evt) {
         SufiMap.geoLocCoords = SufiMap.geolocation.getPosition();
-        positionFeature.setGeometry(
+console.log('location changed: ' + SufiMap.geoLocCoords);
+        SufiMap.positionFeature.setGeometry(
           SufiMap.geoLocCoords
+//            ? new ol.geom.Point(SufiMap.transform(SufiMap.geoLocCoords))
             ? new ol.geom.Point(SufiMap.geoLocCoords)
             : null
         );
