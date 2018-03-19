@@ -193,7 +193,14 @@ $html xml:lang=en [
       #-------------------------------------------------------------------------
       $!menu.entry title=Info id=info-page [
         # info is filled with data from www/info/*.xml after selecting a track
-        $div id=info-data [ ]
+        $div id=info-data [
+          $article [
+            $section class=info-text [
+              $h1 class=info-header [ No track selected ]
+              No information available yet
+            ]
+          ]
+        ]
       ]
 
       #-------------------------------------------------------------------------
@@ -291,8 +298,8 @@ $html xml:lang=en [
     ]
 
     # ==========================================================================
-    # cordova and plugins library. this can only be tested in the cordova
-    # device environment.
+    # cordova and link to plugins libraries. this can only be tested in the
+    # cordova device environment.
     $script src=cordova.js []
 
 #    $script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL" []
