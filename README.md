@@ -7,19 +7,23 @@ What is stored here is only a part of the project. Everything generated from sou
 ## Privacy conciderations
 The program makes use of the gps device on your tablet or phone to show the location of your position on the map. The program also can store this information on disk to create a track of where you have walked.
 
+# Todo
+This is a list of more or less implemented items which need more attention. The rest is unimplemented or done and ok.
+
+* Geolocation testing. Must do it outside because buildings shields off a lot.
+* Move menu buttons on pages to the right
+* Move menu button on home page a bit lower. It overlaps north-button
+
 # Bugs
 ```
 # ghi list --label Bug -v
-#1: Hangup on android
- bug
-
-    Hangup after a while when swiping etc. over the map. Several things need to
-    be inspected; 1) versions of js libs, 2) android version, 3) cordova
-    version, 4) several android config files.
 ```
 
 # Changes
 
+* 0.6.0
+  * Added the exit button
+  * Hangup bug seems to have gone. (newer versions of cordova and android (SDK etc) perhaps)
 * 0.5.0
   * Added code to generate and show information of a track. The first track is described and the rest has a default message.
 * 0.4.0

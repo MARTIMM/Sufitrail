@@ -98,7 +98,7 @@ Pressing the menu button ☰ shown on the map, will open a pane from the side to
   * [ ] **Feature** Show history, or other info.
   * [ ] **Start**: Record your track data
   * [x] **About**: Show a page with version, people and contacts
-  * [ ] **Exit**: Close the application
+  * [x] **Exit**: Close the application
 
 ## The info page
   The info page shows information of the currently selected track. There are 40 tracks to walk in 40 days so we need 40 pages of data. The info page is loaded from a file from the `www/info` directory when a track is selected.
@@ -231,7 +231,7 @@ The app uses gpx data from a file to read track information. It is shown and zoo
   * [x] Adjust program to check for the Garmin way of storing boundaries and if not there use the same format.
 
 # Bugs
-* [ ] Android. Hangup after a while when swiping etc. over the map
+* [x] Android. Hangup after a while when swiping etc. over the map
 * [x] Gpx files are missing a proper xml prefix after conversion
 
 <!--
