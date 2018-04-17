@@ -69,6 +69,7 @@ var SufiCenter = {
   onDeviceReady: function ( ) {
 
     SufiCenter.device = device;
+    SufiCenter.setExitButton();
 
     // do the other initializations
     SufiCenter.view.init( SufiCenter, SufiCenter.mapElementName);
@@ -125,8 +126,25 @@ console.log('load info from ' + trackInfo);
       // to show the map again.
       gpxElement.addEventListener( "click", loadTrack( gpxFile, infoFile));
     }
+  },
+
+  //----------------------------------------------------------------------------
+  setExitButton: function ( ) {
+
+console.log('Exit button define');
+    var button = document.getElementById('exitButton');
+    button.addEventListener( "click", SufiCenter.doExitApp, false);
+  },
+
+  //----------------------------------------------------------------------------
+  doExitApp: function ( ) {
+
+console.log('Exit button pressed');
+    navigator.app.exitApp();
   }
 }
 
+
+//------------------------------------------------------------------------------
 // this way we keep dependencies only to this spot
 SufiCenter.init( "SufiTrailMap", menu);

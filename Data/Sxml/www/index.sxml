@@ -282,7 +282,7 @@ $html xml:lang=en [
               $th [ Current App Version ]
             ]
             $tr [
-              $td [ 0.5.0 ]
+            $td [ 0.6.0 ]
             ]
           ]
         ]
@@ -292,7 +292,14 @@ $html xml:lang=en [
       $!menu.entry title=Exit id=exit-page [
         $div [
           $h2 class=info-header [ Exit ]
-          #$p [ ]
+          $p [
+            To exit the application you can press the button below this page. The application tries to save the current track when it was started and save it ...here... Other data is saved as needed.
+          ]
+          $p [
+            W'll see you soon back to continue on your hike.
+
+            $button id=exitButton type=button [Bye for now]
+          ]
         ]
       ]
     ]
