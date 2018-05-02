@@ -168,22 +168,27 @@ Pressing the menu button ☰ shown on the map, will open a pane from the side to
 
 
 ## The Start page
+This is a page where a gps track can be started.
 
 <progress value="0" max="6" />
 
+[ ] x
+[ ] y
 
 ## The About page
-<progress value="0" max="6" />
+This is an overview of people involved and their tasks. Also other info can be shown such as a version number.
+<progress value="2" max="3" />
 
   * [x] Show the members of the Sufi trail group.
-  * [x] Show current version of the program. Can be kept elsewhere, e.g. android manifest, and inserted here by using JavaScript.
+  * [x] Show current version of the program.
+  * [ ] Read version number elsewhere, e.g. android manifest, and insert it by using JavaScript.
 
 ## The Exit page
 This should show a dialog to ask the user if he/she really wants to quit the program.
 
-<progress value="0" max="6" />
+<progress value="1" max="2" />
 
-  * [ ] Show quit dialog
+  * [x] Show quit dialog
   * [ ] When really exiting, a recorded track must be saved.
 
 
