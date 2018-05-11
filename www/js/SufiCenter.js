@@ -16,6 +16,7 @@ var SufiCenter = {
   menu:             null,
 
   device:           { },
+  watchId:          null,
 
   mapElementName:   null,
 
@@ -75,17 +76,38 @@ var SufiCenter = {
     SufiCenter.view.init( SufiCenter, SufiCenter.mapElementName);
     SufiCenter.model.init(SufiCenter);
 
-/*
-    // set a time interval to have an event every so much seconds
-    this.timeInterval = window.setInterval(
-      function ( ) {
-        SufiCenter.observers.set( 'timeInterval', SufiCenter.count++);
-      },
-      5000
-    );
-*/
+    // Let any observers know that the device is ready
+    SufiCenter.observers.set( 'deviceReady', true);
+
+    // Setup geolocation watcher
+    SufiCenter.watchGPS();
   },
 
+  // ---------------------------------------------------------------------------
+  // See also https://www.w3.org/TR/geolocation-API/
+  watchGPS: function ( ) {
+
+    // listen to changes in position
+    SufiCenter.watchId = navigator.geolocation.watchPosition(
+      // on success
+      function(position) {
+//console.log('location changed: ' + position);
+        // Let any observers know that the device is ready
+        SufiCenter.observers.set( 'newLocation', position);
+      },
+
+      // on error
+      function(error) {
+console.log('locator error: ' + error.code + ', ' + error.message);
+      },
+
+      // options
+      { enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 600000
+      }
+    );
+  },
 
   // ---------------------------------------------------------------------------
   // make series of tracks clickable
@@ -131,7 +153,6 @@ console.log('load info from ' + trackInfo);
   //----------------------------------------------------------------------------
   setExitButton: function ( ) {
 
-console.log('Exit button define');
     var button = document.getElementById('exitButton');
     button.addEventListener( "click", SufiCenter.doExitApp, false);
   },
@@ -139,7 +160,7 @@ console.log('Exit button define');
   //----------------------------------------------------------------------------
   doExitApp: function ( ) {
 
-console.log('Exit button pressed');
+    navigator.geolocation.clearWatch(SufiCenter.watchId);
     navigator.app.exitApp();
   }
 }
