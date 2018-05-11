@@ -72,7 +72,7 @@ var SufiMap = {
     'GPSLineToTrack': new ol.style.Style( {
         stroke: new ol.style.Stroke( {
             color: '#050',
-            width: 4
+            width: 4,
             lineDash: [ 5, 2, 2, 2]
           }
         )
