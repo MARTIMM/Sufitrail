@@ -131,6 +131,8 @@ SufiFeature "*" --* SufiMap
 
 [GPX]: http://www.topografix.com/GPX/1/1/
 
+[GPS]: https://www.w3.org/TR/geolocation-API/
+
 [OnOffLine]: https://www.html5rocks.com/en/mobile/workingoffthegrid/
 
 [MVA]: https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93adapter
