@@ -67,6 +67,16 @@ var SufiMap = {
           }
         )
       }
+    ),
+
+    'GPSLineToTrack': new ol.style.Style( {
+        stroke: new ol.style.Stroke( {
+            color: '#050',
+            width: 4
+            lineDash: [ 5, 2, 2, 2]
+          }
+        )
+      }
     )
   },
 
@@ -240,10 +250,6 @@ var SufiMap = {
   // ---------------------------------------------------------------------------
   geoLocate: function ( position ) {
 
-console.log(
-  'Geolocate: ' + position.coords.latitude + ', ' + position.coords.longitude
-);
-
     SufiMap.positionFeature.setGeometry(
       new ol.geom.Point(
         SufiMap.transform(
@@ -251,83 +257,6 @@ console.log(
         )
       )
     );
-
-/*
-    // setup loation feature
-    if ( SufiMap.positionFeature === null ) {
-console.log('set feature');
-      SufiMap.positionFeature = new ol.Feature();
-      SufiMap.positionFeature.setStyle(SufiMap.style['GPSLocation']);
-    }
-*/
-/*
-    // setup geolocation object
-    if ( SufiMap.geolocation === null ) {
-console.log('set geolocator');
-      SufiMap.geolocation = new ol.Geolocation(
-        { // take the projection to use from the map's view
-          projection: SufiMap.mapView.getProjection(),
-          tracking: true,
-          trackingOptions: {
-            enableHighAccuracy: false
-          }
-        }
-      );
-    }
-*/
-/*
-    // show it once. it is possible that it does not change a lot
-    SufiMap.geoLocCoords = SufiMap.geolocation.getPosition();
-console.log('location changed: ' + SufiMap.geoLocCoords);
-    SufiMap.positionFeature.setGeometry(
-      SufiMap.geoLocCoords
-        ? new ol.geom.Point(SufiMap.transform(SufiMap.geoLocCoords))
-        : null
-    );
-*/
-
-/*
-    // listen to changes in position
-    var watchId = navigator.geolocation.watchPosition(
-      // on success
-      function(position) {
-console.log('location changed: ' + position);
-        SufiMap.geoLocCoords = position;
-        SufiMap.positionFeature.setGeometry(
-          SufiMap.geoLocCoords
-            ? new ol.geom.Point(SufiMap.transform(SufiMap.geoLocCoords))
-//            ? new ol.geom.Point(SufiMap.geoLocCoords)
-            : null
-        );
-      },
-
-      // on error
-      function(evt) {
-
-      },
-
-      // options
-      { enableHighAccuracy: false,
-        maximumAge: 600000
-      }
-    );
-*/
-/*
-    // listen to changes in position
-    SufiMap.geolocation.on(
-      'change',
-      function(evt) {
-        SufiMap.geoLocCoords = SufiMap.geolocation.getPosition();
-console.log('location changed: ' + SufiMap.geoLocCoords);
-        SufiMap.positionFeature.setGeometry(
-          SufiMap.geoLocCoords
-//            ? new ol.geom.Point(SufiMap.transform(SufiMap.geoLocCoords))
-            ? new ol.geom.Point(SufiMap.geoLocCoords)
-            : null
-        );
-      }
-    );
-*/
   },
 
   // ---------------------------------------------------------------------------
