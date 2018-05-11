@@ -22,6 +22,9 @@ $html xml:lang=en [
     $meta http-equiv=language content=EN []
     $meta http-equiv=Content-Style-Type content=text/css []
 
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
+#    $meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src *; media-src 'self'" []
+
     #===========================================================================
     # generate color values for css
     $!colors.palette base-rgb='#56af32' outspec=hsl
@@ -142,7 +145,7 @@ $html xml:lang=en [
 
       /* button on map, first page */
       $!css.b s=.open-menu [
-        top:                  34px;
+        top:                  42px;
         right:                .5em;
       ]
 
@@ -282,7 +285,7 @@ $html xml:lang=en [
               $th [ Current App Version ]
             ]
             $tr [
-            $td [ 0.6.0 ]
+              $td [ 0.7.0 ]
             ]
           ]
         ]
