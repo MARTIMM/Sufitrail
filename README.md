@@ -21,6 +21,8 @@ This is a list of more or less implemented items which need more attention. The 
 
 # Changes
 
+* 0.7.0
+  * Geolocation works and shows a blue circle at the current location.
 * 0.6.0
   * Added the exit button
   * Hangup bug seems to have gone. (newer versions of cordova and android (SDK etc) perhaps)
