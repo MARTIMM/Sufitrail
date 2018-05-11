@@ -113,8 +113,6 @@ var SufiMap = {
     // now we can observe changes
     this.center.observers.subscribe( 'gpxFile', SufiTrack, 'loadTrack');
     this.center.observers.subscribe( 'trackBounds', SufiTrack, 'zoomOnTrack');
-    //this.center.observers.subscribe( 'timeInterval', MapLocation, 'show');
-    //this.center.observers.subscribe( 'deviceReady', SufiMap, 'geoLocate');
     this.center.observers.subscribe( 'newLocation', SufiMap, 'geoLocate');
   },
 
@@ -134,9 +132,6 @@ var SufiMap = {
 
     // start geo location to show current position
     var feature = new ol.Feature( {
-        geometry: new ol.geom.Point(
-          SufiMap.transform( [ 4.632374, 52.390107])
-        ),
         name: 'current GPS location',
         dataLocation: "This is where you are now!"
       }
@@ -250,7 +245,13 @@ var SufiMap = {
   // ---------------------------------------------------------------------------
   geoLocate: function ( position ) {
 
-    SufiMap.positionFeature.setGeometry(
+/*
+console.log(
+  'Location: lon, lat = ' + position.coords.longitude + ', ' +
+   position.coords.latitude
+ );
+*/
+    SufiMap.mapFeatures[0].setGeometry(
       new ol.geom.Point(
         SufiMap.transform(
           [ position.coords.longitude, position.coords.latitude]
@@ -321,48 +322,6 @@ console.log('Load: ' + file);
     );
   }
 }
-
-/*// =============================================================================
-var MapLocation = {
-
-  show: function ( count ) {
-    console.log( 'map count: ' + count );
-
-    var geolocation = new ol.Geolocation({
-      // take the projection to use from the map's view
-      projection: SufiMap.mapView.getProjection()
-    });
-
-
-    if ( SufiMap.center.device.platform === 'android' ) {
-      GPSLocation.getCurrentPosition(
-        MapLocation.geolocationSuccess,
-        MapLocation.geolocationError
-      );
-    }
-  },
-
-  geolocationSuccess: function ( position ) {
-    console.log(
-      'Latitude: '          + position.coords.latitude          + '\n' +
-      'Longitude: '         + position.coords.longitude         + '\n' +
-      'Altitude: '          + position.coords.altitude          + '\n' +
-      'Accuracy: '          + position.coords.accuracy          + '\n' +
-      'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-      'Heading: '           + position.coords.heading           + '\n' +
-      'Speed: '             + position.coords.speed             + '\n' +
-      'Timestamp: '         + position.timestamp                + '\n'
-    );
-  },
-
-  geolocationError: function onError(error) {
-    console.log(
-      'code: '    + error.code    + '\n' +
-      'message: ' + error.message + '\n'
-    );
-  }
-}
-*/
 
 // =============================================================================
 var SufiFeature = {
