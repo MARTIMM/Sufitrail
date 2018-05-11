@@ -15,12 +15,13 @@ var SufiMap = {
   mapElementName: null,
   mapLayers:      [],
   mapView:        null,
+  mapFeatures:    [],
   mapVector:      null,
   map:            null,
 
-  geolocation:    null,
-  positionFeature: null,
-  geoLocCoords:   null,
+  //geolocation:    null,
+  //positionFeature: null,
+  //geoLocCoords:   null,
 
   style: {
     'Point': new ol.style.Style( {
@@ -55,6 +56,17 @@ var SufiMap = {
           }
         )
       }
+    ),
+
+    'GPSLocation': new ol.style.Style( {
+        image: new ol.style.Circle( {
+            radius: 9,
+            //fill: new ol.style.Fill({ color: '#3399CC'}),
+            //stroke: new ol.style.Stroke({ color: '#a50', width: 10})
+            stroke: new ol.style.Stroke({ color: '#3399CC', width: 4})
+          }
+        )
+      }
     )
   },
 
@@ -75,24 +87,25 @@ var SufiMap = {
       }
     );
 
+    // setup features to show in a separate layer. this layer is added in
+    // function addLayer() below.
+    this.addMapFeatures();
+
     // setup several layers
     this.addLayers();
 
     // set view to the map
     this.setView();
 
-    //this.addMapFeatures();
-
     // show the map using layers, view, etc.
     this.setMap();
-
-    // start geo location to show current position
-    this.geoLocate();
 
     // now we can observe changes
     this.center.observers.subscribe( 'gpxFile', SufiTrack, 'loadTrack');
     this.center.observers.subscribe( 'trackBounds', SufiTrack, 'zoomOnTrack');
     //this.center.observers.subscribe( 'timeInterval', MapLocation, 'show');
+    //this.center.observers.subscribe( 'deviceReady', SufiMap, 'geoLocate');
+    this.center.observers.subscribe( 'newLocation', SufiMap, 'geoLocate');
   },
 
   // ---------------------------------------------------------------------------
@@ -103,6 +116,26 @@ var SufiMap = {
     //var body = document.getElementById("SufiApp");
     document.body.style.height = this.viewport.height + "px";
     document.body.style.width = this.viewport.width + "px";
+  },
+
+  // ---------------------------------------------------------------------------
+  // See also https://openlayers.org/en/latest/examples/icon-color.html
+  addMapFeatures: function ( ) {
+
+    // start geo location to show current position
+    var feature = new ol.Feature( {
+        geometry: new ol.geom.Point(
+          SufiMap.transform( [ 4.632374, 52.390107])
+        ),
+        name: 'current GPS location',
+        dataLocation: "This is where you are now!"
+      }
+    );
+
+    feature.setStyle(this.style['GPSLocation']);
+
+    this.mapFeatures.push(feature);
+    this.mapVector = new ol.source.Vector( { features: this.mapFeatures});
   },
 
   // ---------------------------------------------------------------------------
@@ -119,6 +152,8 @@ var SufiMap = {
       }
     );
     this.mapLayers.push(new ol.layer.Tile( { source: s2 } ));
+
+    this.mapLayers.push(new ol.layer.Vector( { source: this.mapVector } ));
   },
 
   // ---------------------------------------------------------------------------
@@ -203,36 +238,43 @@ var SufiMap = {
   },
 
   // ---------------------------------------------------------------------------
-  geoLocate: function ( tracking ) {
-    //console.log( 'map count: ' + count );
+  geoLocate: function ( position ) {
 
+console.log(
+  'Geolocate: ' + position.coords.latitude + ', ' + position.coords.longitude
+);
+
+    SufiMap.positionFeature.setGeometry(
+      new ol.geom.Point(
+        SufiMap.transform(
+          [ position.coords.longitude, position.coords.latitude]
+        )
+      )
+    );
+
+/*
     // setup loation feature
     if ( SufiMap.positionFeature === null ) {
 console.log('set feature');
       SufiMap.positionFeature = new ol.Feature();
-      SufiMap.positionFeature.setStyle(
-        new ol.style.Style( {
-            image: new ol.style.Circle( {
-                radius: 6,
-                fill: new ol.style.Fill({ color: '#3399CC'}),
-                stroke: new ol.style.Stroke({ color: '#fff', width: 2})
-              }
-            )
-          }
-        )
-      );
+      SufiMap.positionFeature.setStyle(SufiMap.style['GPSLocation']);
     }
-
+*/
+/*
     // setup geolocation object
     if ( SufiMap.geolocation === null ) {
 console.log('set geolocator');
       SufiMap.geolocation = new ol.Geolocation(
         { // take the projection to use from the map's view
-          projection: 'EPSG:3857',  // SufiMap.mapView.getProjection(),
-          tracking: true
+          projection: SufiMap.mapView.getProjection(),
+          tracking: true,
+          trackingOptions: {
+            enableHighAccuracy: false
+          }
         }
       );
     }
+*/
 /*
     // show it once. it is possible that it does not change a lot
     SufiMap.geoLocCoords = SufiMap.geolocation.getPosition();
@@ -244,6 +286,33 @@ console.log('location changed: ' + SufiMap.geoLocCoords);
     );
 */
 
+/*
+    // listen to changes in position
+    var watchId = navigator.geolocation.watchPosition(
+      // on success
+      function(position) {
+console.log('location changed: ' + position);
+        SufiMap.geoLocCoords = position;
+        SufiMap.positionFeature.setGeometry(
+          SufiMap.geoLocCoords
+            ? new ol.geom.Point(SufiMap.transform(SufiMap.geoLocCoords))
+//            ? new ol.geom.Point(SufiMap.geoLocCoords)
+            : null
+        );
+      },
+
+      // on error
+      function(evt) {
+
+      },
+
+      // options
+      { enableHighAccuracy: false,
+        maximumAge: 600000
+      }
+    );
+*/
+/*
     // listen to changes in position
     SufiMap.geolocation.on(
       'change',
@@ -258,6 +327,7 @@ console.log('location changed: ' + SufiMap.geoLocCoords);
         );
       }
     );
+*/
   },
 
   // ---------------------------------------------------------------------------
@@ -296,10 +366,7 @@ console.log('Load: ' + file);
           }
         ),
 
-        style: function ( feature ) {
-          return SufiMap.style['LineString1'];
-          // [feature.getGeometry().getType()];
-        }
+        style: SufiMap.style['LineString1']
       }
     );
 
