@@ -93,7 +93,7 @@ var SufiCenter = {
       function(position) {
 //console.log('location changed: ' + position);
         // Let any observers know that the device is ready
-        SufiCenter.observers.set( 'newLocation', position);
+        SufiCenter.observers.set( 'currentLocation', position);
       },
 
       // on error
@@ -117,7 +117,7 @@ console.log('locator error: ' + error.code + ', ' + error.message);
     var trackCount = 1;
 
 // TODO generate the html from a directory list
-    // each track filename is stored in the data-gpx-file attribute of a 'li'
+    // each track filename is stored in the data-gpx-file attribute of an 'li'
     // element. This element can be found through its id starting with track
     // followed by a number. E.g. track1. Also info data is found using the
     // data-info-file attribute.

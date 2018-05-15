@@ -113,7 +113,9 @@ var SufiMap = {
     // now we can observe changes
     this.center.observers.subscribe( 'gpxFile', SufiTrack, 'loadTrack');
     this.center.observers.subscribe( 'trackBounds', SufiTrack, 'zoomOnTrack');
-    this.center.observers.subscribe( 'newLocation', SufiMap, 'geoLocate');
+    this.center.observers.subscribe(
+      'currentLocation', SufiMap, 'showLocation'
+    );
   },
 
   // ---------------------------------------------------------------------------
@@ -243,7 +245,8 @@ var SufiMap = {
   },
 
   // ---------------------------------------------------------------------------
-  geoLocate: function ( position ) {
+  // show current GPS location
+  showLocation: function ( position ) {
 
 /*
 console.log(
@@ -265,26 +268,12 @@ console.log(
 
     return ol.proj.transform( coordinate, 'EPSG:4326', 'EPSG:3857');
   },
-
-/*
-  // ---------------------------------------------------------------------------
-  loadTrack: function ( file ) {
-
-    return SufiTrack.loadTrack(file);
-  },
-
-
-  // ---------------------------------------------------------------------------
-  zoomOnTrack: function ( boundaries ) {
-
-    return SufiTrack.zoomOnTrack(boundaries);
-  }
-*/
 }
 
 // =============================================================================
 var SufiTrack = {
 
+  // function to display track data using ol lib
   loadTrack: function ( file ) {
 
 console.log('Load: ' + file);

@@ -15,6 +15,9 @@ var SufiData = {
   // temporary load time measurements
   timeStart:              0,
 
+  // holder for track data
+  trackXML:               null,
+
   // ---------------------------------------------------------------------------
   init: function ( controller ) {
     this.center = controller;
@@ -22,6 +25,9 @@ var SufiData = {
     this.center.observers.subscribe( 'infoFile', SufiData, 'loadInfoFile');
     this.center.observers.subscribe( 'track', SufiData, 'calculateBounds');
     //this.center.observers.subscribe( 'timeInterval', TrackLocation, 'show');
+    this.center.observers.subscribe(
+      'currentLocation', SufiData, 'checkWanderingOffTrack'
+    );
   },
 
   // ---------------------------------------------------------------------------
@@ -30,9 +36,16 @@ var SufiData = {
     SufiData.timeStart = Date.now();
     var fileRequest = new XMLHttpRequest();
     fileRequest.onreadystatechange = function ( ) {
+
+      // this readystate is when ready loading
       if ( this.readyState === 4 ) {
+
+        // and this when found
         if ( this.status === 200 ) {
           SufiData.center.observers.set( 'track', this.responseXML);
+
+          // save data also for later use
+          SufiData.trackXML = this.responseXML;
         }
 
         else {
@@ -53,7 +66,11 @@ var SufiData = {
     SufiData.timeStart = Date.now();
     var fileRequest = new XMLHttpRequest();
     fileRequest.onreadystatechange = function ( ) {
+
+      // this readystate is when ready loading
       if ( this.readyState === 4 ) {
+
+        // and this when found
         if ( this.status === 200 ) {
           var infoText = this.responseText;
 
@@ -101,14 +118,45 @@ var SufiData = {
     }
 
     SufiData.center.observers.set( 'trackBounds', trackBounds);
-  }
-}
+  },
+
+  //----------------------------------------------------------------------------
+  // check if hicker wandered too much away from current track
+  checkWanderingOffTrack: function ( position ) {
+
+    // check only if there is a track selected
+    if SufiData.trackXML !== null {
+
+      // Find the track positions in the gpx trail data.
+      var points = xmldoc.documentElement.querySelectorAll(
+        'gpx trk trkseg trkpt'
+      );
+
+      var currentLongitude = position.coords.longitude;
+      var currentLatitude = position.coords.latitude;
+      points.forEach( function ( trackPoint ) {
+
+          var trackLong = trackPoint.getAttribute('lon');
+          var trackLat = trackPoint.getAttribute('lat');
+          
+        }
+      );
 
 /*
-// =============================================================================
-var TrackLocation = {
-  show: function ( count ) {
-    console.log( 'track count: ' + count );
+console.log(
+  'Location: lon, lat = ' + position.coords.longitude + ', ' +
+   position.coords.latitude
+ );
+    SufiMap.mapFeatures[0].setGeometry(
+      new ol.geom.Point(
+        SufiMap.transform(
+          [ position.coords.longitude, position.coords.latitude]
+        )
+      )
+    );
+*/
+
+
+    }
   }
 }
-*/
