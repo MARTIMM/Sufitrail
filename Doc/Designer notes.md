@@ -25,7 +25,7 @@ This pattern is used to separate the storage from its view. All modification to 
 * Get data from `SufiCenter`
 
 ### Viewed on display: `SufiMap`
-* Map around current location at start
+* Map around current location at start or switchable from track to current location and back
 * Map around the track
 * Informational pages
 * Menu to select pages
@@ -96,6 +96,10 @@ SufiFeature "*" --* SufiMap
 | trackBounds | SufiData | Calculated boundaries lon/lat of the GPX data |
 | gpxFile | SufiCenter | GPX file selected from a menu |
 | networkState | SufiCenter | Boolean value to show we are on/offline |
+| deviceReady | SufiCenter | True |
+| currentLocation | SufiCenter | Geo location data with a position in the structure |
+| infoFile | SufiCenter | Data pointing to information file of shown track |
+
 
 # Installed plugins
 * cordova-plugin-geolocation

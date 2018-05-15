@@ -24,9 +24,9 @@ The application helps the user to find his/her way on a trail called the Sufi tr
   * [x] Android SDK. This piece of software and toolbox is needed between the App and the device.
   * [x] Cordova. Is needed to embed the App written in HTML and JavaScript in such a way that it can use the SDK of Android to access the device.
 * [ ] IOS. This os is for Apple devices.
-  * [ ] IOS SDK. This will prove difficult because for the SDK to work it needs a apple operating system.
+  * [ ] IOS SDK. This will prove difficult because for the SDK to work it needs an apple operating system.
   * [x] Cordova. Is needed to embed the App written in HTML and JavaScript in such a way that it can use the SDK of IOS to access the device.
-* [ ] Windows.
+* [ ] Windows. Totally unsure how to implement this.
 * [x] Linux on the desktop computer. This is necessary to develop the application.
 
 ### On what devices must the application run
@@ -35,20 +35,19 @@ The application helps the user to find his/her way on a trail called the Sufi tr
 
 ### Events to listen to
 There are several events which occur upon changing conditions in a device. These events must be captured for further actions.
-* [ ] Battery conditions:
-  * Warn user of battery low state. Can dim display or other options to save energy.
-* [ ] Gps information.
-  * Show current location
-  * Record track of user
-* [ ] Network on and off line mode. When on then
-  * It is possible to update maps
-  * Send out walked tracks
+* Battery conditions:
+  * [ ] Warn user of battery low state. Can dim display or other options to save energy.
+* Gps information.
+  * [x] Show current location
+  * [ ] Record track of user
+* Network on and off line mode. When on then
+  * [ ] It is possible to update maps
+  * [ ] Send out walked tracks
 * [x] Device orientation. To show map correctly pointing the map-north to the real north.
 * [x] Resize events to change from portrait to landscape mode and back. Responsive.
-* [ ] Camera.
-  * To add the picture as a point on the map when saved.
-* [ ] Time and clock.
-  * Show date and time.
+* Camera.
+  * [ ] To add a picture as a point on the map when saved.
+* Time and clock.
 
 
 
@@ -68,6 +67,7 @@ The start page is the home page named **Map** below in the list of menu entries.
     * [x] Map should fill page automatically.
     * [x] Map, Menu and buttons must be adjusted when device is rotated.
     * [ ] Show features for starting scale of map.
+    * [x] Show current location.
   * Zoom buttons. The buttons are placed on the left side.
     * [x] zooming with buttons.
     * [x] zooming by pinching (on mobile device).
@@ -81,7 +81,6 @@ The start page is the home page named **Map** below in the list of menu entries.
     * [x] OSM attribution is displayed.
 
 ### When track is shown
-  * [ ] Show current location using GPS.
   * [ ] Show dashed line from current location to closest point on the trail when off trail (further than, lets say, 1 kilometer).
 
 ### The Menu
@@ -235,47 +234,13 @@ The app uses gpx data from a file to read track information. It is shown and zoo
   * [x] Extract separate tracks from the total sufi trail
   * [x] Adjust program to check for the Garmin way of storing boundaries and if not there use the same format.
 
+# Todo
+* [ ] Move buttons on other pages to the left side, same as where it is on map.
+* [ ] Makeup of the other pages must done.
+* [ ] A button on map to go to the current location when far from track.
+* [ ] Same button to go back to the track when far from current location.
+
 # Bugs
-* [x] Android. Hangup after a while when swiping etc. over the map
-* [x] Gpx files are missing a proper xml prefix after conversion
-
-<!--
-# Planning
-```plantuml
-@startgantt
-Project starts the 1st of januari 2018
-[Application design] as [Design] lasts 10 days
-
-@endgantt
-```
--->
-
-<!--
-```mermaid
-gantt
-  dateFormat  YYYY-MM-DD
-  title Sultanstrail Project
-
-  section Design
-  write requirements and design doc :active, req, 2017-10-10, 10w
-  draw wireframes                   :active, wire, 2017-10-11, 6w
-  write manual                      : man, after wire, 2w
-
-  section Implementation
-  write application                 :active, app, 2017-10-15, 12w
-  test in browser and emulator      :active, tbr-emu, 2017-10-15, 12w
-  test on tablet                    : ttablet, after app, 2w
-
-
-  section Testing
-  compile and minify                : cmfy, after ttablet, 1d
-  test compiled version             : tcmfy, after cmfy, 1w
-
-  section Completion
-  publish                           : pstore, after tcmfy, 5d
-
-```
--->
 
 
 # Contacts from Sultanstrail
