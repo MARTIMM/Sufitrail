@@ -8,20 +8,17 @@
 var SufiMap = {
 
   // Adaptor/mediator
-  center:         null,
+  center:               null,
 
-  viewport:       { width: 0, height: 0},
+  viewport:             { width: 0, height: 0},
 
-  mapElementName: null,
-  mapLayers:      [],
-  mapView:        null,
-  mapFeatures:    [],
-  mapVector:      null,
-  map:            null,
-
-  //geolocation:    null,
-  //positionFeature: null,
-  //geoLocCoords:   null,
+  mapElementName:       null,
+  mapLayers:            [],
+  mapView:              null,
+  mapFeatures:          [],
+  mapVector:            null,
+  map:                  null,
+  movedOnceToCurrent:   false,
 
   style: {
     'Point': new ol.style.Style( {
@@ -71,9 +68,9 @@ var SufiMap = {
 
     'GPSLineToTrack': new ol.style.Style( {
         stroke: new ol.style.Stroke( {
-            color: '#050',
+            color: '#0a5',
             width: 4,
-            lineDash: [ 5, 2, 2, 2]
+            lineDash: [8,6,2,6]
           }
         )
       }
@@ -116,6 +113,9 @@ var SufiMap = {
     this.center.observers.subscribe(
       'currentLocation', SufiMap, 'showLocation'
     );
+    this.center.observers.subscribe(
+      'wanderedOffTrack', SufiTrack, 'showOffTrack'
+    );
   },
 
   // ---------------------------------------------------------------------------
@@ -132,7 +132,7 @@ var SufiMap = {
   // See also https://openlayers.org/en/latest/examples/icon-color.html
   addMapFeatures: function ( ) {
 
-    // start geo location to show current position
+    // feature [0]: create feature to show current position
     var feature = new ol.Feature( {
         name: 'current GPS location',
         dataLocation: "This is where you are now!"
@@ -140,8 +140,20 @@ var SufiMap = {
     );
 
     feature.setStyle(this.style['GPSLocation']);
-
     this.mapFeatures.push(feature);
+
+
+    // feature[1]: create feature to show line when off track
+    feature = new ol.Feature( {
+        name: 'off track line',
+        dataLocation: "Off track!"
+      }
+    );
+
+    feature.setStyle(this.style['GPSLineToTrack']);
+    this.mapFeatures.push(feature);
+
+    // add features to a map vector
     this.mapVector = new ol.source.Vector( { features: this.mapFeatures});
   },
 
@@ -169,7 +181,8 @@ var SufiMap = {
     // This transformation is what I'm looking for. Longitude/Latitude
     // found using Google map of our home.
     this.mapView = new ol.View( {
-      center: this.transform( [ 4.632367, 52.390413]),
+      //center: this.transform( [ 4.632367, 52.390413]),
+      center: this.transform( [ 4.0, 50.0]),
       zoom: 10
     } );
   },
@@ -242,6 +255,15 @@ var SufiMap = {
         ]
       }
     );
+console.log("Map drawn");
+/*
+    this.map.on(
+      'change',
+      function ( ) {
+        console.log("Map change");
+      }
+    );
+*/
   },
 
   // ---------------------------------------------------------------------------
@@ -254,13 +276,25 @@ console.log(
    position.coords.latitude
  );
 */
+    var lon = position.coords.longitude;
+    var lat = position.coords.latitude
     SufiMap.mapFeatures[0].setGeometry(
-      new ol.geom.Point(
-        SufiMap.transform(
-          [ position.coords.longitude, position.coords.latitude]
-        )
-      )
+      new ol.geom.Point( SufiMap.transform( [ lon, lat]) )
     );
+
+    var box = [];
+    box[0] = SufiMap.transform([ lon - 0.05, lat - 0.05]);
+    box[1] = SufiMap.transform([ lon + 0.05, lat + 0.05]);
+    SufiMap.transform(boundaries[1]);
+    if( !SufiMap.movedOnceToCurrent ) {
+      SufiMap.movedOnceToCurrent = true;
+      SufiMap.mapView.fit( [
+          box[0][0], box[0][1], box[1][0], box[1][1]
+        ], {
+          size: SufiMap.map.getSize()
+        }
+      );
+    }
   },
 
   // ---------------------------------------------------------------------------
@@ -308,6 +342,24 @@ console.log('Load: ' + file);
         // easing: 1000,                    // Needs ol-deps.js and goog libs
         // duration: 10000                  // Does not show map while moving
       }
+    );
+  },
+
+
+  // ---------------------------------------------------------------------------
+  // show line from current location to track
+  showOffTrack: function ( lineCoords ) {
+console.log("line " + lineCoords[1] + " to " + lineCoords[0]);
+
+    var pointOnTrack = SufiMap.transform(lineCoords[0]);
+    var currentLocation = SufiMap.transform(lineCoords[1]);
+//console.log("line " + currentLocation + " to " + pointOnTrack);
+
+    SufiMap.mapFeatures[1].setGeometry(
+      new ol.geom.LineString(
+        //[ currentLocation, [pointOnTrack[0], -pointOnTrack[1]] ]
+        [ currentLocation, pointOnTrack ]
+      )
     );
   }
 }
