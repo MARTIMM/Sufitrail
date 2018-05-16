@@ -99,7 +99,7 @@ SufiFeature "*" --* SufiMap
 | deviceReady | SufiCenter | True |
 | currentLocation | SufiCenter | Geo location data with a position in the structure |
 | infoFile | SufiCenter | Data pointing to information file of shown track |
-
+| wanderedOffTrack | SufiData | When current location is too far from track |
 
 # Installed plugins
 * cordova-plugin-geolocation
@@ -132,6 +132,8 @@ SufiFeature "*" --* SufiMap
 [HTTP1]: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
 [XML]: https://developer.mozilla.org/en-US/docs/Web/Guide/Parsing_and_serializing_XML
 [DOM1]: https://stackoverflow.com/questions/16664205/what-is-the-difference-between-getelementsbytagname-and-getelementsbyname-in-jav
+
+[DIST]: https://www.movable-type.co.uk/scripts/latlong.html
 
 [GPX]: http://www.topografix.com/GPX/1/1/
 
