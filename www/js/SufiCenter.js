@@ -161,6 +161,7 @@ console.log('load info from ' + trackInfo);
   doExitApp: function ( ) {
 
     navigator.geolocation.clearWatch(SufiCenter.watchId);
+    console.log('SufiTrail program stopped');
     navigator.app.exitApp();
   }
 }
