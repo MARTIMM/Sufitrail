@@ -285,7 +285,6 @@ console.log(
     var box = [];
     box[0] = SufiMap.transform([ lon - 0.05, lat - 0.05]);
     box[1] = SufiMap.transform([ lon + 0.05, lat + 0.05]);
-    SufiMap.transform(boundaries[1]);
     if( !SufiMap.movedOnceToCurrent ) {
       SufiMap.movedOnceToCurrent = true;
       SufiMap.mapView.fit( [
