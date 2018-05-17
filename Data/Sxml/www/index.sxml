@@ -285,7 +285,7 @@ $html xml:lang=en [
               $th [ Current App Version ]
             ]
             $tr [
-              $td [ 0.7.0 ]
+              $td [ 0.8.0 ]
             ]
           ]
         ]

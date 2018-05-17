@@ -54,6 +54,10 @@ There are several events which occur upon changing conditions in a device. These
 # The pages of the application
 A series of screen descriptions the application can show.
 
+# Display on tablet screen
+* [ ] An icon of the sufitrail guy must be shown.
+* [ ] A widget showing small part of chart?
+
 ## Splash screen
 A splash screen is always nice to display information in such a way that it makes a connection between the hiking and biking literature published by the Sufi trail group. The other purpose is that the application can start in the background and when it is ready, the splash screen is removed.
 
@@ -68,6 +72,7 @@ The start page is the home page named **Map** below in the list of menu entries.
     * [x] Map, Menu and buttons must be adjusted when device is rotated.
     * [ ] Show features for starting scale of map.
     * [x] Show current location.
+    * [x] A dashed line is shown from urrent location to closest point on the track to show that the hiker wanders off route.
   * Zoom buttons. The buttons are placed on the left side.
     * [x] zooming with buttons.
     * [x] zooming by pinching (on mobile device).
