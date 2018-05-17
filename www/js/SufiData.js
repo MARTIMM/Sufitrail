@@ -17,6 +17,7 @@ var SufiData = {
 
   // holder for track data
   trackXML:               null,
+  trackChanged:           false,
 
   // ---------------------------------------------------------------------------
   init: function ( controller ) {
@@ -46,6 +47,7 @@ var SufiData = {
 
           // save data also for later use
           SufiData.trackXML = this.responseXML;
+          SufiData.trackChanged = true;
         }
 
         else {
@@ -125,45 +127,33 @@ var SufiData = {
   checkWanderingOffTrack: function ( position ) {
 
     // check only if there is a track selected
-    if( SufiData.trackXML !== null ) {
+    if( SufiData.trackChanged ) {
+
+      SufiData.trackChanged = false;
 
       // Find the track positions in the gpx trail data.
       var points = SufiData.trackXML.documentElement.querySelectorAll(
         'gpx trk trkseg trkpt'
       );
 
+      // a tad larger than circumference of earth over equator
+      // calculations are in metres
+      var shortestLength = 41000000;
       var currentLongitude = position.coords.longitude;
       var currentLatitude = position.coords.latitude;
-      var smallestDiff = 10000;
       var closestPosition = [ ];
       for( var i = 0; i < points.length; i++) {
 
-        var trackLong = points[i].getAttribute('lon');
-        var trackLat = points[i].getAttribute('lat');
+        var trackLong = parseFloat(points[i].getAttribute('lon'));
+        var trackLat = parseFloat(points[i].getAttribute('lat'));
 
-        // to get the distance on an algabraic grid one uses
-        // c = sqrt(a² + b²). on a sphere it is even more complicated.
-        // here for the speed only a + b is enaugh to search for the
-        // closest distance. when found the distance is calculated using
-        // the Haversine formula, a calculation found here
-        // https://www.movable-type.co.uk/scripts/latlong.html
-        var diffLong = trackLong - currentLongitude;
-        var diffLat = trackLat - currentLatitude;
+        var d = this.haversine(
+          trackLong, trackLat, currentLongitude, currentLatitude
+        );
 
-        if( diffLong + diffLat < smallestDiff ) {
-/*
-console.info(
-  'long+lat diffs:' + (diffLong + diffLat) + ' + smallest: ' + smallestDiff
-);
-*/
-          smallestDiff = diffLong + diffLat;
+        if( d < shortestLength ) {
+          shortestLength = d;
           closestPosition = [ trackLong, trackLat];
-
-/*
-console.info(
-  'long+lat track:' + trackLong + ', ' + trackLat
-);
-*/
         }
       }
 
@@ -172,29 +162,17 @@ console.info(
       }
 
       else {
-        // use the Haversine formula to calculate the distance to the closest
-        // point to the track.
-        //
-        // φ is latitude, λ is longitude, R is earth’s radius
-        // (mean radius = 6371km);
-        // note that angles need to be in radians to pass to trig functions!
-        var R = 6371e3; // metres
-        var φ1 = closestPosition[1] * Math.PI / 100.0;
-        var φ2 = currentLatitude * Math.PI / 100.0;
-        var Δφ = (closestPosition[1] - currentLatitude) * Math.PI / 100.0;
-        var Δλ = (closestPosition[0] - currentLongitude) * Math.PI / 100.0;
+        var d = this.haversine(
+          closestPosition[0], closestPosition[1],
+          currentLongitude, currentLatitude
+        );
 
-        var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-                Math.cos(φ1) * Math.cos(φ2) *
-                Math.sin(Δλ/2) * Math.sin(Δλ/2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        console.warn(
+          "Distance between current and closest is " +
+          (d/1000).toFixed(3) + " km"
+        );
 
-        var d = R * c;
-
-console.warn(
-  "Distance between current and closest is " + (d / 1000).toFixed(3) + " km"
-);
-
+        // if more than 1 km from closest point on the track, signal
         if( d > 1000 ) {
           SufiCenter.observers.set(
             'wanderedOffTrack',
@@ -202,21 +180,29 @@ console.warn(
           );
         }
       }
-/*
-console.log(
-  'Location: lon, lat = ' + position.coords.longitude + ', ' +
-   position.coords.latitude
- );
-    SufiMap.mapFeatures[0].setGeometry(
-      new ol.geom.Point(
-        SufiMap.transform(
-          [ position.coords.longitude, position.coords.latitude]
-        )
-      )
-    );
-*/
-
-
     }
+  },
+
+  //----------------------------------------------------------------------------
+  // Haversine formula to calculate the distance between points on earth
+  haversine: function ( lon1, lat1, lon2, lat2 ) {
+
+    // φ is latitude, λ is longitude, R is earth’s radius
+    // (mean radius = 6371km);
+    // note that angles need to be in radians to pass to trig functions!
+    var R = 6371e3; // metres
+    var φ1 = lat1 * Math.PI / 100.0;
+    var φ2 = lat2 * Math.PI / 100.0;
+    var Δφ = (lat1 - lat2) * Math.PI / 100.0;
+    var Δλ = (lon1 - lon2) * Math.PI / 100.0;
+
+    var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+            Math.cos(φ1) * Math.cos(φ2) *
+            Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    var c = 2 * Math.atan2( Math.sqrt(a), Math.sqrt(1-a));
+
+    var d = R * c;
+
+    return d;
   }
 }
