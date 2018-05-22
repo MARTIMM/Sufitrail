@@ -189,12 +189,12 @@ $html xml:lang=en [
 
       #-------------------------------------------------------------------------
       # main page shows the map
-      $!menu.entry title=Map id=map-page =!home-button =!open-button [
+      $!menu.entry title='Show Map' id=map-page =!home-button =!open-button [
         $div id=SufiTrailMap class=map []
       ]
 
       #-------------------------------------------------------------------------
-      $!menu.entry title=Info id=info-page [
+      $!menu.entry title='Show Info' id=info-page [
         # info is filled with data from www/info/*.xml after selecting a track
         $div id=info-data [
           $article [
@@ -229,10 +229,19 @@ $html xml:lang=en [
       ]
 
       #-------------------------------------------------------------------------
-      $!menu.entry title=Start id=start-page [
+      $!menu.entry title='Start Tracking' id=start-page [
         $div [
-          $h2 class=info-header [ Start ]
-          #$p [ ]
+          $h2 class=info-header [ Start tracking ]
+          $p [
+            Type on the next button to start a track. This track is stored on the device when you hit the save button or when you exit the application. Continuing the track is not yet possible except after when the stop and continue buttons are used.
+          ]
+
+          $p [
+            $button id=startTrackButton type=button [Start tracking] $br
+            $button id=saveTrackButton type=button [Save track] $br
+            $button id=stopTrackButton type=button [Stop tracking] $br
+            $button id=contTrackButton type=button [Continue tracking]
+          ]
         ]
       ]
 
@@ -292,7 +301,7 @@ $html xml:lang=en [
       ]
 
       #-------------------------------------------------------------------------
-      $!menu.entry title=Exit id=exit-page [
+      $!menu.entry title='Exit Program' id=exit-page [
         $div [
           $h2 class=info-header [ Exit ]
           $p [
