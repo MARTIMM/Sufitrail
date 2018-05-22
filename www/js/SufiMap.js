@@ -277,7 +277,7 @@ console.log(
  );
 */
     var lon = position.coords.longitude;
-    var lat = position.coords.latitude
+    var lat = position.coords.latitude;
     SufiMap.mapFeatures[0].setGeometry(
       new ol.geom.Point( SufiMap.transform( [ lon, lat]) )
     );
@@ -348,7 +348,7 @@ console.log('Load: ' + file);
   // ---------------------------------------------------------------------------
   // show line from current location to track
   showOffTrack: function ( lineCoords ) {
-console.log("line " + lineCoords[1] + " to " + lineCoords[0]);
+console.log("draw line from " + lineCoords[1] + " to " + lineCoords[0]);
 
     var pointOnTrack = SufiMap.transform(lineCoords[0]);
     var currentLocation = SufiMap.transform(lineCoords[1]);
