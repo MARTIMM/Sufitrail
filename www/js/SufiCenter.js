@@ -61,8 +61,6 @@ var SufiCenter = {
         );
       }, 9000
     );
-
-    console.log('Initialization complete');
   },
 
   // after device is ready get the devices state and initialize the
@@ -70,7 +68,7 @@ var SufiCenter = {
   onDeviceReady: function ( ) {
 
     SufiCenter.device = device;
-    SufiCenter.setExitButton();
+    SufiCenter.activateButtons();
 
     // do the other initializations
     SufiCenter.view.init( SufiCenter, SufiCenter.mapElementName);
@@ -81,6 +79,8 @@ var SufiCenter = {
 
     // Setup geolocation watcher
     SufiCenter.watchGPS();
+
+    console.log('Initialization complete');
   },
 
   // ---------------------------------------------------------------------------
@@ -151,8 +151,22 @@ console.log('load info from ' + trackInfo);
   },
 
   //----------------------------------------------------------------------------
-  setExitButton: function ( ) {
+  activateButtons: function ( ) {
 
+    // button to start, stop and continue tracking, and save a track.
+    var button = document.getElementById('startTrackButton');
+    button.addEventListener( "click", SufiData.doStartTrack, false);
+
+    var button = document.getElementById('stopTrackButton');
+    button.addEventListener( "click", SufiData.doStopTrack, false);
+
+    var button = document.getElementById('contTrackButton');
+    button.addEventListener( "click", SufiData.doContTrack, false);
+
+    var button = document.getElementById('saveTrackButton');
+    button.addEventListener( "click", SufiData.doSaveTrack, false);
+
+    // button to exit the application
     var button = document.getElementById('exitButton');
     button.addEventListener( "click", SufiCenter.doExitApp, false);
   },
