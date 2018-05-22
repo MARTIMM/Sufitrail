@@ -36,7 +36,6 @@ class Observer {
       if( this.callbacks[key] ) {
         this.callbacks[key].forEach(
           function ( callback ) {
-//console.log("Key: ", key + ', ' + callback[1] + ', ' + value);
             callback[0][callback[1]](value);
           }
         );
@@ -47,9 +46,20 @@ class Observer {
     // to the specified property.
     this.subscribe = function( key, callbackObject, callbackToAdd ) {
       // If no callbacks were registered for the key, make first an empty array
-      if ( !this.callbacks[key] ) { this.callbacks[key] = []; }
+      if( !this.callbacks[key] ) {
+        this.callbacks[key] = [];
+      }
+
+      // check if already there
+      for( var i = 0; i < this.callbacks[key].length; i++) {
+        if( this.callbacks[key][i][0] === callbackObject &&
+            this.callbacks[key][i][1] === callbackToAdd ) {
+          // nothing to do: already there
+          return;
+        }
+      }
+
       this.callbacks[key].push( [ callbackObject, callbackToAdd]);
-//console.log('CB: ' + this.callbacks[key]);
     }
 
     // Removes a callback that listening for changes
@@ -57,11 +67,10 @@ class Observer {
     this.unsubscribe = function( key, callbackObject, callbackToRemove ) {
       if ( this.callbacks[key] ) {
         this.callbacks[key] = this.callbacks[key].filter(
-          function ( callback ) {
-            return (
-              callback[0] !== callbackObject &&
-              callback[1] !== callbackToRemove
-            );
+          function ( callback, index, array ) {
+            var isCBO = callback[0] === callbackObject;
+            var isCTR = callback[1] === callbackToRemove;
+            return (!isCBO || !isCTR);
           }
         );
       }
