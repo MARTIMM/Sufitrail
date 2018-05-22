@@ -178,6 +178,18 @@ $html xml:lang=en [
         padding: 5px;
         margin: 10px 0 10px 0;
       }
+
+
+      # Miscelleneous
+      $!css.b s="button" {
+        font-weight:      bold;
+        font-size:        larger;
+        /*background-color: #56af32;*/
+        color:            #448811;
+        border:           3px solid #56af32;
+        border-radius:    8px;
+        margin:           2px;
+      }
     ]
   ]
 
@@ -241,6 +253,10 @@ $html xml:lang=en [
             $button id=saveTrackButton type=button [Save track] $br
             $button id=stopTrackButton type=button [Stop tracking] $br
             $button id=contTrackButton type=button [Continue tracking]
+          ]
+
+          $p [
+            $h2 [ List of your tracks ]
           ]
         ]
       ]
