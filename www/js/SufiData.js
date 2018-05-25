@@ -418,8 +418,8 @@ console.log("Store track GPS: " + lon + ", " + lat);
   },
 
   //----------------------------------------------------------------------------
-  // save xml dom tree to disk
-  // https://developer.android.com/training/data-storage/files
+  // save xml dom tree to
+  // https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-file/index.html
   saveTrackXml: function ( ) {
 
     var s = new XMLSerializer();
