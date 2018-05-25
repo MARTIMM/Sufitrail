@@ -419,12 +419,54 @@ console.log("Store track GPS: " + lon + ", " + lat);
 
   //----------------------------------------------------------------------------
   // save xml dom tree to disk
+  // https://developer.android.com/training/data-storage/files
   saveTrackXml: function ( ) {
 
     var s = new XMLSerializer();
     var xmlString = s.serializeToString(SufiData.trackDom);
 console.log(xmlString);
+console.log(cordova.file);
+console.log(cordova.file.dataDirectory);
 
+
+
+    window.requestFileSystem(
+      LocalFileSystem.PERSISTENT,
+      0,
+      function ( fs ) {
+console.log('file system open: ' + fs.name);
+        fs.root.getFile(
+          "u.gpx",
+          { create: true, exclusive: false },
+          function ( fileEntry ) {
+console.log("fileEntry is file?: " + fileEntry.isFile.toString());
+            // fileEntry.name == 'someFile.txt'
+            // fileEntry.fullPath == '/someFile.txt'
+console.log("full path: " + fileEntry.fullPath);
+            SufiData.writeFile( fileEntry, xmlString);
+
+          },
+          // onErrorCreateFile
+          function ( e ) {
+            console.log("ECF: " + e.keys() + ', ' + e.toString());
+          }
+        );
+
+      },
+      // onErrorLoadFs
+      function ( e ) {
+        console.log("ELF: " + e.keys() + ', ' + e.toString());
+      }
+    );
+
+
+/*
+    var file = new File(
+      [xmlString], "./user-tracks/u.gpx", {type: "application/gpx+xml"}
+    );
+
+console.log('File: ' + file.keys);
+*/
 /*
     window.resolveLocalFileSystemURL(
       'file:///Downloads',
@@ -459,5 +501,60 @@ console.log("GPX text written");
     stream.writeString(xmlString);
     stream.close();
 */
+  },
+
+  //----------------------------------------------------------------------------
+  writeFile: function ( fileEntry, dataText ) {
+
+    // Create a FileWriter object for our FileEntry (log.txt).
+    fileEntry.createWriter( function (fileWriter) {
+        fileWriter.onwriteend = function() {
+          console.log("Successful file write...");
+          SufiData.readFile(fileEntry);
+        };
+
+        fileWriter.onerror = function (e) {
+          console.log("Failed file write: " + e.toString());
+        };
+
+        // If data object is not passed in,
+        // create a new Blob instead.
+        if( dataText ) {
+          dataText = new Blob(
+            [ dataText ],
+            { type: 'text/plain' }
+          );
+        }
+
+        else {
+          dataText = new Blob(
+            ['some file data'],
+            { type: 'text/plain' }
+          );
+        }
+
+        fileWriter.write(dataText);
+      }
+    );
+  },
+
+  //----------------------------------------------------------------------------
+  readFile: function ( fileEntry ) {
+
+    fileEntry.file( function (file) {
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+          console.log("Successful file read: " + this.result);
+          console.log(fileEntry.fullPath + ": " + this.result);
+        };
+
+        reader.readAsText(file);
+
+      },
+
+      // onErrorReadFile
+      function ( e ) { console.log(e.toString); }
+    );
   }
 }
