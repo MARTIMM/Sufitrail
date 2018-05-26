@@ -244,6 +244,7 @@ The app uses gpx data from a file to read track information. It is shown and zoo
 * [ ] Makeup of the other pages must done.
 * [ ] A button on map to go to the current location when far from track.
 * [ ] Same button to go back to the track when far from current location.
+* [ ] Show important console.log messages on pages where buttons are to show what's happening.
 
 # Bugs
 
