@@ -32,20 +32,6 @@ var SufiCenter = {
     // must be set first: init's might refer to it
     this.menu = menuObject;
 
-    // check for networking offline/online
-    SufiCenter.observers.set( 'networkState', navigator.onLine);
-    window.addEventListener(
-      'offline', function ( ) {
-// TODO needs some extra work to be accurate
-        SufiCenter.observers.set( 'networkState', navigator.onLine);
-      }
-    );
-    window.addEventListener(
-      'online', function ( ) {
-        SufiCenter.observers.set( 'networkState', navigator.onLine);
-      }
-    );
-
     // set an event on each of the tracks found in the document
     this.setTrackEvents();
 
@@ -74,11 +60,25 @@ var SufiCenter = {
     SufiCenter.view.init( SufiCenter, SufiCenter.mapElementName);
     SufiCenter.model.init(SufiCenter);
 
-    // Let any observers know that the device is ready
-    SufiCenter.observers.set( 'deviceReady', true);
+    // check for networking offline/online
+    SufiCenter.observers.set( 'networkState', navigator.onLine);
+    window.addEventListener(
+      'offline', function ( ) {
+// TODO needs some extra work to be accurate
+        SufiCenter.observers.set( 'networkState', navigator.onLine);
+      }
+    );
+    window.addEventListener(
+      'online', function ( ) {
+        SufiCenter.observers.set( 'networkState', navigator.onLine);
+      }
+    );
 
     // Setup geolocation watcher
     SufiCenter.watchGPS();
+
+    // Let any observers know that the device is ready
+    //SufiCenter.observers.set( 'deviceReady', true);
 
     console.log('Initialization complete');
   },
@@ -155,16 +155,16 @@ console.log('load info from ' + trackInfo);
 
     // button to start, stop and continue tracking, and save a track.
     var button = document.getElementById('startTrackButton');
-    button.addEventListener( "click", SufiData.doStartTrack, false);
+    button.addEventListener( "click", this.model.doStartTrack, false);
 
     var button = document.getElementById('stopTrackButton');
-    button.addEventListener( "click", SufiData.doStopTrack, false);
+    button.addEventListener( "click", this.model.doStopTrack, false);
 
     var button = document.getElementById('contTrackButton');
-    button.addEventListener( "click", SufiData.doContTrack, false);
+    button.addEventListener( "click", this.model.doContTrack, false);
 
     var button = document.getElementById('saveTrackButton');
-    button.addEventListener( "click", SufiData.doSaveTrack, false);
+    button.addEventListener( "click", this.model.doSaveTrack, false);
 
     // button to exit the application
     var button = document.getElementById('exitButton');
