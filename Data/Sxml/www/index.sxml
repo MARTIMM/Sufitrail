@@ -251,7 +251,7 @@ $html xml:lang=en [
           $p [
             $button id=startTrackButton type=button [Start tracking] $br
             $button id=saveTrackButton type=button [Save track] $br
-            $button id=stopTrackButton type=button [Stop tracking] $br
+            $button id=stopTrackButton type=button [Postpone tracking] $br
             $button id=contTrackButton type=button [Continue tracking]
           ]
 
