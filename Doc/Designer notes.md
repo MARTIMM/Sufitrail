@@ -13,8 +13,40 @@
 
 
 ## Implementation
-The program will be using a Model–view–adapter (MVA) or mediating-controller Model View Control (MVC) pattern, see [Wikipedia article][MVA].
-This pattern is used to separate the storage from its view. All modification to the data is done via the control part. Each of the parts can consist of more objects to handle specific details.
+The program will be using a Model–View–Adapter (MVA) or mediating-controller Model View Control (MVC) pattern, see [Wikipedia article][MVA]. This pattern is used to separate the storage, control and view from each other. To get things done, an observer/subscription service is created. A data generated in one part can be subscribed to by another. A call from the observer object is made to the subscribers of that specific data when that data becomes available. This pattern is also named 'producer/consumer' pattern.
+
+```plantuml
+title Global description of all that is involved
+actor user
+cloud "user data\ntransport" as network1
+cloud "email\ntransport" as network2
+node trailServer
+node emailServer
+package SufiTrailApp
+
+folder tracks [
+  user tracks when hiking
+  storage of fotos and notes
+]
+
+folder cache [
+  storage of tiles
+]
+
+database SufiTrailDB {
+  storage dbUsers
+  storage dbTracks
+}
+
+user -- index.html
+SufiTrailApp - network1
+SufiTrailApp -- tracks
+SufiTrailApp -- cache
+SufiTrailDB -- trailServer
+network1 - trailServer
+trailServer -- network2
+network2 -- emailServer
+```
 
 ### Data in the model: `SufiData`
 * Current location
@@ -37,9 +69,32 @@ This pattern is used to separate the storage from its view. All modification to 
 * Process user input/gestures -> `SufiMap`/`SufiData`
 * Process data changes -> `SufiMap`
 
+```plantuml
+title Components and relations of the SufiTrail application
+package SufiTrailApp {
+  [index.html]
+  [SufiData.js] --> HTTPS
+  [SufiMap.js]
+  [SufiCenter.js]
+  [Observer.js]
+}
+SufiData.js <--> Observer.js
+SufiMap.js <--> Observer.js
+SufiCenter.js <--> Observer.js
+
+node SufiTrailServer {
+  [index.html]
+  HTTPS --> [control]
+  [email] - Mail
+  [database] - MySql
+}
+
+control --> email
+control <--> database
+```
 
 ``` plantuml
-
+title Some classes in the SufiTrail Application
 class Observer {
 }
 
@@ -96,10 +151,54 @@ SufiFeature "*" --* SufiMap
 | trackBounds | SufiData | Calculated boundaries lon/lat of the GPX data |
 | gpxFile | SufiCenter | GPX file selected from a menu |
 | networkState | SufiCenter | Boolean value to show we are on/offline |
-| deviceReady | SufiCenter | True |
+<!-- | deviceReady | SufiCenter | True | -->
 | currentLocation | SufiCenter | Geo location data with a position in the structure |
 | infoFile | SufiCenter | Data pointing to information file of shown track |
 | wanderedOffTrack | SufiData | When current location is too far from track |
+
+```plantuml
+(*) -> "SufiCenter init"
+-> "setup track\nselections"
+-> "wait for\ndevice ready"
+-> (*)
+```
+
+```plantuml
+(*) ..>[device ready\nevent] "2nd phase\nSufiCenter init"
+-> "SufiMap init"
+-> "SufiData init"
+-> "setup network\nstate check"
+-> "setup GPS watch"
+'-> "setup app\ndevice ready"
+-up-> (*)
+```
+
+```plantuml
+(*) .>[start track\nbutton click] "SufiData.doStartTrack"
+if started then
+  -->[Y] "show already\nstarted message"
+  -> (*)
+else
+  ->[N] "subscribe\nto gps"
+  --> (*)
+endif
+```
+
+```plantuml
+(*) .>[stop track\nbutton click] "SufiData.doStopTrack"
+if started then
+  [Y] if postponed then
+    -->[Y] "show already\nstopped message"
+    -> (*)
+  else
+    ->[N] "unsubscribe\nfrom GPS"
+  endif
+  -> (*)
+else
+  -->[N] "show no track\nstarted message"
+  --> (*)
+endif
+```
 
 # Installed plugins
 * cordova-plugin-geolocation
