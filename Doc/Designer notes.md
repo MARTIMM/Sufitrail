@@ -141,8 +141,8 @@ SufiCenter .. OSM
 
 SufiTrack "*" --* SufiMap
 SufiFeature "*" --* SufiMap
-
 ```
+
 #### Keys of values used in the observer
 
 | Key Name | Owner | Description |
@@ -156,6 +156,7 @@ SufiFeature "*" --* SufiMap
 | infoFile | SufiCenter | Data pointing to information file of shown track |
 | wanderedOffTrack | SufiData | When current location is too far from track |
 
+#### SufiCenter action diagrams
 ```plantuml
 (*) -> "SufiCenter init"
 -> "setup track\nselections"
@@ -174,8 +175,19 @@ SufiFeature "*" --* SufiMap
 ```
 
 ```plantuml
+(*) .>[offline event] set 'networkState' false
+-> (*)
+```
+
+```plantuml
+(*) .>[online event] set 'networkState' true
+-> (*)
+```
+
+#### SufiData diagrams
+```plantuml
 (*) .>[start track\nbutton click] "SufiData.doStartTrack"
-if started then
+if tracking\nstarted then
   -->[Y] "show already\nstarted message"
   -> (*)
 else
@@ -185,10 +197,10 @@ endif
 ```
 
 ```plantuml
-(*) .>[stop track\nbutton click] "SufiData.doStopTrack"
-if started then
-  [Y] if postponed then
-    -->[Y] "show already\nstopped message"
+(*) .>[postpone tracking\nbutton click] "SufiData.doStopTrack"
+if tracking\nstarted then
+  [Y] if tracking\npostponed then
+    -->[Y] "show already\npostponed message"
     -> (*)
   else
     ->[N] "unsubscribe\nfrom GPS"
@@ -198,6 +210,42 @@ else
   -->[N] "show no track\nstarted message"
   --> (*)
 endif
+```
+
+```plantuml
+(*) .>[continue tracking\nbutton click] "SufiData.doContTrack"
+if tracking\nstarted then
+  [Y] if tracking\npostponed then
+    -->[Y] "show continue\ntracking message"
+    -> "subscribe\nto gps"
+    -> (*)
+  else
+    ->[N] "show tracking\nalready started message"
+  endif
+  -> (*)
+else
+  -->[N] "show no track\nstarted message"
+  --> (*)
+endif
+```
+
+```plantuml
+(*) .>[save track\nbutton click] "SufiData.doSaveTrack"
+if tracking\nstarted then
+  -->[Y] "show save\ntrack message"
+  -> "unsubscribe\nfrom gps"
+  -> "save track data"
+  -> (*)
+else
+  -->[N] "show no track\nstarted message"
+  --> (*)
+endif
+```
+
+```plantuml
+(*) .>[currentLocation] "save position\nin array"
+->modify bounding box
+-> (*)
 ```
 
 # Installed plugins
