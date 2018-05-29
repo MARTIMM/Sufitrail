@@ -210,7 +210,7 @@ console.log('New cl: ' + currentLongitude + ', ' + currentLatitude);
   //----------------------------------------------------------------------------
   // variables used by tracking
   trackStarted: false,
-  trackTempStopped: true,
+  trackPostponed: true,
   trackBoundaries: [ [ 360, 360], [ 0, 0]], // min(lon/lat) max(lon/lat)
   trackGps: [ ],
   trackDom: null,
@@ -219,13 +219,17 @@ console.log('New cl: ' + currentLongitude + ', ' + currentLatitude);
   doStartTrack: function ( ) {
 
     if( SufiData.trackStarted ) {
-      console.log("Track already started, save before starting a new one");
+      //console.log("Track already started, save before starting a new one");
+      SufiData.center.htmlIdList['statusMessage'].innerHTML =
+        "Track already started, save before starting a new one";
     }
 
     else {
       SufiData.trackStarted = true;
-      SufiData.trackTempStopped = false;
-      console.log("Track is started");
+      SufiData.trackPostponed = false;
+      //console.log("Track is started");
+      SufiData.center.htmlIdList['statusMessage'].innerHTML =
+        "Tracking is started";
 
       SufiData.center.observers.subscribe(
         'currentLocation', SufiData, 'trackLocation'
@@ -237,33 +241,40 @@ console.log('New cl: ' + currentLongitude + ', ' + currentLatitude);
   doSaveTrack: function ( ) {
 
     if( SufiData.trackStarted ) {
-      console.log("Track saved");
+      //console.log("Track saved");
       SufiData.trackStarted = false;
-      SufiData.trackTempStopped = true;
+      SufiData.trackPostponed = true;
 
       SufiData.center.observers.unsubscribe(
         'currentLocation', SufiData, 'trackLocation'
       );
 
       SufiData.saveTrack();
+      SufiData.center.htmlIdList['statusMessage'].innerHTML = "Track saved";
     }
 
     else {
-      console.log("No track started, nothing to save");
+      //console.log("No track started, nothing to save");
+      SufiData.center.htmlIdList['statusMessage'].innerHTML =
+        "Tracking not started, nothing to save";
     }
   },
 
   //----------------------------------------------------------------------------
-  doStopTrack: function ( ) {
+  doPostponeTrack: function ( ) {
 
     if( SufiData.trackStarted ) {
-      if( SufiData.trackTempStopped ) {
-        console.log("Track is already stopped temporarely");
+      if( SufiData.trackPostponed ) {
+        //console.log("Track is already stopped temporarely");
+        SufiData.center.htmlIdList['statusMessage'].innerHTML =
+          "Tracking is already postponed";
       }
 
       else {
-        console.log("Track temporarely stopped");
-        SufiData.trackTempStopped = true;
+        //console.log("Track temporarely stopped");
+        SufiData.center.htmlIdList['statusMessage'].innerHTML =
+          "Tracking is postponed";
+        SufiData.trackPostponed = true;
 
         SufiData.center.observers.unsubscribe(
           'currentLocation', SufiData, 'trackLocation'
@@ -273,6 +284,8 @@ console.log('New cl: ' + currentLongitude + ', ' + currentLatitude);
 
     else {
       console.log("No track started, cannot stop");
+      SufiData.center.htmlIdList['statusMessage'].innerHTML =
+        "Tracking not started, cannot postpone";
     }
   },
 
@@ -280,9 +293,10 @@ console.log('New cl: ' + currentLongitude + ', ' + currentLatitude);
   doContTrack: function ( ) {
 
     if( SufiData.trackStarted ) {
-      if( SufiData.trackTempStopped ) {
-        console.log("Continue tracking");
-        SufiData.trackTempStopped = false;
+      if( SufiData.trackPostponed ) {
+        SufiData.center.htmlIdList['statusMessage'].innerHTML =
+          "Continue tracking";
+        SufiData.trackPostponed = false;
 
         SufiData.center.observers.subscribe(
           'currentLocation', SufiData, 'trackLocation'
@@ -290,12 +304,14 @@ console.log('New cl: ' + currentLongitude + ', ' + currentLatitude);
       }
 
       else {
-        console.log("Tracking already continued");
+        SufiData.center.htmlIdList['statusMessage'].innerHTML =
+          "Tracking already continued";
       }
     }
 
     else {
-      console.log("No track started, cannot continue");
+      SufiData.center.htmlIdList['statusMessage'].innerHTML =
+        "No track started, cannot continue";
     }
   },
 
@@ -550,7 +566,6 @@ console.log("GPX text written");
         };
 
         reader.readAsText(file);
-
       },
 
       // onErrorReadFile
