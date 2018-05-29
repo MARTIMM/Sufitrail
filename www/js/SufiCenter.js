@@ -1,6 +1,6 @@
 /* Author: Marcel Timmerman
    License: ...
-   Copyright: © Sufitrail 2017
+   Copyright: © Sufitrail 2017, 2018
 */
 "use strict";
 
@@ -18,25 +18,47 @@ var SufiCenter = {
   device:           { },
   watchId:          null,
 
-  mapElementName:   null,
+  // dependencies of html file
+  mapElementName:   "sufiTrailMap",
+  htmlIdList:       {
+    sufiTrailMap:         null,
+    statusMessage:        null,
+    userTrackList:        null,
+    startTrackButton:     null,
+    postponeTrackButton:  null,
+    contTrackButton:      null,
+    saveTrackButton:      null,
+    exitButton:           null
+  },
+
+  externalObjects:  {
+    menuObject:           menu,
+    observer:             new Observer()
+  },
 
   // ---------------------------------------------------------------------------
-  init: function ( mapElementName, menuObject ) {
-
-    // save the map elementname
-    this.mapElementName = mapElementName;
+  init: function ( ) {
 
     // initialize the observers object
-    this.observers = new Observer();
+    this.observers = this.externalObjects["observer"];
 
     // must be set first: init's might refer to it
-    this.menu = menuObject;
+    this.menu = this.externalObjects["menuObject"];
 
+    // elements can be processed from document because scripts are at the end of
+    // the document. So, when scripts are running the documents must be there.
+    
     // set an event on each of the tracks found in the document
     this.setTrackEvents();
 
-    // set a counter. value is given to the interval timer when fired
-    //this.count = 0;
+    // find the html element objects by its id from the id list
+    for( var k in SufiCenter.htmlIdList ) {
+      // use hasOwnProperty to filter out keys from the Object.prototype
+      if( SufiCenter.htmlIdList.hasOwnProperty(k) ) {
+        SufiCenter.htmlIdList[k] = document.getElementById(k);
+        console.log( "K: " + k + ', ' + SufiCenter.htmlIdList[k]);
+      }
+    }
 
     // now wait for the device is ready for further processing. some
     // details must come from the devices hardware.
@@ -52,6 +74,7 @@ var SufiCenter = {
   // after device is ready get the devices state and initialize the
   // other objects.
   onDeviceReady: function ( ) {
+
 
     SufiCenter.device = device;
     SufiCenter.activateButtons();
@@ -153,22 +176,37 @@ console.log('load info from ' + trackInfo);
   //----------------------------------------------------------------------------
   activateButtons: function ( ) {
 
-    // button to start, stop and continue tracking, and save a track.
-    var button = document.getElementById('startTrackButton');
-    button.addEventListener( "click", this.model.doStartTrack, false);
+    // button to start, postpone and continue tracking, and save a track.
+    //var button = document.getElementById('startTrackButton');
+    //button.addEventListener( "click", this.model.doStartTrack, false);
+    SufiCenter.htmlIdList['startTrackButton'].addEventListener(
+      "click", this.model.doStartTrack, false
+    );
 
-    var button = document.getElementById('stopTrackButton');
-    button.addEventListener( "click", this.model.doStopTrack, false);
+    //var button = document.getElementById('postponeTrackButton');
+    //button.addEventListener( "click", this.model.doPostponeTrack, false);
+    SufiCenter.htmlIdList['postponeTrackButton'].addEventListener(
+      "click", this.model.doPostponeTrack, false
+    );
 
-    var button = document.getElementById('contTrackButton');
-    button.addEventListener( "click", this.model.doContTrack, false);
+    //var button = document.getElementById('contTrackButton');
+    //button.addEventListener( "click", this.model.doContTrack, false);
+    SufiCenter.htmlIdList['contTrackButton'].addEventListener(
+      "click", this.model.doContTrack, false
+    );
 
-    var button = document.getElementById('saveTrackButton');
-    button.addEventListener( "click", this.model.doSaveTrack, false);
+    //var button = document.getElementById('saveTrackButton');
+    //button.addEventListener( "click", this.model.doSaveTrack, false);
+    SufiCenter.htmlIdList['saveTrackButton'].addEventListener(
+      "click", this.model.doSaveTrack, false
+    );
 
     // button to exit the application
-    var button = document.getElementById('exitButton');
-    button.addEventListener( "click", SufiCenter.doExitApp, false);
+    //var button = document.getElementById('exitButton');
+    //button.addEventListener( "click", SufiCenter.doExitApp, false);
+    SufiCenter.htmlIdList['exitButton'].addEventListener(
+      "click", SufiCenter.doExitApp, false
+    );
   },
 
   //----------------------------------------------------------------------------
@@ -182,5 +220,5 @@ console.log('load info from ' + trackInfo);
 
 
 //------------------------------------------------------------------------------
-// this way we keep dependencies only to this spot
-SufiCenter.init( "SufiTrailMap", menu);
+// start the show
+SufiCenter.init();
