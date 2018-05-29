@@ -151,10 +151,10 @@ SufiFeature "*" --* SufiMap
 | trackBounds | SufiData | Calculated boundaries lon/lat of the GPX data |
 | gpxFile | SufiCenter | GPX file selected from a menu |
 | networkState | SufiCenter | Boolean value to show we are on/offline |
-<!-- | deviceReady | SufiCenter | True | -->
 | currentLocation | SufiCenter | Geo location data with a position in the structure |
 | infoFile | SufiCenter | Data pointing to information file of shown track |
 | wanderedOffTrack | SufiData | When current location is too far from track |
+<!-- | deviceReady | SufiCenter | True | -->
 
 #### SufiCenter action diagrams
 ```plantuml

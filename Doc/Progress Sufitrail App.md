@@ -241,10 +241,14 @@ The app uses gpx data from a file to read track information. It is shown and zoo
 
 # Todo
 * [ ] Move buttons on other pages to the left side, same as where it is on map.
-* [ ] Makeup of the other pages must done.
+* [ ] Makeup of the other pages must be improved.
 * [ ] A button on map to go to the current location when far from track.
-* [ ] Same button to go back to the track when far from current location.
-* [ ] Show important console.log messages on pages where buttons are to show what's happening.
+* [ ] Use the same button to go back to the track when hicker is far from current location.
+* [x] Show important console.log messages on pages where buttons show what's happening.
+* [ ] Save tracks with filenames made up with date and feature names from city/country features found in its boundary box. Can only be done when in wifi or from cached data.
+* [ ] Save track when tracking and exiting program.
+* [ ] Cache tiles from several zooming levels to be used when offline. Make estimation of total size.
+* [ ] Cache features too.
 
 # Bugs
 
