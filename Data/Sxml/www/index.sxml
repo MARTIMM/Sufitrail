@@ -114,7 +114,7 @@ $html xml:lang=en [
         box-sizing: border-box;
       ]
 
-      $!css.b s='#SufiTrailMap' {
+      $!css.b s='#sufiTrailMap' {
         height: 100%;
         /*overflow: hidden;*/
       }
@@ -181,6 +181,17 @@ $html xml:lang=en [
 
 
       # Miscelleneous
+      # font size is 1em
+      $!css.b s=h1 {
+        font-weight:      10vw;
+        font-size:        2.5em;
+      }
+
+      $!css.b s=h2 {
+        font-weight:      4;
+        font-size:        1.5em;
+      }
+
       $!css.b s="button" {
         font-weight:      bold;
         font-size:        larger;
@@ -202,7 +213,7 @@ $html xml:lang=en [
       #-------------------------------------------------------------------------
       # main page shows the map
       $!menu.entry title='Show Map' id=map-page =!home-button =!open-button [
-        $div id=SufiTrailMap class=map []
+        $div id=sufiTrailMap class=map []
       ]
 
       #-------------------------------------------------------------------------
@@ -251,12 +262,20 @@ $html xml:lang=en [
           $p [
             $button id=startTrackButton type=button [Start tracking] $br
             $button id=saveTrackButton type=button [Save track] $br
-            $button id=stopTrackButton type=button [Postpone tracking] $br
+            $button id=postponeTrackButton type=button [Postpone tracking] $br
             $button id=contTrackButton type=button [Continue tracking]
           ]
 
+          $br
+          $h2 [ Tracking Status Messages ]
+          $p class=strong id=statusMessage []
+
+          $br
           $p [
             $h2 [ List of your tracks ]
+            $div class=userTrackDiv [
+              $ul id=userTrackList []
+            ]
           ]
         ]
       ]
