@@ -156,22 +156,23 @@ SufiFeature "*" --* SufiMap
 | wanderedOffTrack | SufiData | When current location is too far from track |
 <!-- | deviceReady | SufiCenter | True | -->
 
-#### SufiCenter action diagrams
+#### SufiCenter diagrams: initialization
 ```plantuml
 (*) -> "SufiCenter init"
--> "setup track\nselections"
+-> "setup track list\nand activate"
+-> "get html element\nlist from id list"
+-> "activate buttons"
 -> "wait for\ndevice ready"
 -> (*)
 ```
 
 ```plantuml
-(*) ..>[device ready\nevent] "2nd phase\nSufiCenter init"
--> "SufiMap init"
+(*) .>[device ready\nevent] "SufiMap init"
 -> "SufiData init"
--> "setup network\nstate check"
--> "setup GPS watch"
-'-> "setup app\ndevice ready"
--up-> (*)
+-> "setup 'networkState'"
+-> "setup 'currentLocation'"
+'-> "setup 'deviceReady'"
+-> (*)
 ```
 
 ```plantuml
@@ -184,14 +185,58 @@ SufiFeature "*" --* SufiMap
 -> (*)
 ```
 
-#### SufiData diagrams
+#### SufiData diagrams: initialization
+```plantuml
+(*) -> subscribe to\n'gpxFile'
+-> subscribe to\n'infoFile'
+-> subscribe to\n'track'
+-> subscribe to\n'currentLocation'
+-> (*)
+```
+#### SufiData diagrams: GPX
+```plantuml
+(*) .>[gpxFile] LoadXMLFile
+-> set 'track' gpxContent
+-> set trackChanged
+-> (*)
+```
+
+```plantuml
+(*) .>[infoFile] loadInfoFile
+-> insert info\non info page
+-> (*)
+```
+
+```plantuml
+(*) .>[track] calculateBounds
+-> set 'trackBounds'\nbounds array
+-> (*)
+```
+
+```plantuml
+(*) .>[currentLocation] checkWanderingOffTrack
+if trackChanged then
+  ->[Yes] "reset trackChanged"
+  -> "compare all points\nof track with\ncurrent location"
+  if "closest point\ntoo far" then
+    ->[Yes] "set 'wanderedOffTrack'\narray of two coordinates"
+    --> (*)
+  else
+    -->[No] (*)
+  endif
+else
+  -->[No] (*)
+endif
+```
+
+#### SufiData diagrams: tracking
 ```plantuml
 (*) .>[start track\nbutton click] "SufiData.doStartTrack"
 if tracking\nstarted then
-  -->[Y] "show already\nstarted message"
+  -->[Yes] "show already\nstarted message"
   -> (*)
 else
-  ->[N] "subscribe\nto gps"
+  ->[No] "subscribe\nto 'currentLocation'"
   --> (*)
 endif
 ```
@@ -199,15 +244,15 @@ endif
 ```plantuml
 (*) .>[postpone tracking\nbutton click] "SufiData.doStopTrack"
 if tracking\nstarted then
-  [Y] if tracking\npostponed then
-    -->[Y] "show already\npostponed message"
+  [Yes] if tracking\npostponed then
+    -->[Yes] "show already\npostponed message"
     -> (*)
   else
-    ->[N] "unsubscribe\nfrom GPS"
+    ->[No] "unsubscribe\nfrom 'currentLocation'"
   endif
   -> (*)
 else
-  -->[N] "show no track\nstarted message"
+  -->[No] "show no track\nstarted message"
   --> (*)
 endif
 ```
@@ -215,16 +260,16 @@ endif
 ```plantuml
 (*) .>[continue tracking\nbutton click] "SufiData.doContTrack"
 if tracking\nstarted then
-  [Y] if tracking\npostponed then
-    -->[Y] "show continue\ntracking message"
-    -> "subscribe\nto gps"
+  [Yes] if tracking\npostponed then
+    -->[Yes] "show continue\ntracking message"
+    -> "subscribe\nto 'currentLocation'"
     -> (*)
   else
-    ->[N] "show tracking\nalready started message"
+    ->[No] "show tracking\nalready started message"
   endif
   -> (*)
 else
-  -->[N] "show no track\nstarted message"
+  -->[No] "show no track\nstarted message"
   --> (*)
 endif
 ```
@@ -232,12 +277,12 @@ endif
 ```plantuml
 (*) .>[save track\nbutton click] "SufiData.doSaveTrack"
 if tracking\nstarted then
-  -->[Y] "show save\ntrack message"
-  -> "unsubscribe\nfrom gps"
+  -->[Yes] "show save\ntrack message"
+  -> "unsubscribe\nfrom 'currentLocation'"
   -> "save track data"
   -> (*)
 else
-  -->[N] "show no track\nstarted message"
+  -->[No] "show no track\nstarted message"
   --> (*)
 endif
 ```
