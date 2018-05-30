@@ -22,12 +22,16 @@ var SufiCenter = {
   mapElementName:   "sufiTrailMap",
   htmlIdList:       {
     sufiTrailMap:         null,
+
+    infoData:             null,
+
     statusMessage:        null,
     userTrackList:        null,
     startTrackButton:     null,
     postponeTrackButton:  null,
     contTrackButton:      null,
     saveTrackButton:      null,
+
     exitButton:           null
   },
 
@@ -47,7 +51,7 @@ var SufiCenter = {
 
     // elements can be processed from document because scripts are at the end of
     // the document. So, when scripts are running the documents must be there.
-    
+
     // set an event on each of the tracks found in the document
     this.setTrackEvents();
 
@@ -60,6 +64,9 @@ var SufiCenter = {
       }
     }
 
+    // make the buttons active
+    SufiCenter.activateButtons();
+
     // now wait for the device is ready for further processing. some
     // details must come from the devices hardware.
     setTimeout(
@@ -71,13 +78,13 @@ var SufiCenter = {
     );
   },
 
+  // ---------------------------------------------------------------------------
   // after device is ready get the devices state and initialize the
   // other objects.
   onDeviceReady: function ( ) {
 
-
+    // which device are we working with
     SufiCenter.device = device;
-    SufiCenter.activateButtons();
 
     // do the other initializations
     SufiCenter.view.init( SufiCenter, SufiCenter.mapElementName);
@@ -177,33 +184,23 @@ console.log('load info from ' + trackInfo);
   activateButtons: function ( ) {
 
     // button to start, postpone and continue tracking, and save a track.
-    //var button = document.getElementById('startTrackButton');
-    //button.addEventListener( "click", this.model.doStartTrack, false);
     SufiCenter.htmlIdList['startTrackButton'].addEventListener(
       "click", this.model.doStartTrack, false
     );
 
-    //var button = document.getElementById('postponeTrackButton');
-    //button.addEventListener( "click", this.model.doPostponeTrack, false);
     SufiCenter.htmlIdList['postponeTrackButton'].addEventListener(
       "click", this.model.doPostponeTrack, false
     );
 
-    //var button = document.getElementById('contTrackButton');
-    //button.addEventListener( "click", this.model.doContTrack, false);
     SufiCenter.htmlIdList['contTrackButton'].addEventListener(
       "click", this.model.doContTrack, false
     );
 
-    //var button = document.getElementById('saveTrackButton');
-    //button.addEventListener( "click", this.model.doSaveTrack, false);
     SufiCenter.htmlIdList['saveTrackButton'].addEventListener(
       "click", this.model.doSaveTrack, false
     );
 
     // button to exit the application
-    //var button = document.getElementById('exitButton');
-    //button.addEventListener( "click", SufiCenter.doExitApp, false);
     SufiCenter.htmlIdList['exitButton'].addEventListener(
       "click", SufiCenter.doExitApp, false
     );

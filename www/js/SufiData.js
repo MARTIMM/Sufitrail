@@ -32,6 +32,7 @@ var SufiData = {
   },
 
   // ---------------------------------------------------------------------------
+  // subscription from gpxFile
   loadXMLFile: function ( file ) {
 
     SufiData.timeStart = Date.now();
@@ -63,6 +64,7 @@ var SufiData = {
   },
 
   // ---------------------------------------------------------------------------
+  // subscription from infoFile
   loadInfoFile: function ( file ) {
 
     SufiData.timeStart = Date.now();
@@ -77,7 +79,7 @@ var SufiData = {
           var infoText = this.responseText;
 
           // remove the previous article
-          var infoData = document.getElementById("info-data");
+          var infoData = SufiData.center.htmlIdList["infoData"];
           while ( infoData.firstChild ) {
             infoData.removeChild(infoData.firstChild);
           }
@@ -99,6 +101,7 @@ var SufiData = {
   },
 
   //----------------------------------------------------------------------------
+  // subscription from track
   // calculate boundaries of current track
   calculateBounds: function ( xmldoc ) {
 
@@ -123,7 +126,8 @@ var SufiData = {
   },
 
   //----------------------------------------------------------------------------
-  // check if hicker wandered too much away from current track
+  // subscription from currentLocation
+  // check if hiker wandered too much away from current track
   checkWanderingOffTrack: function ( position ) {
 
     // check only if there is a track selected
@@ -158,28 +162,22 @@ console.log('New cl: ' + currentLongitude + ', ' + currentLatitude);
         }
       }
 
-      if( typeof closestPosition === 'undefined' ) {
-        console.log('undefined closest position: should not happen');
-      }
+      var d = this.haversine(
+        closestPosition[0], closestPosition[1],
+        currentLongitude, currentLatitude
+      );
 
-      else {
-        var d = this.haversine(
-          closestPosition[0], closestPosition[1],
-          currentLongitude, currentLatitude
+      console.log(
+        "Distance between current and closest is " +
+        (d/1000).toFixed(3) + " km"
+      );
+
+      // if more than 1 km from closest point on the track, signal
+      if( d > 1000 ) {
+        SufiCenter.observers.set(
+          'wanderedOffTrack',
+          [ closestPosition, [ currentLongitude, currentLatitude]]
         );
-
-        console.log(
-          "Distance between current and closest is " +
-          (d/1000).toFixed(3) + " km"
-        );
-
-        // if more than 1 km from closest point on the track, signal
-        if( d > 1000 ) {
-          SufiCenter.observers.set(
-            'wanderedOffTrack',
-            [ closestPosition, [ currentLongitude, currentLatitude]]
-          );
-        }
       }
     }
   },
@@ -316,6 +314,7 @@ console.log('New cl: ' + currentLongitude + ', ' + currentLatitude);
   },
 
   //----------------------------------------------------------------------------
+  // subscription from currentLocation
   trackLocation: function ( position ) {
 
     var lon = position.coords.longitude;

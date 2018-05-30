@@ -219,7 +219,7 @@ $html xml:lang=en [
       #-------------------------------------------------------------------------
       $!menu.entry title='Show Info' id=info-page [
         # info is filled with data from www/info/*.xml after selecting a track
-        $div id=info-data [
+        $div id=infoData [
           $article [
             $section class=info-text [
               $h1 class=info-header [ No track selected ]
