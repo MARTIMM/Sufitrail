@@ -351,6 +351,8 @@ console.log("Store track GPS: " + lon + ", " + lat);
     SufiData.mkTrackXml();
     SufiData.saveTrackXml();
 
+    // Extend user track list
+    // Show track in layer on map
     // Send to site, url with username
   },
 
@@ -433,7 +435,7 @@ console.log("Store track GPS: " + lon + ", " + lat);
   },
 
   //----------------------------------------------------------------------------
-  // save xml dom tree to
+  // save xml dom tree to storage
   // https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-file/index.html
   saveTrackXml: function ( ) {
 
@@ -444,7 +446,8 @@ console.log(cordova.file);
 console.log(cordova.file.dataDirectory);
 
 
-
+    // this call is Google Chrome specific! This, however, is made
+    // available using the cordova file plugin
     window.requestFileSystem(
       LocalFileSystem.PERSISTENT,
       0,
@@ -459,7 +462,6 @@ console.log("fileEntry is file?: " + fileEntry.isFile.toString());
             // fileEntry.fullPath == '/someFile.txt'
 console.log("full path: " + fileEntry.fullPath);
             SufiData.writeFile( fileEntry, xmlString);
-
           },
           // onErrorCreateFile
           function ( e ) {
