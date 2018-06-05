@@ -55,7 +55,7 @@ There are several events which occur upon changing conditions in a device. These
 A series of screen descriptions the application can show.
 
 # Display on tablet screen
-* [ ] An icon of the sufitrail guy must be shown.
+* [x] An icon of the sufitrail guy must be shown.
 * [ ] A widget showing small part of chart?
 
 ## Splash screen

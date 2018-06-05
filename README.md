@@ -27,8 +27,7 @@ This is a list of more or less implemented items which need more attention. The 
 * 0.6.0
   * Added the exit button
   * Hangup bug seems to have gone. (newer versions of cordova and android (SDK etc) perhaps)
-* 0.5.0
-  * Added code to generate and show information of a track. The first track is described and the rest has a default message.
+* 0.5.0 Added code to generate and show information of a track. The first track is described and the rest has a default message.
 * 0.4.0
   * Total track split in 41 pieces and made visible.
   * Extracted way points from track, however it does not seem usable. Must get way points from OSM.
@@ -39,10 +38,8 @@ This is a list of more or less implemented items which need more attention. The 
 * 0.2.0
   * Map is visible.
   * Map and buttons adapt to several screen sizes and changes.
-* 0.1.0
-  * Basic page selection from a menu opening from the side.
-* 0.0.1
-  * Basic setup.
+* 0.1.0 Basic page selection from a menu opening from the side.
+* 0.0.1 Basic setup.
 
 <!-- references -->
 [website]: http://sufitrail.com/
