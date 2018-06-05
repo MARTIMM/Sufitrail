@@ -6,27 +6,66 @@ $widget id=sufitrail.io.github.martimm
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:cdv=http://cordova.apache.org/ns/1.0 [
 
-  $name [ SufiTrail ]
+  $name xml:lang=en_us short=SufiTrail [ Hiking Trail Of Sufis ]
+  $name xml:lang=nl short=SufiPad [ Wandelpad Van De Sufis ]
+
   $description [
     Application to show tracks on a map. These tracks show a specific route called the sufi trail. This trail connects Istanbul with Konya.
   ]
+
   $author email=mt1957@gmail.com href=https://github.com/MARTIMM/Sufitrail [
     Marcel Timmerman
   ]
 
   $content src=index.html []
-  $access origin=* []
 
+  # all websites needed by the app. all others are blocked as security.
+  # site for email
+  $access origin=*://*.google.* []
+
+  # site to store user tracks and/or pictures
+  $access origin=http://*.sufitrail.net []
+
+  # maptile servers
+  $access origin=*://*.openstreetmap.org []
+  $access origin=*://*.openmaptiles.org []
+  $access origin=*://*.tilehosting.com []
+
+  # test server on local lan area
+  $access origin=http://mediaserver.localdomain []
+
+#  $access origin=http://* []
+
+  # when URLs are provided to e.g. window.open() other installed apps
+  # may open and process the url
+
+  # open a browser
   $allow-intent href="http://*/*" []
   $allow-intent href="https://*/*" []
-  $allow-intent href="tel:*" []
-  $allow-intent href="sms:*" []
-  $allow-intent href="mailto:*" []
-  $allow-intent href="geo:*" []
 
+  # open a dialer. not needed.
+  #$allow-intent href="tel:*" []
+
+  # open a messaging app. not needed.
+  #$allow-intent href="sms:*" []
+
+  # open an email app which is needed to be able to sent tracks, pictures
+  # and notes to server
+  $allow-intent href="mailto:*" []
+
+  # open e.g. google maps to show maps. not needed.
+  #$allow-intent href="geo:*" []
+
+  # specific android settings
   $platform name="android" [
+
+    # installation location of app
     $preference name=AndroidPersistentFileLocation value=Internal []
+
+    # open playstore to get app updates or get star ratings
     $allow-intent href="market:*" []
+
+    # permission settings are copied into ./platform/android/Androidmanifest.xml
     $config-file parent=/* target=AndroidManifest.xml [
       $uses-permission android:name=android.permission.ACCESS_COARSE_LOCATION []
       $uses-permission android:name=android.permission.ACCESS_FINE_LOCATION []
@@ -42,29 +81,32 @@ $widget id=sufitrail.io.github.martimm
 #      $uses-permission android:name=android.permission. []
     ]
 
-    # Icon defnitions. path res/icon/android must be created
+    # Icon defnitions. they are created in path ./res/icon/android.
     # ldpi    : 36x36 px
-    $icon src=res/icon/android/ldpi.png density=ldpi []
-
     # mdpi    : 48x48 px
-    $icon src=res/icon/android/mdpi.png density=mdpi []
-
     # hdpi    : 72x72 px
-    $icon src=res/icon/android/hdpi.png density=hdpi []
-
     # xhdpi   : 96x96 px
-    $icon src=res/icon/android/xhdpi.png density=xhdpi []
-
     # xxhdpi  : 144x144 px
-    $icon src=res/icon/android/xxhdpi.png density=xxhdpi []
-
     # xxxhdpi : 192x192 px
+    $icon src=res/icon/android/ldpi.png density=ldpi []
+    $icon src=res/icon/android/mdpi.png density=mdpi []
+    $icon src=res/icon/android/hdpi.png density=hdpi []
+    $icon src=res/icon/android/xhdpi.png density=xhdpi []
+    $icon src=res/icon/android/xxhdpi.png density=xxhdpi []
     $icon src=res/icon/android/xxxhdpi.png density=xxxhdpi []
   ]
 
+  # specific IOS settings
   $platform name=ios [
+    # open the apple variant of playstore, itunes to get app
+    # updates or get star ratings
     $allow-intent href="itms:*" []
     $allow-intent href="itms-apps:*" []
+  ]
+
+  # specific browser settings
+  $platform name=browser [
+
   ]
 
   # check with the config.xml to take info from there before generating.
@@ -75,6 +117,4 @@ $widget id=sufitrail.io.github.martimm
 
   $engine name=android spec=6.4.0 []
   $engine name=browser spec=^5.0.3 []
-#  $engine name=android spec="~6.2.3"
-
 ]
