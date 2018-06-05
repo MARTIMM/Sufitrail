@@ -22,8 +22,48 @@ $html xml:lang=en [
     $meta http-equiv=language content=EN []
     $meta http-equiv=Content-Style-Type content=text/css []
 
-# https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-#    $meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src *; media-src 'self'" []
+$sxml:drop «
+#https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
+    $meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src *; media-src 'self'" []
+#https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-whitelist/index.html#intent-whitelist
+    $sxml:comment [
+      Good default declaration:
+      * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+      * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+      * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+          * Enable inline JS: add 'unsafe-inline' to default-src
+          * Enable eval(): add 'unsafe-eval' to default-src
+    ]
+    $meta http-equiv=Content-Security-Policy
+          content="default-src 'self' data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" []
+
+    $sxml:comment [
+      Allow everything but only from the same origin and foo.com
+    ]
+    $meta http-equiv=Content-Security-Policy
+          content="default-src 'self' foo.com" []
+
+    $sxml:comment [
+      This policy allows everything (eg CSS, AJAX, object, frame, media, etc)
+      except that
+      * CSS only from the same origin and inline styles,
+      * scripts only from the same origin and inline styles, and eval()
+    ]
+    $meta http-equiv=Content-Security-Policy
+          content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'" []
+
+    $sxml:comment [
+      Allows XHRs only over HTTPS on the same domain.
+    ]
+    $meta http-equiv=Content-Security-Policy
+          content="default-src 'self' https:" []
+
+    $sxml:comment [
+      Allow iframe to https://cordova.apache.org/
+    ]
+    $meta http-equiv=Content-Security-Policy
+          content="default-src 'self'; frame-src 'self' https://cordova.apache.org">
+»
 
     #===========================================================================
     # generate color values for css
