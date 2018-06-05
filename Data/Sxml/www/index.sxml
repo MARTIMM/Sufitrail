@@ -5,7 +5,7 @@ $html xml:lang=en [
   $sxml:comment =sxml:keep {
     Author: Marcel Timmerman
     License: ...
-    Copyright: © Sufitrail 2017
+    Copyright: © Sufitrail 2017, 2018
   }
 
   $head [
@@ -329,7 +329,7 @@ $html xml:lang=en [
               $th [ Current App Version ]
             ]
             $tr [
-              $td [ 0.8.0 ]
+              $td [ 0.8.1 ]
             ]
           ]
         ]

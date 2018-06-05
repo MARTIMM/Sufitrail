@@ -21,9 +21,9 @@ This is a list of more or less implemented items which need more attention. The 
 
 # Changes
 
+* 0.8.1 Modified the standard cordova icon with a sufi-poppetje.
 * 0.8.0 A dashed line is shown from current location to closest point on the track to show that the hiker wanders off route.
-* 0.7.0
-  * Geolocation works and shows a blue circle at the current location.
+* 0.7.0 Geolocation works and shows a blue circle at the current location.
 * 0.6.0
   * Added the exit button
   * Hangup bug seems to have gone. (newer versions of cordova and android (SDK etc) perhaps)
