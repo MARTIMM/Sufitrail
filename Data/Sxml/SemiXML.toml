@@ -4,6 +4,7 @@
   tracing       = true
 
 [ C.config ]
+  doctype-show  = false
   xml-show      = true
 
 #------------------------------------------------------------------------------
@@ -12,25 +13,22 @@
 
 #------------------------------------------------------------------------------
 [ S ]
-  fileext       = 'xml'
 
 [ S.config ]
+  fileext       = 'xml'
   rootpath      = '.'
 
 #------------------------------------------------------------------------------
 [ ML.xml ]
-#  epub2         = 'SxmlLib::EPub::EPub2Builder'
-#  epub3         = 'SxmlLib::EPub::EPub3Builder'
 
 #------------------------------------------------------------------------------
 # Tracing tables
 [ T ]
-#  config-search = false
-  config          = false
-  tables          = true
-  modules         = false
-  parse           = false
-  parse-result    = false
+#  config          = false
+#  tables          = true
+#  modules         = false
+#  parse           = false
+#  parse-result    = false
   file-handling   = true
 
 #------------------------------------------------------------------------------

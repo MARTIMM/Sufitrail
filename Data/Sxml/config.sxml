@@ -1,56 +1,79 @@
 # Run 'sxml2xml.pl6 --out=config Sxml/config.sxml'
 
-$widget id=io.github.martimm.sultanstrail
+$widget id=io.github.martimm.sufitrail
         version=1.0.0
         xmlns=http://www.w3.org/ns/widgets
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:cdv=http://cordova.apache.org/ns/1.0 [
 
-  $name [ SultansTrail ]
-  $description [ Application to help you walk the trail of the sultans ]
-  $author email=mt1957@gmail.com href=http://martimm.github.io/ [
+  $name [ SufiTrail ]
+  $description [
+    Application to show tracks on a map. These tracks show a specific route called the sufi trail. This trail connects Istanbul with Konya.
+  ]
+  $author email=mt1957@gmail.com href=https://github.com/MARTIMM/Sufitrail [
     Marcel Timmerman
   ]
 
-  $content src=index.html
-  $access origin=*
+  $content src=index.html []
+  $access origin=* []
 
-  $allow-intent href="http://*/*"
-  $allow-intent href="https://*/*"
-#  $allow-intent href="tel:*"
-#  $allow-intent href="sms:*"
-#  $allow-intent href="mailto:*"
-  $allow-intent href="geo:*"
+  $allow-intent href="http://*/*" []
+  $allow-intent href="https://*/*" []
+  $allow-intent href="tel:*" []
+  $allow-intent href="sms:*" []
+  $allow-intent href="mailto:*" []
+  $allow-intent href="geo:*" []
 
   $platform name="android" [
-    $allow-intent href="market:*"
+    $preference name=AndroidPersistentFileLocation value=Internal []
+    $allow-intent href="market:*" []
+    $config-file parent=/* target=AndroidManifest.xml [
+      $uses-permission android:name=android.permission.ACCESS_COARSE_LOCATION []
+      $uses-permission android:name=android.permission.ACCESS_FINE_LOCATION []
+      $uses-permission android:name=android.permission.ACCESS_LOCATION_EXTRA_COMMANDS []
+      $uses-permission android:name=android.permission.CAMERA []
+      $uses-permission android:name=android.permission.ACCESS_NETWORK_STATE []
+      $uses-permission android:name=android.permission.INTERNET []
+      $uses-permission android:name=android.permission.ACCESS_WIFI_STATE []
+#      $uses-permission android:name=android.permission.BLUETOOTH []
+#      $uses-permission android:name=android.permission.BLUETOOTH_ADMIN []
+      $uses-permission android:name=android.permission.CHANGE_WIFI_STATE []
+      $uses-permission android:name=android.permission.WRITE_EXTERNAL_STORAGE []
+#      $uses-permission android:name=android.permission. []
+    ]
 
-    # Icon defnitions. path res/android/icon must be created
+    # Icon defnitions. path res/icon/android must be created
     # ldpi    : 36x36 px
-    $icon src=res/android/icon/ldpi.png density=ldpi
+    $icon src=res/icon/android/ldpi.png density=ldpi []
 
     # mdpi    : 48x48 px
-    $icon src=res/android/icon/mdpi.png density=mdpi
+    $icon src=res/icon/android/mdpi.png density=mdpi []
 
     # hdpi    : 72x72 px
-    $icon src=res/android/icon/hdpi.png density=hdpi
+    $icon src=res/icon/android/hdpi.png density=hdpi []
 
     # xhdpi   : 96x96 px
-    $icon src=res/android/icon/xhdpi.png density=xhdpi
+    $icon src=res/icon/android/xhdpi.png density=xhdpi []
 
     # xxhdpi  : 144x144 px
-    $icon src=res/android/icon/xxhdpi.png density=xxhdpi
+    $icon src=res/icon/android/xxhdpi.png density=xxhdpi []
 
     # xxxhdpi : 192x192 px
-    $icon src=res/android/icon/xxxhdpi.png density=xxxhdpi
+    $icon src=res/icon/android/xxxhdpi.png density=xxxhdpi []
   ]
 
   $platform name=ios [
-    $allow-intent href="itms:*"
-    $allow-intent href="itms-apps:*"
+    $allow-intent href="itms:*" []
+    $allow-intent href="itms-apps:*" []
   ]
 
-  $engine name=android spec="~6.2.3"
+  $plugin name=cordova-plugin-whitelist spec=^1.3.3 []
+  $plugin name=cordova-plugin-device spec=^2.0.1 []
+  $plugin name=cordova-plugin-file spec=^6.0.1 []
+  $plugin name=cordova-plugin-whitelist spec=1 []
 
-  $plugin name=cordova-plugin-whitelist spec=1
+  $engine name=android spec=6.4.0 []
+  $engine name=browser spec=^5.0.3 []
+#  $engine name=android spec="~6.2.3"
 
 ]
