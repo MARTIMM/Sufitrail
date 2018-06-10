@@ -111,6 +111,7 @@ var SufiCenter = {
     //SufiCenter.observers.set( 'deviceReady', true);
 
     console.log('Initialization complete');
+    navigator.splashscreen.hide();
   },
 
   // ---------------------------------------------------------------------------

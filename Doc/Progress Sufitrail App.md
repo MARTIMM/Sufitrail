@@ -61,7 +61,7 @@ A series of screen descriptions the application can show.
 ## Splash screen
 A splash screen is always nice to display information in such a way that it makes a connection between the hiking and biking literature published by the Sufi trail group. The other purpose is that the application can start in the background and when it is ready, the splash screen is removed.
 
-  * [ ] Show a screen with a Sufitrail icon. Keep this displayed until everything is initialized. This provides for a better user experience.
+  * [x] Show a screen with a Sufitrail icon. Keep this displayed until everything is initialized. This provides for a better user experience. Although available, it is bad. See Todo.
 
 ## Start page
 The start page is the home page named **Map** below in the list of menu entries. On this page the following is shown;
@@ -249,6 +249,7 @@ The app uses gpx data from a file to read track information. It is shown and zoo
 * [ ] Save track when tracking and exiting program.
 * [ ] Cache tiles from several zooming levels to be used when offline. Make estimation of total size.
 * [ ] Cache features too.
+* [ ] A splash screen is made using cordova-plugin-splashscreen but I am not at all satisfied because of the number of images to be prepared and the show is also bad. Better to make it myself using html and svg. Sizes are known in javascript so everything is therefor scalable to any size.
 
 # Bugs
 
