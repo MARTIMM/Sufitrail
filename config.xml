@@ -34,19 +34,6 @@
         <icon density="xhdpi" src="res/icon/android/xhdpi.png" />
         <icon density="xxhdpi" src="res/icon/android/xxhdpi.png" />
         <icon density="xxxhdpi" src="res/icon/android/xxxhdpi.png" />
-        <splash density="land-hdpi" src="res/screen/android/poppetje-istanbul-konya-land-hdpi.png" />
-        <splash density="land-ldpi" src="res/screen/android/poppetje-istanbul-konya-land-ldpi.png" />
-        <splash density="land-mdpi" src="res/screen/android/poppetje-istanbul-konya-land-mdpi.png" />
-        <splash density="land-xhdpi" src="res/screen/android/poppetje-istanbul-konya-land-xhdpi.png" />
-        <splash density="port-hdpi" src="res/screen/android/poppetje-istanbul-konya-port-hdpi.png" />
-        <splash density="port-ldpi" src="res/screen/android/poppetje-istanbul-konya-port-ldpi.png" />
-        <splash density="port-mdpi" src="res/screen/android/poppetje-istanbul-konya-port-mdpi.png" />
-        <splash density="port-xhdpi" src="res/screen/android/poppetje-istanbul-konya-port-xhdpi.png" />
-        <preference name="AutoHideSplashScreen" value="false" />
-        <preference name="SplashScreenDelay" value="0" />
-        <preference name="SplashMaintainAspectRatio" value="true|false" />
-        <preference name="SplashShowOnlyFirstTime" value="true|false" />
-        <preference name="SplashScreenSpinnerColor" value="white" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -56,7 +43,6 @@
     <plugin name="cordova-plugin-device" spec="^2.0.1" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
-    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <engine name="android" spec="6.4.0" />
     <engine name="browser" spec="^5.0.3" />
 </widget>
