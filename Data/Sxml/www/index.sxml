@@ -250,6 +250,11 @@ $sxml:drop «
     $!menu.container side=right style-pivot-id=reset insert-style=after
                      script-pivot-id=observer-script insert-script=before [
 
+      # this container is removed as soon as everything is ready
+      $div id=splashScreen [
+        $img src=images/logopoppetjealleen.svg width=300 height=600 []
+      ]
+
       #-------------------------------------------------------------------------
       # main page shows the map
       $!menu.entry title='Show Map' id=map-page =!home-button =!open-button [
