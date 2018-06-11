@@ -32,7 +32,8 @@ var SufiCenter = {
     contTrackButton:      null,
     saveTrackButton:      null,
 
-    exitButton:           null
+    exitButton:           null,
+    splashScreen:         null
   },
 
   externalObjects:  {
@@ -111,7 +112,13 @@ var SufiCenter = {
     //SufiCenter.observers.set( 'deviceReady', true);
 
     console.log('Initialization complete');
-    navigator.splashscreen.hide();
+
+
+    //navigator.splashscreen.hide();
+    // show map after splash start screen
+    var parent = SufiCenter.htmlIdList["splashScreen"].parentElement;
+    parent.removeChild(SufiCenter.htmlIdList["splashScreen"]);
+    SufiCenter.menu.showPage('map-page');
   },
 
   // ---------------------------------------------------------------------------
