@@ -252,7 +252,8 @@ $sxml:drop «
 
       # this container is removed as soon as everything is ready
       $div id=splashScreen [
-        $img src=images/logopoppetjealleen.svg width=300 height=600 []
+        $img src=images/Svg/logopoppetjealleen.svg width=300 height=600 []
+        $br $progress id=startupProgress value=0 max=64 []
       ]
 
       #-------------------------------------------------------------------------
@@ -412,6 +413,7 @@ $sxml:drop «
 
     # the programs script code
     $script src=js/Observer.js id=observer-script []
+    $script src=js/SufiIO.js id=io-script []
     $script src=js/SufiData.js id=data-script []
     $script src=js/SufiMap.js id=map-script []
     $script src=js/SufiCenter.js id=center-script []
