@@ -23,7 +23,8 @@ var SufiCenter = {
   // dependencies of html file
   mapElementName:   "sufiTrailMap",
   htmlIdList:       {
-    startupProgress:      null,
+    progressBar:          null,
+    splashProgress:       null,
     splashScreen:         null,
 
     sufiTrailMap:         null,
@@ -137,11 +138,12 @@ var SufiCenter = {
   // ---------------------------------------------------------------------------
   // display initialisation progress
   displayProgress: function ( ) {
-    var el = SufiCenter.htmlIdList["startupProgress"];
+    var el = SufiCenter.htmlIdList["progressBar"];
     if( typeof el !== 'undefined' ) {
       SufiCenter.progressValue += 1;
 console.log("init value: " + SufiCenter.progressValue);
-      el.value = SufiCenter.progressValue.toString();
+      //el.value = SufiCenter.progressValue.toString();
+      el.style.width = SufiCenter.progressValue.toString() + '%';
     }
   },
 

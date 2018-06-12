@@ -211,7 +211,7 @@ $sxml:drop «
         font-size: 18pt;
       }
 
-      $!css.b s=".info-tips" {
+      $!css.b s=.info-tips {
         border: 3px solid #56af32;
         border-radius: 8px;
         width: 300px;
@@ -232,7 +232,7 @@ $sxml:drop «
         font-size:        1.5em;
       }
 
-      $!css.b s="button" {
+      $!css.b s=button {
         font-weight:      bold;
         font-size:        larger;
         /*background-color: #56af32;*/
@@ -240,6 +240,21 @@ $sxml:drop «
         border:           3px solid #56af32;
         border-radius:    8px;
         margin:           2px;
+      }
+    ]
+
+    # the progress bar on splash screen
+    $!css.style id=progressbar-style [
+
+      $!css.b s='#splashProgress' {
+        width: 100%;
+        background-color: #ddd;
+      }
+
+      $!css.b s='#progressBar' {
+        width: 1%;
+        height: 30px;
+        background-color: #4CAF50;
       }
     ]
   ]
@@ -253,7 +268,10 @@ $sxml:drop «
       # this container is removed as soon as everything is ready
       $div id=splashScreen [
         $img src=images/Svg/logopoppetjealleen.svg width=300 height=600 []
-        $br $progress id=startupProgress value=0 max=64 []
+        $br # $progress id=startupProgress value=0 max=64 []
+        $div id=splashProgress [
+          $div id=progressBar []
+        ]
       ]
 
       #-------------------------------------------------------------------------
