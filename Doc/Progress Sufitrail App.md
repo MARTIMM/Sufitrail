@@ -54,14 +54,16 @@ There are several events which occur upon changing conditions in a device. These
 # The pages of the application
 A series of screen descriptions the application can show.
 
-# Display on tablet screen
+## Display on tablet screen
 * [x] An icon of the sufitrail guy must be shown.
 * [ ] A widget showing small part of chart?
 
 ## Splash screen
 A splash screen is always nice to display information in such a way that it makes a connection between the hiking and biking literature published by the Sufi trail group. The other purpose is that the application can start in the background and when it is ready, the splash screen is removed.
 
-  * [x] Show a screen with a Sufitrail icon. Keep this displayed until everything is initialized. This provides for a better user experience.
+  * [x] Show a screen with a Sufi trail icon. Keep this displayed until everything is initialized. This provides for a better user experience.
+  * [ ] Image must be made complete with some text
+  * [ ] Show progress bar. Positioning and filling must still be done.
 
 ## Start page
 The start page is the home page named **Map** below in the list of menu entries. On this page the following is shown;
@@ -244,12 +246,10 @@ The app uses gpx data from a file to read track information. It is shown and zoo
 * [ ] Makeup of the other pages must be improved.
 * [ ] A button on map to go to the current location when far from track.
 * [ ] Use the same button to go back to the track when hicker is far from current location.
-* [x] Show important console.log messages on pages where buttons show what's happening.
 * [ ] Save tracks with filenames made up with date and feature names from city/country features found in its boundary box. Can only be done when in wifi or from cached data.
 * [ ] Save track when tracking and exiting program.
 * [ ] Cache tiles from several zooming levels to be used when offline. Make estimation of total size.
 * [ ] Cache features too.
-* [x] Plugin is removed and an image is shown in a div. This div is removed when most initialization is done. Image must be made complete with some text.
 
 # Bugs
 
