@@ -12,15 +12,20 @@ var SufiCenter = {
 
   view:             SufiMap,
   model:            SufiData,
+  IO:               SufiIO,
 
   menu:             null,
 
   device:           { },
   watchId:          null,
+  progressValue:    0,
 
   // dependencies of html file
   mapElementName:   "sufiTrailMap",
   htmlIdList:       {
+    startupProgress:      null,
+    splashScreen:         null,
+
     sufiTrailMap:         null,
 
     infoData:             null,
@@ -32,8 +37,7 @@ var SufiCenter = {
     contTrackButton:      null,
     saveTrackButton:      null,
 
-    exitButton:           null,
-    splashScreen:         null
+    exitButton:           null
   },
 
   externalObjects:  {
@@ -53,21 +57,6 @@ var SufiCenter = {
     // elements can be processed from document because scripts are at the end of
     // the document. So, when scripts are running the documents must be there.
 
-    // set an event on each of the tracks found in the document
-    this.setTrackEvents();
-
-    // find the html element objects by its id from the id list
-    for( var k in SufiCenter.htmlIdList ) {
-      // use hasOwnProperty to filter out keys from the Object.prototype
-      if( SufiCenter.htmlIdList.hasOwnProperty(k) ) {
-        SufiCenter.htmlIdList[k] = document.getElementById(k);
-        console.log( "K: " + k + ', ' + SufiCenter.htmlIdList[k]);
-      }
-    }
-
-    // make the buttons active
-    SufiCenter.activateButtons();
-
     // now wait for the device is ready for further processing. some
     // details must come from the devices hardware.
     setTimeout(
@@ -84,12 +73,36 @@ var SufiCenter = {
   // other objects.
   onDeviceReady: function ( ) {
 
+    // find the html element objects by its id from the id list
+    for( var k in SufiCenter.htmlIdList ) {
+      // use hasOwnProperty to filter out keys from the Object.prototype
+      if( SufiCenter.htmlIdList.hasOwnProperty(k) ) {
+        SufiCenter.htmlIdList[k] = document.getElementById(k);
+        console.log( "K: " + k + ', ' + SufiCenter.htmlIdList[k]);
+      }
+
+      SufiCenter.displayProgress();
+    }
+
+
     // which device are we working with
     SufiCenter.device = device;
 
+    // set an event on each of the tracks found in the document
+    SufiCenter.setTrackEvents();
+    SufiCenter.displayProgress();
+
+    // make the buttons active
+    SufiCenter.activateButtons();
+    SufiCenter.displayProgress();
+
     // do the other initializations
+    SufiCenter.IO.init(SufiCenter);
+    SufiCenter.displayProgress();
     SufiCenter.view.init( SufiCenter, SufiCenter.mapElementName);
+    SufiCenter.displayProgress();
     SufiCenter.model.init(SufiCenter);
+    SufiCenter.displayProgress();
 
     // check for networking offline/online
     SufiCenter.observers.set( 'networkState', navigator.onLine);
@@ -104,21 +117,32 @@ var SufiCenter = {
         SufiCenter.observers.set( 'networkState', navigator.onLine);
       }
     );
+    SufiCenter.displayProgress();
 
     // Setup geolocation watcher
     SufiCenter.watchGPS();
+    SufiCenter.displayProgress();
 
     // Let any observers know that the device is ready
     //SufiCenter.observers.set( 'deviceReady', true);
 
     console.log('Initialization complete');
 
-
-    //navigator.splashscreen.hide();
     // show map after splash start screen
+    //SufiCenter.menu.showPage('map-page');
     var parent = SufiCenter.htmlIdList["splashScreen"].parentElement;
     parent.removeChild(SufiCenter.htmlIdList["splashScreen"]);
-    SufiCenter.menu.showPage('map-page');
+  },
+
+  // ---------------------------------------------------------------------------
+  // display initialisation progress
+  displayProgress: function ( ) {
+    var el = SufiCenter.htmlIdList["startupProgress"];
+    if( typeof el !== 'undefined' ) {
+      SufiCenter.progressValue += 1;
+console.log("init value: " + SufiCenter.progressValue);
+      el.value = SufiCenter.progressValue.toString();
+    }
   },
 
   // ---------------------------------------------------------------------------
@@ -165,6 +189,7 @@ console.log('locator error: ' + error.code + ', ' + error.message);
       var gpxFile = gpxElement.getAttribute('data-gpx-file');
       var infoFile = gpxElement.getAttribute('data-info-file');
       trackCount++;
+      SufiCenter.displayProgress();
 
       // define a function returning a handler which shows a track and
       // focus as well as fits the track on screen
@@ -195,23 +220,28 @@ console.log('load info from ' + trackInfo);
     SufiCenter.htmlIdList['startTrackButton'].addEventListener(
       "click", this.model.doStartTrack, false
     );
+    SufiCenter.displayProgress();
 
     SufiCenter.htmlIdList['postponeTrackButton'].addEventListener(
       "click", this.model.doPostponeTrack, false
     );
+    SufiCenter.displayProgress();
 
     SufiCenter.htmlIdList['contTrackButton'].addEventListener(
       "click", this.model.doContTrack, false
     );
+    SufiCenter.displayProgress();
 
     SufiCenter.htmlIdList['saveTrackButton'].addEventListener(
       "click", this.model.doSaveTrack, false
     );
+    SufiCenter.displayProgress();
 
     // button to exit the application
     SufiCenter.htmlIdList['exitButton'].addEventListener(
       "click", SufiCenter.doExitApp, false
     );
+    SufiCenter.displayProgress();
   },
 
   //----------------------------------------------------------------------------
