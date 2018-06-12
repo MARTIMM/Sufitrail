@@ -94,52 +94,6 @@ $widget id=sufitrail.io.github.martimm
     $icon src=res/icon/android/xhdpi.png density=xhdpi []
     $icon src=res/icon/android/xxhdpi.png density=xxhdpi []
     $icon src=res/icon/android/xxxhdpi.png density=xxxhdpi []
-
-$sxml:drop «
-    # Splash screen specs using cordova-plugin-splashscreen
-    # For Android Mobile Devices
-    # hdpi    : 640x480
-    # ldpi    : 426x320
-    # mdpi    : 470x320
-    # xhdpi   : 960x720
-    #
-    # Tablet devices
-    # ldpi:
-    #    Portrait: 200x320px
-    #    Landscape: 320x200px
-    # mdpi:
-    #    Portrait: 320x480px
-    #    Landscape: 480x320px
-    # hdpi:
-    #    Portrait: 480x800px
-    #    Landscape: 800x480px
-    # xhdpi:
-    #    Portrait: 720px1280px
-    #    Landscape: 1280x720px
-    $splash src=res/screen/android/poppetje-istanbul-konya-land-hdpi.png
-            density=land-hdpi []
-    $splash src=res/screen/android/poppetje-istanbul-konya-land-ldpi.png
-            density=land-ldpi []
-    $splash src=res/screen/android/poppetje-istanbul-konya-land-mdpi.png
-            density=land-mdpi []
-    $splash src=res/screen/android/poppetje-istanbul-konya-land-xhdpi.png
-            density=land-xhdpi []
-
-    $splash src=res/screen/android/poppetje-istanbul-konya-port-hdpi.png
-            density=port-hdpi []
-    $splash src=res/screen/android/poppetje-istanbul-konya-port-ldpi.png
-            density=port-ldpi []
-    $splash src=res/screen/android/poppetje-istanbul-konya-port-mdpi.png
-            density=port-mdpi []
-    $splash src=res/screen/android/poppetje-istanbul-konya-port-xhdpi.png
-            density=port-xhdpi []
-
-    $preference name=AutoHideSplashScreen value=false []
-    $preference name=SplashScreenDelay value=0 []
-    $preference name=SplashMaintainAspectRatio value=true|false []
-    $preference name=SplashShowOnlyFirstTime value=true|false []
-    $preference name=SplashScreenSpinnerColor value=white []
-»
   ]
 
   # specific IOS settings
@@ -160,7 +114,6 @@ $sxml:drop «
   $plugin name=cordova-plugin-device spec=^2.0.1 []
   $plugin name=cordova-plugin-file spec=^6.0.1 []
   $plugin name=cordova-plugin-whitelist spec=^1.3.3 []
-  #$plugin name=cordova-plugin-splashscreen spec=^5.0.2 []
 
   $engine name=android spec=6.4.0 []
   $engine name=browser spec=^5.0.3 []
