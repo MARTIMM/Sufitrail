@@ -13,7 +13,7 @@ var SufiData = {
   features:               [],
 
   // temporary load time measurements
-  timeStart:              0,
+  //timeStart:              0,
 
   // holder for track data
   trackXML:               null,
@@ -35,7 +35,7 @@ var SufiData = {
   // subscription from gpxFile
   loadXMLFile: function ( file ) {
 
-    SufiData.timeStart = Date.now();
+    //SufiData.timeStart = Date.now();
     var fileRequest = new XMLHttpRequest();
     fileRequest.onreadystatechange = function ( ) {
 
@@ -67,7 +67,7 @@ var SufiData = {
   // subscription from infoFile
   loadInfoFile: function ( file ) {
 
-    SufiData.timeStart = Date.now();
+    //SufiData.timeStart = Date.now();
     var fileRequest = new XMLHttpRequest();
     fileRequest.onreadystatechange = function ( ) {
 
@@ -349,9 +349,14 @@ console.log("Store track GPS: " + lon + ", " + lat);
   //----------------------------------------------------------------------------
   saveTrack: function ( ) {
     SufiData.mkTrackXml();
-    SufiData.saveTrackXml();
+    var absfilename = SufiData.saveTrackXml();
 
     // Extend user track list
+    var ul = SufiData.center.htmlIdList["userTrackList"];
+    var li = ul.createElement('li');
+    var a = ul.createElement('a');
+    a.innerHTML = "track " + absfilename;
+
     // Show track in layer on map
     // Send to site, url with username
   },
@@ -441,136 +446,13 @@ console.log("Store track GPS: " + lon + ", " + lat);
 
     var s = new XMLSerializer();
     var xmlString = s.serializeToString(SufiData.trackDom);
+/*
 console.log(xmlString);
 console.log(cordova.file);
 console.log(cordova.file.dataDirectory);
-
-
-    // this call is Google Chrome specific! This, however, is made
-    // available using the cordova file plugin
-    window.requestFileSystem(
-      LocalFileSystem.PERSISTENT,
-      0,
-      function ( fs ) {
-console.log('file system open: ' + fs.name);
-        fs.root.getFile(
-          "u.gpx",
-          { create: true, exclusive: false },
-          function ( fileEntry ) {
-console.log("fileEntry is file?: " + fileEntry.isFile.toString());
-            // fileEntry.name == 'someFile.txt'
-            // fileEntry.fullPath == '/someFile.txt'
-console.log("full path: " + fileEntry.fullPath);
-            SufiData.writeFile( fileEntry, xmlString);
-          },
-          // onErrorCreateFile
-          function ( e ) {
-            console.log("ECF: " + e.keys() + ', ' + e.toString());
-          }
-        );
-
-      },
-      // onErrorLoadFs
-      function ( e ) {
-        console.log("ELF: " + e.keys() + ', ' + e.toString());
-      }
-    );
-
-
-/*
-    var file = new File(
-      [xmlString], "./user-tracks/u.gpx", {type: "application/gpx+xml"}
-    );
-
-console.log('File: ' + file.keys);
 */
-/*
-    window.resolveLocalFileSystemURL(
-      'file:///Downloads',
-      function( dir ) {
-console.log("got main dir: " + dir);
-  		  dir.getFile(
-          '/u.gpx',
-          {create: true},
-          function ( file ) {
-console.log("got the file" + file);
-            file.createWriter(
-              function ( fileWriter ) {
-                var blob = new Blob(
-                  [xmlString],
-                  {type: 'application/gpx+xml'}
-                );
 
-                fileWriter.write(blob);
-console.log("GPX text written");
-              }, fail
-            );
-          }
-        );
-      }
-    );
-*/
-/*
-    var file = new File(
-      [xmlString], "./user-tracks/u.gpx", {type: "application/gpx+xml"}
-    );
-    var stream = nsIScriptableIO.newOutputStream( file, "text");
-    stream.writeString(xmlString);
-    stream.close();
-*/
+    var filename = "userTrack-" + Date.now.toISOString + ".gpx";
+    SufiData.center.IO.writeRequest( filename, xmlString);
   },
-
-  //----------------------------------------------------------------------------
-  writeFile: function ( fileEntry, dataText ) {
-
-    // Create a FileWriter object for our FileEntry (log.txt).
-    fileEntry.createWriter( function (fileWriter) {
-        fileWriter.onwriteend = function() {
-          console.log("Successful file write...");
-          SufiData.readFile(fileEntry);
-        };
-
-        fileWriter.onerror = function (e) {
-          console.log("Failed file write: " + e.toString());
-        };
-
-        // If data object is not passed in,
-        // create a new Blob instead.
-        if( dataText ) {
-          dataText = new Blob(
-            [ dataText ],
-            { type: 'text/plain' }
-          );
-        }
-
-        else {
-          dataText = new Blob(
-            ['some file data'],
-            { type: 'text/plain' }
-          );
-        }
-
-        fileWriter.write(dataText);
-      }
-    );
-  },
-
-  //----------------------------------------------------------------------------
-  readFile: function ( fileEntry ) {
-
-    fileEntry.file( function (file) {
-        var reader = new FileReader();
-
-        reader.onloadend = function() {
-          console.log("Successful file read: " + this.result);
-          console.log(fileEntry.fullPath + ": " + this.result);
-        };
-
-        reader.readAsText(file);
-      },
-
-      // onErrorReadFile
-      function ( e ) { console.log(e.toString); }
-    );
-  }
 }
