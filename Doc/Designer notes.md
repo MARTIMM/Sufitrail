@@ -17,21 +17,31 @@ The program will be using a Model–View–Adapter (MVA) or mediating-controller
 
 ```plantuml
 title Global description of all that is involved
+
+'skinparam rectangle {
+'	roundCorner<<Concept>> 25
+'}
+
 actor user
 cloud "user data\ntransport" as network1
 cloud "email\ntransport" as network2
+cloud "tiles\ntransport" as network3
 node trailServer
+node tilesServer
 node emailServer
-package SufiTrailApp
+package SufiTrailApp {
+  artifact index.html
 
-folder tracks [
-  user tracks when hiking
-  storage of fotos and notes
-]
+  folder tracks {
+    artifact "user\ntracks"
+    artifact "fotos\nnotes"
+  }
 
-folder cache [
-  storage of tiles
-]
+  folder cache {
+    artifact tiles
+    artifact features
+  }
+}
 
 database SufiTrailDB {
   storage dbUsers
@@ -39,22 +49,21 @@ database SufiTrailDB {
 }
 
 user -- index.html
-SufiTrailApp - network1
+SufiTrailApp -- network1
 SufiTrailApp -- tracks
 SufiTrailApp -- cache
 SufiTrailDB -- trailServer
+tilesServer -- network3
+network3 -- SufiTrailApp
 network1 - trailServer
 trailServer -- network2
 network2 -- emailServer
 ```
 
 ### Data in the model: `SufiData`
-* Current location
 * Track data
 * Cache of map tiles
-* Feature data
-* Links to external sites
-* Get data from `SufiCenter`
+* Cache of feature data
 
 ### Viewed on display: `SufiMap`
 * Map around current location at start or switchable from track to current location and back
@@ -62,6 +71,7 @@ network2 -- emailServer
 * Informational pages
 * Menu to select pages
 * Features on map
+* Display current location
 
 ### Control: `SufiCenter`
 * Track gps device data -> `SufiMap`/`SufiData`
@@ -69,11 +79,27 @@ network2 -- emailServer
 * Process user input/gestures -> `SufiMap`/`SufiData`
 * Process data changes -> `SufiMap`
 
+### Additional: `Observer`
+* Add and remove subscription
+* Accept data and provide to observer handles
+
+### Additional: `SufiIO`
+* Read and write data from and to disk
+* Read from tileserver -> `SufiData`
+* Send pictures and tracks to sufitrail.net server
+
+### Additional: Server `www.sufitrail.net`
+* Keep track of users
+* Accept pictures and tracks of users
+* Send tracks to other users defined by a set of email addresses of the user.
+
+
 ```plantuml
 title Components and relations of the SufiTrail application
 package SufiTrailApp {
   [index.html]
-  [SufiData.js] --> HTTPS
+  [SufiIO.js] <--> HTTPS
+  [SufiData.js]
   [SufiMap.js]
   [SufiCenter.js]
   [Observer.js]
@@ -81,12 +107,16 @@ package SufiTrailApp {
 SufiData.js <--> Observer.js
 SufiMap.js <--> Observer.js
 SufiCenter.js <--> Observer.js
+SufiCenter.js <--> SufiIO.js
 
 node SufiTrailServer {
-  [index.html]
   HTTPS --> [control]
   [email] - Mail
   [database] - MySql
+}
+
+node TileServer {
+  HTTPS --> [map service]
 }
 
 control --> email
@@ -95,25 +125,30 @@ control <--> database
 
 ``` plantuml
 title Some classes in the SufiTrail Application
-class Observer {
+
+package SufiTrail {
+  class Observer {
+  }
+
+  class SufiData {
+  }
+
+  class SufiMap {
+  }
+
+  class SufiTrack {
+  }
+
+  class SufiFeature {
+  }
+
+  class SufiCenter {
+  }
+
+  class SufiIO {
+  }
 }
 
-class SufiData {
-}
-
-class SufiMap {
-}
-
-class SufiTrack {
-}
-
-class SufiFeature {
-}
-
-class SufiCenter {
-}
-
-'note "Menu is a javscript object" as M
 object Menu {
 
 }
@@ -130,7 +165,13 @@ object OSM {
 
 }
 
+note "javscript object\ngenerated from\nSxml project" as M
+Menu .. M
+note "javscript library\nfrom OpenLayers\nversion 3" as OL3
+OSM .. OL3
+
 SufiData "1" --* SufiCenter
+SufiIO "1" --* SufiCenter
 
 Observer "1" -* SufiCenter
 SufiCenter .. Menu
@@ -293,6 +334,22 @@ endif
 -> (*)
 ```
 
+# Cache data
+## Features
+Some features must be active. Click on a symbol must show a small dialog with simple text. There might be links on it which lead to web pages which must be shown in a browser window.
+
+Features can only be retrieved when online and links can only be followed when online. Therefore these features must be cached and updated when necessary.
+
+
+## Tiles
+Tiles can only be downloaded when online, so these also must be cached. A directory structure must be setup to accomplish this. Also a special set of the tiles must be saved because there is no need to have tiles for all zoom levels and we don't need all tiles of a specific country where the trail is.
+
+The servers are always having a url with something like `.../${z}/${x}/${y}.png` at the end. An example url is `http://a.tile.thunderforest.com/landscape/17/67222/43063.png` which has **zoomlevel 17** and **x 67222** and **y 43063**. These are png images of 256 by 256 pixels. See also [here][TilesWiki]. The x and y coordinates are tile coordinates which change with the zoom level.
+
+# User data
+## Tracks
+## Pictures
+
 # Installed plugins
 * cordova-plugin-geolocation
 * cordova-plugin-device
@@ -335,3 +392,12 @@ endif
 
 [MVA]: https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93adapter
 [Observer]: http://www.dofactory.com/javascript/observer-design-pattern
+
+[TilesWiki]: https://wiki.openstreetmap.org/wiki/Tiles
+
+[StackEx1]: https://gis.stackexchange.com/questions/167792/how-to-retrieve-the-tile-url-in-openlayers-3
+
+[math1]: https://en.wikipedia.org/wiki/Trigonometric_functions#Cosecant,_secant_and_cotangent
+
+[slippy map]:
+https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Pseudo-code
