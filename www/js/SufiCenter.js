@@ -143,7 +143,11 @@ var SufiCenter = {
       SufiCenter.progressValue += 1;
 console.log("init value: " + SufiCenter.progressValue);
       //el.value = SufiCenter.progressValue.toString();
-      el.style.width = SufiCenter.progressValue.toString() + '%';
+      var id = setInterval( frame, 10);
+      function frame( ) {
+        clearInterval(id);
+        el.style.width = SufiCenter.progressValue.toString() + '%';
+      }
     }
   },
 
