@@ -21,13 +21,19 @@ var SufiData = {
 
   // ---------------------------------------------------------------------------
   init: function ( controller ) {
+
     this.center = controller;
     this.center.observers.subscribe( 'gpxFile', SufiData, 'loadXMLFile');
     this.center.observers.subscribe( 'infoFile', SufiData, 'loadInfoFile');
     this.center.observers.subscribe( 'track', SufiData, 'calculateBounds');
     //this.center.observers.subscribe( 'timeInterval', TrackLocation, 'show');
+
     this.center.observers.subscribe(
       'currentLocation', SufiData, 'checkWanderingOffTrack'
+    );
+
+    SufiData.center.observers.subscribe(
+      'storedGpxFile', SufiData, 'updateTrackList'
     );
   },
 
@@ -348,17 +354,30 @@ console.log("Store track GPS: " + lon + ", " + lat);
 
   //----------------------------------------------------------------------------
   saveTrack: function ( ) {
+
     SufiData.mkTrackXml();
-    var absfilename = SufiData.saveTrackXml();
+
+    // signal filename to key 'storedGpxFile'
+    SufiData.saveTrackXml('storedGpxFile');
+  },
+
+//TODO
+// Show track in layer on map
+// Send to site, url with username
+
+  //----------------------------------------------------------------------------
+  // called by observer key 'storedGpxFile'
+  updateTrackList: function ( absFilename ) {
 
     // Extend user track list
-    var ul = SufiData.center.htmlIdList["userTrackList"];
-    var li = ul.createElement('li');
-    var a = ul.createElement('a');
-    a.innerHTML = "track " + absfilename;
+    var doc = document.implementation.createDocument( "", "", null);
 
-    // Show track in layer on map
-    // Send to site, url with username
+    var ul = SufiData.center.htmlIdList["userTrackList"];
+    var li = doc.createElement('li');
+    var a = doc.createElement('a');
+    a.innerHTML = "track " + filename;
+    li.appendElement(a);
+    ul.appendElement(li);
   },
 
   //----------------------------------------------------------------------------
@@ -442,7 +461,7 @@ console.log("Store track GPS: " + lon + ", " + lat);
   //----------------------------------------------------------------------------
   // save xml dom tree to storage
   // https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-file/index.html
-  saveTrackXml: function ( ) {
+  saveTrackXml: function ( observerKey ) {
 
     var s = new XMLSerializer();
     var xmlString = s.serializeToString(SufiData.trackDom);
@@ -452,7 +471,10 @@ console.log(cordova.file);
 console.log(cordova.file.dataDirectory);
 */
 
+console.log("Date and time: " + Date.now.toISOString);
     var filename = "userTrack-" + Date.now.toISOString + ".gpx";
-    SufiData.center.IO.writeRequest( filename, xmlString);
+    SufiData.center.IO.writeRequest( filename, xmlString, observerKey);
+
+    return filename;
   },
 }
