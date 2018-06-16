@@ -1,5 +1,11 @@
 use v6;
 
+=begin comment
+  Lib is used by sxml2xml files. It is used to generate lists of tracks in html
+  with proper attributes. These get read by javascript to activate the track
+  with a link like behaviour.
+=end comment
+
 #-------------------------------------------------------------------------------
 unit package SufiTrail:auth<github:MARTIMM>;
 
