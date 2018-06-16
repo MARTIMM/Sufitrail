@@ -16,13 +16,39 @@ var SufiIO = {
   },
 
   // ---------------------------------------------------------------------------
-  writeRequest: function ( filename, content) {
+  writeRequest: function ( filename, content, observerKey ) {
 //console.log(cordova.file);
-//console.log(cordova.file.dataDirectory);
+console.log('AD:  ' + cordova.file.applicationDirectory);
+console.log('ASD: ' + cordova.file.applicationStorageDirectory);
+console.log('CD:  ' + cordova.file.cacheDirectory);
+console.log('DD:  ' + cordova.file.dataDirectory);
+console.log('DDD: ' + cordova.file.documentsDirectory);
+console.log('ERD: ' + cordova.file.externalRootDirectory);
+console.log('ESD: ' + cordova.file.externalApplicationStorageDirectory);
+console.log('ECD: ' + cordova.file.externalCacheDirectory);
+console.log('EDD: ' + cordova.file.externalDataDirectory);
 
+    window.resolveLocalFileSystemURL(
+      cordova.file.dataDirectory,
+      function ( dirEntry ) {
+        console.log('file system open: ' + dirEntry.name);
+        //var isAppend = true;
+        //createFile(dirEntry, "fileToAppend.txt", isAppend);
+      },
+      // onErrorLoadFs
+      function ( e ) { console.log('RLFU: ' + e.toString()); }
+    );
+
+    SufiIO.requestFileSystem( filename, content, observerKey);
+  },
+
+  //----------------------------------------------------------------------------
+  requestFileSystem: function ( filename, content, observerKey ) {
     // this call is Google Chrome specific! This, however, is made
     // available using the cordova file plugin
     window.requestFileSystem(
+
+      //window.resolveLocalFileSystemURL(cordova.file.dataDirectory),
       LocalFileSystem.PERSISTENT,
       0,
       function ( fs ) {
@@ -49,7 +75,7 @@ console.log("full path: " + fileEntry.fullPath);
   },
 
   //----------------------------------------------------------------------------
-  writeFileEntry: function ( fileEntry, dataText ) {
+  writeFileEntry: function ( fileEntry, content ) {
 
     // Create a FileWriter object for our FileEntry (log.txt).
     fileEntry.createWriter(
@@ -65,21 +91,21 @@ console.log("full path: " + fileEntry.fullPath);
 
         // If data object is not passed in,
         // create a new Blob instead.
-        if( dataText ) {
-          dataText = new Blob(
-            [ dataText ],
+        if( content ) {
+          content = new Blob(
+            [ content ],
             { type: 'text/plain' }
           );
         }
 
         else {
-          dataText = new Blob(
+          content = new Blob(
             ['some file data'],
             { type: 'text/plain' }
           );
         }
 
-        fileWriter.write(dataText);
+        fileWriter.write(content);
       }
     );
   },
