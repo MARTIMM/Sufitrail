@@ -165,10 +165,14 @@ object OSM {
 
 }
 
-note "javscript object\ngenerated from\nSxml project" as M
-Menu .. M
+note "javscript object\ngenerated from\nSxml project" as Msxml
+Menu .. Msxml
 note "javscript library\nfrom OpenLayers\nversion 3" as OL3
 OSM .. OL3
+note "device providing\ncurrent location" as dev1
+GSM .. dev1
+note "device to\nconnect\nto server" as dev2
+Network .. dev2
 
 SufiData "1" --* SufiCenter
 SufiIO "1" --* SufiCenter
@@ -186,15 +190,17 @@ SufiFeature "*" --* SufiMap
 
 #### Keys of values used in the observer
 
-| Key Name | Owner | Description |
-|------|-------|-------------|
-| track | SufiData | The XML representation of the GPX data |
-| trackBounds | SufiData | Calculated boundaries lon/lat of the GPX data |
-| gpxFile | SufiCenter | GPX file selected from a menu |
-| networkState | SufiCenter | Boolean value to show we are on/offline |
-| currentLocation | SufiCenter | Geo location data with a position in the structure |
-| infoFile | SufiCenter | Data pointing to information file of shown track |
-| wanderedOffTrack | SufiData | When current location is too far from track |
+| Key Name | Owner | Description | Data
+|------|-------|-------------|----------|
+| track | SufiData | The XML representation of the GPX data | XML Dom tree |
+| trackBounds | SufiData | Calculated boundaries lon/lat of the GPX data | Array
+| gpxFile | SufiCenter | GPX file selected from a menu | file with GPX data
+| networkState | SufiCenter | Boolean value to show we are on/offline | boolean
+| currentLocation | SufiCenter | Geo location data | position object
+| infoFile | SufiCenter | Information of shown track | file with track info
+| wanderedOffTrack | SufiData | Current location too far from track | Array
+| storedGpxFile | SufiIO | When file is successfully stored | absolute filename
+
 <!-- | deviceReady | SufiCenter | True | -->
 
 #### SufiCenter diagrams: initialization
