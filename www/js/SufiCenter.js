@@ -141,7 +141,7 @@ var SufiCenter = {
     var el = SufiCenter.htmlIdList["progressBar"];
     if( typeof el !== 'undefined' ) {
       SufiCenter.progressValue += 1;
-console.log("init value: " + SufiCenter.progressValue);
+//console.log("init value: " + SufiCenter.progressValue);
       //el.value = SufiCenter.progressValue.toString();
       var id = setInterval( frame, 10);
       function frame( ) {
