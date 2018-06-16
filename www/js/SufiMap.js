@@ -165,6 +165,7 @@ var SufiMap = {
     this.mapLayers.push(new ol.layer.Tile( { source: s1 } ));
     //this.mapLayers[0].on( 'change:visible', this.layerEvent, this);
 
+    // this layer is an overlay and temporary. it helped to find the proper tile
     var s2 = new ol.source.TileDebug( {
         projection: 'EPSG:3857',
         tileGrid: s1.getTileGrid()
