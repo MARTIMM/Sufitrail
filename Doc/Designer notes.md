@@ -200,6 +200,7 @@ SufiFeature "*" --* SufiMap
 | infoFile | SufiCenter | Information of shown track | file with track info
 | wanderedOffTrack | SufiData | Current location too far from track | Array
 | storedGpxFile | SufiIO | When file is successfully stored | absolute filename
+| initStep | * | when a init step is taken | -
 
 <!-- | deviceReady | SufiCenter | True | -->
 
