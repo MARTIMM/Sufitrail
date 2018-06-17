@@ -10,9 +10,110 @@ var SufiIO = {
   // adaptor/mediator
   center:                 null,
 
+  // Data url
+  topFsURL:               'file:///',
+
+  // dirEntries
+  rootDirectory:          null, // sufiTrailDataURL
+  tracksDirEntry:         null, // sufiTrailDataURL/Tracks
+  featureDirEntry:        null, // sufiTrailDataURL/Features
+  tileDirEntry:           null, // sufiTrailDataURL/Tiles
+
   // ---------------------------------------------------------------------------
   init: function ( controller ) {
     this.center = controller;
+
+    // create directories if not exists
+    window.resolveLocalFileSystemURL(
+      //SufiIO.topFsURL,
+      cordova.file.dataDirectory,
+      function ( topDirEntry ) {
+console.log('top: ' + topDirEntry.isDirectory);
+console.log('top: ' + topDirEntry.name);
+
+        topDirEntry.getDirectory(
+          'SufiTrailData', { create: true },
+
+          // Save tracks directory entry
+          function ( subDirEntry ) {
+console.log('STD: ' + topDirEntry.isDirectory);
+console.log('STD: ' + topDirEntry.name);
+
+            SufiIO.rootDirectory = subDirEntry;
+            SufiIO.createSufiTrailDirectories(subDirEntry);
+            SufiIO.center.observers.set( 'displayProgress', 0);
+          },
+
+          SufiIO.onErrorGetDir
+        );
+      },
+
+      SufiIO.onErrorLoadFs
+    );
+  },
+
+  //----------------------------------------------------------------------------
+  // create sub directories in root directory
+  createSufiTrailDirectories: function ( dirEntry ) {
+    dirEntry.getDirectory(
+      'SufiTrail', { create: true },
+
+      function ( dirEntry ) {
+        // create ./Tracks
+        dirEntry.getDirectory(
+          'Tracks', { create: true },
+
+          // Save tracks directory entry
+          function ( subDirEntry ) {
+            SufiIO.tracksDirEntry = subDirEntry
+
+console.log('Tr: ' + subDirEntry.isDirectory);
+console.log('Tr: ' + subDirEntry.name);
+          },
+          SufiIO.onErrorGetDir
+        );
+
+        // create ./Features
+        dirEntry.getDirectory(
+          'Features', { create: true },
+
+          // Save tracks directory entry
+          function ( subDirEntry ) { SufiIO.featureDirEntry = subDirEntry },
+          SufiIO.onErrorGetDir
+        );
+
+        // create ./Tiles
+        dirEntry.getDirectory(
+          'Tiles', { create: true },
+
+          // Save tracks directory entry
+          function ( subDirEntry ) { SufiIO.tileDirEntry = subDirEntry },
+          SufiIO.onErrorGetDir
+        );
+
+        SufiIO.center.observers.set( 'displayProgress', 0);
+      },
+      SufiIO.onErrorGetDir
+    );
+  },
+
+  /*
+  GD1: function ( subDirEntry ) {
+    createFile( subDirEntry, "fileInNewSubDir.txt");
+  },
+  */
+
+  //----------------------------------------------------------------------------
+  // Creates a new file or returns the file if it already exists.
+  createFile: function ( dirEntry, fileName, isAppend ) {
+    dirEntry.getFile(
+      fileName, {create: true, exclusive: false},
+      SufiIO.GF1, SufiIO.onErrorCreateFile
+    );
+  },
+
+  GF1: function ( fileEntry ) {
+    writeFile( fileEntry, null, isAppend);
   },
 
   // ---------------------------------------------------------------------------
@@ -22,22 +123,10 @@ console.log('AD:  ' + cordova.file.applicationDirectory);
 console.log('ASD: ' + cordova.file.applicationStorageDirectory);
 console.log('CD:  ' + cordova.file.cacheDirectory);
 console.log('DD:  ' + cordova.file.dataDirectory);
-console.log('DDD: ' + cordova.file.documentsDirectory);
 console.log('ERD: ' + cordova.file.externalRootDirectory);
 console.log('ESD: ' + cordova.file.externalApplicationStorageDirectory);
 console.log('ECD: ' + cordova.file.externalCacheDirectory);
 console.log('EDD: ' + cordova.file.externalDataDirectory);
-
-    window.resolveLocalFileSystemURL(
-      cordova.file.dataDirectory,
-      function ( dirEntry ) {
-        console.log('file system open: ' + dirEntry.name);
-        //var isAppend = true;
-        //createFile(dirEntry, "fileToAppend.txt", isAppend);
-      },
-      // onErrorLoadFs
-      function ( e ) { console.log('RLFU: ' + e.toString()); }
-    );
 
     SufiIO.requestFileSystem( filename, content, observerKey);
   },
@@ -67,10 +156,8 @@ console.log("full path: " + fileEntry.fullPath);
           }
         );
       },
-      // onErrorLoadFs
-      function ( e ) {
-        console.log("ELF: " + e.keys() + ', ' + e.toString());
-      }
+
+      SufiIO.onErrorLoadFs
     );
   },
 
@@ -117,8 +204,7 @@ console.log("full path: " + fileEntry.fullPath);
       // onSuccess
       function ( file ) { SufiIO.readFile(file); },
 
-      // onErrorReadFile
-      function ( e ) { console.log(e.toString); }
+      SufiIO.onErrorReadFile
     );
   },
 
@@ -133,5 +219,36 @@ console.log("full path: " + fileEntry.fullPath);
     };
 
     reader.readAsText(file);
-  }
+  },
+
+  //----------------------------------------------------------------------------
+  onErrorGetDir: function ( e ) {
+
+    var t = '?';
+    if( e.NOT_FOUND_ERR ) { t = 'not found'; }
+    if( e.PATH_EXISTS_ERR ) { t = 'directory exists'; }
+    if( e.SECURITY_ERR ) { t = 'security problem'; }
+    if( e.TYPE_MISMATCH_ERR ) { t = 'type mismatch'; }
+    console.log("Error getting directory: " + t);
+  },
+
+  //----------------------------------------------------------------------------
+  onErrorLoadFs: function ( e ) {
+    console.log("Error load filesystem: " + e.toString());
+  },
+
+  //----------------------------------------------------------------------------
+  onErrorCreateFile: function ( e ) {
+    console.log("Error creating file: " + e.toString());
+  },
+
+  //----------------------------------------------------------------------------
+  onErrorReadFile: function ( e ) {
+    console.log("Error reading file: " + e.toString());
+  },
+
+  //----------------------------------------------------------------------------
+  X: function ( e ) {
+    console.log("Error : " + e.toString());
+  },
 }
