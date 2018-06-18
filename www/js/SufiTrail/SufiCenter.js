@@ -5,7 +5,9 @@
 "use strict";
 
 goog.provide('SufiTrail.SufiCenter');
+
 goog.require('SufiTrail.Observer');
+goog.require('SufiTrail.SufiMap');
 
 /** ============================================================================
   @constructor
@@ -15,7 +17,7 @@ SufiTrail.SufiCenter = function ( ) {
   this.observers = null;
 
   /** @private part of model and view where the controller is this object */
-  this.view = SufiMap;
+  this.view = new SufiTrail.SufiMap();
   this.model = SufiData;
 
   // read, write files and send receive usig urls
