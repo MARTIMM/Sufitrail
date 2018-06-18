@@ -7,10 +7,12 @@
 * Javascript at the bottom of /html/body
 * Split current javascript in parts, see below.
 * Drop as many external modules as possible
-  * Google lib is dropped
   * JQuery is dropped
   * OpenLayers 3 is necessary
 
+## Introduced google closure again
+### Name spaces and module names
+* Namespace id used in the cordova config is **io.github.martimm**. I find this a bit too long to create a path like that. So the modules and classes are placed in the javascript directory accordingly. E.g. `www/js/SufiTrail/SufiCenter.js` instead of `www/js/io/github/martimm/SufiCenter.js`.
 
 ## Implementation
 The program will be using a Model–View–Adapter (MVA) or mediating-controller Model View Control (MVC) pattern, see [Wikipedia article][MVA]. This pattern is used to separate the storage, control and view from each other. To get things done, an observer/subscription service is created. A data generated in one part can be subscribed to by another. A call from the observer object is made to the subscribers of that specific data when that data becomes available. This pattern is also named 'producer/consumer' pattern.
@@ -408,3 +410,7 @@ The servers are always having a url with something like `.../${z}/${x}/${y}.png`
 
 [slippy map]:
 https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Pseudo-code
+
+[goog1]: https://developers.google.com/closure/library/docs/gettingstarted
+[goog2]: https://developers.google.com/closure/library/docs/tutorial
+[goog3]: http://www.daveoncode.com/category/google-closure/
