@@ -80,6 +80,8 @@ $sxml:drop «
     # open layers styles
     $link rel=stylesheet type=text/css href=css/ol.css []
 
+
+#<<<
     # the navigation menu
     $!css.style id=menu-style [
 
@@ -263,7 +265,7 @@ $sxml:drop «
   $body [
     #---------------------------------------------------------------------------
     $!menu.container side=right style-pivot-id=reset insert-style=after
-                     script-pivot-id=observer-script insert-script=before [
+                     script-pivot-id=ol-script insert-script=after [
 
       # this container is removed as soon as everything is ready
       $div id=splashScreen [
@@ -393,7 +395,8 @@ $sxml:drop «
               $th [ Current App Version ]
             ]
             $tr [
-              $td [ 0.8.1 ]
+#TODO read version from config.xml
+              $td [ 0.9.0 ]
             ]
           ]
         ]
@@ -420,6 +423,16 @@ $sxml:drop «
     # cordova device environment.
     $script src=cordova.js []
 
+    # parts of google closure library. the files are copied from elsewhere when
+    # needed. otherwise cordova will pack the whole shebang into a bif app
+    $script src=js/closure-library/closure/goog/base.js []
+
+    # calculated dependencies for using google library. program is
+    # symbolic linked to my bin
+    # > cd www/js
+    # > calcdeps.py -p closure-library/ -p SufiTrail/ -o deps > project-dependencies.js
+    $script src=js/project-dependencies.js []
+
 #    $script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL" []
 #    $script src=js/polyfill.min.js []
 #    $script src=js/lzma-min.js []
@@ -427,14 +440,21 @@ $sxml:drop «
     # open layers library
     $script src=js/ol.js id=ol-script []
 
-    # menu generated javascript gets inserted here
+    # menu generated javascript gets inserted here using pivot id=ol-script
 
     # the programs script code
-    $script src=js/Observer.js id=observer-script []
     $script src=js/SufiIO.js id=io-script []
     $script src=js/SufiData.js id=data-script []
     $script src=js/SufiMap.js id=map-script []
-    $script src=js/SufiCenter.js id=center-script []
+
+    # $script src=js/Observer.js id=observer-script []
+    # $script src=js/SufiCenter.js id=center-script async=async []
+
+    $script « goog.require('SufiTrail.SufiCenter'); »
+    $script «
+      var SufiCenter = new SufiTrail.SufiCenter();
+      SufiCenter.init();
+    »
 
   ] # body
 ] # html
