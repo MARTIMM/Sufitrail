@@ -1,0 +1,50 @@
+#------------------------------------------------------------------------------
+[ C ]
+  tracing       = true
+
+[ C.info ]
+  doctype-show  = false
+  xml-show      = false
+
+#------------------------------------------------------------------------------
+[ R.html ]
+#  index         = 'xmllint --html --format - > %op/%of.%oe'
+
+#------------------------------------------------------------------------------
+[ S ]
+  rootpath      = 'www'
+
+[ S.info ]
+  fileext       = 'xml'
+  rootpath      = 'www/info'
+
+[ S.css ]
+  fileext       = 'css'
+  rootpath      = 'www/css'
+
+#------------------------------------------------------------------------------
+[ ML.html ]
+  colors        = 'SxmlLib::Colors'
+#  lorem         = 'SxmlLib::LoremIpsum'
+  css           = 'SxmlLib::Html::Css'
+  menu          = 'SxmlLib::Html::Menu'
+  tracks        = 'SufiTrail::Sxml::Tracks;/home/marcel/Projects/Mobile/Projects/lib'
+
+[ ML.info ]
+  tracks        = 'SufiTrail::Sxml::Tracks;/home/marcel/Projects/Mobile/Projects/lib'
+
+#------------------------------------------------------------------------------
+# Tracing tables
+[ T ]
+#  config          = true
+#  tables          = true
+#  modules         = true
+#  parse           = true
+#  parse-result    = true
+  file-handling   = true
+
+#------------------------------------------------------------------------------
+#[ X ]
+#  xml-version     = '1.0'
+#  xml-encoding    = 'UTF-8'
+#  xml-standalone  = 'no'

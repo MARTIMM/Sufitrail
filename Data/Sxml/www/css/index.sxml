@@ -1,0 +1,195 @@
+# Run: sxml2xml.pl6 --in=html --out=css Data/Sxml/www/css/index-css.sxml
+
+#===========================================================================
+# generate color values for css
+$!colors.palette base-rgb='#56af32' outspec=hsl
+                 type=color-scheme mode=monochromatic
+                 lighten=15 ncolors=6 outspec=rgbhex []
+
+#===========================================================================
+# reset default css settings of any browser
+$!css.reset type=condensed-universal id=reset []
+
+# menu generated style gets inserted here
+
+# open layers styles
+$link rel=stylesheet type=text/css href=css/ol.css []
+
+# the navigation menu
+$!css.style id=menu-style [
+
+  $!css.b s=.sidenav [
+    background-color: rgb( 5, 5, 5);
+
+    $!css.b s=a [
+      margin: 1px;
+      padding: 1px;
+      background-color: rgb( 0, 100, 100);
+      color: rgb( 0, 200, 200);
+    ]
+
+    $!css.b s=a:hover [
+      color: rgb( 0, 240, 240);
+    ]
+
+    /* The navigation menu links */
+    $!css.b s=a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+
+    $!css.b s=.menu-close-button [
+      padding: 0 0 2px 2px;
+      color: $sxml:var-ref name=scheme-color4 [];
+    ]
+
+    $!css.b s=.menu-entry [
+      background-color: $sxml:var-ref name=scheme-color1 [];
+      border-color: $sxml:var-ref name=scheme-color3 [];
+      color: $sxml:var-ref name=scheme-color4 [];
+    ]
+  ]
+
+  $!css.b s=.menu-open-button {
+    font-size: 30px;
+    cursor: pointer;
+  }
+
+  $!css.b s=.menu-home-button {
+    font-size: 30px;
+    cursor: pointer;
+  }
+
+  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+
+  $!css.b s='#main' {
+    transition: margin-left .5s;
+    padding: 20px;
+  }
+
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+
+  @media screen and (max-height: 450px) {
+    .sidenav {
+      padding-top: 15px;
+    }
+    .sidenav a {
+      font-size: 18px;
+    }
+  }
+]
+
+# layout of pages
+$!css.style id=pages-style [
+  $!css.b s='*' [
+    box-sizing: border-box;
+  ]
+
+  $!css.b s='#sufiTrailMap' {
+    height: 100%;
+    /*overflow: hidden;*/
+  }
+
+  $!css.b s=.menu-page {
+    height: 100%;
+  }
+
+  $!css.b s=.hreftype [
+    text-decoration:      underline;
+    cursor:               hand;
+    cursor:               pointer;
+  ]
+
+  $!css.b s=.strong [
+    font-weight:          bold;
+  ]
+
+  $!css.b s='table#about' [
+    margin-left:          20%;
+    margin-right:         80%;
+    width:                80%;
+
+    $!css.b s='tr th' [
+      text-align:         left;
+    ]
+  ]
+
+  /* button on map, first page */
+  $!css.b s=.open-menu [
+    top:                  42px;
+    right:                .5em;
+  ]
+
+  /* info pages */
+  $!css.b s='#info-page' {
+    padding: 2px;
+  }
+
+  $!css.b s='.info-text' {
+    padding: 4px;
+  }
+
+  $!css.b s=.info-svg {
+    width: 18px;
+    height: 18px;
+    padding-right: 3px;
+  }
+
+  $!css.b s=.info-header {
+    color: white;
+    background-color: #56af32;
+    padding-left: 2px;
+    font-size: 18pt;
+  }
+
+  $!css.b s=.info-tips {
+    border: 3px solid #56af32;
+    border-radius: 8px;
+    width: 300px;
+    padding: 5px;
+    margin: 10px 0 10px 0;
+  }
+
+
+  # Miscelleneous
+  # font size is 1em
+  $!css.b s=h1 {
+    font-weight:      10vw;
+    font-size:        2.5em;
+  }
+
+  $!css.b s=h2 {
+    font-weight:      4;
+    font-size:        1.5em;
+  }
+
+  $!css.b s=button {
+    font-weight:      bold;
+    font-size:        larger;
+    /*background-color: #56af32;*/
+    color:            #448811;
+    border:           3px solid #56af32;
+    border-radius:    8px;
+    margin:           2px;
+  }
+]
+
+# the progress bar on splash screen
+$!css.style id=progressbar-style [
+
+  $!css.b s='#splashProgress' {
+    width: 100%;
+    background-color: #ddd;
+  }
+
+  $!css.b s='#progressBar' {
+    width: 1%;
+    height: 30px;
+    background-color: #4CAF50;
+  }
+]
+]
