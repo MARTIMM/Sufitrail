@@ -14,6 +14,8 @@ This is a list of more or less implemented items which need more attention. The 
 * Move menu buttons on pages to the right
 * Move menu button on home page a bit lower. It overlaps north-button
 
+* Must find a new way to read/write files. It is very cumbersome to get things done using the File API. It is supported using a cordova plugin. Outside of this plugin, the File API is abandoned by the W3C for whatever reason. So, going back to google closure perhaps, which supports the File API too with a few more tools to handle directories and such. There is also a mention in OpenLayers that it is using it.
+
 # Bugs
 ```
 # ghi list --label Bug -v
