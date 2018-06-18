@@ -7,9 +7,10 @@ Old/*
 hooks/*
 package*
 res/*
+Data/js-libs/*
 www/css/ol.css
 www/css/demo.css
-www/js/goog/*
+www/js/*/goog/*
 www/js/goog-new*/*
 www/js/jquery*
 www/tracks/*
