@@ -348,7 +348,7 @@ console.log('Load: ' + file);
     }
   );
 
-  this.SufiMap.map.addLayer(SufiMap.vector);
+  this.SufiMap.map.addLayer(this.SufiMap.vector);
   //SufiCenter.loadXMLFile(file);
 }
 
