@@ -3,6 +3,7 @@
    https://stackoverflow.com/questions/12308246/how-to-implement-observer-pattern-in-javascript
 
    Modified by: Marcel Timmerman 2018 01 23
+   Copyright: © Sufitrail 2017, 2018
 */
 "use strict";
 
