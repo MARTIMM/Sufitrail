@@ -444,7 +444,7 @@ $sxml:drop «
 
     # the programs script code
     $script src=js/SufiIO.js id=io-script []
-    $script src=js/SufiData.js id=data-script []
+    # $script src=js/SufiData.js id=data-script []
 
     # $script src=js/SufiMap.js id=map-script []
     # $script src=js/Observer.js id=observer-script []
