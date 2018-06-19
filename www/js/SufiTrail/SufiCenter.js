@@ -8,6 +8,7 @@ goog.provide('SufiTrail.SufiCenter');
 
 goog.require('SufiTrail.Observer');
 goog.require('SufiTrail.SufiMap');
+goog.require('SufiTrail.SufiData');
 
 /** ============================================================================
   @constructor
@@ -17,8 +18,8 @@ SufiTrail.SufiCenter = function ( ) {
   this.observers = null;
 
   /** @private part of model and view where the controller is this object */
-  this.view = new SufiTrail.SufiMap();
-  this.model = SufiData;
+  this.SufiMap = new SufiTrail.SufiMap();
+  this.SufiData = new SufiTrail.SufiData();
 
   // read, write files and send receive usig urls
   this.IO = SufiIO;
@@ -68,7 +69,7 @@ SufiTrail.SufiCenter.prototype.init = function ( ) {
   this.menu = this.externalObjects["menuObject"];
 
   // initialization steps
-  this.observers.subscribe( 'initStep', SufiCenter, 'displayProgress');
+  this.observers.subscribe( 'initStep', this, 'displayProgress');
 
 
   // elements can be processed from document because scripts are at the end of
@@ -76,13 +77,14 @@ SufiTrail.SufiCenter.prototype.init = function ( ) {
 
   // now wait for the device is ready for further processing. some
   // details must come from the devices hardware.
-  setTimeout(
-    function () {
+  var centerobj = this;
+  //setTimeout(
+  //  function () {
       document.addEventListener(
-        'deviceready', SufiCenter.onDeviceReady, false
+        'deviceready', function ( ) { centerobj.onDeviceReady( ) }, false
       );
-    }, 9000
-  );
+  //  }, 9000
+  //);
 }
 
 /** ----------------------------------------------------------------------------
@@ -91,79 +93,82 @@ SufiTrail.SufiCenter.prototype.init = function ( ) {
 */
 SufiTrail.SufiCenter.prototype.onDeviceReady = function ( ) {
 
+console.log("obj: " + this.name);
+
   // find the html element objects by its id from the id list
-  for( var k in SufiCenter.htmlIdList ) {
+  for( var k in this.htmlIdList ) {
     // use hasOwnProperty to filter out keys from the Object.prototype
-    if( SufiCenter.htmlIdList.hasOwnProperty(k) ) {
-      SufiCenter.htmlIdList[k] = document.getElementById(k);
-      console.log( "K: " + k + ', ' + SufiCenter.htmlIdList[k]);
+    if( this.htmlIdList.hasOwnProperty(k) ) {
+      this.htmlIdList[k] = document.getElementById(k);
+console.log( "K: " + k + ', ' + this.htmlIdList[k]);
     }
 
-    SufiCenter.observers.set( 'displayProgress', 0);
+    this.observers.set( 'displayProgress', 0);
   }
 
 
   // which device are we working with
-  SufiCenter.device = device;
+  this.device = device;
 
   // set an event on each of the tracks found in the document
-  SufiCenter.setTrackEvents();
-  SufiCenter.observers.set( 'displayProgress', 0);
+  this.setTrackEvents();
+  this.observers.set( 'displayProgress', 0);
 
   // make the buttons active
-  SufiCenter.activateButtons();
-  SufiCenter.observers.set( 'displayProgress', 0);
+  this.activateButtons();
+  this.observers.set( 'displayProgress', 0);
 
   // do the other initializations
-  SufiCenter.IO.init(SufiCenter);
-  SufiCenter.observers.set( 'displayProgress', 0);
-  SufiCenter.view.init( SufiCenter, SufiCenter.mapElementName);
-  SufiCenter.observers.set( 'displayProgress', 0);
-  SufiCenter.model.init(SufiCenter);
-  SufiCenter.observers.set( 'displayProgress', 0);
+  this.IO.init(this);
+  this.observers.set( 'displayProgress', 0);
+  this.SufiMap.init( this, this.mapElementName);
+  this.observers.set( 'displayProgress', 0);
+  this.SufiData.init(this);
+  this.observers.set( 'displayProgress', 0);
 
   // check for networking offline/online
-  SufiCenter.observers.set( 'networkState', navigator.onLine);
+  this.observers.set( 'networkState', navigator.onLine);
+  var centerobj = this;
   window.addEventListener(
     'offline', function ( ) {
 // TODO needs some extra work to be accurate
-      SufiCenter.observers.set( 'networkState', navigator.onLine);
+      centerobj.observers.set( 'networkState', navigator.onLine);
     }
   );
   window.addEventListener(
     'online', function ( ) {
-      SufiCenter.observers.set( 'networkState', navigator.onLine);
+      centerobj.observers.set( 'networkState', navigator.onLine);
     }
   );
-  SufiCenter.observers.set( 'displayProgress', 0);
+  this.observers.set( 'displayProgress', 0);
 
   // Setup geolocation watcher
-  SufiCenter.watchGPS();
-  SufiCenter.observers.set( 'displayProgress', 0);
+  this.watchGPS();
+  this.observers.set( 'displayProgress', 0);
 
   // Let any observers know that the device is ready
-  //SufiCenter.observers.set( 'deviceReady', true);
+  //this.observers.set( 'deviceReady', true);
 
   console.log('Initialization complete');
 
   // show map after splash start screen
-  //SufiCenter.menu.showPage('map-page');
-  var parent = SufiCenter.htmlIdList["splashScreen"].parentElement;
-  parent.removeChild(SufiCenter.htmlIdList["splashScreen"]);
+  //this.menu.showPage('map-page');
+  var parent = this.htmlIdList["splashScreen"].parentElement;
+  parent.removeChild(this.htmlIdList["splashScreen"]);
 }
 
 // ---------------------------------------------------------------------------
 // display initialisation progress
 SufiTrail.SufiCenter.prototype.displayProgress = function ( ) {
-  var el = SufiCenter.htmlIdList["progressBar"];
+  var el = this.htmlIdList["progressBar"];
   if( typeof el !== 'undefined' ) {
-    SufiCenter.progressValue += 1;
-//console.log("init value: " + SufiCenter.progressValue);
-    //el.value = SufiCenter.progressValue.toString();
+    this.progressValue += 1;
+//console.log("init value: " + this.progressValue);
+    //el.value = this.progressValue.toString();
     var id = setInterval( frame, 10);
     function frame( ) {
       clearInterval(id);
-      el.style.width = SufiCenter.progressValue.toString() + '%';
+      el.style.width = this.progressValue.toString() + '%';
     }
   }
 }
@@ -172,13 +177,15 @@ SufiTrail.SufiCenter.prototype.displayProgress = function ( ) {
 // See also https://www.w3.org/TR/geolocation-API/
 SufiTrail.SufiCenter.prototype.watchGPS = function ( ) {
 
+  var centerobj = this;
+
   // listen to changes in position
-  SufiCenter.watchId = navigator.geolocation.watchPosition(
+  this.watchId = navigator.geolocation.watchPosition(
     // on success
     function(position) {
 //console.log('location changed: ' + position);
       // Let any observers know that the device is ready
-      SufiCenter.observers.set( 'currentLocation', position);
+      centerobj.observers.set( 'currentLocation', position);
     },
 
     // on error
@@ -198,6 +205,7 @@ console.log('locator error: ' + error.code + ', ' + error.message);
 // make series of tracks clickable
 SufiTrail.SufiCenter.prototype.setTrackEvents = function ( ) {
 
+  var centerobj = this;
   var gpxElement;
   var trackCount = 1;
 
@@ -212,7 +220,7 @@ SufiTrail.SufiCenter.prototype.setTrackEvents = function ( ) {
     var gpxFile = gpxElement.getAttribute('data-gpx-file');
     var infoFile = gpxElement.getAttribute('data-info-file');
     trackCount++;
-    SufiCenter.observers.set( 'displayProgress', 0);
+    this.observers.set( 'displayProgress', 0);
 
     // define a function returning a handler which shows a track and
     // focus as well as fits the track on screen
@@ -220,13 +228,13 @@ SufiTrail.SufiCenter.prototype.setTrackEvents = function ( ) {
       return function ( ) {
 
         // show map again
-        SufiCenter.menu.showPage('map-page');
+        centerobj.menu.showPage('map-page');
 
 console.log('load track from ' + trackFile);
 console.log('load info from ' + trackInfo);
         // sent a hint that the filenames are ready to process
-        SufiCenter.observers.set( 'gpxFile', trackFile);
-        SufiCenter.observers.set( 'infoFile', trackInfo);
+        centerobj.observers.set( 'gpxFile', trackFile);
+        centerobj.observers.set( 'infoFile', trackInfo);
       };
     }
 
@@ -239,38 +247,39 @@ console.log('load info from ' + trackInfo);
 //----------------------------------------------------------------------------
 SufiTrail.SufiCenter.prototype.activateButtons = function ( ) {
 
+  var centerobj = this;
   // button to start, postpone and continue tracking, and save a track.
-  SufiCenter.htmlIdList['startTrackButton'].addEventListener(
-    "click", this.model.doStartTrack, false
+  this.htmlIdList['startTrackButton'].addEventListener(
+    "click", function ( ) { centerobj.SufiData.doStartTrack() }, false
   );
-  SufiCenter.observers.set( 'displayProgress', 0);
+  this.observers.set( 'displayProgress', 0);
 
-  SufiCenter.htmlIdList['postponeTrackButton'].addEventListener(
-    "click", this.model.doPostponeTrack, false
+  this.htmlIdList['postponeTrackButton'].addEventListener(
+    "click", function ( ) { centerobj.SufiData.doPostponeTrack() }, false
   );
-  SufiCenter.observers.set( 'displayProgress', 0);
+  this.observers.set( 'displayProgress', 0);
 
-  SufiCenter.htmlIdList['contTrackButton'].addEventListener(
-    "click", this.model.doContTrack, false
+  this.htmlIdList['contTrackButton'].addEventListener(
+    "click", function ( ) { centerobj.SufiData.doContTrack() }, false
   );
-  SufiCenter.observers.set( 'displayProgress', 0);
+  this.observers.set( 'displayProgress', 0);
 
-  SufiCenter.htmlIdList['saveTrackButton'].addEventListener(
-    "click", this.model.doSaveTrack, false
+  this.htmlIdList['saveTrackButton'].addEventListener(
+    "click", function ( ) { centerobj.SufiData.doSaveTrack() }, false
   );
-  SufiCenter.observers.set( 'displayProgress', 0);
+  this.observers.set( 'displayProgress', 0);
 
   // button to exit the application
-  SufiCenter.htmlIdList['exitButton'].addEventListener(
-    "click", SufiCenter.doExitApp, false
+  this.htmlIdList['exitButton'].addEventListener(
+    "click", function ( ) { centerobj.doExitApp() }, false
   );
-  SufiCenter.observers.set( 'displayProgress', 0);
+  this.observers.set( 'displayProgress', 0);
 }
 
 //----------------------------------------------------------------------------
 SufiTrail.SufiCenter.prototype.doExitApp = function ( ) {
 
-  navigator.geolocation.clearWatch(SufiCenter.watchId);
+  navigator.geolocation.clearWatch(this.watchId);
   console.log('SufiTrail program stopped');
   navigator.app.exitApp();
 }
