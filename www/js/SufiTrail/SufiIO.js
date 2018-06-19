@@ -6,6 +6,8 @@
 
 goog.provide('SufiTrail.SufiIO');
 
+goog.require('goog.fs.DirectoryEntry');
+
 /** ============================================================================
   @constructor
 */
@@ -14,8 +16,9 @@ SufiTrail.SufiIO = function ( ) {
   // adaptor/mediator
   this.center = null;
 
-  // Data url
-  this.topFsURL = 'file:///';
+  // Data urls
+  // file:///storage/emulated/0/Android/data/sufitrail.io.github.martimm/
+  this.topFsURL = cordova.file.externalApplicationStorageDirectory;
 
   // dirEntries
   // sufiTrailDataURL
@@ -68,6 +71,11 @@ SufiTrail.SufiIO.prototype.createSufiTrailDirectories = function ( dirEntry ) {
 
   var ioobj = this;
 
+  var fsdirobj = goog.fs.DirectoryEntry();
+  var deferred = fsdirobj.createPath(this.topFsUrl + '/Tracks');
+console.log('Deferred: ' + deferred.keys);
+
+/*
   dirEntry.getDirectory(
     'SufiTrail', { create: true },
 
@@ -106,6 +114,7 @@ console.log('Tr: ' + subDirEntry.name);
     },
     function ( e ) { ioobj.onErrorGetDir(e); }
   );
+*/
 }
 
 /*
