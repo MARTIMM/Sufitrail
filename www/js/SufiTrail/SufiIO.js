@@ -52,7 +52,6 @@ console.log('STD: ' + topDirEntry.name);
 
           ioobj.rootDirectory = subDirEntry;
           ioobj.createSufiTrailDirectories(subDirEntry);
-          ioobj.center.observers.set( 'displayProgress', 0);
         },
 
         function ( e ) { ioobj.onErrorGetDir(e); }
@@ -104,8 +103,6 @@ console.log('Tr: ' + subDirEntry.name);
         function ( subDirEntry ) { ioobj.tileDirEntry = subDirEntry },
         function ( e ) { ioobj.onErrorGetDir(e); }
       );
-
-      ioobj.center.observers.set( 'displayProgress', 0);
     },
     function ( e ) { ioobj.onErrorGetDir(e); }
   );

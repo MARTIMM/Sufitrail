@@ -80,8 +80,6 @@ $sxml:drop «
     # open layers styles
     $link rel=stylesheet type=text/css href=css/ol.css []
 
-
-#<<<
     # the navigation menu
     $!css.style id=menu-style [
 
@@ -244,21 +242,6 @@ $sxml:drop «
         margin:           2px;
       }
     ]
-
-    # the progress bar on splash screen
-    $!css.style id=progressbar-style [
-
-      $!css.b s='#splashProgress' {
-        width: 100%;
-        background-color: #ddd;
-      }
-
-      $!css.b s='#progressBar' {
-        width: 1%;
-        height: 30px;
-        background-color: #4CAF50;
-      }
-    ]
   ]
 
   #=============================================================================
@@ -270,10 +253,6 @@ $sxml:drop «
       # this container is removed as soon as everything is ready
       $div id=splashScreen [
         $img src=images/Svg/logopoppetjealleen.svg width=300 height=600 []
-        $br # $progress id=startupProgress value=0 max=64 []
-        $div id=splashProgress [
-          $div id=progressBar []
-        ]
       ]
 
       #-------------------------------------------------------------------------
@@ -396,7 +375,7 @@ $sxml:drop «
             ]
             $tr [
 #TODO read version from config.xml
-              $td [ 0.9.0 ]
+              $td [ 0.9.1 ]
             ]
           ]
         ]

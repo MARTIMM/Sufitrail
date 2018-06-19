@@ -11,6 +11,9 @@ goog.require('SufiTrail.SufiMap');
 goog.require('SufiTrail.SufiData');
 goog.require('SufiTrail.SufiIO');
 
+goog.require('goog.ui.Component');
+goog.require('goog.ui.ProgressBar');
+
 /** ============================================================================
   @constructor
 */
@@ -31,12 +34,11 @@ SufiTrail.SufiCenter = function ( ) {
   this.device = { };
   this.watchId = null;
   this.progressValue = 0;
+  this.pbElement = null;
 
   // dependencies of html file
   this.mapElementName = "sufiTrailMap";
   this.htmlIdList = {
-    progressBar:          null,
-    splashProgress:       null,
     splashScreen:         null,
 
     sufiTrailMap:         null,
@@ -69,23 +71,19 @@ SufiTrail.SufiCenter.prototype.init = function ( ) {
   // must be set first: init's might refer to it
   this.menu = this.externalObjects["menuObject"];
 
-  // initialization steps
-  this.observers.subscribe( 'initStep', this, 'displayProgress');
-
-
   // elements can be processed from document because scripts are at the end of
   // the document. So, when scripts are running the documents must be there.
 
   // now wait for the device is ready for further processing. some
   // details must come from the devices hardware.
   var centerobj = this;
-  //setTimeout(
-  //  function () {
+  setTimeout(
+    function () {
       document.addEventListener(
         'deviceready', function ( ) { centerobj.onDeviceReady( ) }, false
       );
-  //  }, 9000
-  //);
+    }, 9000
+  );
 }
 
 /** ----------------------------------------------------------------------------
@@ -103,8 +101,6 @@ console.log("obj: " + this.name);
       this.htmlIdList[k] = document.getElementById(k);
 console.log( "K: " + k + ', ' + this.htmlIdList[k]);
     }
-
-    this.observers.set( 'displayProgress', 0);
   }
 
 
@@ -113,21 +109,15 @@ console.log( "K: " + k + ', ' + this.htmlIdList[k]);
 
   // set an event on each of the tracks found in the document
   this.setTrackEvents();
-  this.observers.set( 'displayProgress', 0);
 
   // make the buttons active
   this.activateButtons();
-  this.observers.set( 'displayProgress', 0);
 
   // do the other initializations
   this.SufiIO.init(this);
-  this.observers.set( 'displayProgress', 0);
   this.SufiMap.init( this, this.mapElementName);
-  this.observers.set( 'displayProgress', 0);
   this.SufiData.init(this);
-  this.observers.set( 'displayProgress', 0);
   this.SufiIO.init(this);
-  this.observers.set( 'displayProgress', 0);
 
   // check for networking offline/online
   this.observers.set( 'networkState', navigator.onLine);
@@ -143,14 +133,9 @@ console.log( "K: " + k + ', ' + this.htmlIdList[k]);
       centerobj.observers.set( 'networkState', navigator.onLine);
     }
   );
-  this.observers.set( 'displayProgress', 0);
 
   // Setup geolocation watcher
   this.watchGPS();
-  this.observers.set( 'displayProgress', 0);
-
-  // Let any observers know that the device is ready
-  //this.observers.set( 'deviceReady', true);
 
   console.log('Initialization complete');
 
@@ -158,22 +143,6 @@ console.log( "K: " + k + ', ' + this.htmlIdList[k]);
   //this.menu.showPage('map-page');
   var parent = this.htmlIdList["splashScreen"].parentElement;
   parent.removeChild(this.htmlIdList["splashScreen"]);
-}
-
-// ---------------------------------------------------------------------------
-// display initialisation progress
-SufiTrail.SufiCenter.prototype.displayProgress = function ( ) {
-  var el = this.htmlIdList["progressBar"];
-  if( typeof el !== 'undefined' ) {
-    this.progressValue += 1;
-//console.log("init value: " + this.progressValue);
-    //el.value = this.progressValue.toString();
-    var id = setInterval( frame, 10);
-    function frame( ) {
-      clearInterval(id);
-      el.style.width = this.progressValue.toString() + '%';
-    }
-  }
 }
 
 // ---------------------------------------------------------------------------
@@ -223,7 +192,6 @@ SufiTrail.SufiCenter.prototype.setTrackEvents = function ( ) {
     var gpxFile = gpxElement.getAttribute('data-gpx-file');
     var infoFile = gpxElement.getAttribute('data-info-file');
     trackCount++;
-    this.observers.set( 'displayProgress', 0);
 
     // define a function returning a handler which shows a track and
     // focus as well as fits the track on screen
@@ -255,28 +223,23 @@ SufiTrail.SufiCenter.prototype.activateButtons = function ( ) {
   this.htmlIdList['startTrackButton'].addEventListener(
     "click", function ( ) { centerobj.SufiData.doStartTrack() }, false
   );
-  this.observers.set( 'displayProgress', 0);
 
   this.htmlIdList['postponeTrackButton'].addEventListener(
     "click", function ( ) { centerobj.SufiData.doPostponeTrack() }, false
   );
-  this.observers.set( 'displayProgress', 0);
 
   this.htmlIdList['contTrackButton'].addEventListener(
     "click", function ( ) { centerobj.SufiData.doContTrack() }, false
   );
-  this.observers.set( 'displayProgress', 0);
 
   this.htmlIdList['saveTrackButton'].addEventListener(
     "click", function ( ) { centerobj.SufiData.doSaveTrack() }, false
   );
-  this.observers.set( 'displayProgress', 0);
 
   // button to exit the application
   this.htmlIdList['exitButton'].addEventListener(
     "click", function ( ) { centerobj.doExitApp() }, false
   );
-  this.observers.set( 'displayProgress', 0);
 }
 
 //----------------------------------------------------------------------------
