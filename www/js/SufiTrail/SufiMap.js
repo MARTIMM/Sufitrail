@@ -1,6 +1,6 @@
 /* Author: Marcel Timmerman
    License: ...
-   Copyright: © Sufitrail 2017
+   Copyright: © Sufitrail 2017, 2018
 */
 "use strict";
 
@@ -87,9 +87,9 @@ SufiTrail.SufiMap = function ( ) {
 
 
 // ---------------------------------------------------------------------------
-SufiTrail.SufiMap.prototype.init = function ( controller, mapElementName ) {
+SufiTrail.SufiMap.prototype.init = function ( center, mapElementName ) {
 
-  this.center = controller;
+  this.center = center;
   this.mapElementName = mapElementName;
 
   var mapobj = this;
@@ -391,4 +391,13 @@ console.log("draw line from " + lineCoords[1] + " to " + lineCoords[0]);
 // =============================================================================
 SufiTrail.SufiFeature = function ( ) {
 
+  this.map = null;
+  this.center = null;
+}
+
+// ---------------------------------------------------------------------------
+SufiTrail.SufiFeature.prototype.init = function ( map, center ) {
+
+  this.SufiMap = map;
+  this.center = center;
 }
