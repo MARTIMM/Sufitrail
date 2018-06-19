@@ -13,6 +13,8 @@
 ## Introduced google closure again
 ### Name spaces and module names
 * Namespace id used in the cordova config is **io.github.martimm**. I find this a bit too long to create a path like that. So the modules and classes are placed in the javascript directory accordingly. E.g. `www/js/SufiTrail/SufiCenter.js` instead of `www/js/io/github/martimm/SufiCenter.js`.
+* Only copy the needed modules to www/js/closure-library/closure. When cordova is building the app, it would pick all files making the app unnecessary large.
+
 
 ## Implementation
 The program will be using a Model–View–Adapter (MVA) or mediating-controller Model View Control (MVC) pattern, see [Wikipedia article][MVA]. This pattern is used to separate the storage, control and view from each other. To get things done, an observer/subscription service is created. A data generated in one part can be subscribed to by another. A call from the observer object is made to the subscribers of that specific data when that data becomes available. This pattern is also named 'producer/consumer' pattern.
