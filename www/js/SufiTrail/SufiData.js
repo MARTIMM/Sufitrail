@@ -472,7 +472,7 @@ console.log(cordova.file.dataDirectory);
 
 console.log("Date and time: " + Date.now.toISOString);
   var filename = "userTrack-" + Date.now.toISOString + ".gpx";
-  this.center.IO.writeRequest( filename, xmlString, observerKey);
+  this.center.SufiIO.writeRequest( filename, xmlString, observerKey);
 
   return filename;
 }
