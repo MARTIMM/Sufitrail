@@ -20,4 +20,4 @@ cordova build
 adb install -r -g platforms/android/build/outputs/apk/debug/android-debug.apk
 
 # start showing log
-bin/filter-logcat.pl6
+filter-logcat.pl6
