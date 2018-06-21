@@ -13,7 +13,14 @@
 ## Introduced google closure again
 ### Name spaces and module names
 * Namespace id used in the cordova config is **io.github.martimm**. I find this a bit too long to create a path like that. So the modules and classes are placed in the javascript directory accordingly. E.g. `www/js/SufiTrail/SufiCenter.js` instead of `www/js/io/github/martimm/SufiCenter.js`.
-* Only copy the needed modules to www/js/closure-library/closure. When cordova is building the app, it would pick all files making the app unnecessary large.
+  Modules name spaces are now;
+  * **SufiTrail.Observer**
+  * **SufiTrail.SufiCenter**
+  * **SufiTrail.SufiData**
+  * **SufiTrail.SufiIO**
+  * **SufiTrail.SufiMap**
+
+
 
 
 ## Implementation
@@ -412,7 +419,3 @@ The servers are always having a url with something like `.../${z}/${x}/${y}.png`
 
 [slippy map]:
 https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Pseudo-code
-
-[goog1]: https://developers.google.com/closure/library/docs/gettingstarted
-[goog2]: https://developers.google.com/closure/library/docs/tutorial
-[goog3]: http://www.daveoncode.com/category/google-closure/
