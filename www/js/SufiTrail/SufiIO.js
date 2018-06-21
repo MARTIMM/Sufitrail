@@ -6,7 +6,11 @@
 
 goog.provide('SufiTrail.SufiIO');
 
+goog.require('goog.fs');
+goog.require('goog.fs.Entry');
+goog.require('goog.fs.FileSystem');
 goog.require('goog.fs.DirectoryEntry');
+goog.require('goog.fs.FileEntry');
 
 /** ============================================================================
   @constructor
@@ -18,7 +22,9 @@ SufiTrail.SufiIO = function ( ) {
 
   // Data urls
   // file:///storage/emulated/0/Android/data/sufitrail.io.github.martimm/
-  this.topFsURL = cordova.file.externalApplicationStorageDirectory;
+  this.storageUrl = "file:///storage/emulated/0/Android/data";
+  this.topFsUrl = this.storageUrl + "/sufitrail.io.github.martimm/";
+  // this.topFsUrl = cordova.file.externalApplicationStorageDirectory;
 
   // dirEntries
   // sufiTrailDataURL
@@ -36,9 +42,23 @@ SufiTrail.SufiIO.prototype.init = function ( center ) {
   this.center = center;
 
   var ioobj = this;
+  goog.fs.Error = function ( e, a ) {
+    console.log('Error in ' + a + ': ' + e.code + ', ' + e.description);
+    console.log('File: ' + e.fileName + ', message: ' + e.message);
+  }
 
+//  var fe = new goog.fs.Entry();
+  var deferred = goog.fs.DirectoryEntry.getDirectory(this.topFsUrl);
+  var dirEntry = deferred();
+console.log('de: ' + de.name);
+
+//  var fs = fe.getFileSystem.getRoot();
+//  var deferred = fsdirobj.createPath(this.topFsUrl + '/Tracks');
+//console.log('Deferred: ' + deferred.keys);
+
+/*
   // create directories if not exists
-  window.resolveLocalFileSystemURL(
+  goog.global.resolveLocalFileSystemURL(
     //SufiIO.topFsURL,
     cordova.file.dataDirectory,
     function ( topDirEntry ) {
@@ -63,6 +83,7 @@ console.log('STD: ' + topDirEntry.name);
 
     function ( e ) { ioobj.onErrorLoadFs(e); }
   );
+*/
 }
 
 //----------------------------------------------------------------------------
@@ -70,10 +91,6 @@ console.log('STD: ' + topDirEntry.name);
 SufiTrail.SufiIO.prototype.createSufiTrailDirectories = function ( dirEntry ) {
 
   var ioobj = this;
-
-  var fsdirobj = goog.fs.DirectoryEntry();
-  var deferred = fsdirobj.createPath(this.topFsUrl + '/Tracks');
-console.log('Deferred: ' + deferred.keys);
 
 /*
   dirEntry.getDirectory(
@@ -169,9 +186,9 @@ SufiTrail.SufiIO.prototype.requestFileSystem = function (
 
   // this call is Google Chrome specific! This, however, is made
   // available using the cordova file plugin
-  window.requestFileSystem(
+  goog.global.requestFileSystem(
 
-    //window.resolveLocalFileSystemURL(cordova.file.dataDirectory),
+    //goog.global.resolveLocalFileSystemURL(cordova.file.dataDirectory),
     LocalFileSystem.PERSISTENT,
     0,
     function ( fs ) {

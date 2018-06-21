@@ -1,6 +1,7 @@
-/* Author: Marcel Timmerman
-   License: ...
-   Copyright: © Sufitrail 2017, 2018
+/** @preserve
+    Author: Marcel Timmerman
+    License: ...
+    Copyright: © Sufitrail 2017, 2018
 */
 "use strict";
 
@@ -11,10 +12,10 @@ goog.require('SufiTrail.SufiMap');
 goog.require('SufiTrail.SufiData');
 goog.require('SufiTrail.SufiIO');
 
-goog.require('goog.ui.Component');
-goog.require('goog.ui.ProgressBar');
-
 /** ============================================================================
+  Object performing controller function
+
+  @final
   @constructor
 */
 SufiTrail.SufiCenter = function ( ) {
@@ -62,6 +63,7 @@ SufiTrail.SufiCenter = function ( ) {
 }
 
 /** ----------------------------------------------------------------------------
+  @function
 */
 SufiTrail.SufiCenter.prototype.init = function ( ) {
 
@@ -122,13 +124,13 @@ console.log( "K: " + k + ', ' + this.htmlIdList[k]);
   // check for networking offline/online
   this.observers.set( 'networkState', navigator.onLine);
   var centerobj = this;
-  window.addEventListener(
+  goog.global.addEventListener(
     'offline', function ( ) {
 // TODO needs some extra work to be accurate
       centerobj.observers.set( 'networkState', navigator.onLine);
     }
   );
-  window.addEventListener(
+  goog.global.addEventListener(
     'online', function ( ) {
       centerobj.observers.set( 'networkState', navigator.onLine);
     }

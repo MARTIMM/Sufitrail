@@ -98,7 +98,7 @@ SufiTrail.SufiMap.prototype.init = function ( center, mapElementName ) {
   // this makes the map adaptable to device sizes as well as landscape to
   // portrait mode changes.
   this.setViewport();
-  window.addEventListener(
+  goog.global.addEventListener(
     'resize',
     function ( e ) {
       mapobj.setViewport();
@@ -129,8 +129,8 @@ SufiTrail.SufiMap.prototype.init = function ( center, mapElementName ) {
 
 // ---------------------------------------------------------------------------
 SufiTrail.SufiMap.prototype.setViewport = function ( ) {
-  this.viewport.width = window.innerWidth;
-  this.viewport.height = window.innerHeight;
+  this.viewport.width = goog.global.innerWidth;
+  this.viewport.height = goog.global.innerHeight;
 
   //var body = document.getElementById("SufiApp");
   document.body.style.height = this.viewport.height + "px";
