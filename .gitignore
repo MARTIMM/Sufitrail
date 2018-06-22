@@ -13,7 +13,9 @@ www/css/demo.css
 www/js/closure-library/*
 www/js/goog-new*/*
 www/js/project-dependencies.js
+www/project-dependencies.js
 www/js/jquery*
+www/js/st-app*
 www/tracks/*
 www/waypoints/*
 www/js/lzma*
