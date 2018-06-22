@@ -1,0 +1,77 @@
+# Run 'sxml2xml.pl6 --out=build Data/Sxml/build.sxml'
+
+$project name="hello-world" default="build" [
+  $property name="closure-compiler.dir"
+  value="${basedir}/../closure-compiler" />
+  <property name="closure-compiler.jar"
+  value="${closure-compiler.dir}/build/compiler.jar" />
+  <property name="closure-library.dir"
+  value="${basedir}/../closure-library" />
+  <property name="closure-templates.dir"
+  value="${basedir}/../closure-templates" />
+  <property name="build.dir" value="${basedir}/build" />
+  <property name="outputwrapper" value="(function(){%output%})();" />
+  <!-- Double-quote file arguments in macrodefs in case they contain spaces. -->
+  <macrodef name="generate-template">
+  <attribute name="inputfile" />
+  <attribute name="outputPathFormat" />
+  <sequential>
+  <java jar="${closure-templates.dir}/build/SoyToJsSrcCompiler.jar"
+  fork="true" failonerror="true" logError="true">
+  <arg line='--outputPathFormat "@{outputPathFormat}"' />
+  <arg line="--shouldGenerateJsdoc" />
+  <arg line="--shouldProvideRequireSoyNamespaces" />
+  <arg line='"@{inputfile}"' />
+  </java>
+  </sequential>
+  </macrodef>
+  <macrodef name="closure-compile">
+  <attribute name="inputfile" />
+  <attribute name="outputfile" />
+  <attribute name="compilerjarfile"
+  default="${closure-compiler.jar}" />
+  <attribute name="compilationlevel" default="SIMPLE_OPTIMIZATIONS" />
+  <attribute name="outputmode" default="compiled" />
+  <element name="extraflags" optional="yes" />
+  <element name="extrapaths" optional="yes" />
+  <sequential>
+  <exec executable="python" failonerror="true" logError="true">
+  <arg value="${closure-library.dir}/closure/bin/calcdeps.py" />
+  <arg line='-i "@{inputfile}"' />
+  <arg line='--output_file "@{outputfile}"' />
+  <arg line='-p "${closure-library.dir}"' />
+  <arg line='-p "${closure-templates.dir}/javascript/soyutils_usegoog.js"' />
+  <extrapaths />
+  <arg line="-o @{outputmode}" />
+  <arg line='-c "@{compilerjarfile}"' />
+  <arg line='-f "--compilation_level=@{compilationlevel}"' />
+  <extraflags />
+  </exec>
+  </sequential>
+  </macrodef>
+  <target name="clean" description="deletes all files created by this script">
+  <delete dir="${build.dir}" />
+  </target>
+  <target name="templates" description="generates hello.soy.js">
+  <mkdir dir="${build.dir}/templates" />
+  <generate-template inputfile="hello.soy"
+  outputPathFormat="${build.dir}/templates/hello.soy.js"
+  />
+  </target>
+  <target name="hello-compiled"
+  depends="templates"
+  description="generates hello-compiled.js">
+  <mkdir dir="${build.dir}" />
+  <closure-compile inputfile="hello.js"
+  outputfile="${build.dir}/hello-compiled.js"
+  compilationlevel="ADVANCED_OPTIMIZATIONS">
+  <extrapaths>
+  <arg line='-p "${build.dir}/templates"' />
+  </extrapaths>
+  <extraflags>
+  <arg line='-f "--output_wrapper=${outputwrapper}"' />
+  </extraflags>
+  </closure-compile>
+  </target>
+  <target name="build" depends="hello-compiled" />
+</project>
