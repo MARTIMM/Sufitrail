@@ -2,6 +2,11 @@
    License: ...
    Copyright: © Sufitrail 2017, 2018
 */
+
+/**
+ * @fileoverview
+ */
+
 "use strict";
 
 goog.provide('SufiTrail.SufiMap');

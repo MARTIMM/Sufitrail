@@ -1,9 +1,13 @@
-/** @preserve
+/*
     Author: Marcel Timmerman
     License: ...
     Copyright: © Sufitrail 2017, 2018
 */
 "use strict";
+
+/**
+ * @fileoverview
+ */
 
 goog.provide('SufiTrail.SufiCenter');
 
