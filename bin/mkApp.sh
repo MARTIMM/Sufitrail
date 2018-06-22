@@ -1,29 +1,43 @@
 #!/usr/bin/sh
 
-set -v
+set -v -e
 
 # Program to run all possible tasks to build the Android apk
-
-# create closure dependencies file
-cd www/js
-calcdeps.py -p closure-library/ -p SufiTrail/ -o deps > project-dependencies.js
-cd ../..
 
 # convert any sxml file
 sxml2xml.pl6 --out=config Data/Sxml/config.sxml
 sxml2xml.pl6 --in=html --out=html Data/Sxml/www/index.sxml
 
-# set shortcut for command
-c='java -jar node_modules/google-closure-compiler/compiler.jar'
-p='www/js'
-pc='www/js/closure-lib/closure/goog'
-pt='www/js/SufiTrail'
 
-$c $p/project-dependencies.js $pt/SufiCenter.js $pt/SufiMap.js \
-   $pt/SufiData.js $pt/SufiIO.js $pc \
-   --js_output_file www/js/st-app.js
+# set a few shortcuts for command
+j='../node_modules/google-closure-compiler/compiler.jar'
+c="java -jar $j"
+p='js'
+#pc="$p/closure-library"
+pc="../Data/js-libs/closure-library"
+pt="$p/SufiTrail"
 
-exit
+# create closure dependencies file
+cd www
+calcdeps.py -p $pc -p $pt -o deps > project-dependencies.js
+#cd ../..
+
+# run compiler
+#cd www
+$c --compilation_level=WHITESPACE_ONLY --env=BROWSER \
+   --js=project-dependencies.js \
+   --js="$pt/Observer.js" --js="$pt/SufiData.js" --js="$pt/SufiMap.js" \
+   --js="$pt/SufiIO.js" --js="$pt/SufiCenter.js" \
+   --js="$pt/StartApp.js" \
+   --js_output_file="$p/st-app.js"
+cd ..
+
+#   --js="$pt/!**App.js" --js="$pt/StartApp.js" \
+#   --js="!**_test.js" \
+#   --js=$p/project-dependencies.js \
+#   --js="$pt/StartApp.js"
+
+#exit
 
 # build the apk
 cordova build
