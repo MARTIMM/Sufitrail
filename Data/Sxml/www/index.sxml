@@ -410,7 +410,7 @@ $sxml:drop «
     # symbolic linked to my bin
     # > cd www/js
     # > calcdeps.py -p closure-library/ -p SufiTrail/ -o deps > project-dependencies.js
-    $script src=js/project-dependencies.js []
+    # $script src=js/project-dependencies.js []
 
 #    $script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL" []
 #    $script src=js/polyfill.min.js []
@@ -421,6 +421,10 @@ $sxml:drop «
 
     # menu generated javascript gets inserted here using pivot id=ol-script
 
+    # compiled js
+    $script src=js/st-app.js []
+
+$sxml:drop {
     # keep require separated from next script!
     $script « goog.require('SufiTrail.SufiCenter'); »
 
@@ -429,6 +433,7 @@ $sxml:drop «
       var SufiCenter = new SufiTrail.SufiCenter();
       SufiCenter.init();
     »
+}
 
   ] # body
 ] # html
