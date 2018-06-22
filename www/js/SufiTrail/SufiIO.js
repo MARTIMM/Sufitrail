@@ -2,15 +2,20 @@
    License: ...
    Copyright: © Sufitrail 2017
 */
+
+/**
+ * @fileoverview
+ */
+
 "use strict";
 
 goog.provide('SufiTrail.SufiIO');
 
 goog.require('goog.fs');
-goog.require('goog.fs.Entry');
-goog.require('goog.fs.FileSystem');
-goog.require('goog.fs.DirectoryEntry');
-goog.require('goog.fs.FileEntry');
+goog.require('goog.fs.EntryImpl');
+goog.require('goog.fs.FileSystemImpl');
+goog.require('goog.fs.DirectoryEntryImpl');
+goog.require('goog.fs.FileEntryImpl');
 
 /** ============================================================================
   @constructor
@@ -48,7 +53,7 @@ SufiTrail.SufiIO.prototype.init = function ( center ) {
   }
 
 //  var fe = new goog.fs.Entry();
-  var deferred = goog.fs.DirectoryEntry.getDirectory(this.topFsUrl);
+  var deferred = goog.fs.DirectoryEntryImpl.getDirectory(this.topFsUrl);
   var dirEntry = deferred();
 console.log('de: ' + de.name);
 
