@@ -1,5 +1,6 @@
 */.precomp/*
 .directory
+*/.directory
 node_modules/*
 platforms/*
 plugins/*
@@ -7,18 +8,10 @@ Old/*
 hooks/*
 package*
 res/*
+
+# None of the js libs except our own project
 Data/js-libs/*
-Data/Project/Old/*
-www/css/ol.css
-www/css/demo.css
-www/js/closure-library/*
-www/js/goog-new*/*
-www/js/project-dependencies.js
-www/project-dependencies.js
-www/js/jquery*
-www/js/st-app*
-www/tracks/*
-www/waypoints/*
-www/js/lzma*
-www/js/ol*.js
-www/js/polyfill*.js
+!Data/js-libs/SufiTrail/*
+
+# None from www either
+www/*
