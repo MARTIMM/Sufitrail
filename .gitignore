@@ -8,6 +8,7 @@ hooks/*
 package*
 res/*
 Data/js-libs/*
+Data/Project/Old/*
 www/css/ol.css
 www/css/demo.css
 www/js/closure-library/*
