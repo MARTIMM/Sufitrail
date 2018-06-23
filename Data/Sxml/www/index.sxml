@@ -404,7 +404,7 @@ $sxml:drop «
 
     # parts of google closure library. the files are copied from elsewhere when
     # needed. otherwise cordova will pack the whole shebang into a bif app
-    $script src=js/closure-library/closure/goog/base.js []
+    # $script src=js/closure-library/closure/goog/base.js []
 
     # calculated dependencies for using google library. program is
     # symbolic linked to my bin
@@ -422,7 +422,7 @@ $sxml:drop «
     # menu generated javascript gets inserted here using pivot id=ol-script
 
     # compiled js
-    $script src=js/st-app.js []
+    $script src=js/startapp.js []
 
 $sxml:drop {
     # keep require separated from next script!
