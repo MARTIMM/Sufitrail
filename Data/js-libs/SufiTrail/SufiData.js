@@ -194,7 +194,7 @@ console.log('New cl: ' + currentLongitude + ', ' + currentLatitude);
 
     // if more than 1 km from closest point on the track, signal
     if( d > 1000 ) {
-      SufiCenter.observers.set(
+      this.center.observers.set(
         'wanderedOffTrack',
         [ closestPosition, [ currentLongitude, currentLatitude]]
       );
