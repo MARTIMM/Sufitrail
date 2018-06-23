@@ -11,11 +11,19 @@
 
 goog.provide('SufiTrail.SufiIO');
 
+/*
 goog.require('goog.fs');
+
+goog.require('goog.fs.Entry');
+goog.require('goog.fs.FileSystem');
+goog.require('goog.fs.DirectoryEntry');
+goog.require('goog.fs.FileEntry');
+
 goog.require('goog.fs.EntryImpl');
 goog.require('goog.fs.FileSystemImpl');
 goog.require('goog.fs.DirectoryEntryImpl');
 goog.require('goog.fs.FileEntryImpl');
+*/
 
 /** ============================================================================
   @constructor
@@ -47,21 +55,28 @@ SufiTrail.SufiIO.prototype.init = function ( center ) {
   this.center = center;
 
   var ioobj = this;
+/*
   goog.fs.Error = function ( e, a ) {
     console.log('Error in ' + a + ': ' + e.code + ', ' + e.description);
     console.log('File: ' + e.fileName + ', message: ' + e.message);
   }
 
 //  var fe = new goog.fs.Entry();
-  var deferred = goog.fs.DirectoryEntryImpl.getDirectory(this.topFsUrl);
-  var dirEntry = deferred();
-console.log('de: ' + de.name);
+  var fsEntry = new goog.fs.FileSystemImpl();
+  var fsname = fsEntry.getName();
+console.log('fs name: ' + fsname);
+  this.rootDirectory = fsEntry.getRoot();
+console.log('fs dir name: ' + this.rootDirectory.getName());
+
+//  var deferred = goog.fs.DirectoryEntryImpl.getDirectory(this.topFsUrl);
+//  var dirEntry = deferred();
 
 //  var fs = fe.getFileSystem.getRoot();
 //  var deferred = fsdirobj.createPath(this.topFsUrl + '/Tracks');
 //console.log('Deferred: ' + deferred.keys);
+*/
 
-/*
+
   // create directories if not exists
   goog.global.resolveLocalFileSystemURL(
     //SufiIO.topFsURL,
@@ -88,7 +103,6 @@ console.log('STD: ' + topDirEntry.name);
 
     function ( e ) { ioobj.onErrorLoadFs(e); }
   );
-*/
 }
 
 //----------------------------------------------------------------------------
@@ -97,7 +111,6 @@ SufiTrail.SufiIO.prototype.createSufiTrailDirectories = function ( dirEntry ) {
 
   var ioobj = this;
 
-/*
   dirEntry.getDirectory(
     'SufiTrail', { create: true },
 
@@ -136,7 +149,6 @@ console.log('Tr: ' + subDirEntry.name);
     },
     function ( e ) { ioobj.onErrorGetDir(e); }
   );
-*/
 }
 
 /*

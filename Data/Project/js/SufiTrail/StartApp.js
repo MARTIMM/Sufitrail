@@ -17,6 +17,12 @@ goog.require('SufiTrail.SufiCenter');
   @constructor
 */
 SufiTrail.StartApp = function ( ) {
+
+  /**
+    SufiCenter is the controller object
+    @private
+    @type {SufiTrail.SufiCenter}
+  */
   this.center = null;
 }
 
@@ -26,7 +32,7 @@ SufiTrail.StartApp.prototype.start = function ( ) {
 }
 
 /**
-  @const
+  @const globally defined starter object
 */
-var starter = new SufiTrail.StartApp();
+goog.global.starter = new SufiTrail.StartApp();
 starter.start();
