@@ -3,7 +3,6 @@
 # Program to run all possible tasks to build the Android apk
 
 use v6;
-use File::Directory::Tree;
 
 sub MAIN ( Bool :$debug = True ) {
 
@@ -24,46 +23,76 @@ sub MAIN ( Bool :$debug = True ) {
 
     EOSCRIPT
 
-  # compiler and compile command
-  my Str $j = '../node_modules/google-closure-compiler/compiler.jar';
-  my Str $c = "java -jar $j";
-
   # javascript root
   my Str $p = '../Data/js-libs';
 
   # google closure library
-  #pc="$p/closure-library/closure"
-  my Str $pc = "../Data/js-libs/closure-library/closure";
+  my $goog-path = 'closure-library/closure/goog';
+  my Str $pc = "../Data/js-libs/$goog-path";
 
   # sufitrail project
   my Str $pt = "$p/SufiTrail";
 
+  my Str $cordova = "cordova build";
+  my Str $android;
+  my Str $apk;
+
   if $debug {
     note "Creating debug version ...";
 
-    my Str $android = 'platforms/android/build/outputs/apk/debug';
-    my Str $apk = 'android-debug.apk';
+    $android = 'platforms/android/build/outputs/apk/debug';
+    $apk = 'android-debug.apk';
+
+    'www/js/startapp-0.js'.IO.spurt(Q:qq:s:to/EOSCRIPT/);
+      goog.require('SufiTrail.StartApp');
+      //goog.global.starter = new SufiTrail.StartApp();
+      //starter.start();
+
+      EOSCRIPT
 
     $script-text ~= Q:qq:s:to/EOSCRIPT/;
 
-      # everything happens here
+      # cleanup old stuff
+      rm -rf js/SufiTrail js/closure-library
+
+      # copy 'new' stuff
+      mkdir -p js/$goog-path js/SufiTrail
+      cp $pc/base.js js/$goog-path
+      cp $pt/* js/SufiTrail
 
       # create closure dependencies file
-      calcdeps.py -p $pc -p $pt -o deps > project-dependencies.js
+      calcdeps.py -p js/closure-library -i js/startapp-0.js -p js/SufiTrail \\
+                  -o deps > js/startapp.js
 
+      cat js/startapp-0.js >> js/startapp.js
       EOSCRIPT
+
+    $cordova ~= " --debug";
   }
 
   else {
     note "Creating release version ...";
 
-    # cleanup first
-    #rmtree "js/SufiTrail";
+    $script-text ~= Q:qq:s:to/EOSCRIPT/;
+      # cleanup old stuff
+      rm -rf js/SufiTrail, js/closure-library
 
-    #my Str $android = 'platforms/android/build/outputs/apk/release';
-    my Str $android = 'platforms/android/build/outputs/apk/debug';
-    #my Str $apk = 'android-release-unsigned.apk';
-    my Str $apk = 'android-debug.apk';
+      # copy 'new' stuff
+      mkdir -p js/$goog-path
+      cp $pc/base.js js/$goog-path
+
+      EOSCRIPT
+
+
+    # compiler and compile command
+    my Str $j = '../node_modules/google-closure-compiler/compiler.jar';
+    my Str $c = "java -jar $j";
+
+
+    #$android = 'platforms/android/build/outputs/apk/release';
+    #$apk = 'android-release-unsigned.apk';
+    $android = 'platforms/android/build/outputs/apk/debug';
+    $apk = 'android-debug.apk';
 
     $script-text ~= Q:qq:s:to/EOSCRIPT/;
 
@@ -72,7 +101,7 @@ sub MAIN ( Bool :$debug = True ) {
 
       # run compiler
       $c --compilation_level=WHITESPACE_ONLY --env=BROWSER \\
-         --js="$pc/goog/base.js" --js="$pc/goog/!**_test.js" \\
+         --js="$pc/base.js" --js="$pc/!**_test.js" \\
          --js=project-dependencies.js \\
          --js="$pt/Observer.js" --js="$pt/SufiData.js" --js="$pt/SufiMap.js" \\
          --js="$pt/SufiIO.js" --js="$pt/SufiCenter.js" \\
@@ -84,14 +113,24 @@ sub MAIN ( Bool :$debug = True ) {
       #   --js="!**_test.js" \\
       #   --js=$p/project-dependencies.js \\
 
-      # build the release apk
-      #cordova build --release
-      cordova build
-
-      # install on the device
-      adb install -r -g "$android/$apk"
       EOSCRIPT
+
+    #$cordova ~= " --release";
   }
+
+
+  $script-text ~= Q:qq:s:to/EOSCRIPT/;
+    cd ..
+
+    # build the release apk
+    $cordova
+
+    # install on the device
+    adb install -r -g "$android/$apk"
+
+    echo Start application on mobile device ...
+    filter-logcat.pl6
+    EOSCRIPT
 
   my Str $script = 'SufiTrailBuildScript.sh';
   $script.IO.spurt($script-text);
@@ -99,6 +138,7 @@ sub MAIN ( Bool :$debug = True ) {
   .note for $proc.out.lines;
   $proc.out.close;
 
+#`{{
   # new script to follow output from app
   $script-text = Q:q:to/EOSCRIPT/;
     echo Start application on mobile device ...
@@ -109,7 +149,7 @@ sub MAIN ( Bool :$debug = True ) {
   $proc = shell "/usr/bin/sh $script", :out;
   .note for $proc.out.lines;
   $proc.out.close;
-
+}}
 #  unlink $script;
 
 #    if $p.exitcode {

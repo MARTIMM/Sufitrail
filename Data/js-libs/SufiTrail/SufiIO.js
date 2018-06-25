@@ -11,19 +11,6 @@
 
 goog.provide('SufiTrail.SufiIO');
 
-/*
-goog.require('goog.fs');
-
-goog.require('goog.fs.Entry');
-goog.require('goog.fs.FileSystem');
-goog.require('goog.fs.DirectoryEntry');
-goog.require('goog.fs.FileEntry');
-
-goog.require('goog.fs.EntryImpl');
-goog.require('goog.fs.FileSystemImpl');
-goog.require('goog.fs.DirectoryEntryImpl');
-goog.require('goog.fs.FileEntryImpl');
-*/
 
 /** ============================================================================
   @constructor
