@@ -105,7 +105,7 @@ sub MAIN ( Bool :$debug = True ) {
 
       # run compiler
       $c --compilation_level=WHITESPACE_ONLY --env=BROWSER \\
-         --js="$pc/base.js" --js="$pc/!**_test.js" \\
+         --js="js/$goog-path/base.js" --js="js/$goog-path/!**_test.js" \\
          --js=project-dependencies.js \\
          --js="$pt/Observer.js" --js="$pt/SufiData.js" --js="$pt/SufiMap.js" \\
          --js="$pt/SufiIO.js" --js="$pt/SufiCenter.js" \\
@@ -158,7 +158,9 @@ sub MAIN ( Bool :$debug = True ) {
   $script-text ~= Q:qq:s:to/EOSCRIPT/;
 
     # install on the device
+    set +e
     adb uninstall sufitrail.io.github.martimm
+    set -e
     adb install -g "$android/$apk"
 
     echo Start application on mobile device ...
