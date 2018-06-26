@@ -219,6 +219,20 @@ $sxml:drop «
         margin: 10px 0 10px 0;
       }
 
+      # splash image. poppetje must overlap blossom
+      $!css.b s='#blossomdiv' {
+        width: 640;
+        height: 459;
+        position: fixed;
+        top: 50px;
+        right: 100px;
+      }
+
+      $!css.b s='#poppetjediv' {
+        position: fixed; /* and this has to be relative */
+        bottom: 100px;
+        left: 80px;
+      }
 
       # Miscelleneous
       # font size is 1em
@@ -252,7 +266,13 @@ $sxml:drop «
 
       # this container is removed as soon as everything is ready
       $div id=splashScreen [
-        $img src=images/Svg/logopoppetjealleen.svg width=300 height=600 []
+        $div id=blossomdiv [
+          $img src=images/blossom-fields-640x459.png []
+        ]
+        $div id=poppetjediv [
+          $img src=images/Svg/logopoppetjealleen.svg
+               width=200 height=400 []
+        ]
       ]
 
       #-------------------------------------------------------------------------
