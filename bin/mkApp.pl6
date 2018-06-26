@@ -107,7 +107,6 @@ sub MAIN ( Bool :$debug = True ) {
          --js="$pt/SufiIO.js" --js="$pt/SufiCenter.js" \\
          --js="$pt/StartApp.js" \\
          --js_output_file="js/startapp.js"
-      cd ..
 
       #   --js="$pt/!**App.js" --js="$pt/StartApp.js" \\
       #   --js="!**_test.js" \\
