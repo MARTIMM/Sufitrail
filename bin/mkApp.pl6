@@ -60,6 +60,10 @@ sub MAIN ( Bool :$debug = True ) {
       cp $pc/base.js js/$goog-path
       cp $pt/* js/SufiTrail
 
+      # copy the base.js into start script. this can then be left out from the
+      # index.html.
+      #cat $pc/base.js > js/startapp.js
+
       # create closure dependencies file
       calcdeps.py -p js/closure-library -i js/startapp-0.js -p js/SufiTrail \\
                   -o deps > js/startapp.js
@@ -67,7 +71,7 @@ sub MAIN ( Bool :$debug = True ) {
       cat js/startapp-0.js >> js/startapp.js
       EOSCRIPT
 
-    $cordova ~= " --debug";
+    $cordova ~= " --debug android";
   }
 
   else {
@@ -89,10 +93,10 @@ sub MAIN ( Bool :$debug = True ) {
     my Str $c = "java -jar $j";
 
 
-    #$android = 'platforms/android/build/outputs/apk/release';
-    #$apk = 'android-release-unsigned.apk';
-    $android = 'platforms/android/build/outputs/apk/debug';
-    $apk = 'android-debug.apk';
+    $android = 'platforms/android/build/outputs/apk/release';
+    $apk = 'android-release-unsigned.apk';
+    #$android = 'platforms/android/build/outputs/apk/debug';
+    #$apk = 'android-debug.apk';
 
     $script-text ~= Q:qq:s:to/EOSCRIPT/;
 
@@ -114,7 +118,7 @@ sub MAIN ( Bool :$debug = True ) {
 
       EOSCRIPT
 
-    #$cordova ~= " --release";
+    $cordova ~= " --release android";
   }
 
 
@@ -124,8 +128,38 @@ sub MAIN ( Bool :$debug = True ) {
     # build the release apk
     $cordova
 
+    EOSCRIPT
+
+  # See https://stackoverflow.com/questions/26449512/how-to-create-a-signed-apk-file-using-cordova-command-line-interface
+  unless $debug {
+    my Str $key-store = "$android/SufiTrail.keystore";
+    if $key-store.IO !~~ :e {
+      $script-text ~= Q:qq:s:to/EOSCRIPT/;
+        # make a key store before signing
+        /usr/bin/keytool -genkey -v -keystore "$key-store" \\
+          -alias SufiTrail -keyalg RSA -keysize 2048 -validity 10000
+
+        EOSCRIPT
+    }
+
+    $script-text ~= Q:qq:s:to/EOSCRIPT/;
+      # sign the release
+      /usr/bin/jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 \\
+        -keystore "$key-store" "$android/$apk" SufiTrail
+
+      # opimize the apk
+      zipalign -v 4 "$android/$apk" "$android/SufiTrail.apk"
+
+      EOSCRIPT
+
+    $apk = "SufiTrail.apk";
+  }
+
+  $script-text ~= Q:qq:s:to/EOSCRIPT/;
+
     # install on the device
-    adb install -r -g "$android/$apk"
+    adb uninstall sufitrail.io.github.martimm
+    adb install -g "$android/$apk"
 
     echo Start application on mobile device ...
     filter-logcat.pl6
@@ -136,99 +170,4 @@ sub MAIN ( Bool :$debug = True ) {
   my Proc $proc = shell "/usr/bin/sh $script", :out;
   .note for $proc.out.lines;
   $proc.out.close;
-
-#`{{
-  # new script to follow output from app
-  $script-text = Q:q:to/EOSCRIPT/;
-    echo Start application on mobile device ...
-    filter-logcat.pl6
-    EOSCRIPT
-
-  $script.IO.spurt($script-text);
-  $proc = shell "/usr/bin/sh $script", :out;
-  .note for $proc.out.lines;
-  $proc.out.close;
-}}
-#  unlink $script;
-
-#    if $p.exitcode {
-#      note "Script did not finish without problems";
-#      exit(1);
-#    }
 }
-
-=finish
-
-set -v -e
-
-
-set +v
-
-# make debugging version
-if [ $debug == "true" ]; then
-  echo Creating debug version ...
-# copy files
-
-  set -v
-
-  # build the debug apk
-  cordova build
-
-  # install on the device
-  android='platforms/android/build/outputs/apk/debug'
-  adb install -r -g "$android/android-debug.apk"
-
-# make a release version
-else
-  echo Creating release version ...
-
-  set -v
-
-  # set a few shortcuts for command
-  j='../node_modules/google-closure-compiler/compiler.jar'
-  c="java -jar $j"
-  p='../Data/Project/js'
-  #pc="$p/closure-library/closure"
-  pc="../Data/js-libs/closure-library/closure"
-  pt="$p/SufiTrail"
-
-
-  cd www
-
-  # cleanup first
-  #rm -rf js/SufiTrail
-
-  # create closure dependencies file
-  calcdeps.py -p $pc -p $pt -o deps > project-dependencies.js
-
-  # run compiler
-  #cd www
-  $c --compilation_level=WHITESPACE_ONLY --env=BROWSER \
-     --js="$pc/goog/base.js" --js="$pc/goog/!**_test.js" --js=project-dependencies.js \
-     --js="$pt/Observer.js" --js="$pt/SufiData.js" --js="$pt/SufiMap.js" \
-     --js="$pt/SufiIO.js" --js="$pt/SufiCenter.js" \
-     --js="$pt/StartApp.js" \
-     --js_output_file="js/startapp.js"
-  cd ..
-
-  #   --js="$pt/!**App.js" --js="$pt/StartApp.js" \
-  #   --js="!**_test.js" \
-  #   --js=$p/project-dependencies.js \
-
-
-  # build the release apk
-  #cordova build --release
-  cordova build
-
-  # install on the device
-  android='platforms/android/build/outputs/apk/release'
-  #adb install -r -g "$android/android-release-unsigned.apk"
-  adb install -r -g "$android/android-release-unsigned.apk"
-fi;
-
-# start showing log
-set +e +v
-echo "Start application on mobile device ..."
-
-set +v
-filter-logcat.pl6
