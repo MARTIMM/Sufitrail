@@ -229,8 +229,8 @@ $sxml:drop «
       }
 
       $!css.b s='#poppetjediv' {
-        position: fixed; /* and this has to be relative */
-        bottom: 100px;
+        position: fixed;
+        top: 100px;
         left: 80px;
       }
 
@@ -271,7 +271,7 @@ $sxml:drop «
         ]
         $div id=poppetjediv [
           $img src=images/Svg/logopoppetjealleen.svg
-               width=200 height=400 []
+               width=250 height=500 []
         ]
       ]
 
