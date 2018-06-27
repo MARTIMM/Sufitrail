@@ -45,6 +45,8 @@ SufiTrail.SufiCenter = function ( ) {
   this.mapElementName = "sufiTrailMap";
   this.htmlIdList = {
     splashScreen:         null,
+    blossomdiv:           null,
+    poppetjediv:          null,
 
     sufiTrailMap:         null,
 
@@ -98,8 +100,6 @@ SufiTrail.SufiCenter.prototype.init = function ( ) {
 */
 SufiTrail.SufiCenter.prototype.onDeviceReady = function ( ) {
 
-console.log("obj: " + this.name);
-
   // find the html element objects by its id from the id list
   for( var k in this.htmlIdList ) {
     // use hasOwnProperty to filter out keys from the Object.prototype
@@ -147,7 +147,10 @@ console.log( "K: " + k + ', ' + this.htmlIdList[k]);
 
   // show map after splash start screen
   //this.menu.showPage('map-page');
-  var parent = this.htmlIdList["splashScreen"].parentElement;
+  var parent = this.htmlIdList["blossomdiv"].parentElement;
+  parent.removeChild(this.htmlIdList["blossomdiv"]);
+  parent.removeChild(this.htmlIdList["poppetjediv"]);
+  parent = this.htmlIdList["splashScreen"].parentElement;
   parent.removeChild(this.htmlIdList["splashScreen"]);
 }
 
