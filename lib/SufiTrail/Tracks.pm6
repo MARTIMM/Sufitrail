@@ -119,6 +119,35 @@ class Tracks {
   }
 
   #-----------------------------------------------------------------------------
+  method get-gpx ( --> Seq ) {
+
+    # get minima and maxima
+    gather {
+      for @($!gpx-dom.find('//trkpt')) -> $trk {
+        my %a = $trk.attribs;
+        my $lt = %a<lat>.Num;
+        my $ln = %a<lon>.Num;
+
+        take [ $ln, $lt ];
+      }
+    }
+  }
+
+  #-----------------------------------------------------------------------------
+  method long2tile ( Num $long, int $z --> Int ) {
+
+    ( ($long + 180) / 360 * (1 +< $z) ).Int
+  }
+
+  #-----------------------------------------------------------------------------
+  method lat2tile ( Num $lat, Int $z --> Int ) {
+
+    my Int $n = 1 +< $z;
+    my Num $lat-rad = $lat * π / 180;
+    ( $n * ( 1 - (log(tan($lat-rad) + sec($lat-rad)) / π )) / 2 ).Int
+  }
+
+  #-----------------------------------------------------------------------------
   # create element in metadata. replace it if already there
   method !create-element(
     XML::XPath:D $!gpx-dom, Str:D $name, XML::Element:D $parent = $!meta,
