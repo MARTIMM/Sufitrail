@@ -31,6 +31,22 @@ The application helps the user to find his/her way on a trail called the Sufi tr
   * [ ] Tablets of several sizes.
   * [ ] Mobile phones of several sizes.
 
+### Build script
+
+Cordova and android has several ways to build the App and to install the App on the device. However, it is also necessary to think about speed and footprint. One solution is to use the google compiler to make the code smaller. A build script is needed to be able to switch between a debug version and release version.
+
+<progress value="6" max="7" />
+
+* [x] Lower the number of references to javascript programs from index.html to decrease load time.
+* Build script
+  [x] Make a debug version leaving all files separated
+  [x] Make a release version which involves compiling the program.
+* To make a release version, compress footprint of javascript programs.
+  * [x] Generate a dependency list of all code involved and place in a file
+  * [x] Use the google closure compiler and generate a compressed version using the file above.
+  * [x] Sign the release version to make the program appstore worthy.
+  * [ ] Upload the app to the apstore.
+
 ### Events and devices to listen to
 <progress value="4" max="7" />
 
@@ -44,11 +60,17 @@ There are several events which occur upon changing conditions in a device. These
 * [ ] Time and clock.
 
 ### Caching
-<progress value='0' max='3' />
 
-* [ ] Make a list of tile coordinates needed to cache at their zoom levels and create an array of this information.
-* [ ] Cache tiles using the info from the above array. Make estimation of total size.
+Caching of data is needed for those moments that there is no network available.
+
+<progress value='0' max='6' />
+
+* [ ] At startup and network is on, caching must take place.
+* [ ] Make caching process visible when cache is empty. Otherwise refresh only.
+* [ ] Make a list of tile coordinates needed to cache at several zoom levels. Make estimation of total size.
+* [ ] Generate a cache javascript program and place in SufiTrail namespace. This module must be capable of caching all sorts of data.
 * [ ] Cache features too.
+* [ ] Try to get weather forecast and cache this information too
 
 # What the application must do
 * When starting the program, the app must show a splash screen with the sufitrail emblem on it while the program gets ready in the background. Let the splash screen be shown for at least 5 seconds or longer as needed.
@@ -72,10 +94,29 @@ A splash screen is always nice to display information in such a way that it make
   * [x] Show a screen with a Sufi trail icon. Keep this displayed until everything is initialized. This provides for a better user experience.
   * [ ] Image must be made complete with some text
 
+### The Menu
+<progress value="0" max="2" />
+
+Pressing the menu button ☰ shown on the map, will open a pane from the side to show a menu of options. A click on an entry will show a page. Each page may have a shortcut to the home page: **Map** next to a menu button. When selecting an entry, the menu is closed and a page will appear.
+
+  * [ ] Layout of menu.
+  * [ ] Layout of all pages must be coherent and matching the pages and colors from the book.
+
+####  The pages to select from the menu
+
+  * **Map**: Show map.
+  * **Info**: Show route information
+  * **Tracks**: Select a track.
+  * **Feature** Show history, or other info.
+  * **Start**: Record your track data.
+  * **Config**: Configuration of user and program data.
+  * **About**: Show a page with version, people and contacts.
+  * **Exit**: Close the application.
+
 ## Start page
 <progress value="10" max="14" />
 
-The start page is the home page named **Map** below in the list of menu entries. On this page the following is shown;
+The map page is the home page named **Map** below in the list of menu entries. On this page the following is shown;
 
   * Map. The map is displayed over the full width and height of the device.
     * [x] Map displayed, move around with swipe.
@@ -96,30 +137,6 @@ The start page is the home page named **Map** below in the list of menu entries.
     * [x] Click action shows the menu on the right side of the page.
   * Open street map attribute on the bottom right of the map.
     * [x] OSM attribution is displayed.
-
-### When track is shown
-<progress value="1" max="1" />
-
-  * [x] Show dashed line from current location to closest point on the trail when off trail (further than, lets say, 1 kilometer).
-
-### The Menu
-<progress value="0" max="2" />
-
-Pressing the menu button ☰ shown on the map, will open a pane from the side to show a menu of options. A click on an entry will show a page. Each page may have a shortcut to the home page: **Map** next to a menu button. When selecting an entry, the menu is closed and a page will appear.
-
-  * [ ] Layout of menu.
-  * [ ] Layout of all pages must be coherent and matching the pages and colors from the book.
-
-####  The pages to select from the menu
-<progress value="5" max="7" />
-
-  * [x] **Map**: Show map, explained above
-  * [x] **Info**: Show route information
-  * [x] **Tracks**: Select a track.
-  * [ ] **Feature** Show history, or other info.
-  * [ ] **Start**: Record your track data
-  * [x] **About**: Show a page with version, people and contacts
-  * [x] **Exit**: Close the application
 
 ## The info page
 <progress value="1" max="1" />
@@ -175,13 +192,14 @@ Pressing the menu button ☰ shown on the map, will open a pane from the side to
 
 
 ## The Tracks page
-<progress value="5" max="5" />
+<progress value="6" max="6" />
 
   * [x] Generate the page from the directory contents and the gpx track name found in those files.
   * [x] Show map when a selection is made.
   * [x] The route is displayed.
   * [x] The route is centered on page. This depends if information is available in the user track.
   * [x] The route is zoomed so as to fit the page. This depends if information is available in the user track.
+  * [x] Show dashed line from current location to closest point on the trail when off trail (further than, lets say, 1 kilometer).
 
 ## The Features page
 The Features page is filled when a feature is clicked. First a balloon is showed on the map pointing to the feature with text and a 'more ...' on the bottom.
@@ -195,6 +213,14 @@ The Features page is filled when a feature is clicked. First a balloon is showed
     * [ ] City, village - historic background, city elders contact info, etc.
   * [ ] Show balloon with info
   * [ ] Show extra info on info page
+
+## The Config page
+
+<progress value="0" max="3" />
+
+  * [ ] Text message about users consent of sending data to server
+  * [ ] Username
+  * [ ] Email addresses
 
 ## The Start page
 This is a page where a gps track can be started.
@@ -230,16 +256,14 @@ This should show a dialog to ask the user if he/she really wants to quit the pro
   * [x] Exit program.
   * [ ] Keep program active in background.
 
-# Items or problems to think about
+# Other items or problems to think about
+
+<progress value="0" max="8" />
+
   * [ ] Color mapping must match that of the maps printed on paper.
   * [ ] Add ability to choose other color maps for visual impaired or color blind people.
   * [ ] By what license should the project be protected
-  * When online
-    * [ ] When confirmed, refresh maps in cache
-    * [ ] Try to get weather forecast and cache this information too
-  * Cache. Several forms of caching are possible.
-    * [ ] The program needs to keep a cache for map tiles.
-    * [ ] There might be a cache used internally by Android/IOS/Windows to store external JavaScript files and style sheets. This is useful to keep the libraries up to date automatically.
+  * [ ] Privacy considerations
 
 # Track data
 The app uses gpx data from a file to read track information. It is shown and zoomed in on it when first loaded. These gpx files must be edited (by a separate program) to add some data in the `metadata` section of the gpx file.
