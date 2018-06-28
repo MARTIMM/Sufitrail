@@ -216,11 +216,12 @@ The Features page is filled when a feature is clicked. First a balloon is showed
 
 ## The Config page
 
-<progress value="0" max="3" />
+<progress value="0" max="4" />
 
-  * [ ] Text message about users consent of sending data to server
+  * [ ] Text message about users consent of sending data to server. Make rest of the questions available if user wants to provide personal data
   * [ ] Username
   * [ ] Email addresses
+  * [ ] Where to save data; on local or external memory. Make gray or remove setting if there is no ecternal memory.
 
 ## The Start page
 This is a page where a gps track can be started.
