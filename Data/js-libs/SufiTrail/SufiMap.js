@@ -13,6 +13,7 @@ goog.provide('SufiTrail.SufiMap');
 
 /** ============================================================================
   @constructor
+  @final
 */
 SufiTrail.SufiMap = function ( ) {
 
@@ -89,9 +90,11 @@ SufiTrail.SufiMap = function ( ) {
   };
 }
 
-
-
-// ---------------------------------------------------------------------------
+/** ----------------------------------------------------------------------------
+  @public
+  @param {SufiTrail.SufiCenter} center SufiTrail core object
+  @param {string} mapElementName Id of element where map is drawn
+*/
 SufiTrail.SufiMap.prototype.init = function ( center, mapElementName ) {
 
   this.center = center;
