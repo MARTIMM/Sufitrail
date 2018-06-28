@@ -4,7 +4,9 @@
 
 use v6;
 
-sub MAIN ( Bool :$debug = True ) {
+enum CompilerLevel <BUNDLE WHITESPACE_ONLY SIMPLE ADVANCED>;
+
+sub MAIN ( Bool:D :$debug, CompilerLevel :$level = SIMPLE ) {
 
   note "Be sure that device is connected";
 
@@ -76,6 +78,7 @@ sub MAIN ( Bool :$debug = True ) {
 
   else {
     note "Creating release version ...";
+    my Str $compiler-level = $level.Str;
 
     $script-text ~= Q:qq:s:to/EOSCRIPT/;
       # cleanup old stuff
@@ -95,8 +98,6 @@ sub MAIN ( Bool :$debug = True ) {
 
     $android = 'platforms/android/build/outputs/apk/release';
     $apk = 'android-release-unsigned.apk';
-    #$android = 'platforms/android/build/outputs/apk/debug';
-    #$apk = 'android-debug.apk';
 
     $script-text ~= Q:qq:s:to/EOSCRIPT/;
 
@@ -104,17 +105,14 @@ sub MAIN ( Bool :$debug = True ) {
       calcdeps.py -p $pc -p $pt -o deps > project-dependencies.js
 
       # run compiler
-      $c --compilation_level=WHITESPACE_ONLY --env=BROWSER \\
+      $c --compilation_level=$compiler-level --env=BROWSER \\
          --js="js/$goog-path/base.js" --js="js/$goog-path/!**_test.js" \\
          --js=project-dependencies.js \\
          --js="$pt/Observer.js" --js="$pt/SufiData.js" --js="$pt/SufiMap.js" \\
-         --js="$pt/SufiIO.js" --js="$pt/SufiCenter.js" \\
-         --js="$pt/StartApp.js" \\
+         --js="$pt/SufiIO.js" --js="$pt/SufiCacheData.js" \\
+         --js="$pt/SufiCache.js" \\
+         --js="$pt/SufiCenter.js" --js="$pt/StartApp.js" \\
          --js_output_file="js/startapp.js"
-
-      #   --js="$pt/!**App.js" --js="$pt/StartApp.js" \\
-      #   --js="!**_test.js" \\
-      #   --js=$p/project-dependencies.js \\
 
       EOSCRIPT
 
@@ -148,6 +146,7 @@ sub MAIN ( Bool :$debug = True ) {
         -keystore "$key-store" "$android/$apk" SufiTrail
 
       # opimize the apk
+      rm -f "$android/SufiTrail.apk"
       zipalign -v 4 "$android/$apk" "$android/SufiTrail.apk"
 
       EOSCRIPT
