@@ -10,8 +10,12 @@ package*
 res/*
 
 # None of the js libs except our own project
-Data/js-libs/*
-!Data/js-libs/SufiTrail/*
+Data/js-libs/lzma
+Data/js-libs/ol3
+Data/js-libs/Old
+Data/js-libs/closure-library
+
+Tests/closure-library
 
 # None from www either
 www/*
