@@ -21,10 +21,7 @@ SufiTrail.SufiIO = function ( ) {
   this.center = null;
 
   // Data urls
-  // file:///storage/emulated/0/Android/data/sufitrail.io.github.martimm/
-  this.storageUrl = "file:///storage/emulated/0/Android/data";
-  this.topFsUrl = this.storageUrl + "/sufitrail.io.github.martimm/";
-  // this.topFsUrl = cordova.file.externalApplicationStorageDirectory;
+  this.topFsUrl = null;
 
   // dirEntries
   // sufiTrailDataURL
@@ -37,41 +34,33 @@ SufiTrail.SufiIO = function ( ) {
   this.tileDirEntry = null;
 }
 
-// ---------------------------------------------------------------------------
+/** ----------------------------------------------------------------------------
+  Initialize the i/o object
+  @param {SufiTrail.SufiCenter} center Sufi trail core object
+*/
 SufiTrail.SufiIO.prototype.init = function ( center ) {
   this.center = center;
 
   var ioobj = this;
-/*
-  goog.fs.Error = function ( e, a ) {
-    console.log('Error in ' + a + ': ' + e.code + ', ' + e.description);
-    console.log('File: ' + e.fileName + ', message: ' + e.message);
-  }
 
-//  var fe = new goog.fs.Entry();
-  var fsEntry = new goog.fs.FileSystemImpl();
-  var fsname = fsEntry.getName();
-console.log('fs name: ' + fsname);
-  this.rootDirectory = fsEntry.getRoot();
-console.log('fs dir name: ' + this.rootDirectory.getName());
-
-//  var deferred = goog.fs.DirectoryEntryImpl.getDirectory(this.topFsUrl);
-//  var dirEntry = deferred();
-
-//  var fs = fe.getFileSystem.getRoot();
-//  var deferred = fsdirobj.createPath(this.topFsUrl + '/Tracks');
-//console.log('Deferred: ' + deferred.keys);
-*/
-
+  // cordova file paths are only available after device ready!
+  // file:///storage/emulated/0/Android/data/sufitrail.io.github.martimm/
+  // this.storageUrl = "file:///storage/emulated/0/Android/data";
+  // this.topFsUrl = this.storageUrl + "/sufitrail.io.github.martimm/";
+  // this.topFsUrl = cordova.file.dataDirectory;
+  // this.topFsUrl = cordova.file.externalApplicationStorageDirectory;
+  this.topFsURL = cordova.file.externalApplicationStorageDirectory;
 
   // create directories if not exists
   goog.global.resolveLocalFileSystemURL(
-    //SufiIO.topFsURL,
-    cordova.file.dataDirectory,
+    this.topFsURL,
     function ( topDirEntry ) {
 console.log('top: ' + topDirEntry.isDirectory);
 console.log('top: ' + topDirEntry.name);
-
+      ioobj.getDirectory(
+        topDirEntry, 'files', 'rootDirectory', 'createSufiTrailDirectories'
+      );
+/*
       topDirEntry.getDirectory(
         'SufiTrailData', { create: true },
 
@@ -86,14 +75,44 @@ console.log('STD: ' + topDirEntry.name);
 
         function ( e ) { ioobj.onErrorGetDir(e); }
       );
+*/
     },
 
     function ( e ) { ioobj.onErrorLoadFs(e); }
   );
 }
 
-//----------------------------------------------------------------------------
-// create sub directories in root directory
+/** ----------------------------------------------------------------------------
+  Get or create directory path
+  @param {DirectoryEntry} dirEntry directory object
+  @param {string} dirName Directory name
+  @param {string} entryStore Location in this object to store dirEntry
+  @param {null || string} continueHandlerName a handler in this object
+*/
+SufiTrail.SufiIO.prototype.getDirectory = function (
+  dirEntry, dirname, entryStore, continueHandlerName
+) {
+
+  var ioobj = this;
+
+  dirEntry.getDirectory(
+    dirname, { create: true },
+    function ( subDirEntry ) {
+      ioobj[entryStore] = subDirEntry;
+
+console.log('Create dir path: ' + subDirEntry.fullPath);
+      if( continueHandlerName !== null ) {
+        ioobj[continueHandlerName](subDirEntry);
+      }
+    },
+    function ( e ) { ioobj.onErrorGetDir(e); }
+  );
+}
+
+/** ----------------------------------------------------------------------------
+  create sub directories in root directory
+  @param {DirectoryEntry} dirEntry directory object
+*/
 SufiTrail.SufiIO.prototype.createSufiTrailDirectories = function ( dirEntry ) {
 
   var ioobj = this;
