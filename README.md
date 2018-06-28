@@ -23,6 +23,11 @@ This is a list of more or less implemented items which need more attention. The 
 
 # Changes
 
+* 0.10.0
+  * Improved splashscreen
+  * Created a program to generate a javascript caching module `SufiTrail.SufiCacheData`. In this module an object is generated with all the tile coordinates at several zoom levels. This data is created using the gpx track where all the longitude/latitude coordinates are stored for the total hiking route. Now this module can be inherited by another module to implement functions which use the data from the generated module.
+  * Added module `SufiTrail.SufiCache` to inherit from `SufiTrail.SufiCacheData`.
+* 0.9.0 Splash screen
 * 0.8.1 Modified the standard cordova icon with a sufi-poppetje.
 * 0.8.0 A dashed line is shown from current location to closest point on the track to show that the hiker wanders off route.
 * 0.7.0 Geolocation works and shows a blue circle at the current location.
