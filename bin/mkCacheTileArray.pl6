@@ -53,37 +53,26 @@ sub generate-sufi-cache ( Hash $h, Int $min-zoom, Int $max-zoom ) {
   for $min-zoom ..^ $max-zoom -> $z {
     $tile-info-text ~= "\n    '$z': \{";
     for $h{$z}.keys.sort -> $x {
-      $tile-info-text ~= "\n      '$x': \{";
+      $tile-info-text ~= "\n      '$x': [\n        ";
 
       for $h{$z}{$x}.keys.sort -> $y {
-        $tile-info-text ~= "\n        '$y'";
+        $tile-info-text ~= " '$y',";
         $tile-count++;
-
-        NEXT {
-          $tile-info-text ~= ",";
-        }
       }
 
-      $tile-info-text ~= "\n      }";
-
-      NEXT {
-        $tile-info-text ~= ",";
-      }
+      $tile-info-text .= chop;
+      $tile-info-text ~= "\n      ],";
     }
 
-    $tile-info-text ~= "\n    }";
-    NEXT {
-      $tile-info-text ~= ",";
-    }
+    $tile-info-text .= chop;
+    $tile-info-text ~= "\n    },";
   }
+
+  $tile-info-text .= chop;
 
   note "$tile-count tiles needed to cache";
 
-  # jsdoc annotation
-  my Str $constructor = '@constructor';
-
-  #my Str $program-path = 'Data/js-libs/SufiTrail/SufiCache.js';
-  my Str $program-path = 'SufiCache.js';
+  my Str $program-path = 'Data/js-libs/SufiTrail/SufiCacheData.js';
   $program-path.IO.spurt(Q:s:to/EOSCRIPT/);
     /* Author: Marcel Timmerman
        License: ...
@@ -95,20 +84,29 @@ sub generate-sufi-cache ( Hash $h, Int $min-zoom, Int $max-zoom ) {
 
     "use strict";
 
-    goog.provide('SufiTrail.SufiCache');
+    goog.provide('SufiTrail.SufiCacheData');
 
-    /**
-      $constructor
+    /** ============================================================================
+      Object to hold data to aid in caching
+      @constructor
     */
-    SufiTrail.SufiCache = function ( ) {
+    SufiTrail.SufiCacheData = function ( ) {
       // Adaptor/mediator
       this.center = null;
       this.tileCacheInfo = null;
     }
 
-    SufiTrail.SufiCache.prototype.init = function ( center, mapElementName ) {
+    /** ----------------------------------------------------------------------------
+      Initializes the tile coordinate structure to aid in caching tiles
+      @public
+      @param {SufiTrail.SufiCenter} center SufiTrail core object
+    */
+    SufiTrail.SufiCacheData.prototype.init = function ( center ) {
 
       this.center = center;
+
+      // Tile coordinate data for zoomlevels from $min-zoom to $max-zoom
+      // There are $tile-count tile coordinates
       this.tileCacheInfo = {$tile-info-text
       }
     }
