@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="sufitrail.io.github.martimm" version="0.10.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="sufitrail.io.github.martimm" version="0.10.2" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name short="SufiTrail" xml:lang="en_us">Hiking Trail Of Sufis</name>
     <name short="SufiPad" xml:lang="nl">Wandelpad Van De Sufis</name>
     <description>Application to show tracks on a map. These tracks show a specific route called the sufi trail. This trail connects Istanbul with Konya.</description>
