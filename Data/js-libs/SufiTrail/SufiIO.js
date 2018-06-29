@@ -21,21 +21,25 @@ SufiTrail.SufiIO = function ( ) {
   this.center = null;
 
   // Data urls
+  // file:///storage/emulated/<app id>/Android/data/sufitrail.io.github.martimm/
   this.topFsUrl = null;
 
-  // dirEntries
-  // sufiTrailDataURL
-  this.rootDirectory = null;
-  // sufiTrailDataURL/Tracks
+  // Data root at <topFsUrl>/files
+  this.fileDirectory = null;
+  // Tracks dir at <topFsUrl>/files/Tracks
   this.tracksDirEntry = null;
-  // sufiTrailDataURL/Features
+
+  // Cache root at <topFsUrl>/cache
+  this.cacheDirectory = null;
+  // Features dir at <topFsUrl>/cache/Features
   this.featureDirEntry = null;
-  // sufiTrailDataURL/Tiles
+  // Tiles dir at <topFsUrl>/cache/Tiles
   this.tileDirEntry = null;
 }
 
 /** ----------------------------------------------------------------------------
   Initialize the i/o object
+  @public
   @param {SufiTrail.SufiCenter} center Sufi trail core object
 */
 SufiTrail.SufiIO.prototype.init = function ( center ) {
@@ -44,11 +48,6 @@ SufiTrail.SufiIO.prototype.init = function ( center ) {
   var ioobj = this;
 
   // cordova file paths are only available after device ready!
-  // file:///storage/emulated/0/Android/data/sufitrail.io.github.martimm/
-  // this.storageUrl = "file:///storage/emulated/0/Android/data";
-  // this.topFsUrl = this.storageUrl + "/sufitrail.io.github.martimm/";
-  // this.topFsUrl = cordova.file.dataDirectory;
-  // this.topFsUrl = cordova.file.externalApplicationStorageDirectory;
   this.topFsURL = cordova.file.externalApplicationStorageDirectory;
 
   // create directories if not exists
@@ -58,24 +57,11 @@ SufiTrail.SufiIO.prototype.init = function ( center ) {
 console.log('top: ' + topDirEntry.isDirectory);
 console.log('top: ' + topDirEntry.name);
       ioobj.getDirectory(
-        topDirEntry, 'files', 'rootDirectory', 'createSufiTrailDirectories'
+        topDirEntry, 'files', 'fileDirectory', 'createFileDirectories'
       );
-/*
-      topDirEntry.getDirectory(
-        'SufiTrailData', { create: true },
-
-        // Save tracks directory entry
-        function ( subDirEntry ) {
-console.log('STD: ' + topDirEntry.isDirectory);
-console.log('STD: ' + topDirEntry.name);
-
-          ioobj.rootDirectory = subDirEntry;
-          ioobj.createSufiTrailDirectories(subDirEntry);
-        },
-
-        function ( e ) { ioobj.onErrorGetDir(e); }
+      ioobj.getDirectory(
+        topDirEntry, 'cache', 'cacheDirectory', 'createCacheDirectories'
       );
-*/
     },
 
     function ( e ) { ioobj.onErrorLoadFs(e); }
@@ -83,7 +69,29 @@ console.log('STD: ' + topDirEntry.name);
 }
 
 /** ----------------------------------------------------------------------------
+  create sub directories in root directory
+  @private
+  @param {DirectoryEntry} dirEntry directory object
+*/
+SufiTrail.SufiIO.prototype.createCacheDirectories = function ( dirEntry ) {
+
+  this.getDirectory( dirEntry, 'Tiles', 'tileDirEntry', null);
+  this.getDirectory( dirEntry, 'Features', 'featureDirEntry', null);
+}
+
+/** ----------------------------------------------------------------------------
+  create sub directories in root directory
+  @private
+  @param {DirectoryEntry} dirEntry directory object
+*/
+SufiTrail.SufiIO.prototype.createFileDirectories = function ( dirEntry ) {
+
+  this.getDirectory( dirEntry, 'Tracks', 'tracksDirEntry', null);
+}
+
+/** ----------------------------------------------------------------------------
   Get or create directory path
+  @private
   @param {DirectoryEntry} dirEntry directory object
   @param {string} dirName Directory name
   @param {string} entryStore Location in this object to store dirEntry
@@ -108,60 +116,6 @@ console.log('Create dir path: ' + subDirEntry.fullPath);
     function ( e ) { ioobj.onErrorGetDir(e); }
   );
 }
-
-/** ----------------------------------------------------------------------------
-  create sub directories in root directory
-  @param {DirectoryEntry} dirEntry directory object
-*/
-SufiTrail.SufiIO.prototype.createSufiTrailDirectories = function ( dirEntry ) {
-
-  var ioobj = this;
-
-  dirEntry.getDirectory(
-    'SufiTrail', { create: true },
-
-    function ( dirEntry ) {
-      // create ./Tracks
-      dirEntry.getDirectory(
-        'Tracks', { create: true },
-
-        // Save tracks directory entry
-        function ( subDirEntry ) {
-          ioobj.tracksDirEntry = subDirEntry;
-
-console.log('Tr: ' + subDirEntry.isDirectory);
-console.log('Tr: ' + subDirEntry.name);
-        },
-        function ( e ) { ioobj.onErrorGetDir(e); }
-      );
-
-      // create ./Features
-      dirEntry.getDirectory(
-        'Features', { create: true },
-
-        // Save tracks directory entry
-        function ( subDirEntry ) { ioobj.featureDirEntry = subDirEntry },
-        function ( e ) { ioobj.onErrorGetDir(e); }
-      );
-
-      // create ./Tiles
-      dirEntry.getDirectory(
-        'Tiles', { create: true },
-
-        // Save tracks directory entry
-        function ( subDirEntry ) { ioobj.tileDirEntry = subDirEntry },
-        function ( e ) { ioobj.onErrorGetDir(e); }
-      );
-    },
-    function ( e ) { ioobj.onErrorGetDir(e); }
-  );
-}
-
-/*
-GD1: function ( subDirEntry ) {
-  createFile( subDirEntry, "fileInNewSubDir.txt");
-},
-*/
 
 //----------------------------------------------------------------------------
 // Creates a new file or returns the file if it already exists.
@@ -209,6 +163,7 @@ SufiTrail.SufiIO.prototype.requestFileSystem = function (
 
   // this call is Google Chrome specific! This, however, is made
   // available using the cordova file plugin
+  /*
   goog.global.requestFileSystem(
 
     //goog.global.resolveLocalFileSystemURL(cordova.file.dataDirectory),
@@ -229,6 +184,18 @@ console.log("full path: " + fileEntry.fullPath);
     },
 
     function ( e ) { ioobj.onErrorLoadFs(e); }
+  );
+  */
+
+  this.tracksDirEntry.getFile(
+    filename,
+    { create: true, exclusive: false },
+    function ( fileEntry ) {
+console.log("fileEntry is file?: " + fileEntry.isFile.toString());
+console.log("full path: " + fileEntry.fullPath);
+      ioobj.writeFileEntry( fileEntry, content);
+    },
+    function ( e ) { ioobj.onErrorCreateFile(e); }
   );
 }
 
@@ -317,7 +284,7 @@ SufiTrail.SufiIO.prototype.onErrorCreateFile = function ( e ) {
 
 //----------------------------------------------------------------------------
 SufiTrail.SufiIO.prototype.onErrorReadFile = function ( e ) {
-  console.log("Error reading file: " + e.toString());
+  console.log("Error reading file: " + e.keys);
 }
 
 //----------------------------------------------------------------------------
