@@ -24,6 +24,7 @@ class Tracks {
 
   #-----------------------------------------------------------------------------
   submethod BUILD ( Str:D :$!gpx-file ) {
+
     $!gpx-dom .= new(:file($!gpx-file));
     $!bounds = {};
 
