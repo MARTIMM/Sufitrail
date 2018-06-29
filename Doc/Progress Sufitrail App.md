@@ -25,7 +25,7 @@ The application helps the user to find his/her way on a trail called the Sufi tr
   * [x] Cordova. Is needed to embed the App written in HTML and JavaScript in such a way that it can use the SDK of IOS to access the device.
 * Windows. Totally unsure how to implement this.
 * Linux on a desktop computer. This is necessary to develop the application for layout and other html/css things.
-  * [ ] Cordova using the browser device type.
+  * [x] Cordova using the browser device type.
   * [ ] Many of the device specific items can not be used. Therefore proper testing of these must be done. This comes in handy when some mobile device does not have the ability the program wants to use.
 * Mobile device types
   * [ ] Tablets of several sizes.
@@ -38,14 +38,39 @@ Cordova and android has several ways to build the App and to install the App on 
 <progress value="6" max="7" />
 
 * [x] Lower the number of references to javascript programs from index.html to decrease load time.
-* Build script
-  [x] Make a debug version leaving all files separated
-  [x] Make a release version which involves compiling the program.
+* Build script.
+  * [x] Make a debug version leaving all files separated.
+  * [x] Make a release version which involves compiling the program.
 * To make a release version, compress footprint of javascript programs.
   * [x] Generate a dependency list of all code involved and place in a file
   * [x] Use the google closure compiler and generate a compressed version using the file above.
   * [x] Sign the release version to make the program appstore worthy.
   * [ ] Upload the app to the apstore.
+
+### App directory structure
+
+<progress value="1" max="6" />
+
+* Android
+  * [x] Internal
+    * Root of any applications permanent storage data is at **file:///storage/emulated/\<app id>**.
+    * Then, from there, the path to the application **./Android/data/sufitrail.io.github.martimm**.
+    * The data of user tracks is stored at **\<app root>/files/Tracks**.
+      * The name of the track file is **userTrack-yyyy-mm-ddTHH-MM-SS.MSZ.gpx** where yyyy is a 4 digit year, mm a 2 digit month, dd a 2 digit day, HH MM and SS are hour, minutes and seconds and MS is a 3 digit millisecond value T is a ISO separator and Z means zulu time or greenwich time without daylight saving adjustment. The time spec is not with ':' characters because it isn't allowed in filenames.
+    * The tile cache will be at **\<app root>/cache/Tiles**.
+      * Subdirectories are made for several layers. Layers can be e.g. **map** or **hillshading** etc.
+      * Tiles are stored in a tree structure like **\<layer>/z/x/y.png** where z is the zoom levela and x and y are the coordinates of the tile.
+    * Feature cache at **\<app root>/cache/Features**.
+
+  * [ ] External
+
+* IOS
+  * [ ] Internal
+  * [ ] External
+
+* Windows
+  * [ ] Internal
+  * [ ] External
 
 ### Events and devices to listen to
 <progress value="4" max="7" />
@@ -56,7 +81,7 @@ There are several events which occur upon changing conditions in a device. These
 * [x] Network on and off line mode to update map and feature cache as well as send user data to a server
 * [x] Device compass to show map correctly pointing the map-north to the real north.
 * [x] Resize events to change from portrait to landscape mode and back. Responsive. Needed to display everything in proper sizes.
-* [ ] Camera o add a picture as a point on the map when saved.
+* [ ] Camera to add a picture as a point on the map when saved.
 * [ ] Time and clock.
 
 ### Caching
@@ -80,10 +105,9 @@ Caching of data is needed for those moments that there is no network available.
 A series of screen descriptions the application can show.
 
 ## Display on tablet screen
-<progress value="0" max="2" />
+<progress value="1" max="2" />
 
-* [ ] An icon of the sufitrail guy with green field in the back must be shown.
-      <img src="../Data/Images/logo-met-groen-klein-1.png"/>
+* [x] An icon of the sufitrail guy with green field in the back must be shown. Like **==>>** <img src="../Data/Images/AppLogo/logo-met-groen-klein-1.png" width="60px" height="60px"/>
 * [ ] A widget showing small part of a chart?
 
 ## Splash screen
