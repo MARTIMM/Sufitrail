@@ -416,6 +416,7 @@ The servers are always having a url with something like `.../${z}/${x}/${y}.png`
 [StackEx1]: https://gis.stackexchange.com/questions/167792/how-to-retrieve-the-tile-url-in-openlayers-3
 
 [math1]: https://en.wikipedia.org/wiki/Trigonometric_functions#Cosecant,_secant_and_cotangent
-
+[tilecoords]: 
+https://gis.stackexchange.com/questions/17278/calculate-lat-lon-bounds-for-individual-tile-generated-from-gdal2tiles
 [slippy map]:
 https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Pseudo-code
