@@ -95,7 +95,7 @@ SufiTrail.SufiIO.prototype.createFileDirectories = function ( dirEntry ) {
   @param {DirectoryEntry} dirEntry directory object
   @param {string} dirName Directory name
   @param {string} entryStore Location in this object to store dirEntry
-  @param {null || string} continueHandlerName a handler in this object
+  @param {null || string || function} continueHandlerName a handler in this object
 */
 SufiTrail.SufiIO.prototype.getDirectory = function (
   dirEntry, dirname, entryStore, continueHandlerName
@@ -109,8 +109,10 @@ SufiTrail.SufiIO.prototype.getDirectory = function (
       ioobj[entryStore] = subDirEntry;
 
 console.log('Create dir path: ' + subDirEntry.fullPath);
-      if( continueHandlerName !== null ) {
+      if( typeof continueHandlerName === "string" ) {
         ioobj[continueHandlerName](subDirEntry);
+      } else if( typeof continueHandlerName === "function" ) {
+        ioobj.continueHandlerName(subDirEntry);
       }
     },
     function ( e ) { ioobj.onErrorGetDir(e); }
