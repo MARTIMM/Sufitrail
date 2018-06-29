@@ -1,10 +1,9 @@
-*/.precomp/*
-.directory
-*/.directory
+**/.precomp
+**/.directory
 node_modules/*
 platforms/*
 plugins/*
-Old/*
+**/Old
 hooks/*
 package*
 res/*
@@ -12,7 +11,6 @@ res/*
 # None of the js libs except our own project
 Data/js-libs/lzma
 Data/js-libs/ol3
-Data/js-libs/Old
 Data/js-libs/closure-library
 
 Tests/closure-library
