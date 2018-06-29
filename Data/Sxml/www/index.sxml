@@ -394,8 +394,7 @@ $sxml:drop «
               $th [ Current App Version ]
             ]
             $tr [
-#TODO read version from config.xml
-              $td [ 0.9.1 ]
+              $td [ $!config.version ]
             ]
           ]
         ]
