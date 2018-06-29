@@ -158,9 +158,9 @@ sub MAIN ( Bool:D :$debug, CompilerLevel :$level = SIMPLE ) {
 
     # install on the device
     set +e
-    adb uninstall sufitrail.io.github.martimm
-    set -e
-    adb install -g "$android/$apk"
+    #adb uninstall sufitrail.io.github.martimm
+    #set -e
+    adb install -r -g "$android/$apk"
 
     echo Start application on mobile device ...
     filter-logcat.pl6
