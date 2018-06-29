@@ -476,8 +476,9 @@ console.log(cordova.file.dataDirectory);
 */
 
   var date = new Date();
-console.log("Date and time: " + date.toISOString());
   var filename = "userTrack-" + date.toISOString() + ".gpx";
+  filename = filename.replace( /:/g, '-');
+console.log("filename: " + filename);
   this.center.SufiIO.writeRequest( filename, xmlString, observerKey);
 
   return filename;
