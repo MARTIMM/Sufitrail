@@ -166,9 +166,11 @@ sub MAIN ( Bool:D :$debug, CompilerLevel :$level = SIMPLE ) {
     filter-logcat.pl6
     EOSCRIPT
 
+  # create script, run it and remove it
   my Str $script = 'SufiTrailBuildScript.sh';
   $script.IO.spurt($script-text);
   my Proc $proc = shell "/usr/bin/sh $script", :out;
   .note for $proc.out.lines;
   $proc.out.close;
+  unlink $script;
 }
