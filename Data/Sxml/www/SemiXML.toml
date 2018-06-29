@@ -25,6 +25,7 @@
   css           = 'SxmlLib::Html::Css'
   menu          = 'SxmlLib::Html::Menu'
   tracks        = 'SufiTrail::Sxml::Tracks;/home/marcel/Projects/Mobile/Projects/lib'
+  config        = 'SufiTrail::Sxml::Config;/home/marcel/Projects/Mobile/Projects/lib'
 
 [ ML.info ]
   tracks        = 'SufiTrail::Sxml::Tracks;/home/marcel/Projects/Mobile/Projects/lib'
