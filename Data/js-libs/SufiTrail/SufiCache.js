@@ -50,6 +50,19 @@ console.log("SufiCache");
   @param {string} state network is on or off, can be wifi, none, ...
 */
 SufiTrail.SufiCache.prototype.network = function ( state ) {
+return;
 
   console.log('Network state: ' + state);
+//TODO timeout if there is no or slow input
+  if( state === 'wifi' ) {
+    // start caching
+    var SufiIO = this.center.SufiIO;
+    var tileDirEntry = SufiIO.tileDirEntry;
+    SufiIO.getDirectory(
+      tileDirEntry, 'map',
+      function ( mapDirEntry ) {
+console.log("MDE: " + mapDirEntry.fullPath);
+      }
+    );
+  }
 }
