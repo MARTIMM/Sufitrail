@@ -6,7 +6,7 @@
    modify because it will be overwritten in subsequent generations.
 */
 
-"use strict";
+// "use strict" cannot be used when goog.base() is called!;
 
 goog.provide('SufiTrail.SufiCache');
 
@@ -25,5 +25,31 @@ SufiTrail.SufiCache = function ( ) {
 
 }
 
-// establish inheritance
+/** ----------------------------------------------------------------------------
+  establish inheritance
+*/
 goog.inherits( SufiTrail.SufiCache, SufiTrail.SufiCacheData);
+
+/** ----------------------------------------------------------------------------
+  @public
+  @param {SufiTrail.SufiCenter} center SufiTrail core object
+*/
+SufiTrail.SufiCache.prototype.init = function ( center ) {
+
+console.log("SufiCache");
+
+  // call superclass init to initialize the tile data
+  goog.base( this, 'init', center);
+
+  // subscribe to on/offline of network
+  this.center.observers.subscribe( 'networkState', this, 'network');
+}
+
+/** ----------------------------------------------------------------------------
+  @private
+  @param {string} state network is on or off, can be wifi, none, ...
+*/
+SufiTrail.SufiCache.prototype.network = function ( state ) {
+
+  console.log('Network state: ' + state);
+}
