@@ -6,7 +6,9 @@ use v6;
 
 enum CompilerLevel <BUNDLE WHITESPACE_ONLY SIMPLE ADVANCED>;
 
-sub MAIN ( Bool:D :$debug, CompilerLevel :$level = SIMPLE ) {
+sub MAIN (
+  Bool:D :$debug, CompilerLevel :$level = SIMPLE, Bool :$uninstall = False
+) {
 
   note "Be sure that device is connected";
 
@@ -154,13 +156,28 @@ sub MAIN ( Bool:D :$debug, CompilerLevel :$level = SIMPLE ) {
     $apk = "SufiTrail.apk";
   }
 
-  $script-text ~= Q:qq:s:to/EOSCRIPT/;
+  # uninstall first loosing data
+  if $uninstall {
+    $script-text ~= Q:qq:s:to/EOSCRIPT/;
 
-    # install on the device
-    set +e
-    #adb uninstall sufitrail.io.github.martimm
-    #set -e
-    adb install -r -g "$android/$apk"
+      # install on the device
+      set +e
+      adb uninstall sufitrail.io.github.martimm
+      adb install -g "$android/$apk"
+      EOSCRIPT
+  }
+
+  # replace
+  else {
+    $script-text ~= Q:qq:s:to/EOSCRIPT/;
+
+      # install on the device
+      set +e
+      adb install -r -g "$android/$apk"
+      EOSCRIPT
+  }
+
+  $script-text ~= Q:qq:s:to/EOSCRIPT/;
 
     echo Start application on mobile device ...
     filter-logcat.pl6
