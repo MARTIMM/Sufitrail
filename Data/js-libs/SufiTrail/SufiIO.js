@@ -21,20 +21,22 @@ SufiTrail.SufiIO = function ( ) {
   this.center = null;
 
   // Data urls
-  // file:///storage/emulated/<app id>/Android/data/sufitrail.io.github.martimm/
-  this.topFsUrl = null;
+  this.urls = {
+    // file:///storage/emulated/<app id>/Android/data/sufitrail.io.github.martimm/
+    topFsUrl: null,
 
-  // Data root at <topFsUrl>/files
-  this.fileDirectory = null;
-  // Tracks dir at <topFsUrl>/files/Tracks
-  this.tracksDirEntry = null;
+    // Data root at <topFsUrl>/files
+    fileDirectory: null,
+    // Tracks dir at <topFsUrl>/files/Tracks
+    tracksDirEntry: null,
 
-  // Cache root at <topFsUrl>/cache
-  this.cacheDirectory = null;
-  // Features dir at <topFsUrl>/cache/Features
-  this.featureDirEntry = null;
-  // Tiles dir at <topFsUrl>/cache/Tiles
-  this.tileDirEntry = null;
+    // Cache root at <topFsUrl>/cache
+    cacheDirectory: null,
+    // Features dir at <topFsUrl>/cache/Features
+    featureDirEntry: null,
+    // Tiles dir at <topFsUrl>/cache/Tiles
+    tileDirEntry: null
+  }
 }
 
 /** ----------------------------------------------------------------------------
@@ -91,7 +93,7 @@ SufiTrail.SufiIO.prototype.createFileDirectories = function ( dirEntry ) {
 
 /** ----------------------------------------------------------------------------
   Get or create directory path
-  @private
+  @public
   @param {DirectoryEntry} dirEntry directory object
   @param {string} dirName Directory name
   @param {string} entryStore Location in this object to store dirEntry
@@ -106,9 +108,13 @@ SufiTrail.SufiIO.prototype.getDirectory = function (
   dirEntry.getDirectory(
     dirname, { create: true },
     function ( subDirEntry ) {
-      ioobj[entryStore] = subDirEntry;
+      if( typeof entryStore === 'string' ) {
+        ioobj.urls[entryStore] = subDirEntry;
+console.log('Create dir path: ' + ioobj.urls[entryStore].fullPath);
+      } else if( typeof entryStore === 'function' ) {
+        entryStore(subDirEntry);
+      }
 
-console.log('Create dir path: ' + subDirEntry.fullPath);
       if( typeof continueHandlerName === "string" ) {
         ioobj[continueHandlerName](subDirEntry);
       } else if( typeof continueHandlerName === "function" ) {
