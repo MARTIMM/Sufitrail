@@ -129,6 +129,7 @@ console.log( "K: " + k + ', ' + this.htmlIdList[k]);
   this.SufiData.init(this);
   this.SufiCache.init(this);
 
+
   // MDN: experimental technology
   // check for networking offline/online. type can be wifi, none, ...
   var centerobj = this;
@@ -140,6 +141,7 @@ console.log( "K: " + k + ', ' + this.htmlIdList[k]);
   }
   connection.addEventListener( 'change', updateConnectionStatus);
   this.observers.set( 'networkState', connection.type);
+
 
   // Setup geolocation watcher
   this.watchGPS();
