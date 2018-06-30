@@ -6310,4 +6310,3 @@ SufiTrail.SufiCacheData.prototype.init = function ( center ) {
     }
   }
 }
-
