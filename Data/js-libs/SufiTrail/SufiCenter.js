@@ -127,7 +127,6 @@ console.log( "K: " + k + ', ' + this.htmlIdList[k]);
   this.SufiIO.init(this);
   this.SufiMap.init( this, this.mapElementName);
   this.SufiData.init(this);
-  this.SufiIO.init(this);
   this.SufiCache.init(this);
 
   // check for networking offline/online
