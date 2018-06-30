@@ -129,20 +129,17 @@ console.log( "K: " + k + ', ' + this.htmlIdList[k]);
   this.SufiData.init(this);
   this.SufiCache.init(this);
 
-  // check for networking offline/online
-  this.observers.set( 'networkState', navigator.onLine);
+  // MDN: experimental technology
+  // check for networking offline/online. type can be wifi, none, ...
   var centerobj = this;
-  goog.global.addEventListener(
-    'offline', function ( ) {
-// TODO needs some extra work to be accurate
-      centerobj.observers.set( 'networkState', navigator.onLine);
-    }
-  );
-  goog.global.addEventListener(
-    'online', function ( ) {
-      centerobj.observers.set( 'networkState', navigator.onLine);
-    }
-  );
+  var connection = navigator.connection ||
+      navigator.mozConnection || navigator.webkitConnection;
+
+  function updateConnectionStatus() {
+    centerobj.observers.set( 'networkState', connection.type);
+  }
+  connection.addEventListener( 'change', updateConnectionStatus);
+  this.observers.set( 'networkState', connection.type);
 
   // Setup geolocation watcher
   this.watchGPS();
