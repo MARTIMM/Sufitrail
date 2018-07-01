@@ -36,8 +36,6 @@ goog.inherits( SufiTrail.SufiCache, SufiTrail.SufiCacheData);
 */
 SufiTrail.SufiCache.prototype.init = function ( center ) {
 
-console.log("SufiCache");
-
   // call superclass init to initialize the tile data
   goog.base( this, 'init', center);
 
@@ -50,19 +48,36 @@ console.log("SufiCache");
   @param {string} state network is on or off, can be wifi, none, ...
 */
 SufiTrail.SufiCache.prototype.network = function ( state ) {
-return;
 
-  console.log('Network state: ' + state);
-//TODO timeout if there is no or slow input
+  var self = this;
+console.log('Network state: ' + state);
   if( state === 'wifi' ) {
-    // start caching
-    var SufiIO = this.center.SufiIO;
-    var tileDirEntry = SufiIO.tileDirEntry;
-    SufiIO.getDirectory(
-      tileDirEntry, 'map',
-      function ( mapDirEntry ) {
-console.log("MDE: " + mapDirEntry.fullPath);
-      }
+    this.center.waitUntil(
+      function ( ) {
+        console.log(
+          'SufiIO defined: ' + self.center.SufiIO === null
+        );
+        return self.center.SufiIO !== null;
+      },
+      self.startCaching, 200, 2000
     );
   }
+}
+
+/** ----------------------------------------------------------------------------
+  @private
+*/
+SufiTrail.SufiCache.prototype.startCaching = function ( ) {
+
+//TODO timeout if there is no or slow input
+  // start caching
+  console.log('SufiIO defined: ' + this.center.SufiIO === null);
+  var SufiIO = this.center.SufiIO;
+  var tileDirEntry = SufiIO.urls.tileDirEntry;
+  SufiIO.getDirectory(
+    tileDirEntry, 'map',
+    function ( mapDirEntry ) {
+console.log("MDE: " + mapDirEntry.fullPath);
+    }
+  );
 }
