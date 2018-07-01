@@ -24,6 +24,7 @@ SufiTrail.SufiIO = function ( ) {
   this.urls = {
     // file:///storage/emulated/<app id>/Android/data/sufitrail.io.github.martimm/
     topFsUrl: null,
+    topDirEntry: null,
 
     // Data root at <topFsUrl>/files
     fileDirectory: null,
@@ -50,12 +51,13 @@ SufiTrail.SufiIO.prototype.init = function ( center ) {
   var ioobj = this;
 
   // cordova file paths are only available after device ready!
-  this.topFsURL = cordova.file.externalApplicationStorageDirectory;
+  this.urls.topFsURL = cordova.file.externalApplicationStorageDirectory;
 
   // create directories if not exists
   goog.global.resolveLocalFileSystemURL(
-    this.topFsURL,
+    this.urls.topFsURL,
     function ( topDirEntry ) {
+      ioobj.urls.topDirEntry = topDirEntry;
 console.log('top: ' + topDirEntry.isDirectory);
 console.log('top: ' + topDirEntry.name);
       ioobj.getDirectory(
@@ -195,7 +197,7 @@ console.log("full path: " + fileEntry.fullPath);
   );
   */
 
-  this.tracksDirEntry.getFile(
+  this.urls.tracksDirEntry.getFile(
     filename,
     { create: true, exclusive: false },
     function ( fileEntry ) {
