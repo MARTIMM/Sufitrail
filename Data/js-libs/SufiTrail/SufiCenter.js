@@ -24,10 +24,10 @@ goog.require('SufiTrail.SufiCache');
   @constructor
 */
 SufiTrail.SufiCenter = function ( ) {
-  /** @private (un)subscribe observers and send receive data via this object */
+  /** (un)subscribe observers and send receive data via this object */
   this.observers = null;
 
-  /** @private part of model and view where the controller is this object */
+  /** Part of model and view where the controller is this object */
   this.SufiMap = new SufiTrail.SufiMap();
   this.SufiData = new SufiTrail.SufiData();
 
@@ -260,4 +260,60 @@ SufiTrail.SufiCenter.prototype.doExitApp = function ( ) {
   navigator.geolocation.clearWatch(this.watchId);
   console.log('SufiTrail program stopped');
   navigator.app.exitApp();
+}
+
+/** ----------------------------------------------------------------------------
+  From: http://www.devign.me/asynchronous-waiting-for-javascript-procedures
+
+  Function to wait until a certain check handler returns true and then executes
+  a code. The function checks the check handler periodically.
+
+  @public
+  @param {function} check A function that should return false or true
+  @param {function} runOnCheckOk A function to execute when the check function returns true
+  @param {int} delay Time in milliseconds, specifies the time period between each check. default value is 100
+  @param {int} timeout Time in milliseconds, specifies how long to wait and check the check function before giving up
+*/
+SufiTrail.SufiCenter.prototype.waitUntil = function (
+  check, runOnCheckOk, delay, timeout
+) {
+  // if the check returns true, execute runOnCheckOk immediately
+  if( check() ) {
+    runOnCheckOk();
+    return;
+  }
+
+  // set default delay
+  if( !delay ) {
+    delay=100;
+  }
+
+  var timeoutPointer;
+  var intervalPointer = setInterval(
+    function ( ) {
+      // if check didn't return true, means we need another check in
+      // the next interval
+      if( !check() ) {
+        return;
+      }
+
+      // if the check returned true, means we're done here. clear the
+      // interval and the timeout and execute runOnCheckOk
+      clearInterval(intervalPointer);
+      if( timeoutPointer ) {
+        clearTimeout(timeoutPointer);
+      }
+
+      runOnCheckOk();
+    }, delay
+  );
+
+  // if after timeout milliseconds function doesn't return true, abort
+  if( timeout ) {
+    timeoutPointer = setTimeout(
+      function ( ) {
+        clearInterval(intervalPointer);
+      }, timeout
+    );
+  }
 }
