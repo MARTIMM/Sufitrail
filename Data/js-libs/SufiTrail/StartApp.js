@@ -26,6 +26,9 @@ SufiTrail.StartApp = function ( ) {
   this.center = null;
 }
 
+/** ============================================================================
+  @public
+*/
 SufiTrail.StartApp.prototype.start = function ( ) {
   this.center = new SufiTrail.SufiCenter();
   this.center.init();
