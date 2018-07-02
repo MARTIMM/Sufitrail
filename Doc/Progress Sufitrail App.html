@@ -15,6 +15,7 @@
       
       
       
+      
 
       <style> 
       /**
@@ -228,9 +229,9 @@ html body table tr td {
  
       </style>
     </head>
-    <body for="html-export">
+    <body>
       <div class="mume markdown-preview   ">
-      <ul>
+      <div><ul>
 <li><a href="#planning-and-progress-document">Planning and Progress Document</a>
 <ul>
 <li><a href="#purpose-of-the-document">Purpose of the document</a></li>
@@ -240,33 +241,42 @@ html body table tr td {
 <ul>
 <li><a href="#purpose-of-the-application">Purpose of the application</a>
 <ul>
+<li><a href="#what-os-and-device-types-the-app-must-run-on">What OS and device types the app must run on</a></li>
+<li><a href="#build-script">Build script</a></li>
+<li><a href="#app-directory-structure">App directory structure</a></li>
+<li><a href="#events-and-devices-to-listen-to">Events and devices to listen to</a></li>
+<li><a href="#caching">Caching</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a href="#what-the-application-must-do">What the application must do</a></li>
-<li><a href="#where-the-application-must-run">Where the Application must run</a></li>
-<li><a href="#on-what-devices-must-the-application-run">On what devices must the application run</a></li>
-<li><a href="#events-to-listen-to">Events to listen to</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li><a href="#the-pages-of-the-application">The pages of the application</a>
 <ul>
-<li><a href="#splash-screen">Splash screen</a></li>
-<li><a href="#start-page">Start page</a>
+<li><a href="#display-on-tablet-screen">Display on tablet screen</a></li>
+<li><a href="#splash-screen">Splash screen</a>
 <ul>
-<li><a href="#when-track-is-shown">When track is shown</a></li>
-<li><a href="#the-menu">The Menu</a></li>
+<li><a href="#the-menu">The Menu</a>
+<ul>
+<li><a href="#the-pages-to-select-from-the-menu">The pages to select from the menu</a></li>
 </ul>
 </li>
-<li><a href="#the-info-page">The info page</a></li>
+</ul>
+</li>
+<li><a href="#start-page">Start page</a></li>
+<li><a href="#the-info-page">The info page</a><br>
+* <a href="#the-information-pages-for-each-track">The information pages for each track</a></li>
 <li><a href="#the-tracks-page">The Tracks page</a></li>
 <li><a href="#the-features-page">The Features page</a></li>
+<li><a href="#the-config-page">The Config page</a></li>
 <li><a href="#the-start-page">The Start page</a></li>
 <li><a href="#the-about-page">The About page</a></li>
 <li><a href="#the-exit-page">The Exit page</a></li>
 </ul>
 </li>
-<li><a href="#items-or-problems-to-think-about">Items or problems to think about</a></li>
+<li><a href="#other-items-or-problems-to-think-about">Other items or problems to think about</a></li>
 <li><a href="#track-data">Track data</a></li>
+<li><a href="#todo">Todo</a></li>
 <li><a href="#bugs">Bugs</a></li>
 <li><a href="#contacts-from-sultanstrail">Contacts from Sultanstrail</a></li>
 </ul>
@@ -275,229 +285,405 @@ html body table tr td {
 <h2 class="mume-header" id="purpose-of-the-document">Purpose of the document</h2>
 
 <p>Purpose of this document is to make a record of requirements and to show which of the requirements are implemented, which are not implemented yet or even not feasible.</p>
-<p>Communication will be done by sending this document to the contacts after which there will be some comments, additions, changes or removals. This will be visible later in this document in the design and planning.</p>
+<p>Communication will be done by sending this document from time to time to the contacts after which there will be some comments, additions, changes or removals. This will be made visible later in this document in the design and planning.</p>
 <h1 class="mume-header" id="requirements">Requirements</h1>
 
 <h2 class="mume-header" id="purpose-of-the-application">Purpose of the application</h2>
 
-<p>The application helps the user to find his/her way on a trail called the Sufi trail. This is a route between Istanbul to Konya. The GPS on the devices is used to show the location of the user.</p>
-<h3 class="mume-header" id="what-the-application-must-do">What the application must do</h3>
+<p>The application helps the user to find his/her way on a trail called the Sufi trail. This is a route between Istanbul to Konya. The GPS on the devices is used to show the location of the user and to create a track for the hiker.</p>
+<h3 class="mume-header" id="what-os-and-device-types-the-app-must-run-on">What OS and device types the app must run on</h3>
 
-<h3 class="mume-header" id="where-the-application-must-run">Where the Application must run</h3>
-
+<progress value="4" max="8"></progress>
 <ul>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> Cordova. Is needed to embed the App written in HTML and JavaScript in such a way that it can use the SDK of Android/IOS/Windows to access the device.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> Android. This will be the first target.
+<li>Android. This will be the first target.
 <ul>
-<li>Android SDK. This piece of software and toolbox is needed between the App and the device.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Android SDK. This piece of software and toolbox is needed between the App and the device.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Cordova. Is needed to embed the App written in HTML and JavaScript in such a way that it can use the SDK of Android to access the device.</li>
 </ul>
 </li>
-<li><input type="checkbox" class="task-list-item-checkbox"> IOS.</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Windows.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> Linux on the desktop computer. This is necessary to develop the application.</li>
-</ul>
-<h3 class="mume-header" id="on-what-devices-must-the-application-run">On what devices must the application run</h3>
-
+<li>IOS. This os is for Apple devices.
 <ul>
-<li><input type="checkbox" class="task-list-item-checkbox"> Tablets of several sizes.</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Mobile phones of several sizes.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> IOS SDK. This will prove difficult because for the SDK to work it needs an apple operating system.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Cordova. Is needed to embed the App written in HTML and JavaScript in such a way that it can use the SDK of IOS to access the device.</li>
 </ul>
-<h3 class="mume-header" id="events-to-listen-to">Events to listen to</h3>
+</li>
+<li>Windows. Totally unsure how to implement this.</li>
+<li>Linux on a desktop computer. This is necessary to develop the application for layout and other html/css things.
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Cordova using the browser device type.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Many of the device specific items can not be used. Therefore proper testing of these must be done. This comes in handy when some mobile device does not have the ability the program wants to use.</li>
+</ul>
+</li>
+<li>Mobile device types
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Tablets of several sizes.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Mobile phones of several sizes.</li>
+</ul>
+</li>
+</ul>
+<h3 class="mume-header" id="build-script">Build script</h3>
 
+<p>Cordova and android has several ways to build the App and to install the App on the device. However, it is also necessary to think about speed and footprint. One solution is to use the google compiler to make the code smaller. A build script is needed to be able to switch between a debug version and release version.</p>
+<progress value="6" max="7"></progress>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Lower the number of references to javascript programs from index.html to decrease load time.</li>
+<li>Build script.
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Make a debug version leaving all files separated.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Make a release version which involves compiling the program.</li>
+</ul>
+</li>
+<li>To make a release version, compress footprint of javascript programs.
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Generate a dependency list of all code involved and place in a file</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Use the google closure compiler and generate a compressed version using the file above.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Sign the release version to make the program appstore worthy.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Upload the app to the apstore.</li>
+</ul>
+</li>
+</ul>
+<h3 class="mume-header" id="app-directory-structure">App directory structure</h3>
+
+<progress value="1" max="6"></progress>
+<ul>
+<li>
+<p>Android</p>
+<ul>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox" checked> Internal</p>
+<ul>
+<li>Root of any applications permanent storage data is at <strong>file:///storage/emulated/&lt;app id&gt;</strong>.</li>
+<li>Then, from there, the path to the application <strong>./Android/data/sufitrail.io.github.martimm</strong>.</li>
+<li>The data of user tracks is stored at <strong>&lt;app root&gt;/files/Tracks</strong>.
+<ul>
+<li>The name of the track file is <strong>userTrack-yyyy-mm-ddTHH-MM-SS.MSZ.gpx</strong> where yyyy is a 4 digit year, mm a 2 digit month, dd a 2 digit day, HH MM and SS are hour, minutes and seconds and MS is a 3 digit millisecond value T is a ISO separator and Z means zulu time or greenwich time without daylight saving adjustment. The time spec is not with ':' characters because it isn't allowed in filenames.</li>
+</ul>
+</li>
+<li>The tile cache will be at <strong>&lt;app root&gt;/cache/Tiles</strong>.
+<ul>
+<li>Subdirectories are made for several layers. Layers can be e.g. <strong>map</strong> or <strong>hillshading</strong> etc.</li>
+<li>Tiles are stored in a tree structure like <strong>&lt;layer&gt;/z/x/y.png</strong> where z is the zoom levela and x and y are the coordinates of the tile.</li>
+</ul>
+</li>
+<li>Feature cache at <strong>&lt;app root&gt;/cache/Features</strong>.</li>
+</ul>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> External</p>
+</li>
+</ul>
+</li>
+<li>
+<p>IOS</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Internal</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> External</li>
+</ul>
+</li>
+<li>
+<p>Windows</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Internal</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> External</li>
+</ul>
+</li>
+</ul>
+<h3 class="mume-header" id="events-and-devices-to-listen-to">Events and devices to listen to</h3>
+
+<progress value="3" max="7"></progress>
 <p>There are several events which occur upon changing conditions in a device. These events must be captured for further actions.</p>
 <ul>
-<li><input type="checkbox" class="task-list-item-checkbox"> Battery conditions:
-<ul>
-<li>Warn user of battery low state. Can dim display or other options to save energy.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Battery condition to warn user of battery low state. App might dim display or other options to save energy.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Gps information to get current location.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Network on and off line mode to update map and feature cache as well as send user data to a server</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Device compass to show map correctly pointing the map-north to the real north.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Resize events to change from portrait to landscape mode and back. Responsive. Needed to display everything in proper sizes.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Camera to add a picture as a point on the map when saved.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Time and clock.</li>
 </ul>
-</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Gps information.
+<h3 class="mume-header" id="caching">Caching</h3>
+
+<p>Caching of data is needed for those moments that there is no network available.</p>
+<progress value="0" max="6"></progress>
 <ul>
-<li>Show current location</li>
-<li>Record track of user</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> At startup and network is on, caching must take place.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Make caching process visible when cache is empty. Otherwise refresh only.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Make a list of tile coordinates needed to cache at several zoom levels. Make estimation of total size.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Generate a cache javascript program and place in SufiTrail namespace. This module must be capable of caching all sorts of data.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Cache features too.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Try to get weather forecast and cache this information too</li>
 </ul>
-</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Network on and off line mode. When on then
+<h1 class="mume-header" id="what-the-application-must-do">What the application must do</h1>
+
 <ul>
-<li>It is possible to update maps</li>
-<li>Send out walked tracks</li>
-</ul>
-</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> Device orientation. To show map correctly pointing the map-north to the real north.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> Resize events to change from portrait to landscape mode and back. Responsive.</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Camera.
-<ul>
-<li>To add the picture as a point on the map when saved.</li>
-</ul>
-</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Time and clock.
-<ul>
-<li>Show date and time.</li>
-</ul>
-</li>
+<li>When starting the program, the app must show a splash screen with the sufitrail emblem on it while the program gets ready in the background. Let the splash screen be shown for at least 5 seconds or longer as needed.</li>
+<li>When the program is initialized it must show the map of the current location using the gps information of the device. One of the buttons shown on the screen can open a menu and direct the user to other pages of the program.</li>
 </ul>
 <h1 class="mume-header" id="the-pages-of-the-application">The pages of the application</h1>
 
 <p>A series of screen descriptions the application can show.</p>
+<h2 class="mume-header" id="display-on-tablet-screen">Display on tablet screen</h2>
+
+<progress value="1" max="2"></progress>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> An icon of the sufitrail guy with green field in the back must be shown. Like <strong>==&gt;&gt;</strong> <img src="../Data/Images/AppLogo/logo-met-groen-klein-1.png" width="60px" height="60px"></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> A widget showing small part of a chart?</li>
+</ul>
 <h2 class="mume-header" id="splash-screen">Splash screen</h2>
 
+<progress value="1" max="2"></progress>
 <p>A splash screen is always nice to display information in such a way that it makes a connection between the hiking and biking literature published by the Sufi trail group. The other purpose is that the application can start in the background and when it is ready, the splash screen is removed.</p>
 <ul>
-<li><input type="checkbox" class="task-list-item-checkbox"> Show a screen with a Sufitrail icon. Keep this displayed until everything is initialized. This provides for a better user experience.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Show a screen with a Sufi trail icon. Keep this displayed until everything is initialized. This provides for a better user experience.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Image must be made complete with some text</li>
+</ul>
+<h3 class="mume-header" id="the-menu">The Menu</h3>
+
+<progress value="0" max="2"></progress>
+<p>Pressing the menu button ☰ shown on the map, will open a pane from the side to show a menu of options. A click on an entry will show a page. Each page may have a shortcut to the home page: <strong>Map</strong> next to a menu button. When selecting an entry, the menu is closed and a page will appear.</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Layout of menu.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Layout of all pages must be coherent and matching the pages and colors from the book.</li>
+</ul>
+<h4 class="mume-header" id="the-pages-to-select-from-the-menu">The pages to select from the menu</h4>
+
+<ul>
+<li><strong>Map</strong>: Show map.</li>
+<li><strong>Info</strong>: Show route information</li>
+<li><strong>Tracks</strong>: Select a track.</li>
+<li><strong>Feature</strong> Show history, or other info.</li>
+<li><strong>Start</strong>: Record your track data.</li>
+<li><strong>Config</strong>: Configuration of user and program data.</li>
+<li><strong>About</strong>: Show a page with version, people and contacts.</li>
+<li><strong>Exit</strong>: Close the application.</li>
 </ul>
 <h2 class="mume-header" id="start-page">Start page</h2>
 
-<p>The start page is the home page named <strong>Map</strong> below in the list of menu entries. On this page the following is shown;</p>
+<progress value="10" max="14"></progress>
+<p>The map page is the home page named <strong>Map</strong> below in the list of menu entries. On this page the following is shown;</p>
 <ul>
 <li>Map. The map is displayed over the full width and height of the device.
 <ul>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> Map displayed, move around with swipe.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> Map should fill page automatically.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> Map, Menu and buttons must be adjusted when device is rotated.</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Show features for starting scale of map.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Map displayed, move around with swipe.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Map should fill page automatically.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Map, Menu and buttons must be adjusted when device is rotated.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Show features for starting scale of map.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Map layer for hightlines and/or shades</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Show current location.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> A dashed line is shown from urrent location to closest point on the track to show that the hiker wanders off route.</li>
 </ul>
 </li>
 <li>Zoom buttons. The buttons are placed on the left side.
 <ul>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> zooming with buttons.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> zooming by pinching (on mobile device).</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Reveal more features when zooming in.</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Remove features when zooming out.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> zooming with buttons.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> zooming by pinching (on mobile device).</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Reveal more features when zooming in.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Remove features when zooming out.</li>
 </ul>
 </li>
 <li>North arrow button on the top right side.
 <ul>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> Click action aligns map to the north.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Click action aligns map to the north.</li>
 </ul>
 </li>
 <li>Open menu button ☰. Button is placed just below the north arrow.
 <ul>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> Click action shows the menu on the right side of the page.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Click action shows the menu on the right side of the page.</li>
 </ul>
 </li>
 <li>Open street map attribute on the bottom right of the map.
 <ul>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> OSM attribution is displayed.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> OSM attribution is displayed.</li>
 </ul>
 </li>
 </ul>
-<h3 class="mume-header" id="when-track-is-shown">When track is shown</h3>
-
-<ul>
-<li><input type="checkbox" class="task-list-item-checkbox"> Show current location using GPS.</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Show dashed line from current location to closest point on the trail when off trail (further than, lets say, 1 kilometer).</li>
-</ul>
-<h3 class="mume-header" id="the-menu">The Menu</h3>
-
-<p>Pressing the menu button ☰ shown on the map, will open a pane from the side to show a menu of options. A click on an entry will show a page. Each page may have a shortcut to the home page: <strong>Map</strong> next to a menu button. When selecting an entry, the menu is closed and a page will appear.</p>
-<ul>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> <strong>Map</strong>: Show map, explained above</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> <strong>Info</strong>: Show route info</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> <strong>Tracks</strong>: Select a track</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> <strong>Feature</strong> Show history, or other info.</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> <strong>Start</strong>: Record your track data</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> <strong>About</strong>: Show a page with version, people and contacts</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> <strong>Exit</strong>: Close the application</li>
-</ul>
 <h2 class="mume-header" id="the-info-page">The info page</h2>
 
+<progress value="1" max="1"></progress>
+<p>The info page shows information of the currently selected track. There are 40 tracks to walk in 40 days so we need 40 pages of data. The info page is loaded from a file from the <code>www/info</code> directory when a track is selected.</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Fill the info page after selecting a track. Previous data must be removed.</li>
+</ul>
+<h4 class="mume-header" id="the-information-pages-for-each-track">The information pages for each track</h4>
+
+<progress value="1" max="40"></progress>
+<p>The following pages must have some info</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> 01 Istanbul City</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 02 Yalova Gökçedere</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 03 Gökçedere Güneyköy</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 04 Güneyköy Orhangazi</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 05 Orhangazi Çakırlı</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 06 Çakırlı Mahmudiye</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 07 Mahmudiyei İznik</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 08 Iznik Bereket</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 09 Bereket Osmaneli</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 10 Osmaneli Vezirhan</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 11 Vezirhan Bilecik</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 12 Bilecik Küre</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 13 Küre Sögüt</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 14 Sögüt Yeşilyurt</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 15 Yeşilyurt Alınca</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 16 Alınca Eskişehir</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 17 Eskişehir Süpüren</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 18 Süpüren Sarayören</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 19 Sarayören Seyitgazi</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 20 Seyitgazi Sükranlı</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 21 Sükranlı Ağlarca</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 22 Ağlarca Muratkoru</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 23 Muratkoru Gömü</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 24 Gömü Emirdağ</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 25 Emirdag Karacalar</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 26 Karacalar Emirdede Tepesi</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 27 Emirdede Tepesi Kemerkaya</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 28 Kemerkaya Taşağıl</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 29 Taşağıl Çay</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 30 Çay Yakasenek</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 31 Yakasenek Ulupinar</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 32 Ulupinar Akşehir</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 33 Akşehir Çakırlar</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 34 Çakırlar Doganhisarn</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 35 Doganhisar Aşağı Çığıl</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 36 Aşağı Çığıl Derbent</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 37 Derbent Salahattin</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 38 Basarakavak Küçükmuhsine</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 39 Küçükmuhsine Sille</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 40 Sille Konya</li>
+</ul>
 <h2 class="mume-header" id="the-tracks-page">The Tracks page</h2>
 
+<progress value="6" max="6"></progress>
 <ul>
-<li><input type="checkbox" class="task-list-item-checkbox"> Generate the page from the directory contents. This is usable later when several tracks for other walks are loaded. Also those made by the hiker can be placed there.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> Show map when a selection is made.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> The route is displayed</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> The route is centered on page</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> The route is zoomed so as to fit the page.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Generate the page from the directory contents and the gpx track name found in those files.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Show map when a selection is made.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> The route is displayed.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> The route is centered on page. This depends if information is available in the user track.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> The route is zoomed so as to fit the page. This depends if information is available in the user track.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Show dashed line from current location to closest point on the trail when off trail (further than, lets say, 1 kilometer).</li>
 </ul>
 <h2 class="mume-header" id="the-features-page">The Features page</h2>
 
-<p>Is filled when feature is clicked. First a balloon is showed on the map pointing to the feature with text and a 'more ...' on the bottom.</p>
+<p>The Features page is filled when a feature is clicked. First a balloon is showed on the map pointing to the feature with text and a 'more ...' on the bottom.</p>
+<progress value="0" max="6"></progress>
+<ul>
+<li>Selection of features to show;
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Restaurant - reservation information and facility</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Hotel etc - booking information and facility</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Mosque - historic background</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> City, village - historic background, city elders contact info, etc.</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Show balloon with info</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Show extra info on info page</li>
+</ul>
+<h2 class="mume-header" id="the-config-page">The Config page</h2>
+
+<progress value="0" max="4"></progress>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Text message about users consent of sending data to server. Make rest of the questions available if user wants to provide personal data</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Username</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Email addresses</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Where to save data; on local or external memory. Make gray or remove setting if there is no ecternal memory.</li>
+</ul>
 <h2 class="mume-header" id="the-start-page">The Start page</h2>
 
+<p>This is a page where a gps track can be started.</p>
+<progress value="5" max="8"></progress>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Start tracking</li>
+<li>Stop and save tracking
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Convert coordinates into gpx XML text</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Save text into file</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Display track in a list</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Show track on screen</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Keep on disk after reinstall/update</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Postpone tracking</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Continue tracking</li>
+</ul>
 <h2 class="mume-header" id="the-about-page">The About page</h2>
 
+<p>This is an overview of people involved and their tasks. Also other info can be shown such as a version number.</p>
+<progress value="2" max="3"></progress>
 <ul>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> Show the members of the Sufi trail group.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> Show current version of the program. Can be kept elsewhere, e.g. android manifest, and inserted here by using JavaScript.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Show the members of the Sufi trail group.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Show current version of the program.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Read version number from elsewhere, e.g. android manifest, and insert it when generating the html from sxml.</li>
 </ul>
 <h2 class="mume-header" id="the-exit-page">The Exit page</h2>
 
 <p>This should show a dialog to ask the user if he/she really wants to quit the program.</p>
+<progress value="1" max="4"></progress>
 <ul>
-<li><input type="checkbox" class="task-list-item-checkbox"> Show quit dialog</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> When really exiting, a recorded track must be saved.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Show quit dialog</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Recorded track must be saved if still unsaved.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Exit program.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Keep program active in background.</li>
 </ul>
-<h1 class="mume-header" id="items-or-problems-to-think-about">Items or problems to think about</h1>
+<h1 class="mume-header" id="other-items-or-problems-to-think-about">Other items or problems to think about</h1>
 
+<progress value="0" max="8"></progress>
 <ul>
-<li><input type="checkbox" class="task-list-item-checkbox"> Color mapping must match that of the maps printed on paper.</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Add ability to choose other color maps for visual impaired or color blind people.</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> By what license should the project be protected</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> When clicking on a feature on the map, does the information show in a balloon or on a new page. Feature information;
-<ul>
-<li><input type="checkbox" class="task-list-item-checkbox"> Restaurant - reservation information and facility</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Hotel etc - booking information and facility</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Mosque - historic background</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> City, village - historic background, city elders contact info, etc.</li>
-</ul>
-</li>
-<li>When online
-<ul>
-<li><input type="checkbox" class="task-list-item-checkbox"> When confirmed, refresh maps in cache</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Try to get weather forecast and cache this information too</li>
-</ul>
-</li>
-<li>Cache. Several forms of caching are possible.
-<ul>
-<li><input type="checkbox" class="task-list-item-checkbox"> The program needs to keep a cache for map tiles.</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> There might be a cache used internally by Android/IOS/Windows to store external JavaScript files and style sheets. This is useful to keep the libraries up to date automatically.</li>
-</ul>
-</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Color mapping must match that of the maps printed on paper.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Add ability to choose other color maps for visual impaired or color blind people.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> By what license should the project be protected</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Privacy considerations</li>
 </ul>
 <h1 class="mume-header" id="track-data">Track data</h1>
 
-<p>The app uses gpx data to read track information, show it and focus on it when first loaded. These gpx files must be edited (by a separate program) to add some data in the metadata section and extensions section of the gpx file.</p>
+<p>The app uses gpx data from a file to read track information. It is shown and zoomed in on it when first loaded. These gpx files must be edited (by a separate program) to add some data in the <code>metadata</code> section of the gpx file.</p>
+<progress value="17" max="18"></progress>
 <ul>
-<li>
-<p><input type="checkbox" class="task-list-item-checkbox" checked> Program to make the calculations and store in gpx file: <code>gpx-edit.pl6</code>.</p>
-<ul>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> Calculate minimum and maximum of longitude and latitude so the app doesn't have to do it.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> Calculate the center of the track for the same reason.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> metadata
-<ul>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> name; filename without '.gpx' and punctuation replaced by spaces.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> desc; &quot;hiking routes from Vienna to Istanbul&quot;.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> author; &quot;Sultanstrail&quot;.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> copyright; &quot;Sultanstrail&quot;.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> link; &quot;<a href="http://www.sultanstrail.com/">http://www.sultanstrail.com/</a>&quot;.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> time; date and time of conversion.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> keywords; &quot;hike&quot;, &quot;Vienna&quot;, &quot;Istanbul&quot; and some others taken from the filename.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> bounds; not used, Garmin uses it!</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> extensions; not used</li>
-</ul>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox" checked> Program to make the calculations and store in gpx file: <code>gpx-edit.pl6</code>. It makes use of module Tracks.pm6.</p>
 </li>
-</ul>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox" checked> Program <code>convert-all-tracks.pl6</code> to find all gpx files from <code>./Data/Tracks original</code> and call <code>gpx-edit.pl6</code> for each file found. The results are saved in <code>./www/tracks</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox" checked> The program <code>gpx-edit.pl6</code> calculates minimum and maximum of longitude and latitude and stores it in the xpath <code>/gpx/metadata/bounds</code>.</p>
 </li>
 <li>
+<p>The program also stores other data in the xpath <code>/gpx/metadata</code> of the gpx file.</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <code>name</code>; filename without '.gpx' and punctuation replaced by spaces.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <code>desc</code>; <strong>hiking routes from Istanbul to Konya</strong>.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <code>author</code>; <strong>Sufi trail</strong>.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <code>copyright</code>; <strong>Sufi trail</strong>.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <code>link</code> reference; <strong><a href="http://www.sufitrail.com/">http://www.sufitrail.com/</a></strong>. Its link text is <strong>Sufi Trail Hike</strong>.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <code>time</code>; date and time of conversion.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <code>keywords</code>; <strong>hike</strong>, <strong>Konya</strong>, <strong>Istanbul</strong> and some others taken from the filename.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <code>bounds</code>; (mentioned above). It is set if it is not available. When found, it is not overwritten. This is how Garmin uses it!</li>
+<li><code>extensions</code> field is not used.</li>
+</ul>
+</li>
+<li class="task-list-item">
 <p><input type="checkbox" class="task-list-item-checkbox" checked> Remove all spaces between elements thereby making the gpx file smaller.</p>
 </li>
 <li>
-<p><input type="checkbox" class="task-list-item-checkbox" checked> Program to convert all tracks using above program: <code>convert-all-tracks.pl6</code>.</p>
+<p>Other wishes.</p>
 <ul>
-<li><input type="checkbox" class="task-list-item-checkbox" checked> Convert tracks one by one.</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Compress the track to a smaller format to make the payload smaller.</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Sufi track is in one gpx file. Need to split them up to have a smaller footprint, especially when more features are put into the gpx as waypoints.</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Extract the waypoints from the sufi track gpx file into separate file.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Convert tracks one by one.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Compress the track to a smaller format to make the payload smaller.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Sufi track is in one gpx file. Need to split them up to have a smaller footprint, especially when more features are put into the gpx as waypoints.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Extract the waypoints from the sufi track gpx file into separate file.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Extract separate tracks from the total sufi trail</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> Adjust program to check for the Garmin way of storing boundaries and if not there use the same format.</li>
 </ul>
 </li>
 </ul>
-<h1 class="mume-header" id="bugs">Bugs</h1>
+<h1 class="mume-header" id="todo">Todo</h1>
 
 <ul>
-<li><input type="checkbox" class="task-list-item-checkbox"> Android. Hangup after a while when swiping etc. over the map</li>
-<li><input type="checkbox" class="task-list-item-checkbox"> Gpx files are missing a proper xml prefix after conversion</li>
+<li>Move buttons on other pages to the left side, same as where it is on map.</li>
+<li>A button on map to go to the current location when far from track.</li>
+<li>Use the same button to go back to the track when hiker is far from current location.</li>
 </ul>
+<h1 class="mume-header" id="bugs">Bugs</h1>
+
 <h1 class="mume-header" id="contacts-from-sultanstrail">Contacts from Sultanstrail</h1>
 
 <table>
@@ -546,81 +732,16 @@ html body table tr td {
 </tr>
 </tbody>
 </table>
-
-      </div>
-      <div class="md-sidebar-toc"><ul>
-<li><a href="#planning-and-progress-document">Planning and Progress Document</a>
-<ul>
-<li><a href="#purpose-of-the-document">Purpose of the document</a></li>
-</ul>
-</li>
-<li><a href="#requirements">Requirements</a>
-<ul>
-<li><a href="#purpose-of-the-application">Purpose of the application</a>
-<ul>
-<li><a href="#what-the-application-must-do">What the application must do</a></li>
-<li><a href="#where-the-application-must-run">Where the Application must run</a></li>
-<li><a href="#on-what-devices-must-the-application-run">On what devices must the application run</a></li>
-<li><a href="#events-to-listen-to">Events to listen to</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#the-pages-of-the-application">The pages of the application</a>
-<ul>
-<li><a href="#splash-screen">Splash screen</a></li>
-<li><a href="#start-page">Start page</a>
-<ul>
-<li><a href="#when-track-is-shown">When track is shown</a></li>
-<li><a href="#the-menu">The Menu</a></li>
-</ul>
-</li>
-<li><a href="#the-info-page">The info page</a></li>
-<li><a href="#the-tracks-page">The Tracks page</a></li>
-<li><a href="#the-features-page">The Features page</a></li>
-<li><a href="#the-start-page">The Start page</a></li>
-<li><a href="#the-about-page">The About page</a></li>
-<li><a href="#the-exit-page">The Exit page</a></li>
-</ul>
-</li>
-<li><a href="#items-or-problems-to-think-about">Items or problems to think about</a></li>
-<li><a href="#track-data">Track data</a></li>
-<li><a href="#bugs">Bugs</a></li>
-<li><a href="#contacts-from-sultanstrail">Contacts from Sultanstrail</a></li>
-</ul>
 </div>
-      <a id="sidebar-toc-btn">≡</a>
+      </div>
+      
+      
     </body>
     
     
     
     
     
-    <script>
-(function bindTaskListEvent() {
-  var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
-  for (var i = 0; i < taskListItemCheckboxes.length; i++) {
-    var checkbox = taskListItemCheckboxes[i]
-    var li = checkbox.parentElement
-    if (li.tagName !== 'LI') li = li.parentElement
-    if (li.tagName === 'LI') {
-      li.classList.add('task-list-item')
-    }
-  }
-}())    
-</script>
     
-<script>
-
-var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
-sidebarTOCBtn.addEventListener('click', function(event) {
-  event.stopPropagation()
-  if (document.body.hasAttribute('html-show-sidebar-toc')) {
-    document.body.removeAttribute('html-show-sidebar-toc')
-  } else {
-    document.body.setAttribute('html-show-sidebar-toc', true)
-  }
-})
-</script>
-      
+    
   </html>

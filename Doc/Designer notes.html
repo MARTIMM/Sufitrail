@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>Designer notes</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////home/marcel/.atom/packages/markdown-preview-enhanced/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+      <style> 
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+html body {
+  background-color: #ffffe8;
+}
+html body table {
+  border: 2px dashed #994300;
+  width: 100%;
+}
+html body table tr:nth-child(even) {
+  background-color: #ffffd4;
+}
+html body table tr th {
+  color: #cc5a00;
+  padding: 4px;
+}
+html body table tr td {
+  color: #cc5a00;
+  vertical-align: top;
+  padding: 4px;
+}
+ 
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview   ">
+      <ul>
+<li><a href="#designer-notes">Designer notes</a>
+<ul>
+<li><a href="#programming-points">Programming points</a></li>
+<li><a href="#introduced-google-closure-again">Introduced google closure again</a>
+<ul>
+<li><a href="#name-spaces-and-module-names">Name spaces and module names</a></li>
+</ul>
+</li>
+<li><a href="#implementation">Implementation</a>
+<ul>
+<li><a href="#data-in-the-model-sufidata">Data in the model: <code>SufiData</code></a></li>
+<li><a href="#viewed-on-display-sufimap">Viewed on display: <code>SufiMap</code></a></li>
+<li><a href="#control-suficenter">Control: <code>SufiCenter</code></a></li>
+<li><a href="#additional-observer">Additional: <code>Observer</code></a></li>
+<li><a href="#additional-sufiio">Additional: <code>SufiIO</code></a></li>
+<li><a href="#additional-server-wwwsufitrailnet">Additional: Server <code>www.sufitrail.net</code></a>
+<ul>
+<li><a href="#keys-of-values-used-in-the-observer">Keys of values used in the observer</a></li>
+<li><a href="#suficenter-diagrams-initialization">SufiCenter diagrams: initialization</a></li>
+<li><a href="#sufidata-diagrams-initialization">SufiData diagrams: initialization</a></li>
+<li><a href="#sufidata-diagrams-gpx">SufiData diagrams: GPX</a></li>
+<li><a href="#sufidata-diagrams-tracking">SufiData diagrams: tracking</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#cache-data">Cache data</a>
+<ul>
+<li><a href="#features">Features</a></li>
+<li><a href="#tiles">Tiles</a></li>
+</ul>
+</li>
+<li><a href="#user-data">User data</a>
+<ul>
+<li><a href="#tracks">Tracks</a></li>
+<li><a href="#pictures">Pictures</a></li>
+</ul>
+</li>
+<li><a href="#installed-plugins">Installed plugins</a></li>
+<li><a href="#articles">Articles</a></li>
+<li><a href="#contacts-from-sufitrail">Contacts from Sufitrail</a></li>
+</ul>
+<h1 class="mume-header" id="designer-notes">Designer notes</h1>
+
+<h2 class="mume-header" id="programming-points">Programming points</h2>
+
+<ul>
+<li>Styles come at the top in /html/head</li>
+<li>Javascript at the bottom of /html/body</li>
+<li>Split current javascript in parts, see below.</li>
+<li>Drop as many external modules as possible
+<ul>
+<li>JQuery is dropped</li>
+<li>OpenLayers 3 is necessary</li>
+</ul>
+</li>
+</ul>
+<h2 class="mume-header" id="introduced-google-closure-again">Introduced google closure again</h2>
+
+<h3 class="mume-header" id="name-spaces-and-module-names">Name spaces and module names</h3>
+
+<ul>
+<li>Namespace id used in the cordova config is <strong>io.github.martimm</strong>. I find this a bit too long to create a path like that. So the modules and classes are placed in the javascript directory accordingly. E.g. <code>www/js/SufiTrail/SufiCenter.js</code> instead of <code>www/js/io/github/martimm/SufiCenter.js</code>.<br>
+Modules name spaces are now;
+<ul>
+<li><strong>SufiTrail.Observer</strong></li>
+<li><strong>SufiTrail.SufiCenter</strong></li>
+<li><strong>SufiTrail.SufiData</strong></li>
+<li><strong>SufiTrail.SufiIO</strong></li>
+<li><strong>SufiTrail.SufiMap</strong></li>
+</ul>
+</li>
+</ul>
+<h2 class="mume-header" id="implementation">Implementation</h2>
+
+<p>The program will be using a Model–View–Adapter (MVA) or mediating-controller Model View Control (MVC) pattern, see <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93adapter">Wikipedia article</a>. This pattern is used to separate the storage, control and view from each other. To get things done, an observer/subscription service is created. A data generated in one part can be subscribed to by another. A call from the observer object is made to the subscribers of that specific data when that data becomes available. This pattern is also named 'producer/consumer' pattern.</p>
+<p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="664px" preserveAspectRatio="none" style="width:835px;height:664px;" version="1.1" viewBox="0 0 835 664" width="835px" zoomAndPan="magnify"><defs><filter height="300%" id="ftw8td93tmovk" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="355" x="238.5" y="16.708">Global description of all that is involved</text><!--cluster SufiTrailApp--><polygon fill="#FFFFFF" filter="url(#ftw8td93tmovk)" points="14,250.9531,118,250.9531,125,273.25,513,273.25,513,448.9531,14,448.9531,14,250.9531" style="stroke: #000000; stroke-width: 1.5;"></polygon><line style="stroke: #000000; stroke-width: 1.5;" x1="14" x2="125" y1="273.25" y2="273.25"></line><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="98" x="18" y="265.9482">SufiTrailApp</text><!--cluster tracks--><polygon fill="#FFFFFF" filter="url(#ftw8td93tmovk)" points="22,349.9531,76,349.9531,83,372.25,251,372.25,251,440.9531,22,440.9531,22,349.9531" style="stroke: #000000; stroke-width: 1.5;"></polygon><line style="stroke: #000000; stroke-width: 1.5;" x1="22" x2="83" y1="372.25" y2="372.25"></line><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="48" x="26" y="364.9482">tracks</text><!--cluster cache--><polygon fill="#FFFFFF" filter="url(#ftw8td93tmovk)" points="270,358.4531,321,358.4531,328,380.75,505,380.75,505,432.4531,270,432.4531,270,358.4531" style="stroke: #000000; stroke-width: 1.5;"></polygon><line style="stroke: #000000; stroke-width: 1.5;" x1="270" x2="328" y1="380.75" y2="380.75"></line><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="45" x="274" y="373.4482">cache</text><!--cluster SufiTrailDB--><path d="M522,247.4531 C522,237.4531 646.5,237.4531 646.5,237.4531 C646.5,237.4531 771,237.4531 771,247.4531 L771,313.4531 C771,323.4531 646.5,323.4531 646.5,323.4531 C646.5,323.4531 522,323.4531 522,313.4531 L522,247.4531 " fill="#FFFFFF" filter="url(#ftw8td93tmovk)" style="stroke: #000000; stroke-width: 1.5;"></path><path d="M522,247.4531 C522,257.4531 646.5,257.4531 646.5,257.4531 C646.5,257.4531 771,257.4531 771,247.4531 " fill="none" style="stroke: #000000; stroke-width: 1.5;"></path><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="90" x="601.5" y="271.4482">SufiTrailDB</text><!--entity index.html--><rect fill="#FEFECE" filter="url(#ftw8td93tmovk)" height="39.2969" style="stroke: #000000; stroke-width: 1.5;" width="105" x="186.5" y="277.9531"></rect><polygon fill="#FEFECE" points="274.5,282.9531,274.5,296.9531,286.5,296.9531,286.5,288.9531,280.5,282.9531,274.5,282.9531" style="stroke: #000000; stroke-width: 1.5;"></polygon><line style="stroke: #000000; stroke-width: 1.5;" x1="280.5" x2="280.5" y1="282.9531" y2="288.9531"></line><line style="stroke: #000000; stroke-width: 1.5;" x1="286.5" x2="280.5" y1="288.9531" y2="288.9531"></line><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="75" x="196.5" y="303.9482">index.html</text><!--entity user\ntracks--><rect fill="#FEFECE" filter="url(#ftw8td93tmovk)" height="55.5938" style="stroke: #000000; stroke-width: 1.5;" width="73" x="134.5" y="376.9531"></rect><polygon fill="#FEFECE" points="190.5,381.9531,190.5,395.9531,202.5,395.9531,202.5,387.9531,196.5,381.9531,190.5,381.9531" style="stroke: #000000; stroke-width: 1.5;"></polygon><line style="stroke: #000000; stroke-width: 1.5;" x1="196.5" x2="196.5" y1="381.9531" y2="387.9531"></line><line style="stroke: #000000; stroke-width: 1.5;" x1="202.5" x2="196.5" y1="387.9531" y2="387.9531"></line><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="31" x="144.5" y="402.9482">user</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="43" x="144.5" y="419.2451">tracks</text><!--entity fotos\nnotes--><rect fill="#FEFECE" filter="url(#ftw8td93tmovk)" height="55.5938" style="stroke: #000000; stroke-width: 1.5;" width="69" x="30.5" y="376.9531"></rect><polygon fill="#FEFECE" points="82.5,381.9531,82.5,395.9531,94.5,395.9531,94.5,387.9531,88.5,381.9531,82.5,381.9531" style="stroke: #000000; stroke-width: 1.5;"></polygon><line style="stroke: #000000; stroke-width: 1.5;" x1="88.5" x2="88.5" y1="381.9531" y2="387.9531"></line><line style="stroke: #000000; stroke-width: 1.5;" x1="94.5" x2="88.5" y1="387.9531" y2="387.9531"></line><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="35" x="40.5" y="402.9482">fotos</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="40.5" y="419.2451">notes</text><!--entity tiles--><rect fill="#FEFECE" filter="url(#ftw8td93tmovk)" height="39.2969" style="stroke: #000000; stroke-width: 1.5;" width="59" x="402.5" y="385.4531"></rect><polygon fill="#FEFECE" points="444.5,390.4531,444.5,404.4531,456.5,404.4531,456.5,396.4531,450.5,390.4531,444.5,390.4531" style="stroke: #000000; stroke-width: 1.5;"></polygon><line style="stroke: #000000; stroke-width: 1.5;" x1="450.5" x2="450.5" y1="390.4531" y2="396.4531"></line><line style="stroke: #000000; stroke-width: 1.5;" x1="456.5" x2="450.5" y1="396.4531" y2="396.4531"></line><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="29" x="412.5" y="411.4482">tiles</text><!--entity features--><rect fill="#FEFECE" filter="url(#ftw8td93tmovk)" height="39.2969" style="stroke: #000000; stroke-width: 1.5;" width="89" x="278.5" y="385.4531"></rect><polygon fill="#FEFECE" points="350.5,390.4531,350.5,404.4531,362.5,404.4531,362.5,396.4531,356.5,390.4531,350.5,390.4531" style="stroke: #000000; stroke-width: 1.5;"></polygon><line style="stroke: #000000; stroke-width: 1.5;" x1="356.5" x2="356.5" y1="390.4531" y2="396.4531"></line><line style="stroke: #000000; stroke-width: 1.5;" x1="362.5" x2="356.5" y1="396.4531" y2="396.4531"></line><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="59" x="288.5" y="411.4482">features</text><!--entity dbUsers--><rect fill="#FEFECE" filter="url(#ftw8td93tmovk)" height="36.2969" rx="35" ry="35" style="stroke: #000000; stroke-width: 1.5;" width="77" x="650.5" y="279.4531"></rect><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="57" x="660.5" y="302.4482">dbUsers</text><!--entity dbTracks--><rect fill="#FEFECE" filter="url(#ftw8td93tmovk)" height="36.2969" rx="35" ry="35" style="stroke: #000000; stroke-width: 1.5;" width="85" x="530.5" y="279.4531"></rect><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="65" x="540.5" y="302.4482">dbTracks</text><!--entity user--><ellipse cx="239" cy="144.9531" fill="#FEFECE" filter="url(#ftw8td93tmovk)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"></ellipse><path d="M239,152.9531 L239,179.9531 M226,160.9531 L252,160.9531 M239,179.9531 L226,194.9531 M239,179.9531 L252,194.9531 " fill="none" filter="url(#ftw8td93tmovk)" style="stroke: #A80036; stroke-width: 2.0;"></path><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="31" x="223.5" y="214.9482">user</text><!--entity network1--><path d="M560.5,385.4531 C560.5,382.4531 562.5,380.4531 565.5,380.4531 C568.5,380.4531 570.5,382.4531 570.5,385.4531 C570.5,382.4531 572.5,380.4531 575.5,380.4531 C578.5,380.4531 580.5,382.4531 580.5,385.4531 C580.5,382.4531 582.5,380.4531 585.5,380.4531 C588.5,380.4531 590.5,382.4531 590.5,385.4531 C590.5,382.4531 592.5,380.4531 595.5,380.4531 C598.5,380.4531 600.5,382.4531 600.5,385.4531 C600.5,382.4531 602.5,380.4531 605.5,380.4531 C608.5,380.4531 610.5,382.4531 610.5,385.4531 C610.5,382.4531 612.5,380.4531 615.5,380.4531 C618.5,380.4531 620.5,382.4531 620.5,385.4531 C620.5,382.4531 622.5,380.4531 625.5,380.4531 C628.5,380.4531 630.5,382.4531 630.5,385.4531 C630.5,382.4531 632.5,380.4531 635.5,380.4531 C638.5,380.4531 640.5,382.4531 640.5,385.4531 C643.5,385.4531 645.5,387.4531 645.5,390.4531 C645.5,393.4531 643.5,395.4531 640.5,395.4531 C643.5,395.4531 645.5,397.4531 645.5,400.4531 C645.5,403.4531 643.5,405.4531 640.5,405.4531 C643.5,405.4531 645.5,407.4531 645.5,410.4531 C645.5,413.4531 643.5,415.4531 640.5,415.4531 C643.5,415.4531 645.5,417.4531 645.5,420.4531 C645.5,423.4531 643.5,425.4531 640.5,425.4531 C640.5,428.4531 637.5,430.4531 635.5,430.4531 C632.5,430.4531 630.5,428.4531 630.5,425.4531 C630.5,428.4531 627.5,430.4531 625.5,430.4531 C622.5,430.4531 620.5,428.4531 620.5,425.4531 C620.5,428.4531 617.5,430.4531 615.5,430.4531 C612.5,430.4531 610.5,428.4531 610.5,425.4531 C610.5,428.4531 607.5,430.4531 605.5,430.4531 C602.5,430.4531 600.5,428.4531 600.5,425.4531 C600.5,428.4531 597.5,430.4531 595.5,430.4531 C592.5,430.4531 590.5,428.4531 590.5,425.4531 C590.5,428.4531 587.5,430.4531 585.5,430.4531 C582.5,430.4531 580.5,428.4531 580.5,425.4531 C580.5,428.4531 577.5,430.4531 575.5,430.4531 C572.5,430.4531 570.5,428.4531 570.5,425.4531 C570.5,428.4531 567.5,430.4531 565.5,430.4531 C562.5,430.4531 560.5,428.4531 560.5,425.4531 C557.5,425.4531 555.5,423.4531 555.5,420.4531 C555.5,417.4531 557.5,415.4531 560.5,415.4531 C557.5,415.4531 555.5,413.4531 555.5,410.4531 C555.5,407.4531 557.5,405.4531 560.5,405.4531 C557.5,405.4531 555.5,403.4531 555.5,400.4531 C555.5,397.4531 557.5,395.4531 560.5,395.4531 C557.5,395.4531 555.5,393.4531 555.5,390.4531 C555.5,387.4531 557.5,385.4531 560.5,385.4531 " fill="#FEFECE" filter="url(#ftw8td93tmovk)" style="stroke: #000000; stroke-width: 1.5;"></path><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="67" x="567.5" y="401.4482">user data</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="65" x="567.5" y="417.7451">transport</text><!--entity network2--><path d="M710.5,499.9531 C710.5,496.9531 712.5,494.9531 715.5,494.9531 C718.5,494.9531 720.5,496.9531 720.5,499.9531 C720.5,496.9531 722.5,494.9531 725.5,494.9531 C728.5,494.9531 730.5,496.9531 730.5,499.9531 C730.5,496.9531 732.5,494.9531 735.5,494.9531 C738.5,494.9531 740.5,496.9531 740.5,499.9531 C740.5,496.9531 742.5,494.9531 745.5,494.9531 C748.5,494.9531 750.5,496.9531 750.5,499.9531 C750.5,496.9531 752.5,494.9531 755.5,494.9531 C758.5,494.9531 760.5,496.9531 760.5,499.9531 C760.5,496.9531 762.5,494.9531 765.5,494.9531 C768.5,494.9531 770.5,496.9531 770.5,499.9531 C770.5,496.9531 772.5,494.9531 775.5,494.9531 C778.5,494.9531 780.5,496.9531 780.5,499.9531 C780.5,496.9531 782.5,494.9531 785.5,494.9531 C788.5,494.9531 790.5,496.9531 790.5,499.9531 C793.5,499.9531 795.5,501.9531 795.5,504.9531 C795.5,507.9531 793.5,509.9531 790.5,509.9531 C793.5,509.9531 795.5,511.9531 795.5,514.9531 C795.5,517.9531 793.5,519.9531 790.5,519.9531 C793.5,519.9531 795.5,521.9531 795.5,524.9531 C795.5,527.9531 793.5,529.9531 790.5,529.9531 C793.5,529.9531 795.5,531.9531 795.5,534.9531 C795.5,537.9531 793.5,539.9531 790.5,539.9531 C790.5,542.9531 787.5,544.9531 785.5,544.9531 C782.5,544.9531 780.5,542.9531 780.5,539.9531 C780.5,542.9531 777.5,544.9531 775.5,544.9531 C772.5,544.9531 770.5,542.9531 770.5,539.9531 C770.5,542.9531 767.5,544.9531 765.5,544.9531 C762.5,544.9531 760.5,542.9531 760.5,539.9531 C760.5,542.9531 757.5,544.9531 755.5,544.9531 C752.5,544.9531 750.5,542.9531 750.5,539.9531 C750.5,542.9531 747.5,544.9531 745.5,544.9531 C742.5,544.9531 740.5,542.9531 740.5,539.9531 C740.5,542.9531 737.5,544.9531 735.5,544.9531 C732.5,544.9531 730.5,542.9531 730.5,539.9531 C730.5,542.9531 727.5,544.9531 725.5,544.9531 C722.5,544.9531 720.5,542.9531 720.5,539.9531 C720.5,542.9531 717.5,544.9531 715.5,544.9531 C712.5,544.9531 710.5,542.9531 710.5,539.9531 C707.5,539.9531 705.5,537.9531 705.5,534.9531 C705.5,531.9531 707.5,529.9531 710.5,529.9531 C707.5,529.9531 705.5,527.9531 705.5,524.9531 C705.5,521.9531 707.5,519.9531 710.5,519.9531 C707.5,519.9531 705.5,517.9531 705.5,514.9531 C705.5,511.9531 707.5,509.9531 710.5,509.9531 C707.5,509.9531 705.5,507.9531 705.5,504.9531 C705.5,501.9531 707.5,499.9531 710.5,499.9531 " fill="#FEFECE" filter="url(#ftw8td93tmovk)" style="stroke: #000000; stroke-width: 1.5;"></path><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="40" x="717.5" y="515.9482">email</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="65" x="717.5" y="532.2451">transport</text><!--entity network3--><path d="M455.5,156.9531 C455.5,153.9531 457.5,151.9531 460.5,151.9531 C463.5,151.9531 465.5,153.9531 465.5,156.9531 C465.5,153.9531 467.5,151.9531 470.5,151.9531 C473.5,151.9531 475.5,153.9531 475.5,156.9531 C475.5,153.9531 477.5,151.9531 480.5,151.9531 C483.5,151.9531 485.5,153.9531 485.5,156.9531 C485.5,153.9531 487.5,151.9531 490.5,151.9531 C493.5,151.9531 495.5,153.9531 495.5,156.9531 C495.5,153.9531 497.5,151.9531 500.5,151.9531 C503.5,151.9531 505.5,153.9531 505.5,156.9531 C505.5,153.9531 507.5,151.9531 510.5,151.9531 C513.5,151.9531 515.5,153.9531 515.5,156.9531 C515.5,153.9531 517.5,151.9531 520.5,151.9531 C523.5,151.9531 525.5,153.9531 525.5,156.9531 C525.5,153.9531 527.5,151.9531 530.5,151.9531 C533.5,151.9531 535.5,153.9531 535.5,156.9531 C538.5,156.9531 540.5,158.9531 540.5,161.9531 C540.5,164.9531 538.5,166.9531 535.5,166.9531 C538.5,166.9531 540.5,168.9531 540.5,171.9531 C540.5,174.9531 538.5,176.9531 535.5,176.9531 C538.5,176.9531 540.5,178.9531 540.5,181.9531 C540.5,184.9531 538.5,186.9531 535.5,186.9531 C538.5,186.9531 540.5,188.9531 540.5,191.9531 C540.5,194.9531 538.5,196.9531 535.5,196.9531 C535.5,199.9531 532.5,201.9531 530.5,201.9531 C527.5,201.9531 525.5,199.9531 525.5,196.9531 C525.5,199.9531 522.5,201.9531 520.5,201.9531 C517.5,201.9531 515.5,199.9531 515.5,196.9531 C515.5,199.9531 512.5,201.9531 510.5,201.9531 C507.5,201.9531 505.5,199.9531 505.5,196.9531 C505.5,199.9531 502.5,201.9531 500.5,201.9531 C497.5,201.9531 495.5,199.9531 495.5,196.9531 C495.5,199.9531 492.5,201.9531 490.5,201.9531 C487.5,201.9531 485.5,199.9531 485.5,196.9531 C485.5,199.9531 482.5,201.9531 480.5,201.9531 C477.5,201.9531 475.5,199.9531 475.5,196.9531 C475.5,199.9531 472.5,201.9531 470.5,201.9531 C467.5,201.9531 465.5,199.9531 465.5,196.9531 C465.5,199.9531 462.5,201.9531 460.5,201.9531 C457.5,201.9531 455.5,199.9531 455.5,196.9531 C452.5,196.9531 450.5,194.9531 450.5,191.9531 C450.5,188.9531 452.5,186.9531 455.5,186.9531 C452.5,186.9531 450.5,184.9531 450.5,181.9531 C450.5,178.9531 452.5,176.9531 455.5,176.9531 C452.5,176.9531 450.5,174.9531 450.5,171.9531 C450.5,168.9531 452.5,166.9531 455.5,166.9531 C452.5,166.9531 450.5,164.9531 450.5,161.9531 C450.5,158.9531 452.5,156.9531 455.5,156.9531 " fill="#FEFECE" filter="url(#ftw8td93tmovk)" style="stroke: #000000; stroke-width: 1.5;"></path><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="29" x="462.5" y="172.9482">tiles</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="65" x="462.5" y="189.2451">transport</text><!--entity trailServer--><polygon fill="#FEFECE" filter="url(#ftw8td93tmovk)" points="692.5,391.9531,702.5,381.9531,807.5,381.9531,807.5,418.25,797.5,428.25,692.5,428.25,692.5,391.9531" style="stroke: #000000; stroke-width: 1.5;"></polygon><line style="stroke: #000000; stroke-width: 1.5;" x1="797.5" x2="806.5" y1="391.9531" y2="382.9531"></line><line style="stroke: #000000; stroke-width: 1.5;" x1="692.5" x2="797.5" y1="391.9531" y2="391.9531"></line><line style="stroke: #000000; stroke-width: 1.5;" x1="797.5" x2="797.5" y1="391.9531" y2="428.25"></line><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="75" x="707.5" y="414.9482">trailServer</text><!--entity tilesServer--><polygon fill="#FEFECE" filter="url(#ftw8td93tmovk)" points="437,38.9531,447,28.9531,553,28.9531,553,65.25,543,75.25,437,75.25,437,38.9531" style="stroke: #000000; stroke-width: 1.5;"></polygon><line style="stroke: #000000; stroke-width: 1.5;" x1="543" x2="552" y1="38.9531" y2="29.9531"></line><line style="stroke: #000000; stroke-width: 1.5;" x1="437" x2="543" y1="38.9531" y2="38.9531"></line><line style="stroke: #000000; stroke-width: 1.5;" x1="543" x2="543" y1="38.9531" y2="75.25"></line><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="76" x="452" y="61.9482">tilesServer</text><!--entity emailServer--><polygon fill="#FEFECE" filter="url(#ftw8td93tmovk)" points="686.5,615.9531,696.5,605.9531,813.5,605.9531,813.5,642.25,803.5,652.25,686.5,652.25,686.5,615.9531" style="stroke: #000000; stroke-width: 1.5;"></polygon><line style="stroke: #000000; stroke-width: 1.5;" x1="803.5" x2="812.5" y1="615.9531" y2="606.9531"></line><line style="stroke: #000000; stroke-width: 1.5;" x1="686.5" x2="803.5" y1="615.9531" y2="615.9531"></line><line style="stroke: #000000; stroke-width: 1.5;" x1="803.5" x2="803.5" y1="615.9531" y2="652.25"></line><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="87" x="701.5" y="638.9482">emailServer</text><!--link user to index.html--><path d="M239,218.0944 C239,238.3294 239,261.6916 239,277.8021 " fill="none" id="user-index.html" style="stroke: #A80036; stroke-width: 1.0;"></path><!--link SufiTrailApp to network1--><path d="M513.0935,322.4155 C513.1271,322.4544 513.1606,322.4933 513.1942,322.5321 C513.4627,322.8425 513.7314,323.1496 514,323.4531 C531.2841,342.9797 552.6298,363.0281 569.8519,378.3543 " fill="none" id="SufiTrailApp-network1" style="stroke: #A80036; stroke-width: 1.0;"></path><!--link SufiTrailApp to tracks--><path d="M494.4439,297.5033 C483.0599,298.5403 300.3183,315.6684 262,349.9531 C257.4828,353.9948 254.0393,359.1632 251.4144,364.7082 C251.3324,364.8814 251.2512,365.0551 251.1707,365.2291 C251.1305,365.3161 251.0905,365.4031 251.0507,365.4903 " fill="none" id="SufiTrailApp-tracks" style="stroke: #A80036; stroke-width: 1.0;"></path><!--link SufiTrailApp to cache--><path d="M495.0128,298.1396 C495.094,302.5028 495.5491,326.9659 496.0033,351.3803 C496.0317,352.9062 496.0601,354.4319 496.0884,355.9525 C496.1025,356.7128 496.1166,373.9929 496.1307,374.75 " fill="none" id="SufiTrailApp-cache" style="stroke: #A80036; stroke-width: 1.0;"></path><!--link SufiTrailDB to trailServer--><path d="M759.8153,323.7883 C759.7573,324.2679 759.6988,324.7515 759.6399,325.2389 C759.4041,327.1883 759.1611,329.1977 758.9127,331.2524 C756.9248,347.6903 754.5862,367.0292 752.8033,381.7719 " fill="none" id="SufiTrailDB-trailServer" style="stroke: #A80036; stroke-width: 1.0;"></path><!--link tilesServer to network3--><path d="M495,75.0788 C495,96.1752 495,127.3533 495,149.5558 " fill="none" id="tilesServer-network3" style="stroke: #A80036; stroke-width: 1.0;"></path><!--link network3 to SufiTrailApp--><path d="M495,203.0071 C495,211.3552 495,220.9781 495,230.8199 C495,235.7407 495,240.7162 495,245.6144 C495,246.839 495,248.0587 495,249.2715 C495,249.5747 495,249.8775 495,250.1798 C495,250.331 495,267.0991 495,267.25 " fill="none" id="network3-SufiTrailApp" style="stroke: #A80036; stroke-width: 1.0;"></path><!--link network1 to trailServer--><path d="M644.6523,404.9531 C660.5642,404.9531 676.4761,404.9531 692.388,404.9531 " fill="none" id="network1-trailServer" style="stroke: #A80036; stroke-width: 1.0;"></path><!--link trailServer to network2--><path d="M750,428.1239 C750,446.8129 750,473.1199 750,492.7028 " fill="none" id="trailServer-network2" style="stroke: #A80036; stroke-width: 1.0;"></path><!--link network2 to emailServer--><path d="M750,545.96 C750,564.1888 750,588.1698 750,605.664 " fill="none" id="network2-emailServer" style="stroke: #A80036; stroke-width: 1.0;"></path><!--
+@startuml
+title Global description of all that is involved
+
+
+actor user
+cloud "user data\ntransport" as network1
+cloud "email\ntransport" as network2
+cloud "tiles\ntransport" as network3
+node trailServer
+node tilesServer
+node emailServer
+package SufiTrailApp {
+  artifact index.html
+
+  folder tracks {
+    artifact "user\ntracks"
+    artifact "fotos\nnotes"
+  }
+
+  folder cache {
+    artifact tiles
+    artifact features
+  }
+}
+
+database SufiTrailDB {
+  storage dbUsers
+  storage dbTracks
+}
+
+user - - index.html
+SufiTrailApp - - network1
+SufiTrailApp - - tracks
+SufiTrailApp - - cache
+SufiTrailDB - - trailServer
+tilesServer - - network3
+network3 - - SufiTrailApp
+network1 - trailServer
+trailServer - - network2
+network2 - - emailServer
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><h3 class="mume-header" id="data-in-the-model-sufidata">Data in the model: <code>SufiData</code></h3>
+
+<ul>
+<li>Track data</li>
+<li>Cache of map tiles</li>
+<li>Cache of feature data</li>
+</ul>
+<h3 class="mume-header" id="viewed-on-display-sufimap">Viewed on display: <code>SufiMap</code></h3>
+
+<ul>
+<li>Map around current location at start or switchable from track to current location and back</li>
+<li>Map around the track</li>
+<li>Informational pages</li>
+<li>Menu to select pages</li>
+<li>Features on map</li>
+<li>Display current location</li>
+</ul>
+<h3 class="mume-header" id="control-suficenter">Control: <code>SufiCenter</code></h3>
+
+<ul>
+<li>Track gps device data -&gt; <code>SufiMap</code>/<code>SufiData</code></li>
+<li>Track state of network -&gt; <code>SufiData</code></li>
+<li>Process user input/gestures -&gt; <code>SufiMap</code>/<code>SufiData</code></li>
+<li>Process data changes -&gt; <code>SufiMap</code></li>
+</ul>
+<h3 class="mume-header" id="additional-observer">Additional: <code>Observer</code></h3>
+
+<ul>
+<li>Add and remove subscription</li>
+<li>Accept data and provide to observer handles</li>
+</ul>
+<h3 class="mume-header" id="additional-sufiio">Additional: <code>SufiIO</code></h3>
+
+<ul>
+<li>Read and write data from and to disk</li>
+<li>Read from tileserver -&gt; <code>SufiData</code></li>
+<li>Send pictures and tracks to <a href="http://sufitrail.net">sufitrail.net</a> server</li>
+</ul>
+<h3 class="mume-header" id="additional-server-wwwsufitrailnet">Additional: Server <code>www.sufitrail.net</code></h3>
+
+<ul>
+<li>Keep track of users</li>
+<li>Accept pictures and tracks of users</li>
+<li>Send tracks to other users defined by a set of email addresses of the user.</li>
+</ul>
+<p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="547px" preserveAspectRatio="none" style="width:830px;height:547px;" version="1.1" viewBox="0 0 830 547" width="830px" zoomAndPan="magnify"><defs><filter height="300%" id="fcyob80xdo50o" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="475" x="179.5" y="16.708">Components and relations of the SufiTrail application</text><!--cluster SufiTrailApp--><polygon fill="#FFFFFF" filter="url(#fcyob80xdo50o)" points="293,36.9531,397,36.9531,404,59.25,808,59.25,808,321.9531,293,321.9531,293,36.9531" style="stroke: #000000; stroke-width: 1.5;"></polygon><line style="stroke: #000000; stroke-width: 1.5;" x1="293" x2="404" y1="59.25" y2="59.25"></line><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="98" x="297" y="51.9482">SufiTrailApp</text><!--cluster SufiTrailServer--><polygon fill="#FFFFFF" filter="url(#fcyob80xdo50o)" points="14,351.9531,24,341.9531,393,341.9531,393,525.9531,383,535.9531,14,535.9531,14,351.9531" style="stroke: #000000; stroke-width: 1.5;"></polygon><line style="stroke: #000000; stroke-width: 1.5;" x1="383" x2="392" y1="351.9531" y2="342.9531"></line><line style="stroke: #000000; stroke-width: 1.5;" x1="14" x2="383" y1="351.9531" y2="351.9531"></line><line style="stroke: #000000; stroke-width: 1.5;" x1="383" x2="383" y1="351.9531" y2="535.9531"></line><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="120" x="139.5" y="367.9482">SufiTrailServer</text><!--cluster TileServer--><polygon fill="#FFFFFF" filter="url(#fcyob80xdo50o)" points="401,351.9531,411,341.9531,560,341.9531,560,407.9531,550,417.9531,401,417.9531,401,351.9531" style="stroke: #000000; stroke-width: 1.5;"></polygon><line style="stroke: #000000; stroke-width: 1.5;" x1="550" x2="559" y1="351.9531" y2="342.9531"></line><line style="stroke: #000000; stroke-width: 1.5;" x1="401" x2="550" y1="351.9531" y2="351.9531"></line><line style="stroke: #000000; stroke-width: 1.5;" x1="550" x2="550" y1="351.9531" y2="417.9531"></line><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="83" x="435" y="367.9482">TileServer</text><!--entity index.html--><rect fill="#FEFECE" filter="url(#fcyob80xdo50o)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="95" x="704.5" y="63.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="699.5" y="68.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="699.5" y="90.25"></rect><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="75" x="714.5" y="86.9482">index.html</text><!--entity SufiIO.js--><rect fill="#FEFECE" filter="url(#fcyob80xdo50o)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="77" x="317.5" y="159.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="312.5" y="164.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="312.5" y="186.25"></rect><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="57" x="327.5" y="182.9482">SufiIO.js</text><!--entity HTTPS--><ellipse cx="356" cy="284.9531" fill="#FEFECE" filter="url(#fcyob80xdo50o)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"></ellipse><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="46" x="333" y="314.9482">HTTPS</text><!--entity SufiData.js--><rect fill="#FEFECE" filter="url(#fcyob80xdo50o)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="96" x="573" y="63.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="568" y="68.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="568" y="90.25"></rect><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="76" x="583" y="86.9482">SufiData.js</text><!--entity SufiMap.js--><rect fill="#FEFECE" filter="url(#fcyob80xdo50o)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="92" x="446" y="63.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="441" y="68.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="441" y="90.25"></rect><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="72" x="456" y="86.9482">SufiMap.js</text><!--entity SufiCenter.js--><rect fill="#FEFECE" filter="url(#fcyob80xdo50o)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="110" x="301" y="63.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="296" y="68.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="296" y="90.25"></rect><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="90" x="311" y="86.9482">SufiCenter.js</text><!--entity Observer.js--><rect fill="#FEFECE" filter="url(#fcyob80xdo50o)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="100" x="442" y="159.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="437" y="164.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="437" y="186.25"></rect><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="80" x="452" y="182.9482">Observer.js</text><!--entity control--><rect fill="#FEFECE" filter="url(#fcyob80xdo50o)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="70" x="214" y="373.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="209" y="378.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="209" y="400.25"></rect><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="50" x="224" y="396.9482">control</text><!--entity email--><rect fill="#FEFECE" filter="url(#fcyob80xdo50o)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="60" x="22" y="480.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="17" y="485.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="17" y="507.25"></rect><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="40" x="32" y="503.9482">email</text><!--entity Mail--><ellipse cx="144" cy="498.9531" fill="#FEFECE" filter="url(#fcyob80xdo50o)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"></ellipse><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="29" x="129.5" y="528.9482">Mail</text><!--entity database--><rect fill="#FEFECE" filter="url(#fcyob80xdo50o)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="86" x="206" y="480.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="201" y="485.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="201" y="507.25"></rect><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="66" x="216" y="503.9482">database</text><!--entity MySql--><ellipse cx="356" cy="498.9531" fill="#FEFECE" filter="url(#fcyob80xdo50o)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"></ellipse><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="42" x="335" y="528.9482">MySql</text><!--entity map service--><rect fill="#FEFECE" filter="url(#fcyob80xdo50o)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="107" x="409.5" y="373.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="404.5" y="378.9531"></rect><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="404.5" y="400.25"></rect><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="87" x="419.5" y="396.9482">map service</text><!--link SufiIO.js to HTTPS--><path d="M356,201.2078 C356,222.434 356,253.12 356,270.8517 " fill="none" id="SufiIO.js-HTTPS" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="356,275.9139,360,266.9139,356,270.9139,352,266.9139,356,275.9139" style="stroke: #A80036; stroke-width: 1.0;"></polygon><polygon fill="#A80036" points="356,196.1042,352,205.1042,356,201.1042,360,205.1042,356,196.1042" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link SufiData.js to Observer.js--><path d="M592.596,103.091 C571.2711,118.9607 542.1823,140.6081 520.7694,156.5433 " fill="none" id="SufiData.js-Observer.js" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="516.5937,159.6508,526.2018,157.4865,520.6048,156.6657,521.4256,151.0687,516.5937,159.6508" style="stroke: #A80036; stroke-width: 1.0;"></polygon><polygon fill="#A80036" points="596.7361,100.01,587.128,102.1742,592.7249,102.9951,591.904,108.5921,596.7361,100.01" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link SufiMap.js to Observer.js--><path d="M492,105.0142 C492,119.9317 492,139.2986 492,154.3267 " fill="none" id="SufiMap.js-Observer.js" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="492,159.6508,496,150.6508,492,154.6508,488,150.6508,492,159.6508" style="stroke: #A80036; stroke-width: 1.0;"></polygon><polygon fill="#A80036" points="492,100.01,488,109.01,492,105.01,496,109.01,492,100.01" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link SufiCenter.js to Observer.js--><path d="M385.9453,103.091 C408.5211,119.0268 439.3503,140.7886 461.9513,156.7422 " fill="none" id="SufiCenter.js-Observer.js" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="466.0717,159.6508,461.0257,151.1928,461.9869,156.7674,456.4123,157.7285,466.0717,159.6508" style="stroke: #A80036; stroke-width: 1.0;"></polygon><polygon fill="#A80036" points="381.5806,100.01,386.6266,108.468,385.6654,102.8934,391.24,101.9323,381.5806,100.01" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link SufiCenter.js to SufiIO.js--><path d="M356,105.0142 C356,119.9317 356,139.2986 356,154.3267 " fill="none" id="SufiCenter.js-SufiIO.js" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="356,159.6508,360,150.6508,356,154.6508,352,150.6508,356,159.6508" style="stroke: #A80036; stroke-width: 1.0;"></polygon><polygon fill="#A80036" points="356,100.01,352,109.01,356,105.01,360,109.01,356,100.01" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link HTTPS to control--><path d="M346.8772,294.0759 C330.183,310.7701 294.289,346.6641 270.9184,370.0347 " fill="none" id="HTTPS-control" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="267.28,373.6731,276.4724,370.1376,270.8155,370.1376,270.8155,364.4807,267.28,373.6731" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link email to Mail--><path d="M82.1242,498.9531 C100.2185,498.9531 122.0482,498.9531 134.3462,498.9531 " fill="none" id="email-Mail" style="stroke: #A80036; stroke-width: 1.0;"></path><!--link database to MySql--><path d="M292.2126,498.9531 C312.2392,498.9531 334.2644,498.9531 346.4847,498.9531 " fill="none" id="database-MySql" style="stroke: #A80036; stroke-width: 1.0;"></path><!--link HTTPS to map service--><path d="M365.1228,294.0759 C381.817,310.7701 417.711,346.6641 441.0816,370.0347 " fill="none" id="HTTPS-map service" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="444.72,373.6731,441.1845,364.4807,441.1845,370.1376,435.5276,370.1376,444.72,373.6731" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link control to email--><path d="M213.7553,409.362 C183.1078,424.7173 137.6747,448.0052 99,469.9531 C94.4032,472.5618 89.6069,475.3916 84.91,478.2265 " fill="none" id="control-email" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="80.633,480.8251,90.4016,479.5703,84.9061,478.2289,86.2476,472.7334,80.633,480.8251" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link control to database--><path d="M249,415.1667 C249,432.9821 249,457.4793 249,475.383 " fill="none" id="control-database" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="249,480.713,253,471.713,249,475.713,245,471.713,249,480.713" style="stroke: #A80036; stroke-width: 1.0;"></polygon><polygon fill="#A80036" points="249,410.1042,245,419.1042,249,415.1042,253,419.1042,249,410.1042" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--
+@startuml
+title Components and relations of the SufiTrail application
+package SufiTrailApp {
+  [index.html]
+  [SufiIO.js] <- -> HTTPS
+  [SufiData.js]
+  [SufiMap.js]
+  [SufiCenter.js]
+  [Observer.js]
+}
+SufiData.js <- -> Observer.js
+SufiMap.js <- -> Observer.js
+SufiCenter.js <- -> Observer.js
+SufiCenter.js <- -> SufiIO.js
+
+node SufiTrailServer {
+  HTTPS - -> [control]
+  [email] - Mail
+  [database] - MySql
+}
+
+node TileServer {
+  HTTPS - -> [map service]
+}
+
+control - -> email
+control <- -> database
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="441px" preserveAspectRatio="none" style="width:588px;height:441px;" version="1.1" viewBox="0 0 588 441" width="588px" zoomAndPan="magnify"><defs><filter height="300%" id="f7g49y6ybvptr" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="361" x="117" y="16.708">Some classes in the SufiTrail Application</text><!--cluster SufiTrail--><polygon fill="#FFFFFF" filter="url(#f7g49y6ybvptr)" points="97,36.9531,170,36.9531,177,59.25,559,59.25,559,227.9531,97,227.9531,97,36.9531" style="stroke: #000000; stroke-width: 1.5;"></polygon><line style="stroke: #000000; stroke-width: 1.5;" x1="97" x2="177" y1="59.25" y2="59.25"></line><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="67" x="101" y="51.9482">SufiTrail</text><!--class Observer--><rect fill="#FEFECE" filter="url(#f7g49y6ybvptr)" height="48" id="Observer" style="stroke: #A80036; stroke-width: 1.5;" width="86" x="105" y="171.9531"></rect><ellipse cx="120" cy="187.9531" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"></ellipse><path d="M122.9688,193.5938 Q122.3906,193.8906 121.75,194.0391 Q121.1094,194.1875 120.4063,194.1875 Q117.9063,194.1875 116.5859,192.5391 Q115.2656,190.8906 115.2656,187.7656 Q115.2656,184.6406 116.5859,182.9844 Q117.9063,181.3281 120.4063,181.3281 Q121.1094,181.3281 121.7578,181.4844 Q122.4063,181.6406 122.9688,181.9375 L122.9688,184.6563 Q122.3438,184.0781 121.75,183.8047 Q121.1563,183.5313 120.5313,183.5313 Q119.1875,183.5313 118.5,184.6016 Q117.8125,185.6719 117.8125,187.7656 Q117.8125,189.8594 118.5,190.9297 Q119.1875,192 120.5313,192 Q121.1563,192 121.75,191.7266 Q122.3438,191.4531 122.9688,190.875 L122.9688,193.5938 Z "></path><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="54" x="134" y="192.1074">Observer</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="106" x2="190" y1="203.9531" y2="203.9531"></line><line style="stroke: #A80036; stroke-width: 1.5;" x1="106" x2="190" y1="211.9531" y2="211.9531"></line><!--class SufiData--><rect fill="#FEFECE" filter="url(#f7g49y6ybvptr)" height="48" id="SufiData" style="stroke: #A80036; stroke-width: 1.5;" width="83" x="208.5" y="63.9531"></rect><ellipse cx="223.5" cy="79.9531" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"></ellipse><path d="M226.4688,85.5938 Q225.8906,85.8906 225.25,86.0391 Q224.6094,86.1875 223.9063,86.1875 Q221.4063,86.1875 220.0859,84.5391 Q218.7656,82.8906 218.7656,79.7656 Q218.7656,76.6406 220.0859,74.9844 Q221.4063,73.3281 223.9063,73.3281 Q224.6094,73.3281 225.2578,73.4844 Q225.9063,73.6406 226.4688,73.9375 L226.4688,76.6563 Q225.8438,76.0781 225.25,75.8047 Q224.6563,75.5313 224.0313,75.5313 Q222.6875,75.5313 222,76.6016 Q221.3125,77.6719 221.3125,79.7656 Q221.3125,81.8594 222,82.9297 Q222.6875,84 224.0313,84 Q224.6563,84 225.25,83.7266 Q225.8438,83.4531 226.4688,82.875 L226.4688,85.5938 Z "></path><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="51" x="237.5" y="84.1074">SufiData</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="209.5" x2="290.5" y1="95.9531" y2="95.9531"></line><line style="stroke: #A80036; stroke-width: 1.5;" x1="209.5" x2="290.5" y1="103.9531" y2="103.9531"></line><!--class SufiMap--><rect fill="#FEFECE" filter="url(#f7g49y6ybvptr)" height="48" id="SufiMap" style="stroke: #A80036; stroke-width: 1.5;" width="80" x="357" y="171.9531"></rect><ellipse cx="372" cy="187.9531" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"></ellipse><path d="M374.9688,193.5938 Q374.3906,193.8906 373.75,194.0391 Q373.1094,194.1875 372.4063,194.1875 Q369.9063,194.1875 368.5859,192.5391 Q367.2656,190.8906 367.2656,187.7656 Q367.2656,184.6406 368.5859,182.9844 Q369.9063,181.3281 372.4063,181.3281 Q373.1094,181.3281 373.7578,181.4844 Q374.4063,181.6406 374.9688,181.9375 L374.9688,184.6563 Q374.3438,184.0781 373.75,183.8047 Q373.1563,183.5313 372.5313,183.5313 Q371.1875,183.5313 370.5,184.6016 Q369.8125,185.6719 369.8125,187.7656 Q369.8125,189.8594 370.5,190.9297 Q371.1875,192 372.5313,192 Q373.1563,192 373.75,191.7266 Q374.3438,191.4531 374.9688,190.875 L374.9688,193.5938 Z "></path><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="48" x="386" y="192.1074">SufiMap</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="358" x2="436" y1="203.9531" y2="203.9531"></line><line style="stroke: #A80036; stroke-width: 1.5;" x1="358" x2="436" y1="211.9531" y2="211.9531"></line><!--class SufiTrack--><rect fill="#FEFECE" filter="url(#f7g49y6ybvptr)" height="48" id="SufiTrack" style="stroke: #A80036; stroke-width: 1.5;" width="88" x="463" y="63.9531"></rect><ellipse cx="478" cy="79.9531" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"></ellipse><path d="M480.9688,85.5938 Q480.3906,85.8906 479.75,86.0391 Q479.1094,86.1875 478.4063,86.1875 Q475.9063,86.1875 474.5859,84.5391 Q473.2656,82.8906 473.2656,79.7656 Q473.2656,76.6406 474.5859,74.9844 Q475.9063,73.3281 478.4063,73.3281 Q479.1094,73.3281 479.7578,73.4844 Q480.4063,73.6406 480.9688,73.9375 L480.9688,76.6563 Q480.3438,76.0781 479.75,75.8047 Q479.1563,75.5313 478.5313,75.5313 Q477.1875,75.5313 476.5,76.6016 Q475.8125,77.6719 475.8125,79.7656 Q475.8125,81.8594 476.5,82.9297 Q477.1875,84 478.5313,84 Q479.1563,84 479.75,83.7266 Q480.3438,83.4531 480.9688,82.875 L480.9688,85.5938 Z "></path><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="56" x="492" y="84.1074">SufiTrack</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="464" x2="550" y1="95.9531" y2="95.9531"></line><line style="stroke: #A80036; stroke-width: 1.5;" x1="464" x2="550" y1="103.9531" y2="103.9531"></line><!--class SufiFeature--><rect fill="#FEFECE" filter="url(#f7g49y6ybvptr)" height="48" id="SufiFeature" style="stroke: #A80036; stroke-width: 1.5;" width="101" x="326.5" y="63.9531"></rect><ellipse cx="341.5" cy="79.9531" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"></ellipse><path d="M344.4688,85.5938 Q343.8906,85.8906 343.25,86.0391 Q342.6094,86.1875 341.9063,86.1875 Q339.4063,86.1875 338.0859,84.5391 Q336.7656,82.8906 336.7656,79.7656 Q336.7656,76.6406 338.0859,74.9844 Q339.4063,73.3281 341.9063,73.3281 Q342.6094,73.3281 343.2578,73.4844 Q343.9063,73.6406 344.4688,73.9375 L344.4688,76.6563 Q343.8438,76.0781 343.25,75.8047 Q342.6563,75.5313 342.0313,75.5313 Q340.6875,75.5313 340,76.6016 Q339.3125,77.6719 339.3125,79.7656 Q339.3125,81.8594 340,82.9297 Q340.6875,84 342.0313,84 Q342.6563,84 343.25,83.7266 Q343.8438,83.4531 344.4688,82.875 L344.4688,85.5938 Z "></path><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="69" x="355.5" y="84.1074">SufiFeature</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="327.5" x2="426.5" y1="95.9531" y2="95.9531"></line><line style="stroke: #A80036; stroke-width: 1.5;" x1="327.5" x2="426.5" y1="103.9531" y2="103.9531"></line><!--class SufiCenter--><rect fill="#FEFECE" filter="url(#f7g49y6ybvptr)" height="48" id="SufiCenter" style="stroke: #A80036; stroke-width: 1.5;" width="95" x="226.5" y="171.9531"></rect><ellipse cx="241.5" cy="187.9531" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"></ellipse><path d="M244.4688,193.5938 Q243.8906,193.8906 243.25,194.0391 Q242.6094,194.1875 241.9063,194.1875 Q239.4063,194.1875 238.0859,192.5391 Q236.7656,190.8906 236.7656,187.7656 Q236.7656,184.6406 238.0859,182.9844 Q239.4063,181.3281 241.9063,181.3281 Q242.6094,181.3281 243.2578,181.4844 Q243.9063,181.6406 244.4688,181.9375 L244.4688,184.6563 Q243.8438,184.0781 243.25,183.8047 Q242.6563,183.5313 242.0313,183.5313 Q240.6875,183.5313 240,184.6016 Q239.3125,185.6719 239.3125,187.7656 Q239.3125,189.8594 240,190.9297 Q240.6875,192 242.0313,192 Q242.6563,192 243.25,191.7266 Q243.8438,191.4531 244.4688,190.875 L244.4688,193.5938 Z "></path><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="63" x="255.5" y="192.1074">SufiCenter</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="227.5" x2="320.5" y1="203.9531" y2="203.9531"></line><line style="stroke: #A80036; stroke-width: 1.5;" x1="227.5" x2="320.5" y1="211.9531" y2="211.9531"></line><!--class SufiIO--><rect fill="#FEFECE" filter="url(#f7g49y6ybvptr)" height="48" id="SufiIO" style="stroke: #A80036; stroke-width: 1.5;" width="68" x="105" y="63.9531"></rect><ellipse cx="120" cy="79.9531" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"></ellipse><path d="M122.9688,85.5938 Q122.3906,85.8906 121.75,86.0391 Q121.1094,86.1875 120.4063,86.1875 Q117.9063,86.1875 116.5859,84.5391 Q115.2656,82.8906 115.2656,79.7656 Q115.2656,76.6406 116.5859,74.9844 Q117.9063,73.3281 120.4063,73.3281 Q121.1094,73.3281 121.7578,73.4844 Q122.4063,73.6406 122.9688,73.9375 L122.9688,76.6563 Q122.3438,76.0781 121.75,75.8047 Q121.1563,75.5313 120.5313,75.5313 Q119.1875,75.5313 118.5,76.6016 Q117.8125,77.6719 117.8125,79.7656 Q117.8125,81.8594 118.5,82.9297 Q119.1875,84 120.5313,84 Q121.1563,84 121.75,83.7266 Q122.3438,83.4531 122.9688,82.875 L122.9688,85.5938 Z "></path><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="36" x="134" y="84.1074">SufiIO</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="106" x2="172" y1="95.9531" y2="95.9531"></line><line style="stroke: #A80036; stroke-width: 1.5;" x1="106" x2="172" y1="103.9531" y2="103.9531"></line><rect fill="#FEFECE" filter="url(#f7g49y6ybvptr)" height="33.9688" style="stroke: #A80036; stroke-width: 1.5;" width="47" x="79.5" y="279.9531"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="33" x="86.5" y="293.0918">Menu</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="80.5" x2="125.5" y1="297.9219" y2="297.9219"></line><rect fill="#FEFECE" filter="url(#f7g49y6ybvptr)" height="33.9688" style="stroke: #A80036; stroke-width: 1.5;" width="64" x="185" y="279.9531"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="50" x="192" y="293.0918">Network</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="186" x2="248" y1="297.9219" y2="297.9219"></line><rect fill="#FEFECE" filter="url(#f7g49y6ybvptr)" height="33.9688" style="stroke: #A80036; stroke-width: 1.5;" width="41" x="310.5" y="279.9531"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="27" x="317.5" y="293.0918">GSM</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="311.5" x2="350.5" y1="297.9219" y2="297.9219"></line><rect fill="#FEFECE" filter="url(#f7g49y6ybvptr)" height="33.9688" style="stroke: #A80036; stroke-width: 1.5;" width="41" x="444.5" y="279.9531"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="27" x="451.5" y="293.0918">OSM</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="445.5" x2="484.5" y1="297.9219" y2="297.9219"></line><path d="M6,373.9531 L6,429.3516 A0,0 0 0 0 6,429.3516 L128,429.3516 A0,0 0 0 0 128,429.3516 L128,383.9531 L118,373.9531 L80.4762,373.9531 L97.0553,314.2091 L72.4762,373.9531 L6,373.9531 A0,0 0 0 0 6,373.9531 " fill="#FBFB77" filter="url(#f7g49y6ybvptr)" style="stroke: #A80036; stroke-width: 1.0;"></path><path d="M118,373.9531 L118,383.9531 L128,383.9531 L118,373.9531 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"></path><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="100" x="12" y="391.02">javscript object</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="101" x="12" y="406.1528">generated from</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="82" x="12" y="421.2856">Sxml project</text><path d="M443.5,373.9531 L443.5,429.3516 A0,0 0 0 0 443.5,429.3516 L576.5,429.3516 A0,0 0 0 0 576.5,429.3516 L576.5,383.9531 L566.5,373.9531 L502.1547,373.9531 L472.4308,314.2091 L494.1547,373.9531 L443.5,373.9531 A0,0 0 0 0 443.5,373.9531 " fill="#FBFB77" filter="url(#f7g49y6ybvptr)" style="stroke: #A80036; stroke-width: 1.0;"></path><path d="M566.5,373.9531 L566.5,383.9531 L576.5,383.9531 L566.5,373.9531 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"></path><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="102" x="449.5" y="391.02">javscript library</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="112" x="449.5" y="406.1528">from OpenLayers</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="60" x="449.5" y="421.2856">version 3</text><path d="M279.5,381.4531 L279.5,421.7188 A0,0 0 0 0 279.5,421.7188 L408.5,421.7188 A0,0 0 0 0 408.5,421.7188 L408.5,391.4531 L398.5,381.4531 L345.494,381.4531 L333.1467,314.2091 L337.494,381.4531 L279.5,381.4531 A0,0 0 0 0 279.5,381.4531 " fill="#FBFB77" filter="url(#f7g49y6ybvptr)" style="stroke: #A80036; stroke-width: 1.0;"></path><path d="M398.5,381.4531 L398.5,391.4531 L408.5,391.4531 L398.5,381.4531 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"></path><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="108" x="285.5" y="398.52">device providing</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="102" x="285.5" y="413.6528">current location</text><path d="M163.5,373.9531 L163.5,429.3516 A0,0 0 0 0 163.5,429.3516 L244.5,429.3516 A0,0 0 0 0 244.5,429.3516 L244.5,383.9531 L234.5,373.9531 L211.422,373.9531 L214.8533,314.2091 L203.422,373.9531 L163.5,373.9531 A0,0 0 0 0 163.5,373.9531 " fill="#FBFB77" filter="url(#f7g49y6ybvptr)" style="stroke: #A80036; stroke-width: 1.0;"></path><path d="M234.5,373.9531 L234.5,383.9531 L244.5,383.9531 L234.5,373.9531 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"></path><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="60" x="169.5" y="391.02">device to</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="51" x="169.5" y="406.1528">connect</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="58" x="169.5" y="421.2856">to server</text><!--link SufiData to SufiCenter--><path d="M255.3861,112.1904 C258.4432,125.9473 262.3331,143.4521 265.7656,158.8984 " fill="none" id="SufiData-SufiCenter" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="268.6319,171.7967,271.235,165.0719,266.0287,160.0825,263.4256,166.8073,268.6319,171.7967" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="247.724" y="132.0095">1</text><!--link SufiIO to SufiCenter--><path d="M169.2966,112.1904 C188.2298,127.3369 212.8419,147.0266 233.4463,163.5102 " fill="none" id="SufiIO-SufiCenter" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="243.8045,171.7967,241.6181,164.9251,234.4341,164.3004,236.6205,171.172,243.8045,171.7967" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="167.7064" y="132.0095">1</text><!--link Observer to SufiCenter--><path d="M191.3125,195.9531 C198.58,195.9531 205.8474,195.9531 213.1149,195.9531 " fill="none" id="Observer-SufiCenter" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="226.1963,195.9531,220.1963,191.9531,214.1963,195.9531,220.1963,199.9531,226.1963,195.9531" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="198.8529" y="191.8353">1</text><!--link SufiCenter to Menu--><path d="M233.0412,220.1451 C199.8423,239.7538 154.2129,266.7046 126.7656,282.9161 " fill="none" id="SufiCenter-Menu" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"></path><!--link SufiCenter to SufiMap--><path d="M334.8262,195.9531 C342.1928,195.9531 349.5593,195.9531 356.9259,195.9531 " fill="none" id="SufiCenter-SufiMap" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="321.5664,195.9531,327.5664,199.9531,333.5664,195.9531,327.5664,191.9531,321.5664,195.9531" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="8" x="341.0752" y="191.6959">1</text><!--link SufiCenter to Network--><path d="M260.3471,220.1451 C249.9395,238.5867 235.867,263.5221 226.6179,279.9109 " fill="none" id="SufiCenter-Network" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"></path><!--link SufiCenter to GSM--><path d="M287.6529,220.1451 C298.0605,238.5867 312.133,263.5221 321.3821,279.9109 " fill="none" id="SufiCenter-GSM" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"></path><!--link SufiCenter to OSM--><path d="M319.7493,220.1451 C359.2591,241.0377 414.531,270.2653 444.206,285.9573 " fill="none" id="SufiCenter-OSM" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"></path><!--link SufiTrack to SufiMap--><path d="M482.3139,112.1904 C467.1699,127.059 447.5669,146.3056 430.9711,162.5996 " fill="none" id="SufiTrack-SufiMap" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="421.6038,171.7967,428.6875,170.4474,430.1665,163.3896,423.0828,164.7389,421.6038,171.7967" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="468.4435" y="132.0095">*</text><!--link SufiFeature to SufiMap--><path d="M381.4884,112.1904 C384.036,125.9473 387.2776,143.4521 390.138,158.8984 " fill="none" id="SufiFeature-SufiMap" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="392.5266,171.7967,395.3671,165.1687,390.3414,159.9974,387.5009,166.6254,392.5266,171.7967" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="374.7293" y="132.0095">*</text><!--
+@startuml
+title Some classes in the SufiTrail Application
+
+package SufiTrail {
+  class Observer {
+  }
+
+  class SufiData {
+  }
+
+  class SufiMap {
+  }
+
+  class SufiTrack {
+  }
+
+  class SufiFeature {
+  }
+
+  class SufiCenter {
+  }
+
+  class SufiIO {
+  }
+}
+
+object Menu {
+
+}
+
+object Network {
+
+}
+
+object GSM {
+
+}
+
+object OSM {
+
+}
+
+note "javscript object\ngenerated from\nSxml project" as Msxml
+Menu .. Msxml
+note "javscript library\nfrom OpenLayers\nversion 3" as OL3
+OSM .. OL3
+note "device providing\ncurrent location" as dev1
+GSM .. dev1
+note "device to\nconnect\nto server" as dev2
+Network .. dev2
+
+SufiData "1" - -* SufiCenter
+SufiIO "1" - -* SufiCenter
+
+Observer "1" -* SufiCenter
+SufiCenter .. Menu
+SufiCenter *- "1" SufiMap
+SufiCenter .. Network
+SufiCenter .. GSM
+SufiCenter .. OSM
+
+SufiTrack "*" - -* SufiMap
+SufiFeature "*" - -* SufiMap
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><h4 class="mume-header" id="keys-of-values-used-in-the-observer">Keys of values used in the observer</h4>
+
+<table>
+<thead>
+<tr>
+<th>Key Name</th>
+<th>Owner</th>
+<th>Description</th>
+<th>Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>track</td>
+<td>SufiData</td>
+<td>The XML representation of the GPX data</td>
+<td>XML Dom tree</td>
+</tr>
+<tr>
+<td>trackBounds</td>
+<td>SufiData</td>
+<td>Calculated boundaries lon/lat of the GPX data</td>
+<td>Array</td>
+</tr>
+<tr>
+<td>gpxFile</td>
+<td>SufiCenter</td>
+<td>GPX file selected from a menu</td>
+<td>file with GPX data</td>
+</tr>
+<tr>
+<td>networkState</td>
+<td>SufiCenter</td>
+<td>Boolean value to show we are on/offline</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>currentLocation</td>
+<td>SufiCenter</td>
+<td>Geo location data</td>
+<td>position object</td>
+</tr>
+<tr>
+<td>infoFile</td>
+<td>SufiCenter</td>
+<td>Information of shown track</td>
+<td>file with track info</td>
+</tr>
+<tr>
+<td>wanderedOffTrack</td>
+<td>SufiData</td>
+<td>Current location too far from track</td>
+<td>Array</td>
+</tr>
+<tr>
+<td>storedGpxFile</td>
+<td>SufiIO</td>
+<td>When file is successfully stored</td>
+<td>absolute filename</td>
+</tr>
+<tr>
+<td>initStep</td>
+<td>*</td>
+<td>when a init step is taken</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h4 class="mume-header" id="suficenter-diagrams-initialization">SufiCenter diagrams: initialization</h4>
+
+<p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="66px" preserveAspectRatio="none" style="width:735px;height:66px;" version="1.1" viewBox="0 0 735 66" width="735px" zoomAndPan="magnify"><defs><filter height="300%" id="f1ja9x0lxm12nt" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="16" cy="32" fill="#000000" filter="url(#f1ja9x0lxm12nt)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#f1ja9x0lxm12nt)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="106" x="46" y="15"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="86" x="56" y="36.1387">SufiCenter init</text><rect fill="#FEFECE" filter="url(#f1ja9x0lxm12nt)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="110" x="172" y="8"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="90" x="182" y="29.1387">setup track list</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="75" x="189.5" y="43.1074">and activate</text><rect fill="#FEFECE" filter="url(#f1ja9x0lxm12nt)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="125" x="302.5" y="8"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="105" x="312.5" y="29.1387">get html element</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="85" x="322.5" y="43.1074">list from id list</text><rect fill="#FEFECE" filter="url(#f1ja9x0lxm12nt)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="119" x="447.5" y="15"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="99" x="457.5" y="36.1387">activate buttons</text><rect fill="#FEFECE" filter="url(#f1ja9x0lxm12nt)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="97" x="586.5" y="8"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="45" x="612.5" y="29.1387">wait for</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="77" x="596.5" y="43.1074">device ready</text><ellipse cx="714" cy="32" fill="none" filter="url(#f1ja9x0lxm12nt)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"></ellipse><ellipse cx="714.5" cy="32.5" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><!--link start to SufiCenter init--><path d="M26.0508,32 C30.9337,32 35.8165,32 40.6994,32 " fill="none" id="start-SufiCenter init" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="45.9978,32,36.9978,28,40.9978,32,36.9978,36,45.9978,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link SufiCenter init to setup track list\nand activate--><path d="M152.25,32 C157.039,32 161.828,32 166.6169,32 " fill="none" id="SufiCenter init-setup track list\nand activate" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="171.8135,32,162.8135,28,166.8135,32,162.8135,36,171.8135,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link setup track list\nand activate to get html element\nlist from id list--><path d="M282.2539,32 C287.2639,32 292.2739,32 297.284,32 " fill="none" id="setup track list\nand activate-get html element\nlist from id list" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="302.294,32,293.294,28,297.294,32,293.294,36,302.294,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link get html element\nlist from id list to activate buttons--><path d="M427.6797,32 C432.4581,32 437.2365,32 442.0149,32 " fill="none" id="get html element\nlist from id list-activate buttons" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="447.1999,32,438.1999,28,442.1999,32,438.1999,36,447.1999,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link activate buttons to wait for\ndevice ready--><path d="M567,32 C571.7467,32 576.4933,32 581.24,32 " fill="none" id="activate buttons-wait for\ndevice ready" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="586.3906,32,577.3906,28,581.3906,32,577.3906,36,586.3906,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link wait for\ndevice ready to end--><path d="M683.7578,32 C688.6161,32 693.4743,32 698.3325,32 " fill="none" id="wait for\ndevice ready-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="703.6042,32,694.6042,28,698.6042,32,694.6042,36,703.6042,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--
+@startuml
+(*) -> "SufiCenter init"
+-> "setup track list\nand activate"
+-> "get html element\nlist from id list"
+-> "activate buttons"
+-> "wait for\ndevice ready"
+-> (*)
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="57px" preserveAspectRatio="none" style="width:724px;height:57px;" version="1.1" viewBox="0 0 724 57" width="724px" zoomAndPan="magnify"><defs><filter height="300%" id="fxunfem1r3csh" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="16" cy="30" fill="#000000" filter="url(#fxunfem1r3csh)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#fxunfem1r3csh)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="91" x="121.5" y="13"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="71" x="131.5" y="34.1387">SufiMap init</text><rect fill="#FEFECE" filter="url(#fxunfem1r3csh)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="94" x="233" y="13"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="74" x="243" y="34.1387">SufiData init</text><rect fill="#FEFECE" filter="url(#fxunfem1r3csh)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="145" x="347.5" y="13"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="125" x="357.5" y="34.1387">setup 'networkState'</text><rect fill="#FEFECE" filter="url(#fxunfem1r3csh)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="160" x="513" y="13"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="140" x="523" y="34.1387">setup 'currentLocation'</text><ellipse cx="703" cy="30" fill="none" filter="url(#fxunfem1r3csh)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"></ellipse><ellipse cx="703.5" cy="30.5" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><!--link start to SufiMap init--><path d="M26.3788,30 C44.6574,30 83.7172,30 116.0423,30 " fill="none" id="start-SufiMap init" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 1.0,3.0;"></path><polygon fill="#A80036" points="121.1682,30,112.1682,26,116.1682,30,112.1682,34,121.1682,30" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="74" x="36.75" y="11.2104">device ready</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="32" x="57.75" y="24.0151">event</text><!--link SufiMap init to SufiData init--><path d="M212.9063,30 C217.7821,30 222.658,30 227.5339,30 " fill="none" id="SufiMap init-SufiData init" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="232.8247,30,223.8247,26,227.8247,30,223.8247,34,232.8247,30" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link SufiData init to setup 'networkState'--><path d="M327.0313,30 C332.1155,30 337.1997,30 342.2839,30 " fill="none" id="SufiData init-setup &apos;networkState&apos;" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="347.3682,30,338.3682,26,342.3682,30,338.3682,34,347.3682,30" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link setup 'networkState' to setup 'currentLocation'--><path d="M492.6465,30 C497.5404,30 502.4344,30 507.3283,30 " fill="none" id="setup &apos;networkState&apos;-setup &apos;currentLocation&apos;" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="512.6388,30,503.6388,26,507.6388,30,503.6388,34,512.6388,30" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link setup 'currentLocation' to end--><path d="M673.3516,30 C678.1144,30 682.8773,30 687.6401,30 " fill="none" id="setup &apos;currentLocation&apos;-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="692.8083,30,683.8083,26,687.8083,30,683.8083,34,692.8083,30" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--
+@startuml
+(*) .>[device ready\nevent] "SufiMap init"
+-> "SufiData init"
+-> "setup 'networkState'"
+-> "setup 'currentLocation'"
+-> (*)
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="52px" preserveAspectRatio="none" style="width:330px;height:52px;" version="1.1" viewBox="0 0 330 52" width="330px" zoomAndPan="magnify"><defs><filter height="300%" id="f9d2cemgktquq" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="16" cy="25" fill="#000000" filter="url(#f9d2cemgktquq)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#f9d2cemgktquq)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="160" x="119" y="8"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="140" x="129" y="29.1387">set 'networkState' false</text><ellipse cx="309" cy="25" fill="none" filter="url(#f9d2cemgktquq)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"></ellipse><ellipse cx="309.5" cy="25.5" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><!--link start to set 'networkState' false--><path d="M26.0995,25 C43.0968,25 78.9725,25 113.6618,25 " fill="none" id="start-set &apos;networkState&apos; false" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 1.0,3.0;"></path><polygon fill="#A80036" points="118.7689,25,109.7689,21,113.7689,25,109.7689,29,118.7689,25" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="71" x="37" y="19.2104">offline event</text><!--link set 'networkState' false to end--><path d="M279.3516,25 C284.1144,25 288.8773,25 293.6401,25 " fill="none" id="set &apos;networkState&apos; false-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="298.8083,25,289.8083,21,293.8083,25,289.8083,29,298.8083,25" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--
+@startuml
+(*) .>[offline event] set 'networkState' false
+-> (*)
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="52px" preserveAspectRatio="none" style="width:327px;height:52px;" version="1.1" viewBox="0 0 327 52" width="327px" zoomAndPan="magnify"><defs><filter height="300%" id="f1bqy3gvfb2jef" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="16" cy="25" fill="#000000" filter="url(#f1bqy3gvfb2jef)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#f1bqy3gvfb2jef)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="158" x="118" y="8"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="138" x="128" y="29.1387">set 'networkState' true</text><ellipse cx="306" cy="25" fill="none" filter="url(#f1bqy3gvfb2jef)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"></ellipse><ellipse cx="306.5" cy="25.5" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><!--link start to set 'networkState' true--><path d="M26.2499,25 C43.2142,25 78.664,25 112.8892,25 " fill="none" id="start-set &apos;networkState&apos; true" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 1.0,3.0;"></path><polygon fill="#A80036" points="117.9275,25,108.9275,21,112.9275,25,108.9275,29,117.9275,25" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="70" x="37" y="19.2104">online event</text><!--link set 'networkState' true to end--><path d="M276.1953,25 C280.9833,25 285.7712,25 290.5592,25 " fill="none" id="set &apos;networkState&apos; true-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="295.7546,25,286.7546,21,290.7546,25,286.7546,29,295.7546,25" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--
+@startuml
+(*) .>[online event] set 'networkState' true
+-> (*)
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><h4 class="mume-header" id="sufidata-diagrams-initialization">SufiData diagrams: initialization</h4>
+
+<p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="66px" preserveAspectRatio="none" style="width:561px;height:66px;" version="1.1" viewBox="0 0 561 66" width="561px" zoomAndPan="magnify"><defs><filter height="300%" id="ffe3t360ugl4c" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="16" cy="32" fill="#000000" filter="url(#ffe3t360ugl4c)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#ffe3t360ugl4c)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="94" x="46" y="8"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="74" x="56" y="29.1387">subscribe to</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="49" x="68.5" y="43.1074">'gpxFile'</text><rect fill="#FEFECE" filter="url(#ffe3t360ugl4c)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="94" x="160" y="8"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="74" x="170" y="29.1387">subscribe to</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="48" x="183" y="43.1074">'infoFile'</text><rect fill="#FEFECE" filter="url(#ffe3t360ugl4c)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="94" x="274" y="8"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="74" x="284" y="29.1387">subscribe to</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="37" x="302.5" y="43.1074">'track'</text><rect fill="#FEFECE" filter="url(#ffe3t360ugl4c)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="122" x="388" y="8"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="74" x="412" y="29.1387">subscribe to</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="102" x="398" y="43.1074">'currentLocation'</text><ellipse cx="540" cy="32" fill="none" filter="url(#ffe3t360ugl4c)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"></ellipse><ellipse cx="540.5" cy="32.5" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><!--link start to subscribe to\n'gpxFile'--><path d="M26.2266,32 C31.0153,32 35.8041,32 40.5928,32 " fill="none" id="start-subscribe to\n&apos;gpxFile&apos;" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="45.7891,32,36.7891,28,40.7891,32,36.7891,36,45.7891,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link subscribe to\n'gpxFile' to subscribe to\n'infoFile'--><path d="M140.2031,32 C144.9936,32 149.784,32 154.5744,32 " fill="none" id="subscribe to\n&apos;gpxFile&apos;-subscribe to\n&apos;infoFile&apos;" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="159.7725,32,150.7725,28,154.7725,32,150.7725,36,159.7725,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link subscribe to\n'infoFile' to subscribe to\n'track'--><path d="M254.2031,32 C258.9936,32 263.784,32 268.5744,32 " fill="none" id="subscribe to\n&apos;infoFile&apos;-subscribe to\n&apos;track&apos;" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="273.7725,32,264.7725,28,268.7725,32,264.7725,36,273.7725,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link subscribe to\n'track' to subscribe to\n'currentLocation'--><path d="M368.25,32 C373.0373,32 377.8246,32 382.6119,32 " fill="none" id="subscribe to\n&apos;track&apos;-subscribe to\n&apos;currentLocation&apos;" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="387.8066,32,378.8066,28,382.8066,32,378.8066,36,387.8066,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link subscribe to\n'currentLocation' to end--><path d="M510.1406,32 C514.9374,32 519.7341,32 524.5309,32 " fill="none" id="subscribe to\n&apos;currentLocation&apos;-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="529.7358,32,520.7358,28,524.7358,32,520.7358,36,529.7358,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--
+@startuml
+(*) -> subscribe to\n'gpxFile'
+-> subscribe to\n'infoFile'
+-> subscribe to\n'track'
+-> subscribe to\n'currentLocation'
+-> (*)
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><h4 class="mume-header" id="sufidata-diagrams-gpx">SufiData diagrams: GPX</h4>
+
+<p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="52px" preserveAspectRatio="none" style="width:555px;height:52px;" version="1.1" viewBox="0 0 555 52" width="555px" zoomAndPan="magnify"><defs><filter height="300%" id="f1cikv7ly7rip1" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="16" cy="25" fill="#000000" filter="url(#f1cikv7ly7rip1)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#f1cikv7ly7rip1)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="94" x="88" y="8"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="74" x="98" y="29.1387">LoadXMLFile</text><rect fill="#FEFECE" filter="url(#f1cikv7ly7rip1)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="154" x="202" y="8"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="134" x="212" y="29.1387">set 'track' gpxContent</text><rect fill="#FEFECE" filter="url(#f1cikv7ly7rip1)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="127" x="376.5" y="8"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="107" x="386.5" y="29.1387">set trackChanged</text><ellipse cx="534" cy="25" fill="none" filter="url(#f1cikv7ly7rip1)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"></ellipse><ellipse cx="534.5" cy="25.5" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><!--link start to LoadXMLFile--><path d="M26.1459,25 C38.7903,25 61.3384,25 82.6461,25 " fill="none" id="start-LoadXMLFile" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 1.0,3.0;"></path><polygon fill="#A80036" points="87.741,25,78.741,21,82.741,25,78.741,29,87.741,25" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="40" x="37" y="19.2104">gpxFile</text><!--link LoadXMLFile to set 'track' gpxContent--><path d="M182.25,25 C187.0607,25 191.8715,25 196.6822,25 " fill="none" id="LoadXMLFile-set &apos;track&apos; gpxContent" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="201.9023,25,192.9023,21,196.9023,25,192.9023,29,201.9023,25" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link set 'track' gpxContent to set trackChanged--><path d="M356.041,25 C361.1245,25 366.2079,25 371.2914,25 " fill="none" id="set &apos;track&apos; gpxContent-set trackChanged" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="376.3748,25,367.3748,21,371.3748,25,367.3748,29,376.3748,25" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link set trackChanged to end--><path d="M503.5234,25 C508.6425,25 513.7617,25 518.8808,25 " fill="none" id="set trackChanged-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="523.9999,25,514.9999,21,518.9999,25,514.9999,29,523.9999,25" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--
+@startuml
+(*) .>[gpxFile] LoadXMLFile
+-> set 'track' gpxContent
+-> set trackChanged
+-> (*)
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="66px" preserveAspectRatio="none" style="width:343px;height:66px;" version="1.1" viewBox="0 0 343 66" width="343px" zoomAndPan="magnify"><defs><filter height="300%" id="fa37zvpavndrq" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="16" cy="32" fill="#000000" filter="url(#fa37zvpavndrq)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#fa37zvpavndrq)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="88" x="88" y="15"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="68" x="98" y="36.1387">loadInfoFile</text><rect fill="#FEFECE" filter="url(#fa37zvpavndrq)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="95" x="196.5" y="8"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="60" x="214" y="29.1387">insert info</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="75" x="206.5" y="43.1074">on info page</text><ellipse cx="322" cy="32" fill="none" filter="url(#fa37zvpavndrq)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"></ellipse><ellipse cx="322.5" cy="32.5" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><!--link start to loadInfoFile--><path d="M26.2942,32 C39.0762,32 61.776,32 82.872,32 " fill="none" id="start-loadInfoFile" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 1.0,3.0;"></path><polygon fill="#A80036" points="87.9089,32,78.9089,28,82.9089,32,78.9089,36,87.9089,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="40" x="37" y="26.2104">infoFile</text><!--link loadInfoFile to insert info\non info page--><path d="M176.1875,32 C181.2205,32 186.2534,32 191.2864,32 " fill="none" id="loadInfoFile-insert info\non info page" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="196.3193,32,187.3193,28,191.3193,32,187.3193,36,196.3193,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link insert info\non info page to end--><path d="M291.5313,32 C296.4259,32 301.3205,32 306.2152,32 " fill="none" id="insert info\non info page-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="311.5264,32,302.5264,28,306.5264,32,302.5264,36,311.5264,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--
+@startuml
+(*) .>[infoFile] loadInfoFile
+-> insert info\non info page
+-> (*)
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="66px" preserveAspectRatio="none" style="width:390px;height:66px;" version="1.1" viewBox="0 0 390 66" width="390px" zoomAndPan="magnify"><defs><filter height="300%" id="fqdwy9ra200zz" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="16" cy="32" fill="#000000" filter="url(#fqdwy9ra200zz)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#fqdwy9ra200zz)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="119" x="75.5" y="15"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="99" x="85.5" y="36.1387">calculateBounds</text><rect fill="#FEFECE" filter="url(#fqdwy9ra200zz)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="124" x="215" y="8"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="104" x="225" y="29.1387">set 'trackBounds'</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="80" x="237" y="43.1074">bounds array</text><ellipse cx="369" cy="32" fill="none" filter="url(#fqdwy9ra200zz)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"></ellipse><ellipse cx="369.5" cy="32.5" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><!--link start to calculateBounds--><path d="M26.1459,32 C36.2823,32 52.7833,32 69.9077,32 " fill="none" id="start-calculateBounds" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 1.0,3.0;"></path><polygon fill="#A80036" points="75.2358,32,66.2358,28,70.2358,32,66.2358,36,75.2358,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="28" x="36.75" y="26.2104">track</text><!--link calculateBounds to set 'trackBounds'\nbounds array--><path d="M194.6289,32 C199.6967,32 204.7644,32 209.8322,32 " fill="none" id="calculateBounds-set &apos;trackBounds&apos;\nbounds array" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="214.8999,32,205.8999,28,209.8999,32,205.8999,36,214.8999,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link set 'trackBounds'\nbounds array to end--><path d="M339.1719,32 C343.9636,32 348.7553,32 353.5471,32 " fill="none" id="set &apos;trackBounds&apos;\nbounds array-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="358.7466,32,349.7466,28,353.7466,32,349.7466,36,358.7466,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--
+@startuml
+(*) .>[track] calculateBounds
+-> set 'trackBounds'\nbounds array
+-> (*)
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="319px" preserveAspectRatio="none" style="width:673px;height:319px;" version="1.1" viewBox="0 0 673 319" width="673px" zoomAndPan="magnify"><defs><filter height="300%" id="fatgp0olucg0a" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="16" cy="25" fill="#000000" filter="url(#fatgp0olucg0a)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#fatgp0olucg0a)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="172" x="136" y="8"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="152" x="146" y="29.1387">checkWanderingOffTrack</text><polygon fill="#FEFECE" filter="url(#fatgp0olucg0a)" points="222,102,234,114,222,126,210,114,222,102" style="stroke: #A80036; stroke-width: 1.5;"></polygon><rect fill="#FEFECE" filter="url(#fatgp0olucg0a)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="139" x="275.5" y="97"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="119" x="285.5" y="118.1387">reset trackChanged</text><rect fill="#FEFECE" filter="url(#fatgp0olucg0a)" height="61.9063" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="131" x="434.5" y="83"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="111" x="444.5" y="104.1387">compare all points</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="76" x="462" y="118.1074">of track with</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="96" x="452" y="132.0762">current location</text><polygon fill="#FEFECE" filter="url(#fatgp0olucg0a)" points="442,198,454,210,442,222,430,210,442,198" style="stroke: #A80036; stroke-width: 1.5;"></polygon><rect fill="#FEFECE" filter="url(#fatgp0olucg0a)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="496" y="186"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="138" x="510" y="207.1387">set 'wanderedOffTrack'</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="146" x="506" y="221.1074">array of two coordinates</text><ellipse cx="442" cy="298" fill="none" filter="url(#fatgp0olucg0a)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"></ellipse><ellipse cx="442.5" cy="298.5" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><!--link start to checkWanderingOffTrack--><path d="M26.2156,25 C45.6019,25 89.4924,25 130.8129,25 " fill="none" id="start-checkWanderingOffTrack" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 1.0,3.0;"></path><polygon fill="#A80036" points="135.8375,25,126.8375,21,130.8375,25,126.8375,29,135.8375,25" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="88" x="37" y="19.2104">currentLocation</text><!--link checkWanderingOffTrack to #159--><path d="M222,42.1601 C222,57.8624 222,80.9796 222,96.7196 " fill="none" id="checkWanderingOffTrack-#159" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="222,101.7533,226,92.7533,222,96.7533,218,92.7533,222,101.7533" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="78" x="124.9875" y="91.2646">trackChanged</text><!--link #159 to reset trackChanged--><path d="M234.2434,114 C243.227,114 256.2575,114 270.2485,114 " fill="none" id="#159-reset trackChanged" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="275.4409,114,266.4409,110,270.4409,114,266.4409,118,275.4409,114" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="20" x="244.75" y="108.2104">Yes</text><!--link reset trackChanged to compare all points\nof track with\ncurrent location--><path d="M414.6289,114 C419.4453,114 424.2616,114 429.078,114 " fill="none" id="reset trackChanged-compare all points\nof track with\ncurrent location" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="434.3043,114,425.3043,110,429.3043,114,425.3043,118,434.3043,114" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link compare all points\nof track with\ncurrent location to #166--><path d="M481.1691,145.1684 C470.3279,163.1124 457.3159,184.6495 449.3548,197.8266 " fill="none" id="compare all points\nof track with\ncurrent location-#166" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="446.6636,202.2809,454.7413,196.6461,449.2492,198.0013,447.894,192.5092,446.6636,202.2809" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="71" x="356.0054" y="174.7959">closest point</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="38" x="372.5054" y="187.6006">too far</text><!--link #166 to set 'wanderedOffTrack'\narray of two coordinates--><path d="M454.1578,210 C463.0814,210 476.0979,210 490.3967,210 " fill="none" id="#166-set &apos;wanderedOffTrack&apos;\narray of two coordinates" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="495.7175,210,486.7175,206,490.7175,210,486.7175,214,495.7175,210" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="20" x="465" y="204.2104">Yes</text><!--link set 'wanderedOffTrack'\narray of two coordinates to end--><path d="M541.5641,234.0464 C512.7882,252.5302 474.7331,276.9744 455.0462,289.6199 " fill="none" id="set &apos;wanderedOffTrack&apos;\narray of two coordinates-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="450.4537,292.5699,460.1879,291.0713,454.6606,289.8676,455.8642,284.3403,450.4537,292.5699" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link #166 to end--><path d="M442,222.236 C442,237.9352 442,265.1862 442,282.3709 " fill="none" id="#166-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="442,287.7816,446,278.7816,442,282.7816,438,278.7816,442,287.7816" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="15" x="443" y="265.2104">No</text><!--link #159 to end--><path d="M228.8254,119.7085 C260.0351,145.8112 389.3673,253.98 429.838,287.8281 " fill="none" id="#159-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="433.8989,291.2245,429.5613,282.3823,430.0635,288.0168,424.4289,288.519,433.8989,291.2245" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="15" x="366" y="214.2104">No</text><!--
+@startuml
+(*) .>[currentLocation] checkWanderingOffTrack
+if trackChanged then
+  ->[Yes] "reset trackChanged"
+  -> "compare all points\nof track with\ncurrent location"
+  if "closest point\ntoo far" then
+    ->[Yes] "set 'wanderedOffTrack'\narray of two coordinates"
+    - -> (*)
+  else
+    - ->[No] (*)
+  endif
+else
+  - ->[No] (*)
+endif
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><h4 class="mume-header" id="sufidata-diagrams-tracking">SufiData diagrams: tracking</h4>
+
+<p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="248px" preserveAspectRatio="none" style="width:386px;height:248px;" version="1.1" viewBox="0 0 386 248" width="386px" zoomAndPan="magnify"><defs><filter height="300%" id="f11poq0hng4feq" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="16" cy="30" fill="#000000" filter="url(#f11poq0hng4feq)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#f11poq0hng4feq)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="153" x="111.5" y="13"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="133" x="121.5" y="34.1387">SufiData.doStartTrack</text><polygon fill="#FEFECE" filter="url(#f11poq0hng4feq)" points="188,100,200,112,188,124,176,112,188,100" style="stroke: #A80036; stroke-width: 1.5;"></polygon><rect fill="#FEFECE" filter="url(#f11poq0hng4feq)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="149" y="190"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="79" x="169.5" y="211.1387">show already</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="100" x="159" y="225.1074">started message</text><ellipse cx="302" cy="214" fill="none" filter="url(#f11poq0hng4feq)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"></ellipse><ellipse cx="302.5" cy="214.5" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#f11poq0hng4feq)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="138" x="237" y="88"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="58" x="277" y="109.1387">subscribe</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="118" x="247" y="123.1074">to 'currentLocation'</text><!--link start to SufiData.doStartTrack--><path d="M26.2443,30 C42.2394,30 74.5989,30 106.2003,30 " fill="none" id="start-SufiData.doStartTrack" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 1.0,3.0;"></path><polygon fill="#A80036" points="111.263,30,102.263,26,106.263,30,102.263,34,111.263,30" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="58" x="39.75" y="11.2104">start track</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="64" x="36.75" y="24.0151">button click</text><!--link SufiData.doStartTrack to #178--><path d="M188,47.3901 C188,61.3351 188,80.808 188,94.723 " fill="none" id="SufiData.doStartTrack-#178" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="188,99.9447,192,90.9447,188,94.9447,184,90.9447,188,99.9447" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="45" x="134.9844" y="76.5159">tracking</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="40" x="137.4844" y="89.3206">started</text><!--link #178 to show already\nstarted message--><path d="M190.0903,122.1531 C193.0677,136.6146 198.6486,163.7218 202.9788,184.7542 " fill="none" id="#178-show already\nstarted message" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="203.9942,189.6859,206.0971,180.0642,202.9859,184.7886,198.2615,181.6774,203.9942,189.6859" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="20" x="201" y="167.2104">Yes</text><!--link show already\nstarted message to end--><path d="M269.3047,214 C275.0413,214 280.7778,214 286.5144,214 " fill="none" id="show already\nstarted message-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="291.7827,214,282.7827,210,286.7827,214,282.7827,218,291.7827,214" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link #178 to subscribe\nto 'currentLocation'--><path d="M200.1836,112 C208.2213,112 219.4944,112 231.7063,112 " fill="none" id="#178-subscribe\nto &apos;currentLocation&apos;" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="236.9908,112,227.9908,108,231.9908,112,227.9908,116,236.9908,112" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="15" x="211" y="106.2104">No</text><!--link subscribe\nto 'currentLocation' to end--><path d="M305.0521,136.1726 C304.2924,155.5444 303.2496,182.1353 302.6007,198.6821 " fill="none" id="subscribe\nto &apos;currentLocation&apos;-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="302.3967,203.8836,306.7467,195.0474,302.5928,198.8874,298.7528,194.7336,302.3967,203.8836" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--
+@startuml
+(*) .>[start track\nbutton click] "SufiData.doStartTrack"
+if tracking\nstarted then
+  - ->[Yes] "show already\nstarted message"
+  -> (*)
+else
+  ->[No] "subscribe\nto 'currentLocation'"
+  - -> (*)
+endif
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="360px" preserveAspectRatio="none" style="width:342px;height:360px;" version="1.1" viewBox="0 0 342 360" width="342px" zoomAndPan="magnify"><defs><filter height="300%" id="f1dfuj99hp2sz1" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="16" cy="30" fill="#000000" filter="url(#f1dfuj99hp2sz1)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#f1dfuj99hp2sz1)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="151" x="148.5" y="13"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="131" x="158.5" y="34.1387">SufiData.doStopTrack</text><polygon fill="#FEFECE" filter="url(#f1dfuj99hp2sz1)" points="224,88,236,100,224,112,212,100,224,88" style="stroke: #A80036; stroke-width: 1.5;"></polygon><polygon fill="#FEFECE" filter="url(#f1dfuj99hp2sz1)" points="179,178,191,190,179,202,167,190,179,178" style="stroke: #A80036; stroke-width: 1.5;"></polygon><rect fill="#FEFECE" filter="url(#f1dfuj99hp2sz1)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="141" x="6.5" y="302"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="79" x="37.5" y="323.1387">show already</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="121" x="16.5" y="337.1074">postponed message</text><ellipse cx="179" cy="326" fill="none" filter="url(#f1dfuj99hp2sz1)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"></ellipse><ellipse cx="179.5" cy="326.5" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#f1dfuj99hp2sz1)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="154" x="102" y="234"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="74" x="142" y="255.1387">unsubscribe</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="134" x="112" y="269.1074">from 'currentLocation'</text><rect fill="#FEFECE" filter="url(#f1dfuj99hp2sz1)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="211" y="166"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="85" x="228.5" y="187.1387">show no track</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="100" x="221" y="201.1074">started message</text><!--link start to SufiData.doStopTrack--><path d="M26.0323,30 C47.2078,30 98.2207,30 143.1571,30 " fill="none" id="start-SufiData.doStopTrack" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 1.0,3.0;"></path><polygon fill="#A80036" points="148.3234,30,139.3234,26,143.3234,30,139.3234,34,148.3234,30" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="101" x="36.75" y="11.2104">postpone tracking</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="64" x="55.25" y="24.0151">button click</text><!--link SufiData.doStopTrack to #191--><path d="M224,47.3034 C224,58.1588 224,72.0963 224,82.9108 " fill="none" id="SufiData.doStopTrack-#191" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="224,87.9417,228,78.9417,224,82.9417,220,78.9417,224,87.9417" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="45" x="170.9844" y="64.5118">tracking</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="40" x="173.4844" y="77.3165">started</text><!--link #191 to #194--><path d="M219.8472,108.3057 C211.9714,124.0572 194.8158,158.3684 185.4379,177.1243 " fill="none" id="#191-#194" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="183.0132,181.9735,190.6158,175.7124,185.2492,177.5013,183.4603,172.1348,183.0132,181.9735" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="20" x="208" y="143.2104">Yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="45" x="115.4025" y="154.7981">tracking</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="59" x="108.4025" y="167.6028">postponed</text><!--link #194 to show already\npostponed message--><path d="M167.5308,190.654 C144.3806,192.6659 92.3718,200.8434 70,234 C57.6108,252.3616 60.6484,277.73 66.0616,297.1781 " fill="none" id="#194-show already\npostponed message" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="67.4811,301.9871,68.7694,292.2229,66.0655,297.1917,61.0967,294.4878,67.4811,301.9871" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="20" x="71" y="262.2104">Yes</text><!--link show already\npostponed message to end--><path d="M147.5234,326 C152.8105,326 158.0976,326 163.3847,326 " fill="none" id="show already\npostponed message-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="168.6718,326,159.6718,322,163.6718,326,159.6718,330,168.6718,326" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link #194 to unsubscribe\nfrom 'currentLocation'--><path d="M179,202.157 C179,209.5705 179,219.3867 179,228.7192 " fill="none" id="#194-unsubscribe\nfrom &apos;currentLocation&apos;" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="179,233.8358,183,224.8358,179,228.8358,175,224.8358,179,233.8358" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="15" x="163" y="214.9437">No</text><!--link unsubscribe\nfrom 'currentLocation' to end--><path d="M179,282.1657 C179,291.5947 179,302.1278 179,310.5053 " fill="none" id="unsubscribe\nfrom &apos;currentLocation&apos;-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="179,315.9206,183,306.9206,179,310.9206,175,306.9206,179,315.9206" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link #191 to show no track\nstarted message--><path d="M228.1709,107.9869 C234.3428,119.8054 246.2219,142.5525 255.9068,161.098 " fill="none" id="#191-show no track\nstarted message" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="258.3169,165.7133,257.6964,155.884,256.0024,161.2813,250.6051,159.5872,258.3169,165.7133" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="15" x="249" y="143.2104">No</text><!--link show no track\nstarted message to end--><path d="M272.8736,214.3979 C273.1731,234.2724 270.6738,262.188 257,282 C241.8734,303.917 212.0714,316.2027 194.0032,321.934 " fill="none" id="show no track\nstarted message-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="188.8017,323.5056,198.574,324.7313,193.588,322.0593,196.2599,317.0733,188.8017,323.5056" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--
+@startuml
+(*) .>[postpone tracking\nbutton click] "SufiData.doStopTrack"
+if tracking\nstarted then
+  [Yes] if tracking\npostponed then
+    - ->[Yes] "show already\npostponed message"
+    -> (*)
+  else
+    ->[No] "unsubscribe\nfrom 'currentLocation'"
+  endif
+  -> (*)
+else
+  - ->[No] "show no track\nstarted message"
+  - -> (*)
+endif
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="360px" preserveAspectRatio="none" style="width:388px;height:360px;" version="1.1" viewBox="0 0 388 360" width="388px" zoomAndPan="magnify"><defs><filter height="300%" id="f1iwqgxkasuk2i" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="62.5" cy="30" fill="#000000" filter="url(#f1iwqgxkasuk2i)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#f1iwqgxkasuk2i)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="151" x="191" y="13"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="131" x="201" y="34.1387">SufiData.doContTrack</text><polygon fill="#FEFECE" filter="url(#f1iwqgxkasuk2i)" points="266.5,88,278.5,100,266.5,112,254.5,100,266.5,88" style="stroke: #A80036; stroke-width: 1.5;"></polygon><polygon fill="#FEFECE" filter="url(#f1iwqgxkasuk2i)" points="221.5,178,233.5,190,221.5,202,209.5,190,221.5,178" style="stroke: #A80036; stroke-width: 1.5;"></polygon><rect fill="#FEFECE" filter="url(#f1iwqgxkasuk2i)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="127" x="6" y="302"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="88" x="25.5" y="323.1387">show continue</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="107" x="16" y="337.1074">tracking message</text><rect fill="#FEFECE" filter="url(#f1iwqgxkasuk2i)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="138" x="153.5" y="302"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="58" x="193.5" y="323.1387">subscribe</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="118" x="163.5" y="337.1074">to 'currentLocation'</text><ellipse cx="321.5" cy="326" fill="none" filter="url(#f1iwqgxkasuk2i)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"></ellipse><ellipse cx="322" cy="326.5" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#f1iwqgxkasuk2i)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="168" x="137.5" y="234"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="85" x="179" y="255.1387">show tracking</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="148" x="147.5" y="269.1074">already started message</text><rect fill="#FEFECE" filter="url(#f1iwqgxkasuk2i)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="257.5" y="166"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="85" x="275" y="187.1387">show no track</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="100" x="267.5" y="201.1074">started message</text><!--link start to SufiData.doContTrack--><path d="M72.6164,30 C93.3244,30 142.2656,30 185.7925,30 " fill="none" id="start-SufiData.doContTrack" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 1.0,3.0;"></path><polygon fill="#A80036" points="190.799,30,181.799,26,185.799,30,181.799,34,190.799,30" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="97" x="83.25" y="11.2104">continue tracking</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="64" x="99.75" y="24.0151">button click</text><!--link SufiData.doContTrack to #210--><path d="M266.5,47.3034 C266.5,58.1588 266.5,72.0963 266.5,82.9108 " fill="none" id="SufiData.doContTrack-#210" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="266.5,87.9417,270.5,78.9417,266.5,82.9417,262.5,78.9417,266.5,87.9417" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="45" x="213.4844" y="64.5118">tracking</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="40" x="215.9844" y="77.3165">started</text><!--link #210 to #213--><path d="M262.3472,108.3057 C254.4714,124.0572 237.3158,158.3684 227.9379,177.1243 " fill="none" id="#210-#213" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="225.5132,181.9735,233.1158,175.7124,227.7492,177.5013,225.9603,172.1348,225.5132,181.9735" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="20" x="250.5" y="143.2104">Yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="45" x="157.9025" y="154.7981">tracking</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="59" x="150.9025" y="167.6028">postponed</text><!--link #213 to show continue\ntracking message--><path d="M210.6617,191.178 C188.0946,194.1867 135.6601,204.1533 105.5,234 C88.4172,250.9053 79.2496,276.8677 74.4503,296.9073 " fill="none" id="#213-show continue\ntracking message" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="73.3221,301.8653,79.2196,293.9773,74.4317,296.99,71.419,292.2021,73.3221,301.8653" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="20" x="106.5" y="262.2104">Yes</text><!--link show continue\ntracking message to subscribe\nto 'currentLocation'--><path d="M133.1504,326 C138.2112,326 143.272,326 148.3328,326 " fill="none" id="show continue\ntracking message-subscribe\nto &apos;currentLocation&apos;" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="153.3937,326,144.3937,322,148.3937,326,144.3937,330,153.3937,326" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link subscribe\nto 'currentLocation' to end--><path d="M291.7227,326 C296.5062,326 301.2898,326 306.0734,326 " fill="none" id="subscribe\nto &apos;currentLocation&apos;-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="311.264,326,302.264,322,306.264,326,302.264,330,311.264,326" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link #213 to show tracking\nalready started message--><path d="M221.5,202.157 C221.5,209.5705 221.5,219.3867 221.5,228.7192 " fill="none" id="#213-show tracking\nalready started message" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="221.5,233.8358,225.5,224.8358,221.5,228.8358,217.5,224.8358,221.5,233.8358" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="15" x="205.5" y="214.9437">No</text><!--link show tracking\nalready started message to end--><path d="M272.0074,282.0232 C282.2302,287.8988 292.5717,294.6394 301.5,302 C305.3502,305.1741 309.016,309.1665 312.1328,312.979 " fill="none" id="show tracking\nalready started message-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="315.5176,317.3121,313.1296,307.7571,312.4397,313.3717,306.8251,312.6818,315.5176,317.3121" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link #210 to show no track\nstarted message--><path d="M270.8482,107.6733 C277.5102,119.4297 290.5868,142.5062 301.2045,161.2432 " fill="none" id="#210-show no track\nstarted message" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="303.8455,165.9038,302.8882,156.1016,301.3803,161.5538,295.9282,160.0458,303.8455,165.9038" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="15" x="293.5" y="143.2104">No</text><!--link show no track\nstarted message to end--><path d="M318.2059,214.001 C319.024,241.8159 320.3483,286.843 321.0424,310.4406 " fill="none" id="show no track\nstarted message-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="321.1966,315.6829,324.9303,306.5692,321.0496,310.6851,316.9337,306.8044,321.1966,315.6829" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--
+@startuml
+(*) .>[continue tracking\nbutton click] "SufiData.doContTrack"
+if tracking\nstarted then
+  [Yes] if tracking\npostponed then
+    - ->[Yes] "show continue\ntracking message"
+    -> "subscribe\nto 'currentLocation'"
+    -> (*)
+  else
+    ->[No] "show tracking\nalready started message"
+  endif
+  -> (*)
+else
+  - ->[No] "show no track\nstarted message"
+  - -> (*)
+endif
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="319px" preserveAspectRatio="none" style="width:439px;height:319px;" version="1.1" viewBox="0 0 439 319" width="439px" zoomAndPan="magnify"><defs><filter height="300%" id="fb2qsovtg3ovj" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="41" cy="30" fill="#000000" filter="url(#fb2qsovtg3ovj)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#fb2qsovtg3ovj)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="152" x="137" y="13"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="132" x="147" y="34.1387">SufiData.doSaveTrack</text><polygon fill="#FEFECE" filter="url(#fb2qsovtg3ovj)" points="213,88,225,100,213,112,201,100,213,88" style="stroke: #A80036; stroke-width: 1.5;"></polygon><rect fill="#FEFECE" filter="url(#fb2qsovtg3ovj)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="108" x="6" y="166"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="62" x="29" y="187.1387">show save</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="88" x="16" y="201.1074">track message</text><rect fill="#FEFECE" filter="url(#fb2qsovtg3ovj)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="154" x="134" y="166"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="74" x="174" y="187.1387">unsubscribe</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="134" x="144" y="201.1074">from 'currentLocation'</text><rect fill="#FEFECE" filter="url(#fb2qsovtg3ovj)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="113" x="196.5" y="234"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="93" x="206.5" y="255.1387">save track data</text><ellipse cx="289" cy="298" fill="none" filter="url(#fb2qsovtg3ovj)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"></ellipse><ellipse cx="289.5" cy="298.5" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#fb2qsovtg3ovj)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="308" y="166"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="85" x="325.5" y="187.1387">show no track</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="100" x="318" y="201.1074">started message</text><!--link start to SufiData.doSaveTrack--><path d="M51.2443,30 C67.3081,30 99.8769,30 131.6071,30 " fill="none" id="start-SufiData.doSaveTrack" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 1.0,3.0;"></path><polygon fill="#A80036" points="136.6897,30,127.6897,26,131.6897,30,127.6897,34,136.6897,30" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="59" x="64.5" y="11.2104">save track</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="64" x="62" y="24.0151">button click</text><!--link SufiData.doSaveTrack to #231--><path d="M213,47.3034 C213,58.1588 213,72.0963 213,82.9108 " fill="none" id="SufiData.doSaveTrack-#231" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="213,87.9417,217,78.9417,213,82.9417,209,78.9417,213,87.9417" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="45" x="159.9844" y="64.5118">tracking</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="40" x="162.4844" y="77.3165">started</text><!--link #231 to show save\ntrack message--><path d="M205.2024,104.5868 C187.0777,115.2484 140.9566,142.3785 105.5139,163.2271 " fill="none" id="#231-show save\ntrack message" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="100.8081,165.9953,110.5936,164.8798,105.1178,163.4602,106.5374,157.9844,100.8081,165.9953" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="20" x="156" y="143.2104">Yes</text><!--link show save\ntrack message to unsubscribe\nfrom 'currentLocation'--><path d="M114.2656,190 C119.0756,190 123.8855,190 128.6955,190 " fill="none" id="show save\ntrack message-unsubscribe\nfrom &apos;currentLocation&apos;" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="133.9148,190,124.9148,186,128.9148,190,124.9148,194,133.9148,190" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link unsubscribe\nfrom 'currentLocation' to save track data--><path d="M227.5995,214.1088 C231.0403,219.1062 234.6461,224.3432 238.0247,229.2501 " fill="none" id="unsubscribe\nfrom &apos;currentLocation&apos;-save track data" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="241.0523,233.6474,239.2432,223.9661,238.2169,229.5291,232.6539,228.5028,241.0523,233.6474" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link save track data to end--><path d="M266.2007,268.2342 C270.6531,274.047 275.5281,280.4117 279.6233,285.7583 " fill="none" id="save track data-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="282.8536,289.9755,280.5564,280.3983,279.8132,286.0061,274.2054,285.2629,282.8536,289.9755" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link #231 to show no track\nstarted message--><path d="M220.8996,104.5868 C239.3361,115.2919 286.3671,142.6002 322.3303,163.4821 " fill="none" id="#231-show no track\nstarted message" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="326.6585,165.9953,320.8841,158.0168,322.3346,163.4846,316.8669,164.9351,326.6585,165.9953" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="15" x="292" y="143.2104">No</text><!--link show no track\nstarted message to end--><path d="M354.7321,214.1393 C345.5412,230.0443 332.5595,250.9952 319,268 C313.4033,275.0187 306.3361,282.154 300.467,287.704 " fill="none" id="show no track\nstarted message-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="296.628,291.2722,305.9434,288.0748,300.2903,287.8682,300.4969,282.2151,296.628,291.2722" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--
+@startuml
+(*) .>[save track\nbutton click] "SufiData.doSaveTrack"
+if tracking\nstarted then
+  - ->[Yes] "show save\ntrack message"
+  -> "unsubscribe\nfrom 'currentLocation'"
+  -> "save track data"
+  -> (*)
+else
+  - ->[No] "show no track\nstarted message"
+  - -> (*)
+endif
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="66px" preserveAspectRatio="none" style="width:455px;height:66px;" version="1.1" viewBox="0 0 455 66" width="455px" zoomAndPan="magnify"><defs><filter height="300%" id="f131wswu38rrdw" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="16" cy="32" fill="#000000" filter="url(#f131wswu38rrdw)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#FEFECE" filter="url(#f131wswu38rrdw)" height="47.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="98" x="136" y="8"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="78" x="146" y="29.1387">save position</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="46" x="162" y="43.1074">in array</text><rect fill="#FEFECE" filter="url(#f131wswu38rrdw)" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="149" x="254.5" y="15"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="129" x="264.5" y="36.1387">modify bounding box</text><ellipse cx="434" cy="32" fill="none" filter="url(#f131wswu38rrdw)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"></ellipse><ellipse cx="434.5" cy="32.5" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><!--link start to save position\nin array--><path d="M26.0656,32 C46.2635,32 93.0183,32 130.6188,32 " fill="none" id="start-save position\nin array" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 1.0,3.0;"></path><polygon fill="#A80036" points="135.6248,32,126.6248,28,130.6248,32,126.6248,36,135.6248,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="88" x="37" y="26.2104">currentLocation</text><!--link save position\nin array to modify bounding box--><path d="M234.2188,32 C239.1129,32 244.007,32 248.9011,32 " fill="none" id="save position\nin array-modify bounding box" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="254.2117,32,245.2117,28,249.2117,32,245.2117,36,254.2117,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--link modify bounding box to end--><path d="M403.6484,32 C408.5243,32 413.4001,32 418.2759,32 " fill="none" id="modify bounding box-end" style="stroke: #A80036; stroke-width: 1.0;"></path><polygon fill="#A80036" points="423.5667,32,414.5667,28,418.5667,32,414.5667,36,423.5667,32" style="stroke: #A80036; stroke-width: 1.0;"></polygon><!--
+@startuml
+(*) .>[currentLocation] "save position\nin array"
+->modify bounding box
+-> (*)
+@enduml
+
+PlantUML version 1.2018.01(Sun Jan 28 19:08:22 CET 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_171-b10
+Operating System: Linux
+OS Version: 4.16.11-100.fc26.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg></p><h1 class="mume-header" id="cache-data">Cache data</h1>
+
+<h2 class="mume-header" id="features">Features</h2>
+
+<p>Some features must be active. Click on a symbol must show a small dialog with simple text. There might be links on it which lead to web pages which must be shown in a browser window.</p>
+<p>Features can only be retrieved when online and links can only be followed when online. Therefore these features must be cached and updated when necessary.</p>
+<h2 class="mume-header" id="tiles">Tiles</h2>
+
+<p>Tiles can only be downloaded when online, so these also must be cached. A directory structure must be setup to accomplish this. Also a special set of the tiles must be saved because there is no need to have tiles for all zoom levels and we don't need all tiles of a specific country where the trail is.</p>
+<p>The servers are always having a url with something like <code>.../${z}/${x}/${y}.png</code> at the end. An example url is <code>http://a.tile.thunderforest.com/landscape/17/67222/43063.png</code> which has <strong>zoomlevel 17</strong> and <strong>x 67222</strong> and <strong>y 43063</strong>. These are png images of 256 by 256 pixels. See also <a href="https://wiki.openstreetmap.org/wiki/Tiles">here</a>. The x and y coordinates are tile coordinates which change with the zoom level.</p>
+<h1 class="mume-header" id="user-data">User data</h1>
+
+<h2 class="mume-header" id="tracks">Tracks</h2>
+
+<h2 class="mume-header" id="pictures">Pictures</h2>
+
+<h1 class="mume-header" id="installed-plugins">Installed plugins</h1>
+
+<ul>
+<li>cordova-plugin-geolocation</li>
+<li>cordova-plugin-device</li>
+</ul>
+<h1 class="mume-header" id="articles">Articles</h1>
+
+<ul>
+<li><a href="http://thanpol.as/javascript/you-dont-need-dom-ready">You Don't Need the DOM Ready Event</a></li>
+<li><a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec8.html#sec8.1.4">Practical Considerations, Hypertext Transfer Protocol -- HTTP/1.1</a></li>
+<li><a href="https://www.w3.org/Protocols/rfc2616/rfc2616.html">Hypertext Transfer Protocol -- HTTP/1.1</a></li>
+</ul>
+<h1 class="mume-header" id="contacts-from-sufitrail">Contacts from Sufitrail</h1>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sedat Çakir</td>
+<td><a href="mailto:sufitrail@gmail.com">sufitrail@gmail.com</a></td>
+<td>Project leader</td>
+</tr>
+<tr>
+<td>Iris Bezuijen</td>
+<td><a href="mailto:sufitrail@gmail.com">sufitrail@gmail.com</a></td>
+<td>Web master</td>
+</tr>
+<tr>
+<td>Rob Polko</td>
+<td><a href="mailto:rob@sultanstrail.nl">rob@sultanstrail.nl</a></td>
+<td>Map design</td>
+</tr>
+<tr>
+<td>Tine Lambers</td>
+<td></td>
+<td>Office Manager</td>
+</tr>
+<tr>
+<td>Merel van Essen</td>
+<td></td>
+<td>Writer of handbook and designer</td>
+</tr>
+<tr>
+<td>Pijke Wees</td>
+<td><a href="mailto:pijkev@hotmail.com">pijkev@hotmail.com</a></td>
+<td>Cartographer</td>
+</tr>
+<tr>
+<td>Marcel Timmerman</td>
+<td><a href="mailto:mt1957@gmail.com">mt1957@gmail.com</a></td>
+<td>Application builder</td>
+</tr>
+</tbody>
+</table>
+
+      </div>
+      
+      
+    </body>
+    
+    
+    
+    
+    
+    
+    
+  </html>
