@@ -73,13 +73,13 @@ Cordova and android has several ways to build the App and to install the App on 
   * [ ] External
 
 ### Events and devices to listen to
-<progress value="4" max="7" />
+<progress value="3" max="7" />
 
 There are several events which occur upon changing conditions in a device. These events must be captured for further actions.
 * [ ] Battery condition to warn user of battery low state. App might dim display or other options to save energy.
 * [x] Gps information to get current location.
 * [x] Network on and off line mode to update map and feature cache as well as send user data to a server
-* [x] Device compass to show map correctly pointing the map-north to the real north.
+* [ ] Device compass to show map correctly pointing the map-north to the real north.
 * [x] Resize events to change from portrait to landscape mode and back. Responsive. Needed to display everything in proper sizes.
 * [ ] Camera to add a picture as a point on the map when saved.
 * [ ] Time and clock.
