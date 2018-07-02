@@ -61,9 +61,9 @@ SufiTrail.SufiCache.prototype.network = function ( state ) {
         );
 */
         return (
-          self.center.SufiIO !== null &&
-          self.center.SufiIO.urls !== null &&
-          self.center.SufiIO.urls["tileDirEntry"] !== null
+          !goog.isNull(self.center.SufiIO) &&
+          !goog.isNull(self.center.SufiIO.urls) &&
+          !goog.isNull(self.center.SufiIO.urls["tileDirEntry"])
         );
       },
 
@@ -90,10 +90,10 @@ SufiTrail.SufiCache.prototype.startCaching = function ( ) {
 */
   var SufiIO = this.center.SufiIO;
   var tileDirEntry = SufiIO.urls["tileDirEntry"];
-/*
+
   console.log('SufiIO urls tiles defined: ' + ({}).toString.call(tileDirEntry));
   console.log('SufiIO entries: ' + SufiIO.urls["tileDirEntry"]);
-*/
+
   SufiIO.getDirectory(
     tileDirEntry, 'map',
     function ( mapDirEntry ) {
