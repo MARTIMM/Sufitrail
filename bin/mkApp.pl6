@@ -7,7 +7,8 @@ use v6;
 enum CompilerLevel <BUNDLE WHITESPACE_ONLY SIMPLE ADVANCED>;
 
 sub MAIN (
-  Bool:D :$debug, CompilerLevel :$level = SIMPLE, Bool :$uninstall = False
+  Bool:D :$debug, CompilerLevel :$level = SIMPLE, Bool :$uninstall = False,
+  Bool :$installOnly = False
 ) {
 
   note "Be sure that device is connected";
@@ -163,6 +164,15 @@ sub MAIN (
       # install on the device
       set +e
       adb uninstall sufitrail.io.github.martimm
+      adb install -g "$android/$apk"
+      EOSCRIPT
+  }
+
+  elsif $installOnly {
+      $script-text ~= Q:qq:s:to/EOSCRIPT/;
+
+      # install on the device
+      set +e
       adb install -g "$android/$apk"
       EOSCRIPT
   }
