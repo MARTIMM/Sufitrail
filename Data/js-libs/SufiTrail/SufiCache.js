@@ -49,17 +49,29 @@ SufiTrail.SufiCache.prototype.init = function ( center ) {
 */
 SufiTrail.SufiCache.prototype.network = function ( state ) {
 
+//console.log('Network state: ' + state);
+
   var self = this;
-console.log('Network state: ' + state);
-  if( state === 'wifi' ) {
-    this.center.waitUntil(
+  if ( state === 'wifi' ) {
+    self.center.waitUntil(
       function ( ) {
+/*
         console.log(
-          'SufiIO defined: ' + self.center.SufiIO === null
+          'SufiIO defined: ' + typeof self.center.SufiIO
         );
-        return self.center.SufiIO !== null;
+*/
+        return (
+          self.center.SufiIO !== null &&
+          self.center.SufiIO.urls !== null &&
+          self.center.SufiIO.urls["tileDirEntry"] !== null
+        );
       },
-      self.startCaching, 200, 2000
+
+      function ( ) {
+        self.startCaching();
+      },
+
+      200, 2000
     );
   }
 }
@@ -71,9 +83,17 @@ SufiTrail.SufiCache.prototype.startCaching = function ( ) {
 
 //TODO timeout if there is no or slow input
   // start caching
-  console.log('SufiIO defined: ' + this.center.SufiIO === null);
+/*
+  console.log('class: ' + ({}).toString.call(this.center));
+  console.log('class: ' + ({}).toString.call(this.center.SufiIO));
+  console.log('SufiIO defined: ' + this.center.SufiIO);
+*/
   var SufiIO = this.center.SufiIO;
-  var tileDirEntry = SufiIO.urls.tileDirEntry;
+  var tileDirEntry = SufiIO.urls["tileDirEntry"];
+/*
+  console.log('SufiIO urls tiles defined: ' + ({}).toString.call(tileDirEntry));
+  console.log('SufiIO entries: ' + SufiIO.urls["tileDirEntry"]);
+*/
   SufiIO.getDirectory(
     tileDirEntry, 'map',
     function ( mapDirEntry ) {
