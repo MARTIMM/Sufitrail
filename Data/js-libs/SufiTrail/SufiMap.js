@@ -100,7 +100,7 @@ SufiTrail.SufiMap.prototype.init = function ( center, mapElementName ) {
   this.center = center;
   this.mapElementName = mapElementName;
 
-  var mapobj = this;
+  var self = this;
 
   // get the width and height of the viewport. add also an eventlistener.
   // this makes the map adaptable to device sizes as well as landscape to
@@ -109,7 +109,7 @@ SufiTrail.SufiMap.prototype.init = function ( center, mapElementName ) {
   goog.global.addEventListener(
     'resize',
     function ( e ) {
-      mapobj.setViewport();
+      self.setViewport();
     }
   );
 
@@ -211,7 +211,7 @@ SufiTrail.SufiMap.prototype.setView = function ( ) {
 SufiTrail.SufiMap.prototype.openMenuControl = function ( opts ) {
 
   // note: 'this' is the Control object! When needed use SufiMap.
-  var mapobj = this;
+  var self = this;
 
   // build a control to show on map
   var options = opts || {};
@@ -220,7 +220,7 @@ SufiTrail.SufiMap.prototype.openMenuControl = function ( opts ) {
   openMenuBttn.addEventListener(
     "click",
     function ( ) {
-      mapobj.center.menu.openNavigation();
+      self.center.menu.openNavigation();
     }
   );
 
@@ -243,7 +243,7 @@ SufiTrail.SufiMap.prototype.openMenuControl = function ( opts ) {
   ol.inherits( control, ol.control.Control);
 
   // be sure the menu is closed, then return control object
-  mapobj.center.menu.closeNavigation();
+  self.center.menu.closeNavigation();
   return control;
 }
 

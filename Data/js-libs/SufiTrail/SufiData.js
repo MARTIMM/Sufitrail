@@ -55,7 +55,7 @@ SufiTrail.SufiData.prototype.init = function ( center ) {
 // subscription from gpxFile
 SufiTrail.SufiData.prototype.loadXMLFile = function ( file ) {
 
-  var dataobj = this;
+  var self = this;
   var fileRequest = new XMLHttpRequest();
   fileRequest.onreadystatechange = function ( ) {
 
@@ -64,11 +64,11 @@ SufiTrail.SufiData.prototype.loadXMLFile = function ( file ) {
 
       // and this when found
       if ( this.status === 200 ) {
-        dataobj.center.observers.set( 'track', this.responseXML);
+        self.center.observers.set( 'track', this.responseXML);
 
         // save data also for later use
-        dataobj.trackXML = this.responseXML;
-        dataobj.trackChanged = true;
+        self.trackXML = this.responseXML;
+        self.trackChanged = true;
       }
 
       else {
@@ -87,7 +87,7 @@ SufiTrail.SufiData.prototype.loadXMLFile = function ( file ) {
 // subscription from infoFile
 SufiTrail.SufiData.prototype.loadInfoFile = function ( file ) {
 
-  var dataobj = this;
+  var self = this;
   var fileRequest = new XMLHttpRequest();
   fileRequest.onreadystatechange = function ( ) {
 
@@ -99,7 +99,7 @@ SufiTrail.SufiData.prototype.loadInfoFile = function ( file ) {
         var infoText = this.responseText;
 
         // remove the previous article
-        var infoData = dataobj.center.htmlIdList["infoData"];
+        var infoData = self.center.htmlIdList["infoData"];
         while ( infoData.firstChild ) {
           infoData.removeChild(infoData.firstChild);
         }

@@ -48,7 +48,7 @@ SufiTrail.SufiIO = function ( ) {
 SufiTrail.SufiIO.prototype.init = function ( center ) {
   this.center = center;
 
-  var ioobj = this;
+  var self = this;
 
   // cordova file paths are only available after device ready!
   this.urls.topFsURL = cordova.file.externalApplicationStorageDirectory;
@@ -57,18 +57,18 @@ SufiTrail.SufiIO.prototype.init = function ( center ) {
   goog.global.resolveLocalFileSystemURL(
     this.urls.topFsURL,
     function ( topDirEntry ) {
-      ioobj.urls.topDirEntry = topDirEntry;
+      self.urls.topDirEntry = topDirEntry;
 console.log('top: ' + topDirEntry.isDirectory);
 console.log('top: ' + topDirEntry.name);
-      ioobj.getDirectory(
+      self.getDirectory(
         topDirEntry, 'files', 'fileDirectory', 'createFileDirectories'
       );
-      ioobj.getDirectory(
+      self.getDirectory(
         topDirEntry, 'cache', 'cacheDirectory', 'createCacheDirectories'
       );
     },
 
-    function ( e ) { ioobj.onErrorLoadFs(e); }
+    function ( e ) { self.onErrorLoadFs(e); }
   );
 }
 
@@ -105,25 +105,25 @@ SufiTrail.SufiIO.prototype.getDirectory = function (
   dirEntry, dirname, entryStore, continueHandlerName
 ) {
 
-  var ioobj = this;
+  var self = this;
 
   dirEntry.getDirectory(
     dirname, { create: true },
     function ( subDirEntry ) {
       if( typeof entryStore === 'string' ) {
-        ioobj.urls[entryStore] = subDirEntry;
-console.log('Create dir path: ' + ioobj.urls[entryStore].fullPath);
+        self.urls[entryStore] = subDirEntry;
+console.log('Create dir path: ' + self.urls[entryStore].fullPath);
       } else if( typeof entryStore === 'function' ) {
         entryStore(subDirEntry);
       }
 
       if( typeof continueHandlerName === "string" ) {
-        ioobj[continueHandlerName](subDirEntry);
+        self[continueHandlerName](subDirEntry);
       } else if( typeof continueHandlerName === "function" ) {
-        ioobj.continueHandlerName(subDirEntry);
+        self.continueHandlerName(subDirEntry);
       }
     },
-    function ( e ) { ioobj.onErrorGetDir(e); }
+    function ( e ) { self.onErrorGetDir(e); }
   );
 }
 
@@ -133,12 +133,12 @@ SufiTrail.SufiIO.prototype.createFile = function (
   dirEntry, fileName, isAppend
 ) {
 
-  var ioobj = this;
+  var self = this;
 
   dirEntry.getFile(
     fileName, {create: true, exclusive: false},
-    function ( ) { ioobj.wf(); },
-    function ( e ) { ioobj.onErrorCreateFile(e); }
+    function ( ) { self.wf(); },
+    function ( e ) { self.onErrorCreateFile(e); }
   );
 }
 
@@ -169,7 +169,7 @@ SufiTrail.SufiIO.prototype.requestFileSystem = function (
   filename, content, observerKey
 ) {
 
-  var ioobj = this;
+  var self = this;
 
   // this call is Google Chrome specific! This, however, is made
   // available using the cordova file plugin
@@ -187,13 +187,13 @@ console.log('file system open: ' + fs.name);
         function ( fileEntry ) {
 console.log("fileEntry is file?: " + fileEntry.isFile.toString());
 console.log("full path: " + fileEntry.fullPath);
-          ioobj.writeFileEntry( fileEntry, content);
+          self.writeFileEntry( fileEntry, content);
         },
-        function ( e ) { ioobj.onErrorCreateFile(e); }
+        function ( e ) { self.onErrorCreateFile(e); }
       );
     },
 
-    function ( e ) { ioobj.onErrorLoadFs(e); }
+    function ( e ) { self.onErrorLoadFs(e); }
   );
   */
 
@@ -203,27 +203,27 @@ console.log("full path: " + fileEntry.fullPath);
     function ( fileEntry ) {
 console.log("fileEntry is file?: " + fileEntry.isFile.toString());
 console.log("full path: " + fileEntry.fullPath);
-      ioobj.writeFileEntry( fileEntry, content);
+      self.writeFileEntry( fileEntry, content);
     },
-    function ( e ) { ioobj.onErrorCreateFile(e); }
+    function ( e ) { self.onErrorCreateFile(e); }
   );
 }
 
 //----------------------------------------------------------------------------
 SufiTrail.SufiIO.prototype.writeFileEntry = function ( fileEntry, content ) {
 
-  var ioobj = this;
+  var self = this;
 
   // Create a FileWriter object for our FileEntry (log.txt).
   fileEntry.createWriter(
     function ( fileWriter ) {
       fileWriter.onwriteend = function ( ) {
         console.log("Successful file write...");
-        //ioobj.readFileEntry(fileEntry);
+        //self.readFileEntry(fileEntry);
       };
 
 
-      fileWriter.onerror = function ( e ) { ioobj.onErrorWriteFile(e); }
+      fileWriter.onerror = function ( e ) { self.onErrorWriteFile(e); }
 
       // If data object is not passed in,
       // create a new Blob instead.
@@ -249,12 +249,12 @@ SufiTrail.SufiIO.prototype.writeFileEntry = function ( fileEntry, content ) {
 //----------------------------------------------------------------------------
 SufiTrail.SufiIO.prototype.readFileEntry = function ( fileEntry ) {
 
-  var ioobj = this;
+  var self = this;
 
   fileEntry.file(
     // onSuccess
-    function ( file ) { ioobj.readFile(file); },
-    function ( e ) { ioobj.onErrorReadFile(e); }
+    function ( file ) { self.readFile(file); },
+    function ( e ) { self.onErrorReadFile(e); }
   );
 }
 
