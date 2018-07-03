@@ -23,6 +23,7 @@ SufiTrail.SufiCache = function ( ) {
   // initialize cache data object
   //SufiTrail.SufiCacheData.call();
 
+  this.cachingThread = null;
 }
 
 /** ----------------------------------------------------------------------------
@@ -69,7 +70,13 @@ console.log('Network state: ' + state);
       },
 
       function ( ) {
-        self.startCaching();
+        // run this one in the background
+        self.cachingThread = new Promise(
+          function ( resolve, reject ) {
+            self.startCaching();
+            resolve(true);
+          }
+        );
       },
 
       // check every 200 ms for a max of 2 sec
@@ -112,9 +119,11 @@ console.log("TCI: z=" + z + ', ' + ({}).toString.call(self.tileCacheInfo[z]));
                 parseInt(z) + '/' + parseInt(x),
                 null,
                 function ( tileDirEntry ) {
+                  var filename = parseInt(y) + '.png';
 console.log(
-  "tile dir: " + tileDirEntry.fullPath + '/' + parseInt(y) + '.png'
+  "tile dir: " + tileDirEntry.fullPath + '/' + filename
 );
+                  //SufiIO.writeRequest( filename, content, null);
                 }
               );
             } // for y
