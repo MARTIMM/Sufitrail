@@ -51,12 +51,12 @@ sub generate-sufi-cache ( Hash $h, Int $min-zoom, Int $max-zoom ) {
   my Str $tile-info-text = '';
   my Int $tile-count = 0;
   for $min-zoom ..^ $max-zoom -> $z {
-    $tile-info-text ~= "\n    '$z': \{";
+    $tile-info-text ~= "\n    $z: \{";
     for $h{$z}.keys.sort -> $x {
-      $tile-info-text ~= "\n      '$x': [\n        ";
+      $tile-info-text ~= "\n      $x: [\n        ";
 
       for $h{$z}{$x}.keys.sort -> $y {
-        $tile-info-text ~= " '$y',";
+        $tile-info-text ~= " $y,";
         $tile-count++;
       }
 
