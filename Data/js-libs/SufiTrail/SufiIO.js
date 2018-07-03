@@ -46,6 +46,19 @@ SufiTrail.SufiIO = function ( ) {
   @param {SufiTrail.SufiCenter} center Sufi trail core object
 */
 SufiTrail.SufiIO.prototype.init = function ( center ) {
+
+/*
+//console.log(cordova.file);
+console.log('AD:  ' + cordova.file.applicationDirectory);
+console.log('ASD: ' + cordova.file.applicationStorageDirectory);
+console.log('CD:  ' + cordova.file.cacheDirectory);
+console.log('DD:  ' + cordova.file.dataDirectory);
+console.log('ERD: ' + cordova.file.externalRootDirectory);
+console.log('ESD: ' + cordova.file.externalApplicationStorageDirectory);
+console.log('ECD: ' + cordova.file.externalCacheDirectory);
+console.log('EDD: ' + cordova.file.externalDataDirectory);
+*/
+
   this.center = center;
 
   var self = this;
@@ -170,85 +183,26 @@ console.log('Create dir path: ' + self.urls[finalEntryStore].fullPath);
   );
 }
 
-//----------------------------------------------------------------------------
-// Creates a new file or returns the file if it already exists.
-SufiTrail.SufiIO.prototype.createFile = function (
-  dirEntry, fileName, isAppend
-) {
-
-  var self = this;
-
-  dirEntry.getFile(
-    fileName, {create: true, exclusive: false},
-    function ( ) { self.wf(); },
-    function ( e ) { self.onErrorCreateFile(e); }
-  );
-}
-
-//----------------------------------------------------------------------------
-SufiTrail.SufiIO.prototype.wf = function ( fileEntry ) {
-  this.writeFile( fileEntry, null, isAppend);
-}
-
 // ---------------------------------------------------------------------------
 SufiTrail.SufiIO.prototype.writeRequest = function (
-  filename, content, observerKey
-) {
-//console.log(cordova.file);
-console.log('AD:  ' + cordova.file.applicationDirectory);
-console.log('ASD: ' + cordova.file.applicationStorageDirectory);
-console.log('CD:  ' + cordova.file.cacheDirectory);
-console.log('DD:  ' + cordova.file.dataDirectory);
-console.log('ERD: ' + cordova.file.externalRootDirectory);
-console.log('ESD: ' + cordova.file.externalApplicationStorageDirectory);
-console.log('ECD: ' + cordova.file.externalCacheDirectory);
-console.log('EDD: ' + cordova.file.externalDataDirectory);
-
-  this.requestFileSystem( filename, content, observerKey);
-}
-
-//----------------------------------------------------------------------------
-SufiTrail.SufiIO.prototype.requestFileSystem = function (
-  filename, content, observerKey
+  path, filename, content
 ) {
 
   var self = this;
 
-  // this call is Google Chrome specific! This, however, is made
-  // available using the cordova file plugin
-  /*
-  goog.global.requestFileSystem(
-
-    //goog.global.resolveLocalFileSystemURL(cordova.file.dataDirectory),
-    LocalFileSystem.PERSISTENT,
-    0,
-    function ( fs ) {
-console.log('file system open: ' + fs.name);
-      fs.root.getFile(
+  self.getDirectoryPath(
+    topDirEntry, path, null,
+    function ( tracksDirEntry ) {
+      tracksDirEntry.getFile(
         filename,
         { create: true, exclusive: false },
         function ( fileEntry ) {
-console.log("fileEntry is file?: " + fileEntry.isFile.toString());
 console.log("full path: " + fileEntry.fullPath);
           self.writeFileEntry( fileEntry, content);
         },
         function ( e ) { self.onErrorCreateFile(e); }
       );
-    },
-
-    function ( e ) { self.onErrorLoadFs(e); }
-  );
-  */
-
-  this.urls.tracksDirEntry.getFile(
-    filename,
-    { create: true, exclusive: false },
-    function ( fileEntry ) {
-console.log("fileEntry is file?: " + fileEntry.isFile.toString());
-console.log("full path: " + fileEntry.fullPath);
-      self.writeFileEntry( fileEntry, content);
-    },
-    function ( e ) { self.onErrorCreateFile(e); }
+    }
   );
 }
 
