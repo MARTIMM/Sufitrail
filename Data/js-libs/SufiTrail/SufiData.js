@@ -360,9 +360,7 @@ console.log("Store track GPS: " + lon + ", " + lat);
 SufiTrail.SufiData.prototype.saveTrack = function ( ) {
 
   this.mkTrackXml();
-
-  // signal filename to key 'storedGpxFile'
-  this.saveTrackXml('storedGpxFile');
+  this.saveTrackXml();
 }
 
 //TODO
@@ -465,7 +463,7 @@ SufiTrail.SufiData.prototype.mkTrackXml = function ( ) {
 //----------------------------------------------------------------------------
 // save xml dom tree to storage
 // https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-file/index.html
-SufiTrail.SufiData.prototype.saveTrackXml = function ( observerKey ) {
+SufiTrail.SufiData.prototype.saveTrackXml = function ( ) {
 
   var s = new XMLSerializer();
   var xmlString = s.serializeToString(this.trackDom);
@@ -479,7 +477,7 @@ console.log(cordova.file.dataDirectory);
   var filename = "userTrack-" + date.toISOString() + ".gpx";
   filename = filename.replace( /:/g, '-');
 console.log("filename: " + filename);
-  this.center.SufiIO.writeRequest( filename, xmlString, observerKey);
+  this.center.SufiIO.writeRequest( 'files/Tracks', filename, xmlString);
 
   return filename;
 }
