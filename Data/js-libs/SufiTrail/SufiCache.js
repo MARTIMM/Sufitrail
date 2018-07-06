@@ -20,10 +20,8 @@ goog.require('SufiTrail.SufiCacheData');
 */
 SufiTrail.SufiCache = function ( ) {
 
-  // initialize cache data object
-  //SufiTrail.SufiCacheData.call();
-
-  this.cachingThread = null;
+  this.mapDirEntry = null;
+  this.topDirEntry = null;
 }
 
 /** ----------------------------------------------------------------------------
@@ -39,6 +37,32 @@ SufiTrail.SufiCache.prototype.init = function ( center ) {
 
   // call superclass init to initialize the tile data
   goog.base( this, 'init', center);
+
+  var self = this;
+
+  // get directory entry for the map cache
+  self.center.waitUntil(
+    function ( ) {
+
+console.log('init test vars');
+
+      return (
+        !goog.isNull(self.center.SufiIO) &&
+        !goog.isNull(self.center.SufiIO.urls) &&
+        !goog.isNull(self.center.SufiIO.urls["topDirEntry"])
+      );
+    },
+
+    function ( ) {
+      self.topDirEntry = self.center.SufiIO.urls["topDirEntry"];
+      self.center.SufiIO.getDirectoryPath(
+        self.topDirEntry, 'cache/tiles/map',
+        function ( mapDirEntry ) {
+          self.mapDirEntry = mapDirEntry;
+        }
+      );
+    }
+  );
 
   // subscribe to on/offline of network
   this.center.observers.subscribe( 'networkState', this, 'network');
@@ -56,27 +80,17 @@ console.log('Network state: ' + state);
   if ( state === 'wifi' ) {
     self.center.waitUntil(
       function ( ) {
-
-        console.log(
-          'SufiIO defined: ' + typeof self.center.SufiIO
-        );
+console.log('network test vars');
 
         return (
           !goog.isNull(self.center.SufiIO) &&
-          !goog.isNull(self.center.SufiIO.urls) &&
-          !goog.isNull(self.center.SufiIO.urls["topDirEntry"]) &&
-          !goog.isNull(self.tileCacheInfo)
+          !goog.isNull(self.tileCacheInfo) &&
+          !goog.isNull(self.mapDirEntry)
         );
       },
 
       function ( ) {
-        // run this one in the background
-        self.cachingThread = new Promise(
-          function ( resolve, reject ) {
-            self.startCaching();
-            resolve(true);
-          }
-        );
+        self.startCaching();
       },
 
       // check every 200 ms for a max of 2 sec
@@ -92,47 +106,37 @@ SufiTrail.SufiCache.prototype.startCaching = function ( ) {
 
 //TODO timeout if there is no or slow input
   // start caching
-/*
-  console.log('class: ' + ({}).toString.call(this.center));
-  console.log('class: ' + ({}).toString.call(this.center.SufiIO));
-  console.log('SufiIO defined: ' + this.center.SufiIO);
-*/
+
   var self = this;
 
   var SufiIO = this.center.SufiIO;
-  var topDirEntry = SufiIO.urls["topDirEntry"];
 
-  SufiIO.getDirectoryPath(
-    topDirEntry, 'cache/tiles/map', null,
+//      for ( var z in self.tileCacheInfo ) {
+  for ( var z=0; z<6; z++ ) {
+    if ( !goog.isNull(self.tileCacheInfo[z]) ) {
+console.log("zoom level: z=" + z);
 
-    function ( mapDirEntry ) {
-console.log("MDE doe er wat mee: " + mapDirEntry.fullPath);
-      for ( var z in self.tileCacheInfo ) {
-        if ( goog.isDefAndNotNull(self.tileCacheInfo[z]) ) {
-console.log("TCI: z=" + z + ', ' + ({}).toString.call(self.tileCacheInfo[z]));
-
-          for ( var x in self.tileCacheInfo[z] ) {
-            var yValues = self.tileCacheInfo[z][x];
+      for ( var x in self.tileCacheInfo[z] ) {
+        SufiIO.getDirectoryPath(
+          self.mapDirEntry,
+          [ z.toString(), x.toString()],
+          function ( tileDirEntry, object ) {
+            var yValues = object.tileCacheInfo[z][x];
+console.log("YV: " + yValues.join(','));
             for ( var y = 0; y < yValues.length; y++) {
-              SufiIO.getDirectoryPath(
-                mapDirEntry,
-                parseInt(z) + '/' + parseInt(x),
-                null,
-                function ( tileDirEntry ) {
-                  var filename = parseInt(y) + '.png';
+              var filename = yValues[y].toString() + '.png';
 console.log(
-  "tile dir: " + tileDirEntry.fullPath + '/' + filename
+"tile dir: " + tileDirEntry.fullPath + '/' + filename
 );
-                  //SufiIO.writeRequest( filename, content, null);
-                }
-              );
+              //SufiIO.writeRequest( filename, content, null);
             } // for y
-          }   // for x
-        }     // if
-        else {
-console.log('Skip zoom level ' + parseInt(z));
-        }
-      }       // for z
-    }         // function
-  );          // getDirectoryPath
+          },  // function getYTiles
+          self
+        );
+      }       // for x
+    }         // if
+    else {
+console.log('Skip zoom level ' + z.toString());
+    }
+  }           // for z
 }

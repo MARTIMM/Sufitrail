@@ -75,13 +75,13 @@ console.log('top: ' + topDirEntry.isDirectory);
 console.log('top: ' + topDirEntry.name);
 /*
       self.getDirectoryPath(
-        topDirEntry, 'files/Tracks', 'tracksDirEntry', null
+        topDirEntry, 'files/Tracks', 'tracksDirEntry'
       )
       self.getDirectoryPath(
-        topDirEntry, 'cache/Tiles', 'tileDirEntry', null
+        topDirEntry, 'cache/Tiles', 'tileDirEntry'
       )
       self.getDirectoryPath(
-        topDirEntry, 'cache/Features', 'featureDirEntry', null
+        topDirEntry, 'cache/Features', 'featureDirEntry'
       )
 */
     },
@@ -96,29 +96,38 @@ console.log('top: ' + topDirEntry.name);
   @param {DirectoryEntry} dirEntry directory object
   @param {string} dirName Directory name
   @param {string || function} entryStore Location in this object to store dirEntry
-  @param {null || string || function} continueHandlerName a handler in this object
+  @param {null || string || function} handler a handler in this object
 */
 SufiTrail.SufiIO.prototype.getDirectory = function (
-  dirEntry, dirname, entryStore, continueHandlerName
+  //dirEntry, dirname, entryStore, handler, object
+  dirEntry, dirname, handler, object
 ) {
 
   var self = this;
 console.log('GD Attr: ' + dirEntry.fullPath + ', ' + dirname);
+console.log('GD Object: ' + object);
 
   dirEntry.getDirectory(
     dirname, { create: true },
     function ( subDirEntry ) {
+/*
       if( goog.isString(entryStore) ) {
         self.urls[entryStore] = subDirEntry;
 console.log('Create dir path: ' + self.urls[entryStore].fullPath);
       } else if( goog.isFunction(entryStore) ) {
         entryStore(subDirEntry);
       }
+*/
+      if( goog.isString(handler) ) {
+        self[handler](subDirEntry);
+      } else if( goog.isFunction(handler) ) {
+        if ( goog.isNull(object) ) {
+          handler(subDirEntry);
+        }
 
-      if( goog.isString(continueHandlerName) ) {
-        self[continueHandlerName](subDirEntry);
-      } else if( goog.isFunction(continueHandlerName) ) {
-        continueHandlerName(subDirEntry);
+        else {
+          handler( subDirEntry, object);
+        }
       }
     },
     function ( e ) { self.onErrorGetDir(e); }
@@ -130,56 +139,78 @@ console.log('Create dir path: ' + self.urls[entryStore].fullPath);
   @public
   @param {DirectoryEntry} dirEntry directory object
   @param {string} dirPath path of directories
-  @param {string || function} finalEntryStore Location in this object to store dirEntry
-  @param {null || string || function} continueHandlerName a handler in this object
+  //@ param {string || function} finalEntryStore Location in this object to store dirEntry
+  @param {null || string || function} handler a handler in this object
 */
 SufiTrail.SufiIO.prototype.getDirectoryPath = function (
-  dirEntry, dirpath, finalEntryStore, continueHandlerName
+  dirEntry, dirpath, handler, object
+  //dirEntry, dirpath, finalEntryStore, handler
 ) {
 
   var self = this;
+  var parts = null;
 
   // assume relative path, then test for starting '/' character to see
   // if its absolute after all.
   var rootpath = false;
-  var rgx = new RegExp(/^ \//);
-  if ( rgx.exec(dirpath) ) {
-    rootpath = true;
+
+  if ( goog.isString(dirpath) ) {
+    var rgx = new RegExp(/^ \//);
+    if ( rgx.exec(dirpath) ) {
+      rootpath = true;
+    }
+
+    // replace first '/' if any
+    dirpath = dirpath.replace( rgx, '');
+
+    // split on any other '/' in the path and get first part
+    parts = dirpath.split('/');
   }
 
-  // replace first '/' if any
-  dirpath = dirpath.replace( rgx, '');
+  // parts of dir path already delivered
+  else if ( goog.isArray(dirpath) ) {
+    parts = dirpath;
+  }
 
-  // split on any other '/' in the path and get first part
-  var parts = dirpath.split('/');
+console.log("Parts: " + parts.join(','));
   var firstPart = parts.shift();
 
   // create directory from firstPart on dirEntry
   self.getDirectory(
-    dirEntry, firstPart, finalEntryStore,
+    dirEntry, firstPart,
+    //dirEntry, firstPart, null,
     function ( subDirEntry ) {
       if ( parts.length > 0 ) {
         // when there are parts left, recursive call with a part less
         self.getDirectoryPath(
-          subDirEntry, parts.join('/'), finalEntryStore, continueHandlerName
+          subDirEntry, parts, handler, object
+          //subDirEntry, parts, finalEntryStore, handler
         );
       }
 
       else {
+/*
         if( goog.isString(finalEntryStore) ) {
           self.urls[finalEntryStore] = subDirEntry;
 console.log('Create dir path: ' + self.urls[finalEntryStore].fullPath);
         } else if( goog.isFunction(finalEntryStore) ) {
           finalEntryStore(subDirEntry);
         }
+*/
+        if( goog.isString(handler) ) {
+          self[handler](subDirEntry);
+        } else if( goog.isFunction(handler) ) {
+          if ( goog.isNull(object) ) {
+            handler(subDirEntry);
+          }
 
-        if( goog.isString(continueHandlerName) ) {
-          self[continueHandlerName](subDirEntry);
-        } else if( goog.isFunction(continueHandlerName) ) {
-          continueHandlerName(subDirEntry);
+          else {
+            handler( subDirEntry, object);
+          }
         }
       }
-    }
+    },
+    object
   );
 }
 
@@ -191,7 +222,7 @@ SufiTrail.SufiIO.prototype.writeRequest = function (
   var self = this;
 
   self.getDirectoryPath(
-    topDirEntry, path, null,
+    topDirEntry, path,
     function ( tracksDirEntry ) {
       tracksDirEntry.getFile(
         filename,
