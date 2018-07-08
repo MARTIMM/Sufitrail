@@ -83,21 +83,19 @@ console.log('top: ' + topDirEntry.name);
   @public
   @param {DirectoryEntry} dirEntry directory object
   @param {string} dirName Directory name
-  //@ param {string || function} entryStore Location in this object to store dirEntry
   @param {null || string || function} handler a handler in this object
 */
 SufiTrail.SufiIO.prototype.getDirectory = function (
-  //dirEntry, dirname, entryStore, handler, object
   dirEntry, dirname, object, handler, args
 ) {
 
+  // make sure that null becomes an array
   if ( goog.isNull(args) ) {
     args = [];
   }
 
   var self = this;
-console.log('GD Attr: ' + dirEntry.fullPath + ', ' + dirname);
-console.log("O1: " + goog.isDefAndNotNull(object));
+//console.log('GD Attr: ' + dirEntry.fullPath + ', ' + dirname);
 
   dirEntry.getDirectory(
     dirname, { create: true },
@@ -113,21 +111,16 @@ console.log("O1: " + goog.isDefAndNotNull(object));
   @public
   @param {DirectoryEntry} dirEntry directory object
   @param {string} dirPath path of directories
-  //@ param {string || function} finalEntryStore Location in this object to store dirEntry
   @param {null || string || function} handler a handler in this object
 */
 SufiTrail.SufiIO.prototype.getDirectoryPath = function (
   dirEntry, dirpath, object, handler, args
-  //dirEntry, dirpath, finalEntryStore, handler
 ) {
 
+  // make sure that null becomes an array
   if ( goog.isNull(args) ) {
     args = [];
   }
-
-console.log(
-  "O4: " + goog.isDefAndNotNull(object) + ', ' + goog.isDefAndNotNull(args)
-);
 
   var self = this;
   var parts = null;
@@ -154,58 +147,19 @@ console.log(
     parts = dirpath;
   }
 
-console.log("Parts: " + parts.join(','));
   var firstPart = parts.shift();
 
   // create directory from firstPart on dirEntry
   self.getDirectory(
-    //dirEntry, firstPart,
     dirEntry, firstPart, null,
     function ( subDirEntry ) {
       if ( parts.length > 0 ) {
         // when there are parts left, recursive call with a part less
-        self.getDirectoryPath(
-          subDirEntry, parts, object, handler, args
-          //subDirEntry, parts, finalEntryStore, handler
-        );
+        self.getDirectoryPath( subDirEntry, parts, object, handler, args);
       }
 
       else {
-/*
-        if( goog.isString(finalEntryStore) ) {
-          self.urls[finalEntryStore] = subDirEntry;
-console.log('Create dir path: ' + self.urls[finalEntryStore].fullPath);
-        } else if( goog.isFunction(finalEntryStore) ) {
-          finalEntryStore(subDirEntry);
-        }
-*/
         self.center.runHandler( object, handler, [ subDirEntry, ...args]);
-/*
-        if( goog.isString(handler) ) {
-          if ( goog.isDefAndNotNull(object) ) {
-console.log(
-  "O5: " + goog.isDefAndNotNull(object) + ', ' + goog.isDefAndNotNull(args)
-);
-            object[handler]( subDirEntry, args);
-          }
-
-          else {
-            self[handler]( subDirEntry, args);
-          }
-
-        } else if( goog.isFunction(handler) ) {
-          if ( goog.isDefAndNotNull(object) ) {
-console.log(
-  "O6: " + goog.isDefAndNotNull(object) + ', ' + goog.isDefAndNotNull(args)
-);
-            object.handler( subDirEntry, args);
-          }
-
-          else {
-            handler( subDirEntry, args);
-          }
-        }
-*/
       }
     },
     null

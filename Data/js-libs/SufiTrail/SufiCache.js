@@ -111,7 +111,7 @@ SufiTrail.SufiCache.prototype.startCaching = function ( ) {
 
   var SufiIO = this.center.SufiIO;
 
-//      for ( var z in self.tileCacheInfo ) {
+//  for ( var z in self.tileCacheInfo ) {
   for ( var z=0; z<6; z++ ) {
     if ( !goog.isNull(self.tileCacheInfo[z]) ) {
 console.log("zoom level: z=" + z);
@@ -124,9 +124,9 @@ console.log("zoom level: z=" + z);
           'getTile',
           [ z, x]
         );
-      }       // for x
-    }         // if
-  }           // for z
+      } // for x
+    }   // if
+  }     // for z
 }
 
 /** ----------------------------------------------------------------------------
@@ -138,5 +138,5 @@ SufiTrail.SufiCache.prototype.getTile = function ( tileDirEntry, z, x ) {
     var filename = yValues[y].toString() + '.png';
 console.log( "tile dir: " + tileDirEntry.fullPath + filename);
     //SufiIO.writeRequest( filename, content, null);
-  } // for y
+  }
 }

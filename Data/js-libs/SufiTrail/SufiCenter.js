@@ -164,8 +164,9 @@ console.log( "K: " + k + ', ' + this.htmlIdList[k]);
   parent.removeChild(this.htmlIdList["splashScreen"]);
 }
 
-// ---------------------------------------------------------------------------
-// See also https://www.w3.org/TR/geolocation-API/
+/** ----------------------------------------------------------------------------
+  See also https://www.w3.org/TR/geolocation-API/
+*/
 SufiTrail.SufiCenter.prototype.watchGPS = function ( ) {
 
   var self = this;
@@ -192,8 +193,9 @@ console.log('locator error: ' + error.code + ', ' + error.message);
   );
 }
 
-// ---------------------------------------------------------------------------
-// make series of tracks clickable
+/** ----------------------------------------------------------------------------
+  Make series of tracks clickable
+*/
 SufiTrail.SufiCenter.prototype.setTrackEvents = function ( ) {
 
   var self = this;
@@ -234,7 +236,8 @@ console.log('load info from ' + trackInfo);
   }
 }
 
-//----------------------------------------------------------------------------
+/** ----------------------------------------------------------------------------
+*/
 SufiTrail.SufiCenter.prototype.activateButtons = function ( ) {
 
   var self = this;
@@ -261,7 +264,8 @@ SufiTrail.SufiCenter.prototype.activateButtons = function ( ) {
   );
 }
 
-//----------------------------------------------------------------------------
+/** ----------------------------------------------------------------------------
+*/
 SufiTrail.SufiCenter.prototype.doExitApp = function ( ) {
 
   navigator.geolocation.clearWatch(this.watchId);
@@ -325,13 +329,13 @@ SufiTrail.SufiCenter.prototype.waitUntil = function (
   }
 }
 
-//----------------------------------------------------------------------------
+/** ----------------------------------------------------------------------------
+*/
 SufiTrail.SufiCenter.prototype.runHandler = function (
   object, handler, args
 ) {
 
   if( goog.isString(handler) ) {
-console.log("RH1: " + goog.isDefAndNotNull(object));
     if ( goog.isDefAndNotNull(object) ) {
       object[handler](...args);
     }
@@ -341,7 +345,6 @@ console.log("RH1: " + goog.isDefAndNotNull(object));
     }
 
   } else if( goog.isFunction(handler) ) {
-console.log("RH2: " + goog.isDefAndNotNull(object));
     if ( goog.isDefAndNotNull(object) ) {
       object.handler(...args);
     }
