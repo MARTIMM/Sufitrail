@@ -56,10 +56,11 @@ console.log('init test vars');
     function ( ) {
       self.topDirEntry = self.center.SufiIO.urls["topDirEntry"];
       self.center.SufiIO.getDirectoryPath(
-        self.topDirEntry, 'cache/tiles/map',
+        self.topDirEntry, 'cache/tiles/map', null,
         function ( mapDirEntry ) {
           self.mapDirEntry = mapDirEntry;
-        }
+        },
+        null
       );
     }
   );
@@ -94,13 +95,12 @@ console.log('network test vars');
       },
 
       // check every 200 ms for a max of 2 sec
-      200, 2000
+      200, 3000
     );
   }
 }
 
 /** ----------------------------------------------------------------------------
-  @private
 */
 SufiTrail.SufiCache.prototype.startCaching = function ( ) {
 
@@ -120,23 +120,23 @@ console.log("zoom level: z=" + z);
         SufiIO.getDirectoryPath(
           self.mapDirEntry,
           [ z.toString(), x.toString()],
-          function ( tileDirEntry, object ) {
-            var yValues = object.tileCacheInfo[z][x];
-console.log("YV: " + yValues.join(','));
-            for ( var y = 0; y < yValues.length; y++) {
-              var filename = yValues[y].toString() + '.png';
-console.log(
-"tile dir: " + tileDirEntry.fullPath + '/' + filename
-);
-              //SufiIO.writeRequest( filename, content, null);
-            } // for y
-          },  // function getYTiles
-          self
+          self,
+          'getTile',
+          [ z, x]
         );
       }       // for x
     }         // if
-    else {
-console.log('Skip zoom level ' + z.toString());
-    }
   }           // for z
+}
+
+/** ----------------------------------------------------------------------------
+*/
+SufiTrail.SufiCache.prototype.getTile = function ( tileDirEntry, z, x ) {
+
+  var yValues = this.tileCacheInfo[z][x];
+  for ( var y = 0; y < yValues.length; y++) {
+    var filename = yValues[y].toString() + '.png';
+console.log( "tile dir: " + tileDirEntry.fullPath + filename);
+    //SufiIO.writeRequest( filename, content, null);
+  } // for y
 }
