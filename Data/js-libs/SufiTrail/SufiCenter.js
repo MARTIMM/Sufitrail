@@ -324,3 +324,30 @@ SufiTrail.SufiCenter.prototype.waitUntil = function (
     );
   }
 }
+
+//----------------------------------------------------------------------------
+SufiTrail.SufiCenter.prototype.runHandler = function (
+  object, handler, args
+) {
+
+  if( goog.isString(handler) ) {
+console.log("RH1: " + goog.isDefAndNotNull(object));
+    if ( goog.isDefAndNotNull(object) ) {
+      object[handler](...args);
+    }
+
+    else {
+      self[handler](...args);
+    }
+
+  } else if( goog.isFunction(handler) ) {
+console.log("RH2: " + goog.isDefAndNotNull(object));
+    if ( goog.isDefAndNotNull(object) ) {
+      object.handler(...args);
+    }
+
+    else {
+      handler(...args);
+    }
+  }
+}
