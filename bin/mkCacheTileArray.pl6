@@ -105,6 +105,7 @@ sub generate-sufi-cache ( Hash $h, Int $min-zoom, Int $max-zoom ) {
 
       this.center = center;
 
+    //TODO initialize in thread
       // Tile coordinate data for zoomlevels from $min-zoom to $max-zoom
       // There are $tile-count tile coordinates
       this.tileCacheInfo = {$tile-info-text
