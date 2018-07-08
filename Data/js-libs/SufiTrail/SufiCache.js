@@ -112,7 +112,7 @@ SufiTrail.SufiCache.prototype.startCaching = function ( ) {
   var SufiIO = this.center.SufiIO;
 
 //  for ( var z in self.tileCacheInfo ) {
-  for ( var z=0; z<6; z++ ) {
+  for ( var z=0; z<1; z++ ) {
     if ( !goog.isNull(self.tileCacheInfo[z]) ) {
 console.log("zoom level: z=" + z);
 
@@ -137,6 +137,24 @@ SufiTrail.SufiCache.prototype.getTile = function ( tileDirEntry, z, x ) {
   for ( var y = 0; y < yValues.length; y++) {
     var filename = yValues[y].toString() + '.png';
 console.log( "tile dir: " + tileDirEntry.fullPath + filename);
+
+    var target = 'https://tiles.wmflabs.org/osm-no-labels/'
+        + z + '/' + x '/' + filename;
+
+    var xhReq = new XMLHttpRequest();
+    xhReq.onreadystatechange = function ( ) {
+      // this === xhReq
+      if ( xhReq.readyState == 4 && xhReq.status == 200 ) {
+        var serverResponse = xhReq.responseText;
+      }
+    }
+
+    xhReq.open( "GET", target, true);
+    xhReq.send();
+
     //SufiIO.writeRequest( filename, content, null);
   }
-}
+
+
+/** ----------------------------------------------------------------------------
+*/
