@@ -122,7 +122,7 @@ console.log("zoom level: z=" + z);
           [ z.toString(), x.toString()],
           self,
           'getTile',
-          [ z, x]
+          [ SufiIO, z, x]
         );
       } // for x
     }   // if
@@ -131,30 +131,69 @@ console.log("zoom level: z=" + z);
 
 /** ----------------------------------------------------------------------------
 */
-SufiTrail.SufiCache.prototype.getTile = function ( tileDirEntry, z, x ) {
+SufiTrail.SufiCache.prototype.getTile = function (
+  tileDirEntry, SufiIO, z, x
+) {
 
   var yValues = this.tileCacheInfo[z][x];
   for ( var y = 0; y < yValues.length; y++) {
     var filename = yValues[y].toString() + '.png';
 console.log( "tile dir: " + tileDirEntry.fullPath + filename);
 
-    var target = 'https://tiles.wmflabs.org/osm-no-labels/'
-        + z + '/' + x '/' + filename;
+    var target = 'http://tiles.wmflabs.org/osm-no-labels/'
+        + z + '/' + x + '/' + filename;
+console.log( "target url: " + target);
 
+/* Cannot work because of cross scripting
     var xhReq = new XMLHttpRequest();
     xhReq.onreadystatechange = function ( ) {
       // this === xhReq
       if ( xhReq.readyState == 4 && xhReq.status == 200 ) {
         var serverResponse = xhReq.responseText;
+        SufiIO.writeRequest( filename, serverResponse);
       }
     }
 
     xhReq.open( "GET", target, true);
     xhReq.send();
+*/
+    // See also here ath the leaflet github repo
+    // github.com/Leaflet/Leaflet/blob/master/src/layer/tile/TileLayer.js
+    var tileImage = document.createElement("img");
+    tileImage.addEventListener(
+      'load',
+      function ( ) {
+console.log("Image downloaded");
+        var canvas = document.createElement("canvas");
+        canvas.width = 256;
+        canvas.height = 256;
 
-    //SufiIO.writeRequest( filename, content, null);
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage( this, 0, 0);
+
+        SufiIO.writeFile(
+          tileDirEntry, target, ctx.getImageData( 0, 0, 256, 256)
+        );
+      },
+      false
+    );
+
+    tileImage.addEventListener(
+      'error',
+      function ( e ) {
+console.log("Error downloading image: ", e.message);
+      },
+      false
+    );
+
+    tileImage.setAttribute( 'role', 'presentation');
+    tileImage.setAttribute('crossorigin', 'anonymous');
+    tileImage.alt = '';
+    tileImage.src = target;
+
+
   }
-
+}
 
 /** ----------------------------------------------------------------------------
 */
