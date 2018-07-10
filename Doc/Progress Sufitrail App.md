@@ -88,14 +88,17 @@ There are several events which occur upon changing conditions in a device. These
 
 Caching of data is needed for those moments that there is no network available.
 
-<progress value='0' max='6' />
+<progress value='4' max='6' />
 
-* [ ] At startup and network is on, caching must take place.
-* [ ] Make caching process visible when cache is empty. Otherwise refresh only.
-* [ ] Make a list of tile coordinates needed to cache at several zoom levels. Make estimation of total size.
-* [ ] Generate a cache javascript program and place in SufiTrail namespace. This module must be capable of caching all sorts of data.
-* [ ] Cache features too.
-* [ ] Try to get weather forecast and cache this information too
+* [x] At start up and network is on, caching must start. Caching must be inhibited when network is off or very slow.
+* [ ] Store data to check for revisiting the caching process.
+* Tile caching.
+  * [ ] Make caching process visible.
+  * [x] Make a list of tile coordinates needed to cache at several zoom levels. Make estimation of total size.
+  * [x] The program `mkCacheTileArray.pl6` generates a module in the file `SufiCacheData.js` wherein the information is stored.
+  * [x] Another module in `SufiCache.js` inherits the data and uses it to create the directory tree for the tile images and downloads the tile images into these.
+* Feature caching.
+* Try to get weather forecast and cache this information too.
 
 # What the application must do
 * When starting the program, the app must show a splash screen with the sufitrail emblem on it while the program gets ready in the background. Let the splash screen be shown for at least 5 seconds or longer as needed.
@@ -111,11 +114,13 @@ A series of screen descriptions the application can show.
 * [ ] A widget showing small part of a chart?
 
 ## Splash screen
-<progress value="1" max="2" />
+<progress value="1" max="4" />
 
 A splash screen is always nice to display information in such a way that it makes a connection between the hiking and biking literature published by the Sufi trail group. The other purpose is that the application can start in the background and when it is ready, the splash screen is removed.
 
   * [x] Show a screen with a Sufi trail icon. Keep this displayed until everything is initialized. This provides for a better user experience.
+  * [ ] Show a progress bar.
+  * [ ] Show text displaying the task it is executing
   * [ ] Image must be made complete with some text
 
 ### The Menu
