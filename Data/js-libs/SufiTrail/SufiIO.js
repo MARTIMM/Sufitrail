@@ -174,19 +174,26 @@ SufiTrail.SufiIO.prototype.writeRequest = function (
   var self = this;
 
   self.getDirectoryPath(
-    topDirEntry, path, null,
-    function ( tracksDirEntry ) {
-      tracksDirEntry.getFile(
-        filename,
-        { create: true, exclusive: false },
-        function ( fileEntry ) {
-console.log("full path: " + fileEntry.fullPath);
-          self.writeFileEntry( fileEntry, content);
-        },
-        function ( e ) { self.onErrorCreateFile(e); }
-      );
+    self.urls.topDirEntry, path, null,
+    function ( pathDirEntry ) {
+      self.writeFile( pathDirEntry, filename, content);
     },
     null
+  );
+}
+
+// ---------------------------------------------------------------------------
+SufiTrail.SufiIO.prototype.writeFile = function (
+  pathDirEntry, filename, content
+) {
+  pathDirEntry.getFile(
+    filename,
+    { create: true, exclusive: false },
+    function ( fileEntry ) {
+console.log("full path: " + fileEntry.fullPath);
+      self.writeFileEntry( fileEntry, content);
+    },
+    function ( e ) { self.onErrorCreateFile(e); }
   );
 }
 
