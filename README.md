@@ -4,8 +4,11 @@ This application is used to help hikers to stroll along the trail from Istanbul 
 
 What is stored here is only a part of the project. Everything generated from sources, SDK's and what not, is not available here. Also the app cannot be found here. Later the app can be bought from the store on the web site mentioned above.
 
-## Privacy conciderations
+## Privacy considerations
 The program makes use of the gps device on your tablet or phone to show the location of your position on the map. The program also can store this information on disk to create a track of where you have walked.
+
+# New project
+* A new project is started called HikingCompanion. Its purpose is to be a vehicle for externally installed track apps. This means that this project will become a track container with accompanying data like photos and notes.
 
 # Todo
 This is a list of more or less implemented items which need more attention. The rest is unimplemented or done and ok.
@@ -15,6 +18,7 @@ This is a list of more or less implemented items which need more attention. The 
 * Move menu button on home page a bit lower. It overlaps north-button
 
 * Must find a new way to read/write files. It is very cumbersome to get things done using the File API. It is supported using a cordova plugin. Outside of this plugin, the File API is abandoned by the W3C for whatever reason. So, going back to google closure perhaps, which supports the File API too with a few more tools to handle directories and such. There is also a mention in OpenLayers that it is using it.
+
 
 # Bugs
 ```
