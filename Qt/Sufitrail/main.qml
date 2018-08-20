@@ -1,4 +1,5 @@
 import QtQuick 2.11
+import QtQuick.Controls 2.2
 import QtQuick.Window 2.11
 
 Window {
@@ -27,14 +28,37 @@ Window {
 
     wrapMode: Text.WordWrap
 
-    text: "
-      <h1>The SufiTrail</h1>
+    text: qsTr("
+      <h1> The SufiTrail </h1>
 
-      <p>Welcome to the Sufitrail application. This installed app is not the app showing you
-      the way on your route. This is just a container of the tracks, information and other
+      <p> Welcome to the Sufitrail application. This installed app will not be the app showing you
+      the way on your route. This is just a container of the tracks, maps and other
       information. The app <b>HikingCompanion</b> should start automatically if it is
       installed.
       </p>
-    "
+
+      <p> Below you will find a short overview of what this app contains
+      <ul>
+        <li> 40 tracks comprising the route from Istanbul to Konya</li>
+        <li> Notes at certain points on the track</li>
+        <li> Places to stay and, when connected, make a reservation</li>
+      </ul>
+      </p>
+    ")
+  }
+
+  Button {
+    anchors {
+      right: parent.right
+      bottom: parent.bottom
+
+      rightMargin: 6
+      bottomMargin: 6
+    }
+
+    text: qsTr("Exit application")
+    onClicked: {
+      Qt.quit();
+    }
   }
 }
