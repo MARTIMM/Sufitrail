@@ -1,4 +1,4 @@
-QT += quick
+QT += quick androidextras
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -15,7 +15,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
     shareutils.cpp \
-    platformshareutils.cpp
+    platformshareutils.cpp \
+    androidshareutils.cpp
 
 RESOURCES += qml.qrc trackData.qrc
 
@@ -32,7 +33,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     shareutils.h \
-    platformshareutils.h
+    platformshareutils.h \
+    androidshareutils.h
 
 DISTFILES += \
     android/AndroidManifest.xml \
@@ -41,6 +43,7 @@ DISTFILES += \
     android/res/values/libs.xml \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew.bat
+    android/gradlew.bat \
+    QShareUtils.java
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
