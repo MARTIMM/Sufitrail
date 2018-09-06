@@ -8,7 +8,7 @@ What is stored here is only a part of the project. Everything generated from sou
 The program makes use of the gps device on your tablet or phone to show the location of your position on the map. The program also can store this information on disk to create a track of where you have walked.
 
 # New project
-* A new project is started called HikingCompanion. Its purpose is to be a vehicle for externally installed track apps. This means that this project will become a track container with accompanying data like photos and notes.
+* A new project is started called HikingCompanion. Its purpose is to be a vehicle for externally installed track apps. This means that this project will become a track container with accompanying data like photos and notes. For further information take a look in the Qt/Docs directory.
 
 # Todo
 This is a list of more or less implemented items which need more attention. The rest is unimplemented or done and ok.
