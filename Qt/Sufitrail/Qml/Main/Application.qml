@@ -14,6 +14,7 @@ ApplicationWindow {
   }
 
   property alias shareUtils: shareUtils;
+  property int progressValue: 0
   ShareUtils {
     id: shareUtils
     //objectName: "shareUtils"
@@ -25,8 +26,8 @@ ApplicationWindow {
     }
 
     onReportProgress: {
-      progressBar.value = progressBar.value + 1.0;
-      console.log("progress: " + progressBar.value);
+      progressValue = progressValue + 1.0;
+      console.log("progress: " + progressValue);
     }
 
     onEnableQuitButton: {
@@ -109,7 +110,7 @@ ApplicationWindow {
 
     from: 0.0
     to: 10.0
-    value: 0.0
+    value: progressValue
 
     background: Rectangle {
       //color: "ff8800"

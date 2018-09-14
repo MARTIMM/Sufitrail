@@ -29,6 +29,7 @@ void ShareUtils::share() {
   for ( double progress = 0.0; progress < 10.0; progress += 1.0 ) {
     emit reportProgress();
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+//    qDebug() << "share progress:" << progress;
   }
 
   emit enableQuitButton();
