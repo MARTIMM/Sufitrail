@@ -1,4 +1,4 @@
-QT += quick androidextras
+QT += quick widgets
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -12,11 +12,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += \
-        main.cpp \
+SOURCES += main.cpp \
     shareutils.cpp \
-    platformshareutils.cpp \
-    androidshareutils.cpp
+    platformshareutils.cpp
 
 RESOURCES += qml.qrc trackData.qrc
 
@@ -33,10 +31,17 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     shareutils.h \
-    platformshareutils.h \
-    androidshareutils.h
+    platformshareutils.h
 
-DISTFILES += \
+
+android {
+  QT += androidextras
+
+  HEADERS += androidshareutils.h
+
+  SOURCES += androidshareutils.cpp
+
+  DISTFILES += \
     android/AndroidManifest.xml \
     android/gradle/wrapper/gradle-wrapper.jar \
     android/gradlew \
@@ -44,6 +49,7 @@ DISTFILES += \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew.bat \
-    QShareUtils.java
+    android/src/utils/QShareUtils.java
 
-ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+  ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+}
