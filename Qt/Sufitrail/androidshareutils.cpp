@@ -4,22 +4,23 @@
 #include <QtAndroidExtras>
 
 // ----------------------------------------------------------------------------
-AndroidShareUtils::AndroidShareUtils() {
-
-}
+AndroidShareUtils::AndroidShareUtils() { }
 
 // ----------------------------------------------------------------------------
-void AndroidShareUtils::share(const QString &text, const QUrl &url)
-{
+void AndroidShareUtils::shareImpl(const QString text, const QUrl url) {
+
   QAndroidJniObject jsText = QAndroidJniObject::fromString(text);
   QAndroidJniObject jsUrl = QAndroidJniObject::fromString(url.toString());
-  jboolean ok = QAndroidJniObject::callStaticMethod(
-        "org/ekkescorner/utils/QShareUtils",
-        "share",
-        "(Ljava/lang/String;Ljava/lang/String;)Z", // java args description
-        jsText.object(),
-        jsUrl.object()
+
+  jboolean ok = QAndroidJniObject::callStaticMethod<jboolean>(
+        // place to find java file and method
+        "utils/QShareUtils", "share",
+        // java args description
+        "(Ljava/lang/String;Ljava/lang/String;)Z",
+        // arguments
+        jsText.object(), jsUrl.object()
         );
+
   if(!ok) {
     emit shareNoAppAvailable();
   }

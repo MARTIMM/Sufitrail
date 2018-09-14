@@ -2,6 +2,7 @@
 #define PLATFORMSHAREUTILS_H
 
 #include <QObject>
+#include <QUrl>
 
 // ----------------------------------------------------------------------------
 class PlatformShareUtils : public QObject {
@@ -9,7 +10,7 @@ class PlatformShareUtils : public QObject {
 public:
   explicit PlatformShareUtils(QObject *parent = nullptr);
 
-  void share( const QString &text, const QUrl &url);
+  Q_INVOKABLE void shareImpl( const QString text, const QUrl url);
 
 signals:
 

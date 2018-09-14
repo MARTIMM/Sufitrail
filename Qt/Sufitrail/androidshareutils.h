@@ -2,6 +2,7 @@
 #define ANDROIDSHAREUTILS_H
 
 #include <QObject>
+#include <QUrl>
 
 
 // ----------------------------------------------------------------------------
@@ -9,7 +10,7 @@ class AndroidShareUtils {
 public:
   AndroidShareUtils();
 
-  void share(const QString &text, const QUrl &url);
+  Q_INVOKABLE void shareImpl(const QString text, const QUrl url);
 
 signals:
   void shareNoAppAvailable();

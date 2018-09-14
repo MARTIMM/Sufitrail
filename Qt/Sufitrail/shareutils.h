@@ -1,48 +1,42 @@
-// (c) 2017 Ekkehard Gentz (ekke)
-// this project is based on ideas from
-// http://blog.lasconic.com/share-on-ios-and-android-using-qml/
-// see github project https://github.com/lasconic/ShareUtils-QML
-// also inspired by:
-// https://www.androidcode.ninja/android-share-intent-example/
-// https://www.calligra.org/blogs/sharing-with-qt-on-android/
-// https://stackoverflow.com/questions/7156932/open-file-in-another-app
-// http://www.qtcentre.org/threads/58668-How-to-use-QAndroidJniObject-for-intent-setData
-// see also /COPYRIGHT and /LICENSE
-
-// (c) 2017 Ekkehard Gentz (ekke) @ekkescorner
-// my blog about Qt for mobile: http://j.mp/qt-x
-// see also /COPYRIGHT and /LICENSE
-//
 #ifndef SHAREUTILS_H
 #define SHAREUTILS_H
 
-#if defined(Q_OS_IOS)
-//  #include "iosshareutils.h"
-#elif defined(Q_OS_ANDROID)
+#if defined(Q_OS_ANDROID)
   #include "androidshareutils.h"
+#elif defined(Q_OS_IOS)
+//  #include "iosshareutils.h"
 #else
   #include "platformshareutils.h"
 #endif
 
 #include <QObject>
-#include <QDebug>
-
+#include <QQuickItem>
+#include <QProgressBar>
+#include <QPushButton>
 
 // ----------------------------------------------------------------------------
 class ShareUtils : public QObject {
+
   Q_OBJECT
+
 public:
   explicit ShareUtils(QObject *parent = nullptr);
 
-  Q_INVOKABLE void Share( const QString &text, const QUrl &url);
+  Q_INVOKABLE void share();
 
 signals:
+  void setupProgress();
+  void reportProgress();
+  void enableQuitButton();
 
 public slots:
 
 private:
+  void _transportDataToPublicLocation();
 
   PlatformShareUtils *_platformShareUtils;
+  QProgressBar *_progressBar;
+  QPushButton *_quitButton;
 };
 
 #endif // SHAREUTILS_H
