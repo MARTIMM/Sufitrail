@@ -15,19 +15,39 @@
 #include <QPushButton>
 
 // ----------------------------------------------------------------------------
-class ShareUtils : public QObject {
+class ShareInterface : public QObject {
 
   Q_OBJECT
 
 public:
-  explicit ShareUtils(QObject *parent = nullptr);
+  explicit ShareInterface(QObject *parent = nullptr);
 
   Q_INVOKABLE void share();
 
 signals:
-  void setupProgress();
-  void reportProgress();
-  void enableQuitButton();
+
+public slots:
+  //void connectHikerCompanion();
+
+private:
+  //static void _workThread();
+  //void _transportDataToPublicLocation();
+
+  //PlatformShareUtils *_platformShareUtils;
+  //QProgressBar *_progressBar;
+  //QPushButton *_quitButton;
+};
+
+
+// ----------------------------------------------------------------------------
+class Worker : public QObject {
+
+  Q_OBJECT
+
+public:
+  explicit Worker(QObject *parent = nullptr);
+
+  bool work();
 
 public slots:
 
@@ -38,5 +58,4 @@ private:
   QProgressBar *_progressBar;
   QPushButton *_quitButton;
 };
-
 #endif // SHAREUTILS_H
