@@ -1,4 +1,4 @@
-import io.github.martimm.SufiTrail.ShareUtils 0.1
+import io.github.martimm.SufiTrail.ShareInterface 0.1
 
 import QtQuick 2.11
 import QtQuick.Controls 2.4
@@ -8,37 +8,23 @@ ApplicationWindow {
   id: dataContainerWindow
   objectName: "dataContainerWindow"
 
+  // On desktop the active property is set when mouse hoovers over the app
+  // So we must set another property to check if share() called before to
+  // prevent repetition.
+  property bool shared: false
   onActiveChanged: {
     console.log("active");
-    shareUtils.share();
-  }
-
-  property alias shareUtils: shareUtils;
-  property int progressValue: 0
-  ShareUtils {
-    id: shareUtils
-    //objectName: "shareUtils"
-
-    onSetupProgress: {
-      console.log("setup progress bar");
-      //progressBar.from = from;
-      //progressBar.to = to;
-    }
-
-    onReportProgress: {
-      progressValue = progressValue + 1.0;
-      console.log("progress: " + progressValue);
-    }
-
-    onEnableQuitButton: {
-      quitButton.enabled = true;
+    if ( !shared ) {
+      shareInterface.share();
+      shared = true;
     }
   }
-/*
-  Component.onCompleted: {
-    shareUtils.share();
+
+//  property alias shareUtils: shareUtils
+  ShareInterface {
+    id: shareInterface
   }
-*/
+
   visible: true
 
   // Sizes are not important because on mobile devices it always scales
@@ -79,11 +65,11 @@ ApplicationWindow {
       should start automatically if it is installed.
       </p>
 
-      <p> Below you will find a short overview of what this app contains
+      <p> This data container app contains
       <ul>
         <li> 40 tracks comprising the route from Istanbul to Konya</li>
-        <li> Notes at certain points on the track</li>
-        <li> Places to stay and, when connected, make a reservation</li>
+        <li> Notes of interesting points on the track</li>
+        <li> Photo's of interesting places</li>
       </ul>
       </p>
       </br></br></br>
@@ -93,11 +79,15 @@ ApplicationWindow {
     ")
   }
 
-  property alias progressBar: progressBar
+  property int progressFrom: 0.0
+  property int progressTo: 0.0
+  property int progressValue: 0.0
+//  property alias progressBar: progressBar
   ProgressBar {
     id: progressBar
     //objectName: "progressBar"
 
+    width: parent.width
     height: 10
 
     anchors {
@@ -108,8 +98,8 @@ ApplicationWindow {
       rightMargin: 12
     }
 
-    from: 0.0
-    to: 10.0
+    from: progressFrom
+    to: progressTo
     value: progressValue
 
     background: Rectangle {
@@ -124,6 +114,23 @@ ApplicationWindow {
     }
   }
 
+  property string progressText
+  Text {
+    width: parent.width
+    height: 10
+
+    anchors {
+      top: progressBar.bottom
+      left: parent.left
+      leftMargin: 12
+      right: parent.right
+      rightMargin: 12
+    }
+
+    text: progressText
+  }
+
+  property bool quitButtonOn: false
   Button {
     id: quitButton
     //objectName: "quitButton"
@@ -136,7 +143,7 @@ ApplicationWindow {
       bottomMargin: 12
     }
 
-    enabled: false
+    enabled: quitButtonOn
     text: qsTr("Exit application")
     onClicked: {
       Qt.quit();

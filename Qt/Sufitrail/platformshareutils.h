@@ -2,7 +2,6 @@
 #define PLATFORMSHAREUTILS_H
 
 #include <QObject>
-#include <QUrl>
 
 // ----------------------------------------------------------------------------
 class PlatformShareUtils : public QObject {
@@ -10,11 +9,12 @@ class PlatformShareUtils : public QObject {
 public:
   explicit PlatformShareUtils(QObject *parent = nullptr);
 
-  Q_INVOKABLE void shareImpl( const QString text, const QUrl url);
+  Q_INVOKABLE void shareImpl( const QString text, const QString url);
 
 signals:
 
 public slots:
+//  void started();
 
 private:
 };

@@ -1,4 +1,4 @@
-#include "shareutils.h"
+#include "shareinterface.h"
 
 #include <QApplication>
 #include <QQmlApplicationEngine>
@@ -22,8 +22,8 @@ int main( int argc, char *argv[]) {
 
   QApplication app( argc, argv);
 
-  qmlRegisterType<ShareUtils>(
-        "io.github.martimm.SufiTrail.ShareUtils", 0, 1, "ShareUtils"
+  qmlRegisterType<ShareInterface>(
+        "io.github.martimm.SufiTrail.ShareInterface", 0, 1, "ShareInterface"
         );
 
   applicationEngine = new QQmlApplicationEngine();
