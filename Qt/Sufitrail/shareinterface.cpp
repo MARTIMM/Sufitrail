@@ -84,13 +84,15 @@ bool Worker::work() {
           "progressText",
           QString("progress ") + QString::number(progress)
           );
-    std::this_thread::sleep_for(std::chrono::milliseconds(800));
+    std::this_thread::sleep_for(std::chrono::milliseconds(600));
   }
 
   ro->setProperty( "progressText", "Start HikingCompanion");
   _platformShareUtils->shareImpl("/home/marcel");
 
-  ro->setProperty( "progressText", "Finished setup");
+  ro->setProperty( "progressText", "Cleanup");
+  ro->setProperty( "progressText", "Finished");
+
   ro->setProperty( "quitButtonOn", true);
 
   return true;
