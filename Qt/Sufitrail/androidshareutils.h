@@ -8,7 +8,7 @@ class AndroidShareUtils {
 public:
   AndroidShareUtils();
 
-  Q_INVOKABLE void shareImpl(const QString text, const QString url);
+  Q_INVOKABLE void shareImpl(const QString url);
 
 signals:
   void shareNoAppAvailable();
