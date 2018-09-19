@@ -1,0 +1,57 @@
+<RCC>
+    <qresource prefix="/">
+        <file>HikeData/hike.conf</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>HikeData/Features</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>HikeData/Notes</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>HikeData/Photos</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track01.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track02.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track03.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track04.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track05.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track06.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track07.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track08.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track09.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track10.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track11.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track12.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track13.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track14.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track15.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track16.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track17.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track18.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track19.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track20.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track21.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track22.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track23.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track24.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track25.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track26.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track27.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track28.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track29.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track30.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track31.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track32.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track33.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track34.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track35.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track36.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track37.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track38.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track39.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track40.gpx</file>
+        <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track41.gpx</file>
+    </qresource>
+</RCC>
