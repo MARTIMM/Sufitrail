@@ -1,5 +1,6 @@
 #include "androidshareutils.h"
 
+#include <QDebug>
 #include <QtAndroid>
 #include <QtAndroidExtras>
 
@@ -13,7 +14,7 @@ void AndroidShareUtils::shareImpl(const QString url) {
 
   jboolean ok = QAndroidJniObject::callStaticMethod<jboolean>(
         // place to find java file and method
-        "utils/QShareUtils", "share",
+        "utils/AndroidShareUtils", "share",
         // java args description
         "(Ljava/lang/String;)Z",
         // arguments
@@ -21,6 +22,6 @@ void AndroidShareUtils::shareImpl(const QString url) {
         );
 
   if(!ok) {
-    emit shareNoAppAvailable();
+    qDebug() << "JNI Object not available";
   }
 }
