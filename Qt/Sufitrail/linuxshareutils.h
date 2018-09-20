@@ -1,17 +1,17 @@
-#ifndef ANDROIDSHAREUTILS_H
-#define ANDROIDSHAREUTILS_H
+#ifndef LINUXSHAREUTILS_H
+#define LINUXSHAREUTILS_H
 
 #include "worker.h"
 
 #include <QObject>
 
 // ----------------------------------------------------------------------------
-class AndroidShareUtils : public Worker {
+class LinuxShareUtils : public Worker {
 
   Q_OBJECT
 
 public:
-  explicit AndroidShareUtils();
+  explicit LinuxShareUtils();
 
   void shareImpl(const QString url);
 
@@ -23,4 +23,4 @@ private:
 
 };
 
-#endif // ANDROIDSHAREUTILS_H
+#endif // LINUXSHAREUTILS_H

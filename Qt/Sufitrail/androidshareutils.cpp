@@ -5,7 +5,8 @@
 #include <QtAndroidExtras>
 
 // ----------------------------------------------------------------------------
-AndroidShareUtils::AndroidShareUtils() { }
+AndroidShareUtils::AndroidShareUtils() : Worker() {
+}
 
 // ----------------------------------------------------------------------------
 void AndroidShareUtils::shareImpl(const QString url) {
