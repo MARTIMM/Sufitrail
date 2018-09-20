@@ -14,11 +14,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
     shareinterface.h \
-    platformshareutils.h
+    worker.h \
+    linuxshareutils.h
 
 SOURCES += main.cpp \
     shareinterface.cpp \
-    platformshareutils.cpp
+    worker.cpp \
+    linuxshareutils.cpp
 
 RESOURCES += qml.qrc hikeData.qrc
 

@@ -8,30 +8,16 @@ ApplicationWindow {
   id: dataContainerWindow
   objectName: "dataContainerWindow"
 
-  // On desktop the active property is set when mouse hoovers over the app
-  // So we must set another property to check if share() called before to
-  // prevent repetition.
-  property bool shared: false
-  onActiveChanged: {
-    console.log("active");
-    if ( !shared ) {
-      shareInterface.share();
-      shared = true;
-    }
-  }
+  ShareInterface { id: shareInterface }
 
-//  property alias shareUtils: shareUtils
-  ShareInterface {
-    id: shareInterface
-  }
-
-  visible: true
 
   // Sizes are not important because on mobile devices it always scales
   // to the screen width and height. For desktop I use a scaled
   // Samsung tablet size (2048 x 1536 of Samsung Galaxy Tab S2).
   width: 600
   height: 450
+
+  visible: true
 
   title: qsTr("Sufitrail Data")
 
@@ -40,7 +26,6 @@ ApplicationWindow {
     width: parent.width
 
     anchors {
-      //fill: parent
       top: parent.top
       topMargin: 6
       left: parent.left
@@ -82,10 +67,8 @@ ApplicationWindow {
   property int progressFrom: 0.0
   property int progressTo: 0.0
   property int progressValue: 0.0
-//  property alias progressBar: progressBar
   ProgressBar {
     id: progressBar
-    //objectName: "progressBar"
 
     width: parent.width
     height: 10
@@ -103,14 +86,10 @@ ApplicationWindow {
     value: progressValue
 
     background: Rectangle {
-      //color: "ff8800"
+      color: "lightsteelblue"
       border.color: "steelblue"
       border.width: 1
       radius: 3
-      //implicitWidth: 200
-      //implicitHeight: 24
-
-      color: "lightsteelblue"
     }
   }
 
@@ -133,7 +112,6 @@ ApplicationWindow {
   property bool quitButtonOn: false
   Button {
     id: quitButton
-    //objectName: "quitButton"
 
     anchors {
       right: parent.right
@@ -147,6 +125,23 @@ ApplicationWindow {
     text: qsTr("Exit application")
     onClicked: {
       Qt.quit();
+    }
+  }
+
+  Button {
+    id: installButton
+
+    anchors {
+      right: quitButton.left
+      bottom: parent.bottom
+
+      rightMargin: 6
+      bottomMargin: 12
+    }
+
+    text: qsTr("Install hike data")
+    onClicked: {
+      shareInterface.share();
     }
   }
 }

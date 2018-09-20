@@ -28,7 +28,9 @@ int main( int argc, char *argv[]) {
 
   applicationEngine = new QQmlApplicationEngine();
   applicationEngine->load(QUrl(QStringLiteral("qrc:/Qml/Main/Application.qml")));
+qDebug() << "AE:" << applicationEngine->rootObjects();
   if ( applicationEngine->rootObjects().isEmpty() ) return -1;
+
 
 QObject *ro = applicationEngine->rootObjects().first();
 qDebug() << "RO:" << ro;
