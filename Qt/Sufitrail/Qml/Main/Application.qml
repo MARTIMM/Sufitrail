@@ -1,4 +1,4 @@
-import io.github.martimm.SufiTrail.ShareInterface 0.1
+import io.github.martimm.SufiTrail.UtilsInterface 0.1
 
 import QtQuick 2.11
 import QtQuick.Controls 2.2
@@ -8,7 +8,7 @@ ApplicationWindow {
   id: dataContainerWindow
   objectName: "dataContainerWindow"
 
-  ShareInterface { id: shareInterface }
+  UtilsInterface { id: utilsInterface }
 
 
   // Sizes are not important because on mobile devices it always scales
@@ -124,10 +124,12 @@ ApplicationWindow {
     enabled: quitButtonOn
     text: qsTr("Exit application")
     onClicked: {
+      utilsInterface.startHikingCompanion();
       Qt.quit();
     }
   }
 
+  property bool installButtonOn: true
   Button {
     id: installButton
 
@@ -139,9 +141,10 @@ ApplicationWindow {
       bottomMargin: 12
     }
 
+    enabled: installButtonOn
     text: qsTr("Install hike data")
     onClicked: {
-      shareInterface.share();
+      utilsInterface.installHikingData();
     }
   }
 }
