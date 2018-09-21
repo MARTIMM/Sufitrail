@@ -1,4 +1,4 @@
-#include "shareinterface.h"
+#include "utilsinterface.h"
 
 #include <QApplication>
 #include <QQmlApplicationEngine>
@@ -22,20 +22,13 @@ int main( int argc, char *argv[]) {
 
   QApplication app( argc, argv);
 
-  qmlRegisterType<ShareInterface>(
-        "io.github.martimm.SufiTrail.ShareInterface", 0, 1, "ShareInterface"
+  qmlRegisterType<UtilsInterface>(
+        "io.github.martimm.SufiTrail.UtilsInterface", 0, 1, "UtilsInterface"
         );
 
   applicationEngine = new QQmlApplicationEngine();
   applicationEngine->load(QUrl(QStringLiteral("qrc:/Qml/Main/Application.qml")));
-qDebug() << "AE:" << applicationEngine->rootObjects();
   if ( applicationEngine->rootObjects().isEmpty() ) return -1;
 
-
-QObject *ro = applicationEngine->rootObjects().first();
-qDebug() << "RO:" << ro;
-qDebug() << "CH:" << ro->children();
-
-//  ro->property("shareUtils").value<ShareUtils *>()->share();
   return app.exec();
 }
