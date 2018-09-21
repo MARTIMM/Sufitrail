@@ -13,14 +13,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
-    shareinterface.h \
-    worker.h \
-    linuxshareutils.h
+    androidutils.h \
+    linuxutils.h \
+    utils.h \
+    utilsinterface.h
 
 SOURCES += main.cpp \
-    shareinterface.cpp \
-    worker.cpp \
-    linuxshareutils.cpp
+    androidutils.cpp \
+    linuxutils.cpp \
+    utilsinterface.cpp \
+    utils.cpp
 
 RESOURCES += qml.qrc hikeData.qrc
 
@@ -42,9 +44,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 android {
   QT += androidextras
 
-  HEADERS += androidshareutils.h
+  HEADERS +=
 
-  SOURCES += androidshareutils.cpp
+  SOURCES +=
 
   DISTFILES += \
     android/AndroidManifest.xml \
@@ -55,7 +57,8 @@ android {
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew.bat
 
-  OTHER_FILES += android/src/utils/AndroidShareUtils.java
+  DISTFILES += \
+    android/src/utils/TDAndroidUtils.java
 
   ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 }
