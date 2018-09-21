@@ -7,15 +7,16 @@
 #include <QPushButton>
 
 // ----------------------------------------------------------------------------
-class Worker : public QObject {
+class Utils : public QObject {
 
   Q_OBJECT
 
 public:
-  explicit Worker(QObject *parent = nullptr);
+  explicit Utils(QObject *parent = nullptr);
 
   bool work();
-  virtual void shareImpl(QString path) = 0;
+  virtual void installImpl(const QString path) = 0;
+  virtual void startImpl() = 0;
 
 public slots:
 

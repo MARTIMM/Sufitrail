@@ -1,4 +1,4 @@
-#include "worker.h"
+#include "utils.h"
 
 #include <thread>
 #include <chrono>
@@ -7,21 +7,19 @@
 #include <QQmlApplicationEngine>
 
 // ----------------------------------------------------------------------------
-Worker::Worker(QObject *parent) : QObject(parent) { }
+Utils::Utils(QObject *parent) : QObject(parent) { }
 
 // ----------------------------------------------------------------------------
 // Global variable defined in main.cpp and has loaded the Application.qml
 extern QQmlApplicationEngine *applicationEngine;
 
 // ----------------------------------------------------------------------------
-bool Worker::work() {
-  qDebug() << "Init worker, app:" << applicationEngine;
+bool Utils::work() {
 
   QObject *ro = applicationEngine->rootObjects().first();
-  qDebug() << "WRO:" << ro;
-  qDebug() << "WCH:" << ro->children();
 
-  qDebug() << "Init worker ro done";
+  qDebug() << "Init worker";
+  ro->setProperty( "installButtonOn", false);
 
   ro->setProperty( "progressFrom", 0.0);
   ro->setProperty( "progressTo", 5.0);
@@ -44,7 +42,7 @@ bool Worker::work() {
   ro->setProperty( "progressText", "Start HikingCompanion");
 
   qDebug() << "Copied, start sharing...";
-  shareImpl(QString("/home/marcel"));
+  installImpl(QString("/home/marcel"));
   qDebug() << "Done sharing";
 
   ro->setProperty( "progressText", "Cleanup");
@@ -56,5 +54,5 @@ bool Worker::work() {
 }
 
 // ----------------------------------------------------------------------------
-void Worker::_transportDataToPublicLocation() {
+void Utils::_transportDataToPublicLocation() {
 }
