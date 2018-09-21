@@ -1,14 +1,14 @@
-#include "linuxshareutils.h"
+#include "linuxutils.h"
 
 #include <QDebug>
 #include <QProcess>
 #include <QStandardPaths>
 
 // ----------------------------------------------------------------------------
-LinuxShareUtils::LinuxShareUtils() : Worker() { }
+LinuxUtils::LinuxUtils() : Utils() { }
 
 // ----------------------------------------------------------------------------
-void LinuxShareUtils::shareImpl(const QString url) {
+void LinuxUtils::installImpl(const QString url) {
 
   QString programName = "HikingCompanion";
 
@@ -24,6 +24,20 @@ void LinuxShareUtils::shareImpl(const QString url) {
 
   // Test purposes to get debug data from process. It freezes the interface.
   // Change to run() when done
-  //hikingCompanion->run( program, arguments);
+  //hikingCompanion->start( program, arguments);
   hikingCompanion->execute( program, arguments);
+}
+
+// ----------------------------------------------------------------------------
+void LinuxUtils::startImpl() {
+
+  QString programName = "HikingCompanion";
+
+  QString program = QStandardPaths::findExecutable(
+        programName,
+        QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation)
+        );
+  QProcess *hikingCompanion = new QProcess();
+
+  hikingCompanion->start(program);
 }
