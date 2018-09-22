@@ -8,7 +8,9 @@
 LinuxUtils::LinuxUtils() : Utils() { }
 
 // ----------------------------------------------------------------------------
-void LinuxUtils::installImpl(const QString url) {
+void LinuxUtils::installImpl() {
+
+  //QString url = _path;
 
   QString programName = "HikingCompanion";
 
@@ -17,15 +19,15 @@ void LinuxUtils::installImpl(const QString url) {
         QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation)
         );
 
-  QStringList arguments;
-  arguments << url;
+  //QStringList arguments;
+  //arguments << url;
 
   QProcess *hikingCompanion = new QProcess();
 
   // Test purposes to get debug data from process. It freezes the interface.
   // Change to run() when done
   //hikingCompanion->start( program, arguments);
-  hikingCompanion->execute( program, arguments);
+  hikingCompanion->execute(program);
 }
 
 // ----------------------------------------------------------------------------

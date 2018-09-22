@@ -42,10 +42,10 @@ import android.os.Build;
      package name = io.martimm.github.HikingCompanion
      class name = org.qtproject.qt5.android.bindings.QtApplication
   2) If we want to send data to another java method in the HikingCompanion app
-     we take package name from manifest again and add the java package name to
-     it;
-     package name = io.martimm.github.HikingCompanion.utils
-     class name = HCAndroidShareUtils
+     we take the package name from manifest again and add the java package name
+     to it (depend on how it is defined in the activity);
+     package name = io.martimm.github.HikingCompanion
+     class name = io.martimm.github.HikingCompanion.utils.HCAndroidUtils
 
 
   For all this to work the manifest must have an activity defined like this;
@@ -61,7 +61,7 @@ import android.os.Build;
       </activity>
       ...
 
-      <activity android:name=".utils">
+      <activity android:name=".utils.HCAndroidUtils">
         <intent-filter>
           <action android:name="android.intent.action.SEND"/>
           <category android:name="android.intent.category.DEFAULT"/>
@@ -78,31 +78,29 @@ import android.os.Build;
 public class TDAndroidUtils {
 
   // --------------------------------------------------------------------------
-  public static boolean install(String uri) {
+  public static boolean install() {
 
     boolean result = false;
 
     if ( QtNative.activity() == null ) return result;
 
-    Intent sendIntent = new Intent();
-    sendIntent.setAction(Intent.ACTION_SEND);
-    sendIntent.putExtra( Intent.EXTRA_TEXT, uri);
-    sendIntent.setType("text/plain");
-    sendIntent.setComponent(
+    Intent installIntent = new Intent();
+    installIntent.setAction(Intent.ACTION_MAIN);
+    installIntent.setComponent(
       new ComponentName(
-              "io.martimm.github.HikingCompanion",
-              "io.martimm.github.HikingCompanion.utils.HCAndroidUtils"
-              )
-      );
+        "io.martimm.github.HikingCompanion",
+        "org.qtproject.qt5.android.bindings.QtActivity"
+      )
+    );
 
     Log.d("TD Java object", "Send intent prepared");
 
     // Verify that the intent will resolve to an activity
-    if ( sendIntent.resolveActivity(QtNative.activity().getPackageManager()) != null ) {
+    if ( installIntent.resolveActivity(QtNative.activity().getPackageManager()) != null ) {
       Log.d("TD Java object", "Start activity");
 
       try {
-        QtNative.activity().startActivity(sendIntent);
+        QtNative.activity().startActivityForResult( installIntent, 1);
         result = true;
       }
       catch ( Exception e ) {
@@ -118,6 +116,48 @@ public class TDAndroidUtils {
 
     return result;
   }
+
+// --------------------------------------------------------------------------
+public static boolean installx(String uri) {
+
+  boolean result = false;
+
+  if ( QtNative.activity() == null ) return result;
+
+  Intent sendIntent = new Intent();
+  sendIntent.setAction(Intent.ACTION_SEND);
+  sendIntent.putExtra( Intent.EXTRA_TEXT, uri);
+  sendIntent.setType("text/plain");
+  sendIntent.setComponent(
+    new ComponentName(
+            "io.martimm.github.HikingCompanion",
+            "io.martimm.github.HikingCompanion.utils.HCAndroidUtils"
+            )
+    );
+
+  Log.d("TD Java object", "Send intent prepared");
+
+  // Verify that the intent will resolve to an activity
+  if ( sendIntent.resolveActivity(QtNative.activity().getPackageManager()) != null ) {
+    Log.d("TD Java object", "Start activity");
+
+    try {
+      QtNative.activity().startActivity(sendIntent);
+      result = true;
+    }
+    catch ( Exception e ) {
+      Log.d("TD Java object", e.getMessage());
+    }
+
+    return result;
+  }
+
+  else {
+    Log.d("TD Java object", "Intent not resolved");
+  }
+
+  return result;
+}
 
   // --------------------------------------------------------------------------
   public static void start() {

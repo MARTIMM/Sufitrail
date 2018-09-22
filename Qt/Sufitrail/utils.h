@@ -3,8 +3,7 @@
 
 #include <QObject>
 #include <QQuickItem>
-#include <QProgressBar>
-#include <QPushButton>
+#include <QSharedMemory>
 
 // ----------------------------------------------------------------------------
 class Utils : public QObject {
@@ -13,18 +12,20 @@ class Utils : public QObject {
 
 public:
   explicit Utils(QObject *parent = nullptr);
+  ~Utils();
 
   bool work();
-  virtual void installImpl(const QString path) = 0;
+  virtual void installImpl() = 0;
   virtual void startImpl() = 0;
 
 public slots:
 
-private:
-  void _transportDataToPublicLocation();
+protected:
+  QString *_path;
 
-  QProgressBar *_progressBar;
-  QPushButton *_quitButton;
+private:
+  QSharedMemory _smForPath;
+  void _transportDataToPublicLocation();
 };
 
 #endif // WORKER_H

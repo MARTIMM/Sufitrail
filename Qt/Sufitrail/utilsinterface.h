@@ -1,6 +1,8 @@
 #ifndef UTILSINTERFACE_H
 #define UTILSINTERFACE_H
 
+#include "utils.h"
+
 #include <QObject>
 #include <QQuickItem>
 #include <QProgressBar>
@@ -23,6 +25,7 @@ public slots:
 
 private:
 
+  Utils *_utilsWorker;
 };
 
 #endif // UTILSINTERFACE_H

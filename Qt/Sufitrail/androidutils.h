@@ -13,7 +13,7 @@ class AndroidUtils : public Utils {
 public:
   explicit AndroidUtils();
 
-  void installImpl(const QString path);
+  void installImpl();
   void startImpl();
 
 signals:
@@ -21,7 +21,6 @@ signals:
 public slots:
 
 private:
-
 };
 
 #endif // ANDROIDUTILS_H

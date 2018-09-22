@@ -21,6 +21,13 @@ int main( int argc, char *argv[]) {
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
   QApplication app( argc, argv);
+  app.setApplicationVersion("0.3.0");
+  app.setApplicationDisplayName("HikingCompanion");
+
+  qDebug() << "qApp argc:" << argc;
+  for ( int i = 0; i < argc; i++) {
+    qDebug() << QString("qApp [%1]").arg(i) << argv[i];
+  }
 
   qmlRegisterType<UtilsInterface>(
         "io.github.martimm.SufiTrail.UtilsInterface", 0, 1, "UtilsInterface"

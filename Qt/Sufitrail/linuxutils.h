@@ -13,7 +13,7 @@ class LinuxUtils : public Utils {
 public:
   explicit LinuxUtils();
 
-  void installImpl(const QString path);
+  void installImpl();
   void startImpl();
 
 signals:
@@ -21,7 +21,6 @@ signals:
 public slots:
 
 private:
-
 };
 
 #endif // LINUXUTILS_H

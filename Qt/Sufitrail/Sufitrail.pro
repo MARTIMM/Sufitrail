@@ -13,13 +13,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
-    androidutils.h \
     linuxutils.h \
     utils.h \
     utilsinterface.h
 
 SOURCES += main.cpp \
-    androidutils.cpp \
     linuxutils.cpp \
     utilsinterface.cpp \
     utils.cpp
@@ -44,9 +42,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 android {
   QT += androidextras
 
-  HEADERS +=
+  HEADERS += \
+    androidutils.h
 
-  SOURCES +=
+  SOURCES += \
+    androidutils.cpp
 
   DISTFILES += \
     android/AndroidManifest.xml \

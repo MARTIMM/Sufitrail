@@ -1,5 +1,4 @@
 #include "utilsinterface.h"
-#include "utils.h"
 
 #if defined(Q_OS_ANDROID)
   #include "androidutils.h"
@@ -14,22 +13,30 @@
 #include <QFuture>
 
 // ----------------------------------------------------------------------------
-UtilsInterface::UtilsInterface(QObject *parent) : QObject(parent) { }
+// Define global variables
+
+Utils *globalUtilsWorker = nullptr;
+
+// ----------------------------------------------------------------------------
+UtilsInterface::UtilsInterface(QObject *parent) : QObject(parent) {
+
+  //#if defined(Q_OS_IOS)
+  //  _utilsWorker = new IosUtils();
+  //#el
+  #if defined(Q_OS_ANDROID)
+    _utilsWorker = new AndroidUtils();
+  #else
+    _utilsWorker = new LinuxUtils();
+  #endif
+
+  globalUtilsWorker = _utilsWorker;
+}
 
 // ----------------------------------------------------------------------------
 extern bool setupWork() {
 
-  Utils *utilsWorker;
-  //#if defined(Q_OS_IOS)
-  //  utilsWorker = new IosUtils();
-  //#el
-  #if defined(Q_OS_ANDROID)
-    utilsWorker = new AndroidUtils();
-  #else
-    utilsWorker = new LinuxUtils();
-  #endif
-
-  return utilsWorker->work();
+  if ( globalUtilsWorker == nullptr ) return false;
+  return globalUtilsWorker->work();
 }
 
 // ----------------------------------------------------------------------------
@@ -42,15 +49,5 @@ void UtilsInterface::installHikingData() {
 // ----------------------------------------------------------------------------
 void UtilsInterface::startHikingCompanion() {
 
-  Utils *utilsWorker;
-  //#if defined(Q_OS_IOS)
-  //  utilsWorker = new IosUtils();
-  //#el
-  #if defined(Q_OS_ANDROID)
-    utilsWorker = new AndroidUtils();
-  #else
-    utilsWorker = new LinuxUtils();
-  #endif
-
-  return utilsWorker->startImpl();
+  return _utilsWorker->startImpl();
 }

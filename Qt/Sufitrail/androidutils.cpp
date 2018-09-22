@@ -5,14 +5,34 @@
 #include <QtAndroidExtras>
 #include <QAndroidJniEnvironment>
 
-// See also http://doc.qt.io/qt-5/qandroidjniobject.html
 
 // ----------------------------------------------------------------------------
 AndroidUtils::AndroidUtils() : Utils() { }
 
 // ----------------------------------------------------------------------------
-void AndroidUtils::installImpl(const QString url) {
+void AndroidUtils::installImpl() {
 
+  QString url = _path;
+
+  QAndroidJniEnvironment env;
+
+  //jboolean ok =
+  QAndroidJniObject::callStaticMethod<void>(
+        "utils/TDAndroidUtils", "install"
+        );
+
+  // Catch exceptions from java
+  if ( env->ExceptionCheck() ) {
+    qDebug() << "JNI Object not available";
+    env->ExceptionClear();
+  }
+
+  else {
+    qDebug() << "JNI Object available and run";
+  }
+
+
+/*
   QAndroidJniObject jsUrl = QAndroidJniObject::fromString(url);
 
   jboolean ok = QAndroidJniObject::callStaticMethod<jboolean>(
@@ -32,6 +52,7 @@ void AndroidUtils::installImpl(const QString url) {
   else {
     qDebug() << "Caught exception";
   }
+*/
 }
 
 // ----------------------------------------------------------------------------
