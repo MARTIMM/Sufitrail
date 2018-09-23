@@ -7,6 +7,7 @@ This is about the development of the data describing the **Sufitrail**. The appl
 # Changes
 * 2018-09-23 0.3.0
   * Android intents to get HikingCompanion started.
+  * Sharing data using shared memory
 
 * 2018-09-05 0.2.0
   * Progressbar  and two buttons added. One to start installing the data, the other to exit the program when ready. Installing is only simulated.

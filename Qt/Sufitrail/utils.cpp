@@ -5,6 +5,10 @@
 
 #include <QDebug>
 #include <QQmlApplicationEngine>
+#include <QSettings>
+#include <QDir>
+#include <QFile>
+#include <QStandardPaths>
 
 // ----------------------------------------------------------------------------
 Utils::Utils(QObject *parent)
@@ -53,16 +57,47 @@ bool Utils::work() {
   ro->setProperty( "installButtonOn", false);
 
   ro->setProperty( "progressFrom", 0.0);
-  ro->setProperty( "progressTo", 5.0);
-
   ro->setProperty( "progressText", "Initialize setup");
+
+  QSettings *s = new QSettings(
+        QString(":HikeData/hike.conf"),
+        QSettings::IniFormat
+        );
+  qDebug() << "Fn:" << s->fileName();
+
+  QString tracksDir = s->value("tracksdir").toString();
+  QDir *dd = new QDir(":HikeData/" + tracksDir);
+  QStringList tracks = dd->entryList( QDir::Files, QDir::Name);
+  qDebug() << tracksDir << ",nbr tracks:" << tracks.count();
+
+  QString photoDir = s->value("photodir").toString();
+  dd = new QDir(":HikeData/" + photoDir);
+  QStringList photos = dd->entryList( QDir::Files, QDir::Name);
+
+  QString noteDir = s->value("notedir").toString();
+  dd = new QDir(":HikeData/" + noteDir);
+  QStringList notes = dd->entryList( QDir::Files, QDir::Name);
+
+  QString featureDir = s->value("featuredir").toString();
+  dd = new QDir(":HikeData/" + featureDir);
+  QStringList features = dd->entryList( QDir::Files, QDir::Name);
+
+  ro->setProperty(
+        "progressTo",
+        tracks.count() + photos.count() + notes.count() + features.count()
+        );
+/*
   ro->setProperty( "progressText", "Copy tracks");
   ro->setProperty( "progressText", "Copy features");
   ro->setProperty( "progressText", "Copy notes");
   ro->setProperty( "progressText", "Copy photo's");
-
-  _transportDataToPublicLocation();
-
+*/
+  int progress = 0;
+  progress = _transportDataToPublicLocation( ro, "Copy track: ", progress, tracksDir, tracks);
+  progress = _transportDataToPublicLocation( ro, "Copy photo: ", progress, photoDir, photos);
+  progress = _transportDataToPublicLocation( ro, "Copy note: ", progress, noteDir, notes);
+  progress = _transportDataToPublicLocation( ro, "Copy feature: ", progress, featureDir, features);
+/*
   for ( double progress = 1.0; progress < 6.0; progress += 1.0 ) {
     ro->setProperty( "progressValue", progress);
     ro->setProperty(
@@ -71,7 +106,7 @@ bool Utils::work() {
           );
     std::this_thread::sleep_for(std::chrono::milliseconds(600));
   }
-
+*/
   ro->setProperty( "progressText", "Start HikingCompanion");
 
   qDebug() << "Copied, start sharing...";
@@ -87,5 +122,38 @@ bool Utils::work() {
 }
 
 // ----------------------------------------------------------------------------
-void Utils::_transportDataToPublicLocation() {
+int Utils::_transportDataToPublicLocation(
+    QObject *ro,
+    QString text,
+    int startProgress,
+    QString directory,
+    QStringList files
+    ) {
+
+  QString publicLoc = QStandardPaths::standardLocations(
+        QStandardPaths::GenericDataLocation
+        ).first();
+/*
+  ro->setProperty( "progressText", text);
+  ro->setProperty( "progressValue", progress);
+  ro->setProperty(
+        "progressText",
+        QString("progress ") + QString::number(progress)
+        );
+  std::this_thread::sleep_for(std::chrono::milliseconds(600));
+*/
+  QString destDirname = publicLoc + "/" + directory;
+  QDir dest(destDirname);
+  if ( !dest.exists() ) dest.mkpath(destDirname);
+
+  for ( int fi = 0; fi < files.count(); fi++) {
+    QFile::copy( ":HikeData/" + directory + "/" + files[fi],
+                 destDirname + "/" + files[fi]
+                 );
+
+    ro->setProperty( "progressValue", startProgress + fi);
+    ro->setProperty( "progressText", text + files[fi]);
+  }
+
+  return startProgress + files.count();
 }

@@ -25,7 +25,13 @@ protected:
 
 private:
   QSharedMemory _smForPath;
-  void _transportDataToPublicLocation();
+  int _transportDataToPublicLocation(
+      QObject *ro,
+      QString text,
+      int startProgress,
+      QString directory,
+      QStringList files
+      );
 };
 
 #endif // WORKER_H

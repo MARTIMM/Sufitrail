@@ -12,17 +12,22 @@ QQmlApplicationEngine *applicationEngine;
 // ----------------------------------------------------------------------------
 int main( int argc, char *argv[]) {
 
-  qDebug() << "App data location:" << QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
-  qDebug() << "App config location:" << QStandardPaths::standardLocations(QStandardPaths::AppConfigLocation);
-  qDebug() << "Generic data location:" << QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation);
-  qDebug() << "Download location:" << QStandardPaths::standardLocations(QStandardPaths::DownloadLocation);
-  qDebug() << "Documents location:" << QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation);
-
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
+  // Settings used by QSettings to set a location to store its data
+  QCoreApplication::setOrganizationName("martimm");
+  QCoreApplication::setOrganizationDomain("io.github.martimm");
+  QCoreApplication::setApplicationName("SufiTrail");
 
   QApplication app( argc, argv);
   app.setApplicationVersion("0.3.0");
-  app.setApplicationDisplayName("HikingCompanion");
+  app.setApplicationDisplayName("SufiTrail");
+
+  qDebug() << "App data location:" << QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
+  qDebug() << "App config location:" << QStandardPaths::standardLocations(QStandardPaths::AppConfigLocation);
+  qDebug() << "Generic data location:" << QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation);
+  //qDebug() << "Download location:" << QStandardPaths::standardLocations(QStandardPaths::DownloadLocation);
+  //qDebug() << "Documents location:" << QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation);
 
   qDebug() << "qApp argc:" << argc;
   for ( int i = 0; i < argc; i++) {
