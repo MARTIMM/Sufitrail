@@ -12,12 +12,10 @@ AndroidUtils::AndroidUtils() : Utils() { }
 // ----------------------------------------------------------------------------
 void AndroidUtils::installImpl() {
 
-  QString url = _path;
-
   QAndroidJniEnvironment env;
 
   //jboolean ok =
-  QAndroidJniObject::callStaticMethod<void>(
+  QAndroidJniObject::callStaticMethod<jboolean>(
         "utils/TDAndroidUtils", "install"
         );
 
