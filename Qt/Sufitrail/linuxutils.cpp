@@ -10,8 +10,7 @@ LinuxUtils::LinuxUtils() : Utils() { }
 // ----------------------------------------------------------------------------
 void LinuxUtils::installImpl() {
 
-  //QString url = _path;
-
+  qDebug() << "Install on Linux";
   QString programName = "HikingCompanion";
 
   QString program = QStandardPaths::findExecutable(
@@ -27,12 +26,15 @@ void LinuxUtils::installImpl() {
   // Test purposes to get debug data from process. It freezes the interface.
   // Change to run() when done
   //hikingCompanion->start( program, arguments);
+  qDebug() << "Start HC on Linux";
   hikingCompanion->execute(program);
+  qDebug() << "Stopped on Linux";
 }
 
 // ----------------------------------------------------------------------------
 void LinuxUtils::startImpl() {
 
+  qDebug() << "New start on Linux";
   QString programName = "HikingCompanion";
 
   QString program = QStandardPaths::findExecutable(
@@ -41,5 +43,7 @@ void LinuxUtils::startImpl() {
         );
   QProcess *hikingCompanion = new QProcess();
 
-  hikingCompanion->start(program);
+  qDebug() << "Start HC on Linux";
+  hikingCompanion->execute(program);
+  qDebug() << "Stopped on Linux";
 }
