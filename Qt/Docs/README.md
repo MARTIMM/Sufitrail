@@ -5,6 +5,9 @@ This is about the development of the data describing the **Sufitrail**. The appl
 # Bugs
 
 # Changes
+* 2018-09-24 0.3.1
+  * It is possible to transport hike data to HikinCompanion on Linux.
+
 * 2018-09-23 0.3.0
   * Android intents to get HikingCompanion started.
   * Sharing data using shared memory
@@ -23,7 +26,7 @@ Versions of mobile devices will change slower because not every version will be 
 | Android App Version | Application Version | Android Api Version |
 |---------------------|---------------------|---------------------|
 | 0.1.0 | 0.1.0 | 24 (7.1)  |
-| 0.2.0 | 0.3.0 | |
+| 0.2.0 | 0.4.0 | |
 
 ## Test version changes on IOS
 
