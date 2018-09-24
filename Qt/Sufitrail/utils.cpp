@@ -11,19 +11,30 @@
 #include <QStandardPaths>
 
 // ----------------------------------------------------------------------------
+// Global variable defined in main.cpp and has loaded the Application.qml
+extern QQmlApplicationEngine *applicationEngine;
+
+// ----------------------------------------------------------------------------
 Utils::Utils(QObject *parent)
   : QObject(parent), _smForPath("HikingCompanionPath") {
 
-  _smForPath.create(1024);
-qDebug() << "Att?:" << _smForPath.isAttached();
-  if ( _smForPath.isAttached() | _smForPath.attach() ) {
+  // Target root path where data is stored for public access
+  _publicLoc = QStandardPaths::standardLocations(
+        QStandardPaths::GenericDataLocation
+        ).first();
+  _programname = QCoreApplication::applicationName();
+  _dataRootDir = _publicLoc + "/" + _programname;
+
+  // Prepare the shared memory to hold the target path
+  _smForPath.create(512);
+  if ( _smForPath.isAttached() || _smForPath.attach() ) {
 
     qDebug() << "TD Attached to sm";
     _smForPath.lock();
     qDebug() << "TD locked";
 
     char *data = reinterpret_cast<char *>(_smForPath.data());
-    _path = new QString("/home/marcel");
+    _path = new QString(_dataRootDir);
     char *p = _path->toLatin1().data();
     strcpy( data, p);
 
@@ -38,15 +49,8 @@ qDebug() << "Att?:" << _smForPath.isAttached();
 
 // ----------------------------------------------------------------------------
 Utils::~Utils() {
-
-//  QSharedMemory smForPath(QString("HikingCompanionPath"));
   _smForPath.detach();
-  qDebug() << "TD detached";
 }
-
-// ----------------------------------------------------------------------------
-// Global variable defined in main.cpp and has loaded the Application.qml
-extern QQmlApplicationEngine *applicationEngine;
 
 // ----------------------------------------------------------------------------
 bool Utils::work() {
@@ -59,6 +63,10 @@ bool Utils::work() {
   ro->setProperty( "progressFrom", 0.0);
   ro->setProperty( "progressText", "Initialize setup");
 
+  // Cleanup before start, maybe there are some remnants left
+  QDir *dd = new QDir(_dataRootDir);
+  if ( dd->exists() ) dd->removeRecursively();
+
   QSettings *s = new QSettings(
         QString(":HikeData/hike.conf"),
         QSettings::IniFormat
@@ -66,7 +74,7 @@ bool Utils::work() {
   qDebug() << "Fn:" << s->fileName();
 
   QString tracksDir = s->value("tracksdir").toString();
-  QDir *dd = new QDir(":HikeData/" + tracksDir);
+  dd = new QDir(":HikeData/" + tracksDir);
   QStringList tracks = dd->entryList( QDir::Files, QDir::Name);
   qDebug() << tracksDir << ",nbr tracks:" << tracks.count();
 
@@ -85,35 +93,41 @@ bool Utils::work() {
   ro->setProperty(
         "progressTo",
         tracks.count() + photos.count() + notes.count() + features.count()
+        + 3
         );
-/*
-  ro->setProperty( "progressText", "Copy tracks");
-  ro->setProperty( "progressText", "Copy features");
-  ro->setProperty( "progressText", "Copy notes");
-  ro->setProperty( "progressText", "Copy photo's");
-*/
+
   int progress = 0;
   progress = _transportDataToPublicLocation( ro, "Copy track: ", progress, tracksDir, tracks);
+  std::this_thread::sleep_for(std::chrono::milliseconds(300));
   progress = _transportDataToPublicLocation( ro, "Copy photo: ", progress, photoDir, photos);
+  std::this_thread::sleep_for(std::chrono::milliseconds(300));
   progress = _transportDataToPublicLocation( ro, "Copy note: ", progress, noteDir, notes);
+  std::this_thread::sleep_for(std::chrono::milliseconds(300));
   progress = _transportDataToPublicLocation( ro, "Copy feature: ", progress, featureDir, features);
-/*
-  for ( double progress = 1.0; progress < 6.0; progress += 1.0 ) {
-    ro->setProperty( "progressValue", progress);
-    ro->setProperty(
-          "progressText",
-          QString("progress ") + QString::number(progress)
-          );
-    std::this_thread::sleep_for(std::chrono::milliseconds(600));
-  }
-*/
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(600));
+
+  ro->setProperty( "progressValue", progress++);
+  QFile::copy( ":HikeData/hike.conf", _dataRootDir + "/hike.conf");
+
+  ro->setProperty( "progressValue", progress++);
   ro->setProperty( "progressText", "Start HikingCompanion");
 
   qDebug() << "Copied, start sharing...";
   installImpl();
   qDebug() << "Done sharing";
 
+  std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+  ro->setProperty( "progressValue", progress++);
   ro->setProperty( "progressText", "Cleanup");
+  qDebug() << "Remove" << _dataRootDir;
+  dd = new QDir(_dataRootDir);
+  dd->removeRecursively();
+
+  _smForPath.detach();
+  qDebug() << "TD detached";
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
   ro->setProperty( "progressText", "Finished");
 
   ro->setProperty( "quitButtonOn", true);
@@ -123,34 +137,24 @@ bool Utils::work() {
 
 // ----------------------------------------------------------------------------
 int Utils::_transportDataToPublicLocation(
-    QObject *ro,
-    QString text,
-    int startProgress,
-    QString directory,
-    QStringList files
+    QObject *ro, QString text, int startProgress,
+    QString directory, QStringList files
     ) {
 
-  QString publicLoc = QStandardPaths::standardLocations(
-        QStandardPaths::GenericDataLocation
-        ).first();
-/*
-  ro->setProperty( "progressText", text);
-  ro->setProperty( "progressValue", progress);
-  ro->setProperty(
-        "progressText",
-        QString("progress ") + QString::number(progress)
-        );
-  std::this_thread::sleep_for(std::chrono::milliseconds(600));
-*/
-  QString destDirname = publicLoc + "/" + directory;
+  QString destDirname = _dataRootDir + "/" + directory;
   QDir dest(destDirname);
+  qDebug() << "Dest dir:" << destDirname;
   if ( !dest.exists() ) dest.mkpath(destDirname);
 
   for ( int fi = 0; fi < files.count(); fi++) {
+    qDebug() << ":HikeData/" + directory + "/" + files[fi]
+                << " --> " << destDirname + "/" + files[fi];
+
     QFile::copy( ":HikeData/" + directory + "/" + files[fi],
                  destDirname + "/" + files[fi]
                  );
 
+    qDebug() << "Progress:" << startProgress + fi;
     ro->setProperty( "progressValue", startProgress + fi);
     ro->setProperty( "progressText", text + files[fi]);
   }
