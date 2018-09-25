@@ -4,7 +4,7 @@
 #include <QtAndroid>
 #include <QtAndroidExtras>
 #include <QAndroidJniEnvironment>
-
+//#include <QAndroidActivityResultReceiver>
 
 // ----------------------------------------------------------------------------
 AndroidUtils::AndroidUtils() : Utils() { }
@@ -12,21 +12,25 @@ AndroidUtils::AndroidUtils() : Utils() { }
 // ----------------------------------------------------------------------------
 void AndroidUtils::installImpl() {
 
-  QAndroidJniEnvironment env;
+  qDebug() << "Install on android";
 
-  //jboolean ok =
-  QAndroidJniObject::callStaticMethod<jboolean>(
-        "utils/TDAndroidUtils", "install"
+  QAndroidJniObject jsUrl = QAndroidJniObject::fromString(_dataRootDir);
+  jboolean ok = QAndroidJniObject::callStaticMethod<jboolean>(
+        // place to find java file and method
+        "utils/TDAndroidUtils", "install",
+        // java args description
+        "(Ljava/lang/String;)Z",
+        // arguments
+        jsUrl.object()
         );
 
   // Catch exceptions from java
-  if ( env->ExceptionCheck() ) {
-    qDebug() << "JNI Object not available";
-    env->ExceptionClear();
+  if ( ok ) {
+    qDebug() << "JNI Object available and run";
   }
 
   else {
-    qDebug() << "JNI Object available and run";
+    qDebug() << "JNI Object not available";
   }
 
 
@@ -56,20 +60,18 @@ void AndroidUtils::installImpl() {
 // ----------------------------------------------------------------------------
 void AndroidUtils::startImpl() {
 
-  QAndroidJniEnvironment env;
+  qDebug() << "Start on android";
 
-  //jboolean ok =
-  QAndroidJniObject::callStaticMethod<void>(
+  jboolean ok = QAndroidJniObject::callStaticMethod<jboolean>(
         "utils/TDAndroidUtils", "start"
         );
 
   // Catch exceptions from java
-  if ( env->ExceptionCheck() ) {
-    qDebug() << "JNI Object not available";
-    env->ExceptionClear();
+  if ( ok ) {
+    qDebug() << "JNI Object available and run";
   }
 
   else {
-    qDebug() << "JNI Object available and run";
+    qDebug() << "JNI Object not available";
   }
 }

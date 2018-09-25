@@ -4,26 +4,26 @@ import org.qtproject.qt5.android.QtNative;
 
 import java.lang.String;  // ok
 import android.content.Intent;  // ok
-import java.io.File;
-import android.net.Uri;
+//import java.io.File;
+//import android.net.Uri;
 import android.util.Log;  // ok
 
-import android.content.ContentResolver;
+//import android.content.ContentResolver;
 import android.content.ComponentName;  // ok
-import android.database.Cursor;
-import android.provider.MediaStore;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.FileOutputStream;
+//import android.database.Cursor;
+//import android.provider.MediaStore;
+//import java.io.FileNotFoundException;
+//import java.io.IOException;
+//import java.io.InputStream;
+//import java.io.FileOutputStream;
 
-import java.util.List;
-import android.content.pm.ResolveInfo;
-import java.util.ArrayList;
-import android.content.pm.PackageManager;
-import java.util.Comparator;
-import java.util.Collections;
-import android.content.Context;
+//import java.util.List;
+//import android.content.pm.ResolveInfo;
+//import java.util.ArrayList;
+//import android.content.pm.PackageManager;
+//import java.util.Comparator;
+//import java.util.Collections;
+//import android.content.Context;
 import android.os.Parcelable;  // ok
 
 import android.os.Build;
@@ -78,18 +78,22 @@ import android.os.Build;
 public class TDAndroidUtils {
 
   // --------------------------------------------------------------------------
-  public static boolean install() {
+  static final int HC_INSTALL_REQUEST = 1;  // The request code
+  public static boolean install(String url) {
 
     boolean result = false;
 
     if ( QtNative.activity() == null ) return result;
 
     Intent installIntent = new Intent();
-    installIntent.setAction(Intent.ACTION_MAIN);
+    //installIntent.setAction(Intent.ACTION_MAIN);
+    installIntent.setAction(Intent.ACTION_SEND);
+    installIntent.putExtra( "io.martimm.github.Sufitrail.install", url);
     installIntent.setComponent(
       new ComponentName(
         "io.martimm.github.HikingCompanion",
-        "org.qtproject.qt5.android.bindings.QtActivity"
+        "io.martimm.github.HikingCompanion.utils.HCAndroidUtils"
+//        "org.qtproject.qt5.android.bindings.QtActivity"
       )
     );
 
@@ -100,7 +104,8 @@ public class TDAndroidUtils {
       Log.d("TD Java object", "Start activity");
 
       try {
-        QtNative.activity().startActivityForResult( installIntent, 1);
+//        QtNative.activity().startActivityForResult( installIntent, HC_INSTALL_REQUEST);
+        QtNative.activity().startActivity(installIntent);
         result = true;
       }
       catch ( Exception e ) {
@@ -116,58 +121,35 @@ public class TDAndroidUtils {
 
     return result;
   }
-
-// --------------------------------------------------------------------------
-public static boolean installx(String uri) {
-
-  boolean result = false;
-
-  if ( QtNative.activity() == null ) return result;
-
-  Intent sendIntent = new Intent();
-  sendIntent.setAction(Intent.ACTION_SEND);
-  sendIntent.putExtra( Intent.EXTRA_TEXT, uri);
-  sendIntent.setType("text/plain");
-  sendIntent.setComponent(
-    new ComponentName(
-            "io.martimm.github.HikingCompanion",
-            "io.martimm.github.HikingCompanion.utils.HCAndroidUtils"
-            )
-    );
-
-  Log.d("TD Java object", "Send intent prepared");
-
-  // Verify that the intent will resolve to an activity
-  if ( sendIntent.resolveActivity(QtNative.activity().getPackageManager()) != null ) {
-    Log.d("TD Java object", "Start activity");
-
-    try {
-      QtNative.activity().startActivity(sendIntent);
-      result = true;
-    }
-    catch ( Exception e ) {
-      Log.d("TD Java object", e.getMessage());
-    }
-
-    return result;
-  }
-
-  else {
-    Log.d("TD Java object", "Intent not resolved");
-  }
-
-  return result;
-}
-
+/*
   // --------------------------------------------------------------------------
-  public static void start() {
+  @override
+  protected void onActivityResult(
+    int requestCode, int resultCode, Intent data
+    ) {
 
-    if ( QtNative.activity() == null ) return;
+    // Check which request we're responding to
+    if ( requestCode == HC_INSTALL_REQUEST ) {
+      // Make sure the request was successful
+      if ( resultCode == RESULT_OK ) {
+        Log.d("Android install returned ok");
+      }
 
-    Intent sendIntent = new Intent();
-    sendIntent.setAction(Intent.ACTION_MAIN);
-    sendIntent.setType("text/plain");
-    sendIntent.setComponent(
+      else {
+        Log.d("Android install returned not ok");
+      }
+    }
+  }
+*/
+  // --------------------------------------------------------------------------
+  public static boolean start() {
+
+    if ( QtNative.activity() == null ) return false;
+
+    Intent startIntent = new Intent();
+    startIntent.setAction(Intent.ACTION_MAIN);
+    startIntent.setType("text/plain");
+    startIntent.setComponent(
       new ComponentName(
             "io.martimm.github.HikingCompanion",
             "org.qtproject.qt5.android.bindings.QtActivity"
@@ -177,14 +159,17 @@ public static boolean installx(String uri) {
     Log.d("TD Java object", "Start intent prepared");
 
     // Verify that the intent will resolve to an activity
-    if ( sendIntent.resolveActivity(QtNative.activity().getPackageManager()) != null ) {
+    if ( startIntent.resolveActivity(QtNative.activity().getPackageManager()) != null ) {
       Log.d("TD Java object", "Start activity");
 
-      QtNative.activity().startActivity(sendIntent);
+      QtNative.activity().startActivity(startIntent);
     }
 
     else {
       Log.d("TD Java object", "Intent not resolved");
+      return false;
     }
+
+    return true;
   }
 }

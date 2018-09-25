@@ -16,17 +16,24 @@ extern QQmlApplicationEngine *applicationEngine;
 
 // ----------------------------------------------------------------------------
 Utils::Utils(QObject *parent)
-  : QObject(parent), _smForPath("HikingCompanionPath") {
+  : QObject(parent) {
 
   // Target root path where data is stored for public access
   _publicLoc = QStandardPaths::standardLocations(
         QStandardPaths::GenericDataLocation
         ).first();
   _programname = QCoreApplication::applicationName();
+
   _dataRootDir = _publicLoc + "/" + _programname;
+  int size = _dataRootDir.length() + 1;
 
   // Prepare the shared memory to hold the target path
-  _smForPath.create(512);
+  _smForPath.setKey("HikingCompanionPath");
+  if ( _smForPath.isAttached() ) _smForPath.detach();
+  if ( ! _smForPath.create(size) ) {
+    qDebug() << "TD Not able to create sm" << _smForPath.errorString();
+  }
+
   if ( _smForPath.isAttached() || _smForPath.attach() ) {
 
     qDebug() << "TD Attached to sm";
@@ -120,9 +127,9 @@ bool Utils::work() {
   std::this_thread::sleep_for(std::chrono::milliseconds(2000));
   ro->setProperty( "progressValue", progress++);
   ro->setProperty( "progressText", "Cleanup");
-  qDebug() << "Remove" << _dataRootDir;
-  dd = new QDir(_dataRootDir);
-  dd->removeRecursively();
+//  qDebug() << "Remove" << _dataRootDir;
+//  dd = new QDir(_dataRootDir);
+//  dd->removeRecursively();
 
   _smForPath.detach();
   qDebug() << "TD detached";
