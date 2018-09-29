@@ -14,14 +14,14 @@ void AndroidUtils::installImpl() {
 
   qDebug() << "Install on android";
 
-  QAndroidJniObject jsUrl = QAndroidJniObject::fromString(_dataRootDir);
+  QAndroidJniObject jsPath = QAndroidJniObject::fromString(_dataRootDir);
   jboolean ok = QAndroidJniObject::callStaticMethod<jboolean>(
         // place to find java file and method
         "utils/TDAndroidUtils", "install",
         // java args description
         "(Ljava/lang/String;)Z",
         // arguments
-        jsUrl.object()
+        jsPath.object()
         );
 
   // Catch exceptions from java
