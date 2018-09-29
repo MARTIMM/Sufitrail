@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QQuickItem>
-#include <QSharedMemory>
+//#include <QSharedMemory>
 
 // ----------------------------------------------------------------------------
 class Utils : public QObject {
@@ -25,7 +25,7 @@ protected:
   QString _dataRootDir;
 
 private:
-  QSharedMemory _smForPath;
+  //QSharedMemory _smForPath;
   QString _publicLoc;
   QString _programname;
 

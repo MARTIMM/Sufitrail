@@ -26,7 +26,7 @@ Utils::Utils(QObject *parent)
 
   _dataRootDir = _publicLoc + "/" + _programname;
   int size = _dataRootDir.length() + 1;
-
+/*
   // Prepare the shared memory to hold the target path
   _smForPath.setKey("HikingCompanionPath");
   if ( _smForPath.isAttached() ) _smForPath.detach();
@@ -52,11 +52,12 @@ Utils::Utils(QObject *parent)
   else {
     qDebug() << "TD Not attached to sm" << _smForPath.errorString();
   }
+*/
 }
 
 // ----------------------------------------------------------------------------
 Utils::~Utils() {
-  _smForPath.detach();
+//  _smForPath.detach();
 }
 
 // ----------------------------------------------------------------------------
@@ -131,8 +132,8 @@ bool Utils::work() {
 //  dd = new QDir(_dataRootDir);
 //  dd->removeRecursively();
 
-  _smForPath.detach();
-  qDebug() << "TD detached";
+//  _smForPath.detach();
+//  qDebug() << "TD detached";
 
   std::this_thread::sleep_for(std::chrono::milliseconds(500));
   ro->setProperty( "progressText", "Finished");
