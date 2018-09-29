@@ -79,7 +79,7 @@ public class TDAndroidUtils {
 
   // --------------------------------------------------------------------------
   static final int HC_INSTALL_REQUEST = 1;  // The request code
-  public static boolean install(String url) {
+  public static boolean install(String path) {
 
     boolean result = false;
 
