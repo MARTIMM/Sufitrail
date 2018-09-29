@@ -18,16 +18,15 @@ void LinuxUtils::installImpl() {
         QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation)
         );
 
-  //QStringList arguments;
-  //arguments << url;
+  QStringList arguments;
+  arguments << _dataRootDir;
 
   QProcess *hikingCompanion = new QProcess();
 
   // Test purposes to get debug data from process. It freezes the interface.
-  // Change to run() when done
-  //hikingCompanion->start( program, arguments);
+  // Change to start() when done
   qDebug() << "Start HC on Linux";
-  hikingCompanion->execute(program);
+  hikingCompanion->execute( program, arguments);
   qDebug() << "Stopped on Linux";
 }
 
