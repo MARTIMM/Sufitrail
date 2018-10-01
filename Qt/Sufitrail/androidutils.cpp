@@ -32,29 +32,6 @@ void AndroidUtils::installImpl() {
   else {
     qDebug() << "JNI Object not available";
   }
-
-
-/*
-  QAndroidJniObject jsUrl = QAndroidJniObject::fromString(url);
-
-  jboolean ok = QAndroidJniObject::callStaticMethod<jboolean>(
-        // place to find java file and method
-        "utils/TDAndroidUtils", "install",
-        // java args description
-        "(Ljava/lang/String;)Z",
-        // arguments
-        jsUrl.object()
-        );
-
-  // Catch exceptions from java
-  if ( ok ) {
-    qDebug() << "JNI Object available and run";
-  }
-
-  else {
-    qDebug() << "Caught exception";
-  }
-*/
 }
 
 // ----------------------------------------------------------------------------

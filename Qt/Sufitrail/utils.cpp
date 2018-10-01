@@ -128,9 +128,9 @@ bool Utils::work() {
   std::this_thread::sleep_for(std::chrono::milliseconds(2000));
   ro->setProperty( "progressValue", progress++);
   ro->setProperty( "progressText", "Cleanup");
-//  qDebug() << "Remove" << _dataRootDir;
-//  dd = new QDir(_dataRootDir);
-//  dd->removeRecursively();
+  //  qDebug() << "Remove" << _dataRootDir;
+  //  dd = new QDir(_dataRootDir);
+  //  dd->removeRecursively();
 
 //  _smForPath.detach();
 //  qDebug() << "TD detached";
