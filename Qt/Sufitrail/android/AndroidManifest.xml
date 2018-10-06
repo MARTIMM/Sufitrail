@@ -76,7 +76,13 @@
          Remove the comment if you do not require these default features. -->
     <!-- %%INSERT_FEATURES -->
 
+    <permission android:description="@string/permissionDescription"
+        android:name="io.martimm.github.HikingCompanion.permission.ACCESS_HIKE_INSTALL"
+        android:label="@string/permissionLabel"
+        android:protectionLevel="normal"
+    />
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="io.martimm.github.HikingCompanion.permission.ACCESS_HIKE_INSTALL"/>
+    <!--uses-permission android:name="io.martimm.github.HikingCompanion.permission.ACCESS_HIKE_INSTALL"/-->
 </manifest>
