@@ -15,6 +15,7 @@ public:
   ~Utils();
 
   bool work();
+  QString dataRootDir();
   virtual void installImpl() = 0;
   virtual void startImpl() = 0;
 

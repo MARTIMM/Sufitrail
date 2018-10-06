@@ -61,6 +61,11 @@ Utils::~Utils() {
 }
 
 // ----------------------------------------------------------------------------
+QString Utils::dataRootDir() {
+  return _dataRootDir;
+}
+
+// ----------------------------------------------------------------------------
 bool Utils::work() {
 
   QObject *ro = applicationEngine->rootObjects().first();
