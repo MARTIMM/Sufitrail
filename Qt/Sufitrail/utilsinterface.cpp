@@ -43,7 +43,8 @@ extern bool setupWork() {
 void UtilsInterface::installHikingData() {
 
   // To be able to update the interface we must start the work in a thread.
-  QFuture<bool> future = QtConcurrent::run(setupWork);
+  //QFuture<bool> future = QtConcurrent::run(setupWork);
+  _utilsWorker->work();
 }
 
 // ----------------------------------------------------------------------------
