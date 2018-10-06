@@ -58,8 +58,10 @@ android {
     android/gradlew.bat
 
   DISTFILES += \
-    android/src/utils/TDAndroidUtils.java
+    android/src/utils/TDAndroidUtils.java \
+    android/res/values/TDLibs.xml
+
 
   ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
-  ANDROID_STL = c++_shared
+#  ANDROID_STL = c++_shared
 }
