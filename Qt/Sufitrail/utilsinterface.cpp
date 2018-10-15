@@ -1,7 +1,7 @@
 #include "utilsinterface.h"
 
 #if defined(Q_OS_ANDROID)
-  #include "androidutils.h"
+  #include "androidproviderclient.h"
 //#elif defined(Q_OS_IOS)
 //  #include "iosutils.h"
 #else
@@ -24,7 +24,7 @@ UtilsInterface::UtilsInterface(QObject *parent) : QObject(parent) {
   //  _utilsWorker = new IosUtils();
   //#el
   #if defined(Q_OS_ANDROID)
-    _utilsWorker = new AndroidUtils();
+    _utilsWorker = new AndroidProviderClient();
   #else
     _utilsWorker = new LinuxUtils();
   #endif
@@ -33,6 +33,8 @@ UtilsInterface::UtilsInterface(QObject *parent) : QObject(parent) {
 }
 
 // ----------------------------------------------------------------------------
+// must be a function and cannot be a method. Therefore we need a global where
+// this object is stored in and be able to use that object here.
 extern bool setupWork() {
 
   if ( globalUtilsWorker == nullptr ) return false;
@@ -43,8 +45,7 @@ extern bool setupWork() {
 void UtilsInterface::installHikingData() {
 
   // To be able to update the interface we must start the work in a thread.
-  //QFuture<bool> future = QtConcurrent::run(setupWork);
-  _utilsWorker->work();
+  QFuture<bool> future = QtConcurrent::run(setupWork);
 }
 
 // ----------------------------------------------------------------------------
