@@ -1,5 +1,9 @@
 #include "utilsinterface.h"
 
+#if defined(Q_OS_ANDROID)
+#include <QtAndroid>
+#endif
+
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QDebug>
@@ -11,6 +15,23 @@ QQmlApplicationEngine *applicationEngine;
 
 // ----------------------------------------------------------------------------
 int main( int argc, char *argv[]) {
+
+#if defined(Q_OS_ANDROID)
+  // On android, we must request the user of the application for the following
+  // permissions to create data and access devices
+  QStringList permissions = {
+    "android.permission.WRITE_EXTERNAL_STORAGE",
+    "android.permission.READ_EXTERNAL_STORAGE"
+  };
+  QtAndroid::PermissionResultMap rpm = QtAndroid::requestPermissionsSync(
+        permissions
+        );
+
+  QStringList keys = rpm.keys();
+  for ( int rpmi = 0; rpmi < keys.count(); rpmi++) {
+    qDebug() << keys[rpmi] << (rpm[keys[rpmi]] == QtAndroid::PermissionResult::Granted ? "ok" : "denied");
+  }
+#endif
 
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
@@ -46,51 +67,21 @@ int main( int argc, char *argv[]) {
 }
 
 // ============================================================================
+/*
 #if defined(Q_OS_ANDROID)
 
 //extern "C" {
 
-#include "androidutils.h"
+#include "androidproviderclient.h"
+#include <QtAndroid>
+#include <QAndroidJniObject>
 
 //#include <QAndroidActivityResultReceiver>
-#include <QtAndroid>
 //#include <QtAndroidExtras>
 //#include <QAndroidJniEnvironment>
-#include <QAndroidJniObject>
 //#include <jni.h>
 
-#define Q_QDOC true
-
-// ----------------------------------------------------------------------------
-JNIEXPORT jstring JNICALL Java_utils_TDAndroidUtils_getDataRootDir_2 (
-     JNIEnv *env,        /* interface pointer */
-     jobject obj         /* "this" pointer */
-     ) {
-  Q_UNUSED(env)
-  Q_UNUSED(obj)
-
-  AndroidUtils *au = new AndroidUtils();
-  QString drd = au->dataRootDir();
-  qDebug() << "Sending" << drd << "to java";
-  QAndroidJniObject jstr = QAndroidJniObject::fromString(drd);
-
-  // qtcreator errors on jstr.object<jstring>(). According to the code
-  // a static cast is applied so we do that instead.
-  return static_cast<jstring>(jstr.object());
-}
-
-// ----------------------------------------------------------------------------
-JNIEXPORT void JNICALL Java_utils_TDAndroidUtils_moveDataPublic_2 (
-     JNIEnv *env,        /* interface pointer */
-     jobject obj         /* "this" pointer */
-     ) {
-  Q_UNUSED(env)
-  Q_UNUSED(obj)
-
-  UtilsInterface *ui = new UtilsInterface();
-  ui->installHikingData();
-}
-
+//#define Q_QDOC true
 //} // extern "C"
 #endif
-
+*/
