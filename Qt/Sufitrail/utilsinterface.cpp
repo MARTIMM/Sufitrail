@@ -1,11 +1,11 @@
 #include "utilsinterface.h"
 
 #if defined(Q_OS_ANDROID)
-  #include "androidproviderclient.h"
+  #include "android.h"
 //#elif defined(Q_OS_IOS)
 //  #include "iosutils.h"
 #else
-  #include "linuxutils.h"
+  #include "linux.h"
 #endif
 
 #include <QDebug>
@@ -21,12 +21,12 @@ Utils *globalUtilsWorker = nullptr;
 UtilsInterface::UtilsInterface(QObject *parent) : QObject(parent) {
 
   //#if defined(Q_OS_IOS)
-  //  _utilsWorker = new IosUtils();
+  //  _utilsWorker = new Ios();
   //#el
   #if defined(Q_OS_ANDROID)
-    _utilsWorker = new AndroidProviderClient();
+    _utilsWorker = new Android();
   #else
-    _utilsWorker = new LinuxUtils();
+    _utilsWorker = new Linux();
   #endif
 
   globalUtilsWorker = _utilsWorker;

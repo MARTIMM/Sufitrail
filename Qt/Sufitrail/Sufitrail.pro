@@ -13,14 +13,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
-    linuxutils.h \
     utils.h \
     utilsinterface.h \
+    android.h \
+    linux.h
 
 SOURCES += main.cpp \
-    linuxutils.cpp \
     utilsinterface.cpp \
     utils.cpp \
+    android.cpp \
+    linux.cpp
 
 RESOURCES += qml.qrc hikeData.qrc
 
@@ -42,11 +44,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 android {
   QT += androidextras
 
-  HEADERS += \
-    androidproviderclient.h
+  HEADERS +=
 
-  SOURCES += \
-    androidproviderclient.cpp
+  SOURCES +=
 
   DISTFILES += \
     android/AndroidManifest.xml \
@@ -58,10 +58,10 @@ android {
     android/gradlew.bat
 
   DISTFILES += \
-    android/src/utils/AndroidProviderClient.java \
-    android/src/utils/GlobalHelper.java \
     android/res/values/TDLibs.xml
 
   ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
-#  ANDROID_STL = c++_shared
 }
+
+DISTFILES += \
+    android/src/utils/Android.java

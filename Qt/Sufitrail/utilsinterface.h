@@ -19,12 +19,7 @@ public:
   Q_INVOKABLE void installHikingData();
   Q_INVOKABLE void startHikingCompanion();
 
-signals:
-
-public slots:
-
 private:
-
   Utils *_utilsWorker;
 };
 
