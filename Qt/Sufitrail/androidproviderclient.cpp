@@ -1,27 +1,31 @@
-#include "androidutils.h"
+#include "androidproviderclient.h"
 
 #include <QDebug>
-#include <QtAndroid>
-#include <QtAndroidExtras>
-#include <QAndroidJniEnvironment>
+#include <QAndroidJniObject>
+//#include <QtAndroid>
+//#include <QtAndroidExtras>
+//#include <QAndroidJniEnvironment>
 //#include <QAndroidActivityResultReceiver>
 
 // ----------------------------------------------------------------------------
-AndroidUtils::AndroidUtils() : Utils() { }
+AndroidProviderClient::AndroidProviderClient() : Utils() { }
 
 // ----------------------------------------------------------------------------
-void AndroidUtils::installImpl() {
+/*
+void AndroidProviderClient::installImpl() {
+
+  if ( _HCNotInstalled ) return;
 
   qDebug() << "Install on android";
-
-  QAndroidJniObject jsPath = QAndroidJniObject::fromString(_dataRootDir);
+/ *
+  QAndroidJniObject jsPath = QAndroidJniObject::fromString(_dataShareDir);
   jboolean ok = QAndroidJniObject::callStaticMethod<jboolean>(
         // place to find java file and method
-        "utils/TDAndroidUtils", "install",
+        "utils/AndroidProviderClient", "install",
         // java args description
-        "(Ljava/lang/String;)Z",
+        "(Ljava/lang/String;Landroid/content/Context;)Z",
         // arguments
-        jsPath.object()
+        jsPath.object(), QtAndroid::androidContext().object()
         );
 
   // Catch exceptions from java
@@ -32,15 +36,19 @@ void AndroidUtils::installImpl() {
   else {
     qDebug() << "JNI Object not available";
   }
+* /
 }
+*/
 
 // ----------------------------------------------------------------------------
-void AndroidUtils::startImpl() {
+void AndroidProviderClient::startImpl() {
+
+  if ( _HCNotInstalled ) return;
 
   qDebug() << "Start on android";
 
   jboolean ok = QAndroidJniObject::callStaticMethod<jboolean>(
-        "utils/TDAndroidUtils", "start"
+        "utils/AndroidProviderClient", "start"
         );
 
   // Catch exceptions from java

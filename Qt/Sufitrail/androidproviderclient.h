@@ -6,14 +6,14 @@
 #include <QObject>
 
 // ----------------------------------------------------------------------------
-class AndroidUtils : public Utils {
+class AndroidProviderClient : public Utils {
 
   Q_OBJECT
 
 public:
-  explicit AndroidUtils();
+  explicit AndroidProviderClient();
 
-  void installImpl();
+  //void installImpl();
   void startImpl();
 
 signals:
