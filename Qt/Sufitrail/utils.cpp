@@ -18,41 +18,33 @@ extern QQmlApplicationEngine *applicationEngine;
 Utils::Utils(QObject *parent)
   : QObject(parent) {
 
-  // Target root path where data is stored for public access
-  _publicLoc = QStandardPaths::standardLocations(
+  QString hcid = "io.github.martimm.HikingCompanion";
+  qDebug() << "HC id: " << hcid;
+
+  // Prepare for data sharing location. Check if root exists. If not, the
+  // HikingCompanion app is not installed
+  // linux:     /home/marcel/.local/share/io.github.martimm.HikingCompanion
+  // Android:   /storage/emulated/0/Android/Data/io.github.martimm.HikingCompanion
+  QString publicLoc = QStandardPaths::standardLocations(
         QStandardPaths::GenericDataLocation
         ).first();
-  _programname = QCoreApplication::applicationName();
 
-  _dataRootDir = _publicLoc + "/" + _programname;
-  int size = _dataRootDir.length() + 1;
-/*
-  // Prepare the shared memory to hold the target path
-  _smForPath.setKey("HikingCompanionPath");
-  if ( _smForPath.isAttached() ) _smForPath.detach();
-  if ( ! _smForPath.create(size) ) {
-    qDebug() << "TD Not able to create sm" << _smForPath.errorString();
-  }
+#if defined(Q_OS_ANDROID)
+  publicLoc += "/Android/Data/" + hcid;
+#elif defined(Q_OS_LINUX)
+  publicLoc += "/" + hcid;
+#endif
 
-  if ( _smForPath.isAttached() || _smForPath.attach() ) {
-
-    qDebug() << "TD Attached to sm";
-    _smForPath.lock();
-    qDebug() << "TD locked";
-
-    char *data = reinterpret_cast<char *>(_smForPath.data());
-    _path = new QString(_dataRootDir);
-    char *p = _path->toLatin1().data();
-    strcpy( data, p);
-
-    _smForPath.unlock();
-    qDebug() << "TD unlocked";
+  QDir *dd = new QDir(publicLoc);
+  if ( !dd->exists() ) {
+    qDebug() << "HikingCompanion application is not installed";
+    _HCNotInstalled = true;
   }
 
   else {
-    qDebug() << "TD Not attached to sm" << _smForPath.errorString();
+    _dataShareDir = publicLoc + "/newHikeData";
+    this->mkpath(_dataShareDir);
   }
-*/
 }
 
 // ----------------------------------------------------------------------------
@@ -62,13 +54,21 @@ Utils::~Utils() {
 
 // ----------------------------------------------------------------------------
 QString Utils::dataRootDir() {
-  return _dataRootDir;
+  return _dataShareDir;
 }
 
 // ----------------------------------------------------------------------------
 bool Utils::work() {
 
   QObject *ro = applicationEngine->rootObjects().first();
+
+  if ( _HCNotInstalled ) {
+    ro->setProperty( "progressText", "HikingCompanion application is not installed");
+    ro->setProperty( "installButtonOn", false);
+    ro->setProperty( "quitButtonOn", true);
+
+    return false;
+  }
 
   qDebug() << "Init worker";
   ro->setProperty( "installButtonOn", false);
@@ -77,8 +77,9 @@ bool Utils::work() {
   ro->setProperty( "progressText", "Initialize setup");
 
   // Cleanup before start, maybe there are some remnants left
-  QDir *dd = new QDir(_dataRootDir);
+  QDir *dd = new QDir(_dataShareDir);
   if ( dd->exists() ) dd->removeRecursively();
+  this->mkpath(_dataShareDir);
 
   QSettings *s = new QSettings(
         QString(":HikeData/hike.conf"),
@@ -121,26 +122,22 @@ bool Utils::work() {
   std::this_thread::sleep_for(std::chrono::milliseconds(600));
 
   ro->setProperty( "progressValue", progress++);
-  QFile::copy( ":HikeData/hike.conf", _dataRootDir + "/hike.conf");
+  QFile::copy( ":HikeData/hike.conf", _dataShareDir + "/hike.conf");
 
   ro->setProperty( "progressValue", progress++);
+/*
   ro->setProperty( "progressText", "Start HikingCompanion");
 
   qDebug() << "Copied, start sharing...";
   installImpl();
   qDebug() << "Done sharing";
 
-  std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-  ro->setProperty( "progressValue", progress++);
-  ro->setProperty( "progressText", "Cleanup");
-  //  qDebug() << "Remove" << _dataRootDir;
-  //  dd = new QDir(_dataRootDir);
+  //  qDebug() << "Remove" << _dataShareDir;
+  //  dd = new QDir(_dataShareDir);
   //  dd->removeRecursively();
-
-//  _smForPath.detach();
-//  qDebug() << "TD detached";
-
+*/
   std::this_thread::sleep_for(std::chrono::milliseconds(500));
+  ro->setProperty( "progressValue", progress++);
   ro->setProperty( "progressText", "Finished");
 
   ro->setProperty( "quitButtonOn", true);
@@ -154,10 +151,14 @@ int Utils::_transportDataToPublicLocation(
     QString directory, QStringList files
     ) {
 
-  QString destDirname = _dataRootDir + "/" + directory;
+  QString destDirname = _dataShareDir + "/" + directory;
   QDir dest(destDirname);
   qDebug() << "Dest dir:" << destDirname;
-  if ( !dest.exists() ) dest.mkpath(destDirname);
+  bool ok = this->mkpath(destDirname);
+  if ( !ok ) {
+    qDebug() << "Creating path" << destDirname << "not ok";
+    return startProgress;
+  }
 
   for ( int fi = 0; fi < files.count(); fi++) {
     qDebug() << ":HikeData/" + directory + "/" + files[fi]
@@ -168,9 +169,48 @@ int Utils::_transportDataToPublicLocation(
                  );
 
     qDebug() << "Progress:" << startProgress + fi;
-    ro->setProperty( "progressValue", startProgress + fi);
-    ro->setProperty( "progressText", text + files[fi]);
+    //following crashes the program because changing values in another thread
+    //this goes for all changes in work() and call from there.
+    //ro->setProperty( "progressValue", startProgress + fi);
+    //ro->setProperty( "progressText", text + files[fi]);
   }
 
   return startProgress + files.count();
+}
+
+// ----------------------------------------------------------------------------
+bool Utils::mkpath(QString path) {
+
+  bool ok = true;
+  QString p = "/";
+  QDir *dd;
+
+  QStringList parts = path.split( '/', QString::SkipEmptyParts);
+  for ( int pi = 0; pi < parts.count(); pi++) {
+    dd = new QDir(p);
+    if ( dd->exists(parts[pi]) ) {
+      qDebug() << p << parts[pi] << "exists -> next";
+    }
+
+    else if ( dd->mkdir(parts[pi]) ) {
+      qDebug() << p << parts[pi] << "ok";
+    }
+
+    else {
+      qDebug() << p << parts[pi] << "fails";
+      ok = false;
+      break;
+    }
+
+    if ( pi == 0 ) {
+      p += parts[pi];
+    }
+
+    else {
+      p += "/" + parts[pi];
+    }
+  }
+
+  qDebug() << path << "ok:" << ok;
+  return ok;
 }
