@@ -13,7 +13,7 @@ class LinuxUtils : public Utils {
 public:
   explicit LinuxUtils();
 
-  void installImpl();
+  //void installImpl();
   void startImpl();
 
 signals:

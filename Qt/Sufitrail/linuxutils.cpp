@@ -7,8 +7,11 @@
 // ----------------------------------------------------------------------------
 LinuxUtils::LinuxUtils() : Utils() { }
 
+/*
 // ----------------------------------------------------------------------------
 void LinuxUtils::installImpl() {
+
+  if ( _HCNotInstalled ) return;
 
   qDebug() << "Install on Linux";
   QString programName = "HikingCompanion";
@@ -19,7 +22,7 @@ void LinuxUtils::installImpl() {
         );
 
   QStringList arguments;
-  arguments << _dataRootDir;
+  arguments << _dataShareDir;
 
   QProcess *hikingCompanion = new QProcess();
 
@@ -29,9 +32,12 @@ void LinuxUtils::installImpl() {
   hikingCompanion->execute( program, arguments);
   qDebug() << "Stopped on Linux";
 }
+*/
 
 // ----------------------------------------------------------------------------
 void LinuxUtils::startImpl() {
+
+  if ( _HCNotInstalled ) return;
 
   qDebug() << "New start on Linux";
   QString programName = "HikingCompanion";
