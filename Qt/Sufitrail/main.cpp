@@ -43,7 +43,7 @@ int main( int argc, char *argv[]) {
   QApplication app( argc, argv);
   app.setApplicationVersion("0.4.0");
   app.setApplicationDisplayName("SufiTrail");
-
+/*
   qDebug() << "App data location:" << QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
   qDebug() << "App config location:" << QStandardPaths::standardLocations(QStandardPaths::AppConfigLocation);
   qDebug() << "Generic data location:" << QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation);
@@ -54,7 +54,7 @@ int main( int argc, char *argv[]) {
   for ( int i = 0; i < argc; i++) {
     qDebug() << QString("qApp [%1]").arg(i) << argv[i];
   }
-
+*/
   qmlRegisterType<UtilsInterface>(
         "io.github.martimm.SufiTrail.UtilsInterface", 0, 1, "UtilsInterface"
         );
