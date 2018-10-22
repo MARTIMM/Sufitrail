@@ -123,6 +123,10 @@ bool Utils::work() {
 
   ro->setProperty( "progressValue", progress++);
   QFile::copy( ":HikeData/hike.conf", _dataShareDir + "/hike.conf");
+  QFile::copy(
+        ":HikeData/SufiTrailTheme.json",
+        _dataShareDir + "/SufiTrailTheme.json"
+        );
 
   ro->setProperty( "progressValue", progress++);
 /*
