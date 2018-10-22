@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>HikeData/hike.conf</file>
+        <file>HikeData/SufiTrailTheme.json</file>
     </qresource>
     <qresource prefix="/">
         <file>HikeData/Features</file>

@@ -15,13 +15,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 HEADERS += \
     utils.h \
     utilsinterface.h \
-    android.h \
     linux.h
 
 SOURCES += main.cpp \
     utilsinterface.cpp \
     utils.cpp \
-    android.cpp \
     linux.cpp
 
 RESOURCES += qml.qrc hikeData.qrc
@@ -44,9 +42,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 android {
   QT += androidextras
 
-  HEADERS +=
+  HEADERS += \
+    android.h
 
-  SOURCES +=
+  SOURCES += \
+    android.cpp
 
   DISTFILES += \
     android/AndroidManifest.xml \
@@ -58,10 +58,9 @@ android {
     android/gradlew.bat
 
   DISTFILES += \
-    android/res/values/TDLibs.xml
+    android/res/values/TDLibs.xml \
+    android/src/utils/Android.java
 
   ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 }
 
-DISTFILES += \
-    android/src/utils/Android.java
