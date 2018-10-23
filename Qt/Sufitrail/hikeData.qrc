@@ -13,6 +13,9 @@
         <file>HikeData/Photos</file>
     </qresource>
     <qresource prefix="/">
+        <file>HikeData/Pages/aboutText.html</file>
+    </qresource>
+    <qresource prefix="/">
         <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track01.gpx</file>
         <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track02.gpx</file>
         <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track03.gpx</file>
