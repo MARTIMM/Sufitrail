@@ -41,7 +41,8 @@ int main( int argc, char *argv[]) {
   QCoreApplication::setApplicationName("SufiTrail");
 
   QApplication app( argc, argv);
-  app.setApplicationVersion("0.4.0");
+  // Set version also in hike.conf == programVersion
+  app.setApplicationVersion("0.5.1");
   app.setApplicationDisplayName("SufiTrail");
 /*
   qDebug() << "App data location:" << QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
