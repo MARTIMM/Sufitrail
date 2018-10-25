@@ -104,20 +104,39 @@ bool Utils::work() {
   dd = new QDir(":HikeData/" + featureDir);
   QStringList features = dd->entryList( QDir::Files, QDir::Name);
 
-  ro->setProperty(
-        "progressTo",
-        tracks.count() + photos.count() + notes.count() + features.count()
-        + 3
-        );
+  QString textPagesDir = s->value("pagesdir").toString();
+  dd = new QDir(":HikeData/" + textPagesDir);
+  QStringList textPages = dd->entryList( QDir::Files, QDir::Name);
+
+  int totalTicks = tracks.count() + photos.count() + notes.count() +
+      features.count() + textPages.count() + 3;
+  ro->setProperty( "progressTo", totalTicks);
 
   int progress = 0;
-  progress = _transportDataToPublicLocation( ro, "Copy track: ", progress, tracksDir, tracks);
+  progress = _transportDataToPublicLocation(
+        ro, "Copy track: ", progress, tracksDir, tracks
+        );
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
-  progress = _transportDataToPublicLocation( ro, "Copy photo: ", progress, photoDir, photos);
+
+  progress = _transportDataToPublicLocation(
+        ro, "Copy photo: ", progress, photoDir, photos
+        );
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
-  progress = _transportDataToPublicLocation( ro, "Copy note: ", progress, noteDir, notes);
+
+  progress = _transportDataToPublicLocation(
+        ro, "Copy note: ", progress, noteDir, notes
+        );
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
-  progress = _transportDataToPublicLocation( ro, "Copy feature: ", progress, featureDir, features);
+
+  progress = _transportDataToPublicLocation(
+        ro, "Copy feature: ", progress, featureDir, features
+        );
+  std::this_thread::sleep_for(std::chrono::milliseconds(300));
+
+  progress = _transportDataToPublicLocation(
+        ro, "Copy page: ", progress, textPagesDir, textPages
+        );
+  std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
   std::this_thread::sleep_for(std::chrono::milliseconds(600));
 
@@ -161,6 +180,7 @@ int Utils::_transportDataToPublicLocation(
   bool ok = this->mkpath(destDirname);
   if ( !ok ) {
     qDebug() << "Creating path" << destDirname << "not ok";
+    //ro->setProperty( "progressText", "path " + destDirname + " failed to create");
     return startProgress;
   }
 
@@ -193,11 +213,11 @@ bool Utils::mkpath(QString path) {
   for ( int pi = 0; pi < parts.count(); pi++) {
     dd = new QDir(p);
     if ( dd->exists(parts[pi]) ) {
-      qDebug() << p << parts[pi] << "exists -> next";
+      //qDebug() << p << parts[pi] << "exists -> next";
     }
 
     else if ( dd->mkdir(parts[pi]) ) {
-      qDebug() << p << parts[pi] << "ok";
+      //qDebug() << p << parts[pi] << "ok";
     }
 
     else {
@@ -215,6 +235,6 @@ bool Utils::mkpath(QString path) {
     }
   }
 
-  qDebug() << path << "ok:" << ok;
+  //qDebug() << path << "ok:" << ok;
   return ok;
 }
