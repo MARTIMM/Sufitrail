@@ -44,18 +44,25 @@ int main( int argc, char *argv[]) {
   // Set version also in hike.conf == programVersion
   app.setApplicationVersion("0.5.1");
   app.setApplicationDisplayName("SufiTrail");
-/*
-  qDebug() << "App data location:" << QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
-  qDebug() << "App config location:" << QStandardPaths::standardLocations(QStandardPaths::AppConfigLocation);
-  qDebug() << "Generic data location:" << QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation);
+  // App data location
+  // android:
+  //   /data/user/0/io.martimm.github.SufiTrail/files
+  //   /storage/emulated/0/Android/data/io.martimm.github.SufiTrail/files
+  //qDebug() << "App data location:" << QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
+
+  // App config location
+  // android:
+  //   /data/user/0/io.martimm.github.SufiTrail/files/settings
+  //qDebug() << "App config location:" << QStandardPaths::standardLocations(QStandardPaths::AppConfigLocation);
+
+  // Generic data location
+  // android:
+  //   /storage/emulated/0
+  //qDebug() << "Generic data location:" << QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation);
   //qDebug() << "Download location:" << QStandardPaths::standardLocations(QStandardPaths::DownloadLocation);
   //qDebug() << "Documents location:" << QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation);
+/**/
 
-  qDebug() << "qApp argc:" << argc;
-  for ( int i = 0; i < argc; i++) {
-    qDebug() << QString("qApp [%1]").arg(i) << argv[i];
-  }
-*/
   qmlRegisterType<UtilsInterface>(
         "io.github.martimm.SufiTrail.UtilsInterface", 0, 1, "UtilsInterface"
         );
