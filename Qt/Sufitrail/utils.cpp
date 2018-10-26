@@ -15,8 +15,7 @@
 extern QQmlApplicationEngine *applicationEngine;
 
 // ----------------------------------------------------------------------------
-Utils::Utils(QObject *parent)
-  : QObject(parent) {
+Utils::Utils(QObject *parent) : QObject(parent) {
 
   QString hcid = "io.github.martimm.HikingCompanion";
   qDebug() << "HC id: " << hcid;
@@ -47,15 +46,12 @@ Utils::Utils(QObject *parent)
   }
 }
 
+/*
 // ----------------------------------------------------------------------------
-Utils::~Utils() {
-//  _smForPath.detach();
-}
-
-// ----------------------------------------------------------------------------
-QString Utils::dataRootDir() {
+QString Utils::dataShareDir() {
   return _dataShareDir;
 }
+*/
 
 // ----------------------------------------------------------------------------
 bool Utils::work() {
@@ -110,33 +106,36 @@ bool Utils::work() {
 
   int totalTicks = tracks.count() + photos.count() + notes.count() +
       features.count() + textPages.count() + 3;
-  ro->setProperty( "progressTo", totalTicks);
+/**/
 
+  //int totalTicks = tracks.count() + photos.count() + notes.count() + 3;
+  ro->setProperty( "progressTo", totalTicks);
   int progress = 0;
   progress = _transportDataToPublicLocation(
-        ro, "Copy track: ", progress, tracksDir, tracks
+        "Copy track: ", progress, tracksDir, tracks
         );
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
   progress = _transportDataToPublicLocation(
-        ro, "Copy photo: ", progress, photoDir, photos
+        "Copy photo: ", progress, photoDir, photos
         );
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
   progress = _transportDataToPublicLocation(
-        ro, "Copy note: ", progress, noteDir, notes
+        "Copy note: ", progress, noteDir, notes
         );
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
   progress = _transportDataToPublicLocation(
-        ro, "Copy feature: ", progress, featureDir, features
+        "Copy feature: ", progress, featureDir, features
         );
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
   progress = _transportDataToPublicLocation(
-        ro, "Copy page: ", progress, textPagesDir, textPages
+        "Copy page: ", progress, textPagesDir, textPages
         );
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
+/**/
 
   std::this_thread::sleep_for(std::chrono::milliseconds(600));
 
@@ -170,9 +169,11 @@ bool Utils::work() {
 
 // ----------------------------------------------------------------------------
 int Utils::_transportDataToPublicLocation(
-    QObject *ro, QString text, int startProgress,
+    QString text, int startProgress,
     QString directory, QStringList files
     ) {
+
+  //QObject *ro = applicationEngine->rootObjects().first();
 
   QString destDirname = _dataShareDir + "/" + directory;
   QDir dest(destDirname);
@@ -188,9 +189,17 @@ int Utils::_transportDataToPublicLocation(
     qDebug() << ":HikeData/" + directory + "/" + files[fi]
                 << " --> " << destDirname + "/" + files[fi];
 
-    QFile::copy( ":HikeData/" + directory + "/" + files[fi],
+    if ( QFile::copy( ":HikeData/" + directory + "/" + files[fi],
                  destDirname + "/" + files[fi]
-                 );
+                 ) ) {
+      qDebug() << "File" << ":HikeData/" + directory + "/" + files[fi] <<
+                  "copied to" << destDirname + "/" + files[fi];
+    }
+    else {
+      qDebug() << "File" << ":HikeData/" + directory + "/" + files[fi] <<
+                  "not copied to" << destDirname + "/" + files[fi];
+    }
+
 
     qDebug() << "Progress:" << startProgress + fi;
     //following crashes the program because changing values in another thread
