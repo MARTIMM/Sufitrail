@@ -42,7 +42,7 @@ int main( int argc, char *argv[]) {
 
   QApplication app( argc, argv);
   // Set version also in hike.conf == programVersion
-  app.setApplicationVersion("0.5.1");
+  app.setApplicationVersion("0.5.2");
   app.setApplicationDisplayName("SufiTrail");
   // App data location
   // android:
