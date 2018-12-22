@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gpx xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" creator="Sufi Trail App" xmlns="http://www.topografix.com/GPX/1/1">
+<gpx xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     version="1.1" creator="Sufi Trail App"
+     xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <link href="http://www.sufitrail.com/">Sufi Trail Hike</link>
     <keywords>Istanbul,Konya,Totaal,Turkije,hike</keywords>
@@ -7,7 +10,9 @@
     <author>Sufi trail</author>
     <description>hiking routes from Istanbul to Konya</description>
     <name>Turkije Totaal 05 09 2017</name>
-    <time>2018-02-11T08:24:57.008289Z</time><bounds maxlat="41.0569075774401" minlat="41.0024571418762" maxlon="28.9796161651611" minlon="28.9323019981384"/></metadata>
+    <time>2018-02-11T08:24:57.008289Z</time>
+    <bounds maxlat="41.0569075774401" minlat="41.0024571418762" maxlon="28.9796161651611" minlon="28.9323019981384"/>
+  </metadata>
   <trk>
     <name>Sufi1_01_Istanbul City</name>
     <trkseg>
