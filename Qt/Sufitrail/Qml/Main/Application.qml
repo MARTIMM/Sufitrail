@@ -1,8 +1,8 @@
 import io.github.martimm.SufiTrail.UtilsInterface 0.1
 
 import QtQuick 2.11
-import QtQuick.Controls 2.2
-import QtQuick.Window 2.3
+import QtQuick.Controls 2.4
+import QtQuick.Window 2.11
 
 ApplicationWindow {
   id: dataContainerWindow
@@ -44,10 +44,12 @@ ApplicationWindow {
     text: qsTr("
       <h1> The SufiTrail </h1>
 
-      <p> Welcome to the Sufitrail data container. This installed container will
-      not be the app showing you the way on your route. This is just a container
-      of the tracks, maps and other information. The app <b>HikingCompanion</b>
-      should start automatically if it is installed.
+      <p> Welcome to the <strong>Sufitrail Hike</strong> data container. This
+      is a container to hold tracks, maps and other information. This data is
+      installed in the <strong>HikingCompanion</strong> environment when <strong>Install hike data</strong>
+      is pressed. Then, after hitting the <strong>Exit</strong> button you can
+      (re)start the <strong>HikingCompanion</strong> application and select the
+      hike in the <strong>Config</strong> page.
       </p>
 
       <p> This data container app contains
@@ -56,7 +58,6 @@ ApplicationWindow {
         <li> Notes of interesting points on the track</li>
         <li> Photo's of interesting places</li>
       </ul>
-      </p>
       </br></br></br>
       <p>Progress of installing the hike routes and its information in the
         <b>HikingCompanion</b> application.
@@ -122,9 +123,9 @@ ApplicationWindow {
     }
 
     enabled: quitButtonOn
-    text: qsTr("Exit application")
+    text: qsTr("Exit")
     onClicked: {
-      utilsInterface.startHikingCompanion();
+      //utilsInterface.startHikingCompanion();
       Qt.quit();
     }
   }
