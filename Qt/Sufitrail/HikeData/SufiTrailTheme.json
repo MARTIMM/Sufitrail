@@ -8,7 +8,7 @@
     "foreground": "#56af31",
     "foregroundLight": 0,
     "foregroundDark": 2,
-    "background": "#fae5b2",
+    "background": "#ffffff",
     "backgroundLight": 0,
     "backgroundDark": 0,
 
@@ -22,19 +22,19 @@
   "toolbar": {
     "background": "#56af31",
     "backgroundLight": 0,
-    "backgroundDark": 1.2,
+    "backgroundDark": 0,
 
     "border": {
       "color": "transparent"
     },
 
     "button": {
-      "foreground": "#56af31",
+      "foreground": "#f3d08e",
       "foregroundLight": 1.2,
       "foregroundDark": 0,
-      "background": "#fae5b2",
-      "backgroundLight": 1.2,
-      "backgroundDark": 0,
+      "background": "#56af31",
+      "backgroundLight": 0,
+      "backgroundDark": 1.5,
 
       "border": {
         "color": "transparent"
@@ -45,19 +45,19 @@
   "buttonrow": {
     "background": "#56af31",
     "backgroundLight": 0,
-    "backgroundDark": 1.2,
+    "backgroundDark": 0,
 
     "border": {
       "color": "transparent"
     },
 
     "button": {
-      "foreground": "#56af31",
+      "foreground": "#f3d08e",
       "foregroundLight": 1.2,
       "foregroundDark": 0,
-      "background": "#fae5b2",
-      "backgroundLight": 1.2,
-      "backgroundDark": 0,
+      "background": "#56af31",
+      "backgroundLight": 0,
+      "backgroundDark": 1.5,
 
       "border": {
         "color": "transparent"
@@ -68,19 +68,19 @@
   "menu": {
     "background": "#56af31",
     "backgroundLight": 0,
-    "backgroundDark": 2,
+    "backgroundDark": 0,
 
     "border": {
       "color": "transparent"
     },
 
     "button": {
-      "foreground": "#5f5f5f",
-      "foregroundLight": 3,
+      "foreground": "#f3d08e",
+      "foregroundLight": 0,
       "foregroundDark": 0,
-      "background": "#efefef",
+      "background": "#56af31",
       "backgroundLight": 0,
-      "backgroundDark": 2,
+      "backgroundDark": 1.5,
 
       "border": {
         "color": "transparent"
