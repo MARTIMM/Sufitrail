@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- String definitions for references from the AndroidManifest.xml -->
+  <string name="permissionDescription">
+    permission to use hike install service
+  </string>
+
+  <string name="permissionLabel">
+    hike-install-permission
+  </string>
+
+  <!--string name="serviceDescription">
+    Install track data service
+  </string>
+
+  <string name="serviceLabel">
+    hike-install
+  </string-->
+</resources>

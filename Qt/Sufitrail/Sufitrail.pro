@@ -1,4 +1,4 @@
-QT += quick
+QT += quick widgets concurrent
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -12,10 +12,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += \
-        main.cpp
+HEADERS += \
+    utils.h \
+    utilsinterface.h \
+    linux.h
 
-RESOURCES += qml.qrc
+SOURCES += main.cpp \
+    utilsinterface.cpp \
+    utils.cpp \
+    linux.cpp
+
+RESOURCES += qml.qrc hikeData.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -27,3 +34,33 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+#x11 {
+#  DESTDIR = $${HOME}/.local/share/applications
+#}
+
+android {
+  QT += androidextras
+
+  HEADERS += \
+    android.h
+
+  SOURCES += \
+    android.cpp
+
+  DISTFILES += \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat
+
+  DISTFILES += \
+    android/res/values/TDLibs.xml \
+    android/src/utils/Android.java
+
+  ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+}
+

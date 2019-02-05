@@ -21,3 +21,5 @@ www/*
 # Stuff from QT app, data is secret and generated stuff is generatable
 Qt/Sufitrail/trackData/*
 Qt/build-*
+
+*.tbz

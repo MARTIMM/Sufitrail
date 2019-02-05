@@ -26,51 +26,6 @@
 ## Implementation
 The program will be using a Model–View–Adapter (MVA) or mediating-controller Model View Control (MVC) pattern, see [Wikipedia article][MVA]. This pattern is used to separate the storage, control and view from each other. To get things done, an observer/subscription service is created. A data generated in one part can be subscribed to by another. A call from the observer object is made to the subscribers of that specific data when that data becomes available. This pattern is also named 'producer/consumer' pattern.
 
-```plantuml
-title Global description of all that is involved
-
-'skinparam rectangle {
-'	roundCorner<<Concept>> 25
-'}
-
-actor user
-cloud "user data\ntransport" as network1
-cloud "email\ntransport" as network2
-cloud "tiles\ntransport" as network3
-node trailServer
-node tilesServer
-node emailServer
-package SufiTrailApp {
-  artifact index.html
-
-  folder tracks {
-    artifact "user\ntracks"
-    artifact "fotos\nnotes"
-  }
-
-  folder cache {
-    artifact tiles
-    artifact features
-  }
-}
-
-database SufiTrailDB {
-  storage dbUsers
-  storage dbTracks
-}
-
-user -- index.html
-SufiTrailApp -- network1
-SufiTrailApp -- tracks
-SufiTrailApp -- cache
-SufiTrailDB -- trailServer
-tilesServer -- network3
-network3 -- SufiTrailApp
-network1 - trailServer
-trailServer -- network2
-network2 -- emailServer
-```
-
 ### Data in the model: `SufiData`
 * Track data
 * Cache of map tiles
@@ -416,7 +371,7 @@ The servers are always having a url with something like `.../${z}/${x}/${y}.png`
 [StackEx1]: https://gis.stackexchange.com/questions/167792/how-to-retrieve-the-tile-url-in-openlayers-3
 
 [math1]: https://en.wikipedia.org/wiki/Trigonometric_functions#Cosecant,_secant_and_cotangent
-[tilecoords]: 
+[tilecoords]:
 https://gis.stackexchange.com/questions/17278/calculate-lat-lon-bounds-for-individual-tile-generated-from-gdal2tiles
 [slippy map]:
 https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Pseudo-code
