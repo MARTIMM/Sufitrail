@@ -1,15 +1,55 @@
-import io.github.martimm.SufiTrail.UtilsInterface 0.1
+/* ----------------------------------------------------------------------------
+  Author: Marcel Timmerman
+  License: ...
+  Copyright: © Sultanstrail 2018 .. ∞
+  Copyright: © Sufitrail 2018 .. ∞
+  Copyright: © Marcel Timmerman 2018 .. ∞
+
+  This is the main page where the root of the gui tree is described. This is
+  mainly an empty page area wherein pages and a menu are created.
+*/
+import "../../Qml/Page" as HCPage
+import "../../Qml/Parts" as HCParts
+import "../../Qml/Button" as HCButton
+
+
+import io.github.martimm.HikingCompanion.Theme 0.1
+import io.github.martimm.HikingCompanion.GlobalVariables 0.1
+import io.github.martimm.HikingCompanion.Config 0.3
+
 
 import QtQuick 2.11
 import QtQuick.Controls 2.4
 import QtQuick.Window 2.11
 
+
 ApplicationWindow {
-  id: dataContainerWindow
-  objectName: "dataContainerWindow"
+  id: root
 
-  UtilsInterface { id: utilsInterface }
+  Component.onCompleted: {
+    GlobalVariables.setApplicationWindow(this);
+    GlobalVariables.setCurrentPage(mapPage);
+    GlobalVariables.setMenu(menu);
 
+    // Get the hiking companion settings for default colors and
+    // to specify sizes and other properties.
+    var t = config.getTheme(true);
+    //console.log("style: " + t);
+    Theme.changeSettings(JSON.parse(t));
+
+    // Change colors only for specific hike when different
+    t = config.getTheme(false);
+    //console.log("style: " + t);
+    Theme.changeColors(JSON.parse(t));
+
+    config.setWindowSize( width, height);
+  }
+
+  Config { id: config }
+
+  title: qsTr("Your Hiking Companion")
+
+  visible: true
 
   // Sizes are not important because on mobile devices it always scales
   // to the screen width and height. For desktop I use a scaled
@@ -17,135 +57,113 @@ ApplicationWindow {
   width: 600
   height: 450
 
-  visible: true
-
-  title: qsTr("Sufitrail Data")
-
-  Text {
-    id: textMessage
-    width: parent.width
-
-    anchors {
-      top: parent.top
-      topMargin: 6
-      left: parent.left
-      leftMargin: 12
-      right: parent.right
-      rightMargin: 12
-    }
-
-    font {
-      family: "ariel"
-      pixelSize: 15
-    }
-
-    wrapMode: Text.WordWrap
-
-    text: qsTr("
-      <h1> The SufiTrail </h1>
-
-      <p> Welcome to the <strong>Sufitrail Hike</strong> data container. This
-      is a container to hold tracks, maps and other information. This data is
-      installed in the <strong>HikingCompanion</strong> environment when <strong>Install hike data</strong>
-      is pressed. Then, after hitting the <strong>Exit</strong> button you can
-      (re)start the <strong>HikingCompanion</strong> application and select the
-      hike in the <strong>Config</strong> page.
-      </p>
-
-      <p> This data container app contains
-      <ul>
-        <li> 40 tracks comprising the route from Istanbul to Konya</li>
-        <li> Notes of interesting points on the track</li>
-        <li> Photo's of interesting places</li>
-      </ul>
-      </br></br></br>
-      <p>Progress of installing the hike routes and its information in the
-        <b>HikingCompanion</b> application.
-      </p>
-    ")
+  // The changes are only fired in desktop apps
+  onXChanged: { setWindowSize(); }
+  onYChanged: { setWindowSize(); }
+  onWidthChanged: { setWindowSize(); }
+  onHeightChanged: { setWindowSize(); }
+  function setWindowSize () {
+    config.setWindowSize( width, height);
+/*
+    console.log("width x height in mm: "
+                + config.fysLength(width) + ", " + config.fysLength(height)
+                );
+*/
   }
 
-  property int progressFrom: 0.0
-  property int progressTo: 0.0
-  property int progressValue: 0.0
-  ProgressBar {
-    id: progressBar
+  property alias aboutPage: aboutPage
+  HCPage.AboutPage { id: aboutPage }
 
-    width: parent.width
-    height: 10
+  property alias configPage: configPage
+  HCPage.ConfigPage { id: configPage }
 
-    anchors {
-      top: textMessage.bottom
-      left: parent.left
-      leftMargin: 12
-      right: parent.right
-      rightMargin: 12
+  property alias userTrackConfigPage: userTrackConfigPage
+  HCPage.UserTrackConfigPage { id: userTrackConfigPage }
+
+  property alias exitPage: exitPage
+  HCPage.ExitPage { id: exitPage }
+
+  property alias mapPage: mapPage
+  HCPage.MapPage { id: mapPage; visible: true }
+
+  property alias tracksPage: tracksPage
+  HCPage.TracksPage { id: tracksPage }
+
+  // Menu
+  HCParts.MenuColumn {
+    id: menu
+
+    property alias mapButton: mapButton
+    HCButton.MenuButton {
+      id: mapButton
+      text: qsTr("🌍 Map")
+      //      text: qsTr("Map")
+      onClicked: {
+        GlobalVariables.menu.menuEntryClicked(mapPage);
+      }
     }
 
-    from: progressFrom
-    to: progressTo
-    value: progressValue
-
-    background: Rectangle {
-      color: "lightsteelblue"
-      border.color: "steelblue"
-      border.width: 1
-      radius: 3
+    property alias tracksButton: tracksButton
+    HCButton.MenuButton {
+      id: tracksButton
+      text: qsTr("🚶 Tracks")
+      //      text: qsTr("Tracks")
+      onClicked: {
+        GlobalVariables.menu.menuEntryClicked(tracksPage);
+      }
     }
-  }
-
-  property string progressText
-  Text {
-    width: parent.width
-    height: 10
-
-    anchors {
-      top: progressBar.bottom
-      left: parent.left
-      leftMargin: 12
-      right: parent.right
-      rightMargin: 12
+/*
+    property alias configButton: configButton
+    HCButton.MenuButton {
+      id: configButton
+      text: "🛠 " + qsTr("Config")
+      //      text: qsTr("Config")
+      onClicked: {
+        GlobalVariables.menu.menuEntryClicked(configPage);
+      }
     }
 
-    text: progressText
-  }
+    property alias userTrackConfigButton: userTrackConfigButton
+    HCButton.MenuButton {
+      id: userTrackConfigButton
+      text: qsTr("📡 Recording")
+      //      text: qsTr("Recording")
 
-  property bool quitButtonOn: false
-  Button {
-    id: quitButton
-
-    anchors {
-      right: parent.right
-      bottom: parent.bottom
-
-      rightMargin: 12
-      bottomMargin: 12
+      onClicked: {
+        GlobalVariables.menu.menuEntryClicked(userTrackConfigPage);
+      }
+    }
+*/
+    property alias aboutButton: aboutButton
+    HCButton.MenuButton {
+      id: aboutButton
+      text: qsTr("👥 About")
+      //      text: qsTr("About")
+      onClicked: {
+        GlobalVariables.menu.menuEntryClicked(aboutPage);
+      }
     }
 
-    enabled: quitButtonOn
-    text: qsTr("Exit")
-    onClicked: {
-      //utilsInterface.startHikingCompanion();
-      Qt.quit();
-    }
-  }
+    property alias exitButton: exitButton
+    HCButton.MenuButton {
+      Component.onCompleted: {
+        if ( Qt.platform.os == "Android" ) {
+          txt = "■ ";
+        }
 
-  property bool installButtonOn: true
-  Button {
-    id: installButton
+        else {
+          txt = "⏻ ";
+        }
+        txt += qsTr("Exit");
+      }
 
-    anchors {
-      right: quitButton.left
-      bottom: parent.bottom
-
-      rightMargin: 6
-      bottomMargin: 12
-    }
-
-    enabled: installButtonOn
-    text: qsTr("Install hike data")
-    onClicked: {
-      utilsInterface.installHikingData();
+      id: exitButton
+      property string txt
+      text: txt
+      //       text: qsTr("Exit")
+      onClicked: {
+        GlobalVariables.menu.menuEntryClicked(exitPage);
+      }
     }
   }
 }

@@ -1,0 +1,37 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/">
+        <!--file>Assets/Cache/Tiles</file>
+        <file>Assets/Cache/Features</file-->
+        <file>Assets/Fonts/Symbola.ttf</file>
+        <file>Assets/Images/Icon/Android/HCLogo-96x96.png</file>
+        <file>Assets/Images/Icon/Android/HCLogo-144x144.png</file>
+        <file>Assets/Images/Icon/Android/HCLogo-192x192.png</file>
+        <file>Assets/Images/Icon/Poi/FoodSleep/restaurant_italian.png</file>
+        <file>Assets/Pages/exitText.html</file>
+        <file>Assets/Pages/appInfoText.html</file>
+        <file>Assets/Pages/aboutText.html</file>
+        <file alias="qtquickcontrols2.conf">Assets/Theme/qtquickcontrols2.conf</file>
+        <file>Assets/thunderForestApiKey</file>
+        <file>Assets/Providers/cycle</file>
+        <file>Assets/Providers/hiking</file>
+        <file>Assets/Providers/night-transit</file>
+        <file>Assets/Providers/satellite</file>
+        <file>Assets/Providers/street</file>
+        <file>Assets/Providers/street-hires</file>
+        <file>Assets/Providers/terrain</file>
+        <file>Assets/Providers/transit</file>
+        <!--file>Assets/Theme/HCTheme1.qml</file-->
+        <file>Assets/Theme/HikingCompanionTheme.qml</file>
+        <file>Assets/Theme/HikingCompanion.json</file>
+        <file>HCTheme/Button.qml</file>
+        <file>HCTheme/ComboBox.qml</file>
+        <file>HCTheme/Frame.qml</file>
+        <file>HCTheme/Label.qml</file>
+        <file>HCTheme/Switch.qml</file>
+        <file>HCTheme/TextField.qml</file>
+    </qresource>
+    <qresource prefix="/" lang="nl">
+        <file alias="exitText.html">Assets/Pages/exitText_nl.html</file>
+    </qresource>
+</RCC>

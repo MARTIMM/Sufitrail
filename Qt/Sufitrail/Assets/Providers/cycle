@@ -1,0 +1,8 @@
+{
+    "UrlTemplate" : "http://a.tile.thunderforest.com/cycle/%z/%x/%y.png?apikey=cd3a617a064d4ec9bb036f9a0e61351d",
+    "ImageFormat" : "png",
+    "QImageFormat" : "Indexed8",
+    "ID" : "thf-cycle",
+    "MapCopyRight" : "<a href='http://www.thunderforest.com/'>Thunderforest</a>",
+    "DataCopyRight" : "<a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+}

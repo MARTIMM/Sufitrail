@@ -1,5 +1,41 @@
 <RCC>
     <qresource prefix="/">
+        <file>Qml/Button/ButtonRowButton.qml</file>
+        <file>Qml/Button/CurrentLocationButton.qml</file>
+        <file>Qml/Button/CurrentTrackButton.qml</file>
+        <file>Qml/Button/Home.qml</file>
+        <file>Qml/Button/MenuButton.qml</file>
+        <file>Qml/Button/OpenMenu.qml</file>
+        <file>Qml/Button/ToolbarButton.qml</file>
+        <file>Qml/Dialog/YesNoDialog.qml</file>
+        <file>Qml/GlobalVariables.qml</file>
         <file>Qml/Main/Application.qml</file>
+        <file>Qml/MapFeatures/CurrentLocationFeature.qml</file>
+        <file>Qml/MapFeatures/CurrentPositionSource.qml</file>
+        <file>Qml/MapFeatures/MapSourcePlugin.qml</file>
+        <file>Qml/MapFeatures/PoiSearch.qml</file>
+        <file>Qml/MapFeatures/TrackCourse.qml</file>
+        <file>Qml/MapFeatures/UserTrackCourse.qml</file>
+        <file>Qml/MapFeatures/WanderOffTrackNotation.qml</file>
+        <file>Qml/Page/AboutPage.qml</file>
+        <file>Qml/Page/ConfigPage.qml</file>
+        <file>Qml/Page/ExitPage.qml</file>
+        <file>Qml/Page/MapPage.qml</file>
+        <file>Qml/Page/Plain.qml</file>
+        <file>Qml/Page/TracksPage.qml</file>
+        <file>Qml/Page/UserTrackConfigPage.qml</file>
+        <file>Qml/Parts/ConfigComboBox.qml</file>
+        <file>Qml/Parts/ConfigLabel.qml</file>
+        <file>Qml/Parts/ConfigInputText.qml</file>
+        <file>Qml/Parts/ConfigSwitch.qml</file>
+        <file>Qml/Parts/InfoArea.qml</file>
+        <file>Qml/Parts/MenuColumn.qml</file>
+        <file>Qml/Parts/PageButtonRow.qml</file>
+        <file>Qml/Parts/ToolbarRectangle.qml</file>
+        <file>Qml/Parts/ToolbarRow.qml</file>
+        <file>Qml/Tests/ThemeTest.qml</file>
+        <file>Qml/Tests/TimedCoordinateGenerator.qml</file>
+        <file>Qml/MapFeatures/PoiModel.qml</file>
+        <file>Qml/Parts/PageButtonRowRectangle.qml</file>
     </qresource>
 </RCC>
