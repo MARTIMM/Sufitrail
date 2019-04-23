@@ -145,12 +145,13 @@ QList<QGeoCoordinate> GpxFile::boundary(QList<QGeoCoordinate> coordinateList) {
 
   Config *cfg = new Config();
 
-  QString entryKey = cfg->hikeEntryKey();
-  QString tableName = cfg->hikeTableName(entryKey);
-  int index = cfg->getSetting(tableName + "/gpxfileindex").toInt();
-  QString tracksTableName = cfg->tracksTableName( tableName, index);
+  //QString entryKey = cfg->hikeEntryKey();
+  //QString tableName = cfg->hikeTableName(entryKey);
+  int index = cfg->getSetting("General/gpxfileindex").toInt();
+  //QString tracksTableName = cfg->tracksTableName( tableName, index);
+  QString tracksTableName = QString("Track%1").arg(index);
   QString x = cfg->getSetting(tracksTableName + "/minlon");
-
+/*
   if ( x == "" ) {
     qDebug() << "Calculate boundaries and store in settings";
     for ( int ci = 0; ci < coordinateList.count(); ci++) {
@@ -168,12 +169,13 @@ QList<QGeoCoordinate> GpxFile::boundary(QList<QGeoCoordinate> coordinateList) {
   }
 
   else {
+*/
     qDebug() << "Found boundaries in settings";
     minlon = cfg->getSetting(tracksTableName + "/minlon").toDouble();
     maxlon = cfg->getSetting(tracksTableName + "/maxlon").toDouble();
     minlat = cfg->getSetting(tracksTableName + "/minlat").toDouble();
     maxlat = cfg->getSetting(tracksTableName + "/maxlat").toDouble();
-  }
+//  }
 
   QGeoCoordinate *gc = new QGeoCoordinate();
   gc->setLatitude(minlat);

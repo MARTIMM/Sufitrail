@@ -230,6 +230,7 @@ HCPage.Plain {
 
       HCButton.ButtonRowButton {
         text: qsTr("Save")
+/*
         onClicked: {
           // Save settings from this page
           config.setSetting( "User/hikekey", hikeKey.inputText.text);
@@ -246,6 +247,7 @@ HCPage.Plain {
                 hikeKey.inputText.text
                 );
         }
+*/
       }
     }
   }

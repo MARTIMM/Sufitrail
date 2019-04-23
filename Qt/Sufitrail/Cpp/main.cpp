@@ -69,9 +69,10 @@ int main( int argc, char *argv[]) {
 
   // Get version from ConfigData object and set version of application.
   // It is kept there because of other reasons.
-  Config *cfg = new Config();
-  QString hcVersion = cfg->getHCVersion();
-  app.setApplicationVersion(hcVersion);
+  //Config *cfg = new Config();
+  //QString hcVersion = cfg->getHCVersion();
+  //app.setApplicationVersion(hcVersion);
+  app.setApplicationVersion("0.6.0");
   app.setApplicationDisplayName("HikingCompanion");
 
   // Add some fonts and set default font

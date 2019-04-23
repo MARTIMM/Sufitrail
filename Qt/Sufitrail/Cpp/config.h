@@ -40,7 +40,7 @@ public:
   QStringList inline readKeys( QString group, QSettings *s = nullptr) {
     return _configData->readKeys( group, s);
   }
-  QString inline hikeEntryKey() { return _configData->hikeEntryKey(); }
+  //QString inline hikeEntryKey() { return _configData->hikeEntryKey(); }
   QString inline hikeTableName(QString hikeEntryKey) {
     return _configData->hikeTableName(hikeEntryKey);
   }
@@ -62,21 +62,24 @@ public:
   Q_INVOKABLE inline QString getTheme( bool takeHCSettings ) {
     return _configData->getTheme(takeHCSettings); }
 
+/*
   Q_INVOKABLE inline QString getHCVersion() {
     return _configData->getHCVersion();
   }
+*/
   Q_INVOKABLE inline QStringList getHikeVersions() {
     return _configData->getHikeVersions();
   }
   Q_INVOKABLE inline QStringList getVersions() {
     return _configData->getVersions();
   }
-
+/*
   Q_INVOKABLE inline void defineHikeList() {
     _configData->defineHikeList();
     emit hikeListDefined();
   }
-  Q_INVOKABLE inline QStringList hikeList() { return _configData->hikeList(); }
+*/
+  //Q_INVOKABLE inline QStringList hikeList() { return _configData->hikeList(); }
   Q_INVOKABLE inline QVariantList trackList() { return _configData->trackList(); }
 
   //inline QString description() { return _configData->description(); }
@@ -120,7 +123,7 @@ public:
   }
 
 signals:
-  void hikeListDefined();
+  //void hikeListDefined();
   void coordinatesReady();
 
 public slots:

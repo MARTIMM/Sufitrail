@@ -26,7 +26,7 @@ HCPage.Plain {
     // the languageListChanged signal. Do the same for hikes and
     // catch signal hikeListDefined.
     lngs.defineLanguages();
-    config.defineHikeList();
+    //config.defineHikeList();
 
     username.inputText.text = config.getSetting("User/username");
     email.inputText.text = config.getSetting("User/email");
@@ -46,12 +46,13 @@ HCPage.Plain {
 
   Config {
     id: config
-
+/*
     onHikeListDefined: {
       cbx2.model = config.hikeList();
       console.log("hikes: " + config.hikeList());
       cbx2.currentIndex = parseInt(config.getSetting("selectedhikeindex"));
     }
+*/
   }
 
   HCParts.ToolbarRectangle {

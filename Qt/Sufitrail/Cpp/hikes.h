@@ -28,8 +28,8 @@ public:
   inline QGeoPath coordinateList() { return QGeoPath(_coordinateList); }
   inline QGeoPath boundary() { return QGeoPath(_boundary); }
 
-  void defineHikeList();
-  QStringList hikeList();
+  //void defineHikeList();
+  //QStringList hikeList();
   QVariantList trackList();
   void loadCoordinates(int index);
 
@@ -59,7 +59,7 @@ private:
 
   // title => hike table name. titles from the tables are shown in the drop
   // list and after selection it must be used to find the table.
-  QStringList _hikeList;
+  //QStringList _hikeList;
   QVariantList _trackList;
 
   QList<QGeoCoordinate> _coordinateList;

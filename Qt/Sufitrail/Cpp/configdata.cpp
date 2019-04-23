@@ -44,6 +44,7 @@ ConfigData::ConfigData(QObject *parent) : QObject(parent) {
   qCInfo(config) << "Physical dots/inch X, Y:" << screen->physicalDotsPerInchX() << screen->physicalDotsPerInchY();
   qCInfo(config) << "Mean of x and y physical dots/mm:" << _pixelDensity;
 
+/*
   // Take first directory from the list. That one is the users data directory.
   // linux:     /home/marcel/.config/io.martimm.github.HikingCompanion
   // android:   /data/user/0/io.martimm.github.HikingCompanion/files/settings
@@ -75,11 +76,15 @@ ConfigData::ConfigData(QObject *parent) : QObject(parent) {
   _settings = new QSettings( _dataDir + "/HikingCompanion.conf", QSettings::IniFormat);
   _settings->setIniCodec("UTF-8");
 #endif
+*/
+  _dataDir = "qrc:HikeData";
+  _settings = new QSettings( _dataDir + "/hike.conf", QSettings::IniFormat);
+  _settings->setIniCodec("UTF-8");
 
   // Place default stylesheet into _dataDir directory. Make
   // a config entry for the style file
   //setSetting( "style", ":Assets/Theme/HikingCompanion.json");
-  setSetting( "style", ":HikeData/SufiTrailTheme.json");
+  //setSetting( "style", ":HikeData/SufiTrailTheme.json");
 
   //QFile::remove(_dataDir + "/HikingCompanion.json");
   //QString stylePath = getSetting("style");
@@ -96,7 +101,7 @@ ConfigData::ConfigData(QObject *parent) : QObject(parent) {
   //this->_mkpath(_dataDir + "/Cache/Tiles");
   //this->_mkpath(_dataDir + "/Cache/Features");
 
-  // With this I can use "cache:Tiles" or "cache/Features" in e.g.
+  // With this I can use "cache:Tiles" or "cache:Features" in e.g.
   // value of PluginParameter name "osm.mapping.offline.directory"
   QDir::setSearchPaths( "cache", QStringList(":HikeData/Cache"));
 
@@ -327,7 +332,7 @@ QStringList ConfigData::readKeys( QString group, QSettings *s ) {
   settings->endGroup();
   return keys;
 }
-
+/*
 // ----------------------------------------------------------------------------
 // Return a key name like "h0" for an entry in the HikeList.
 // An empty string is returned when the selectedhikeindex is not found or,
@@ -371,27 +376,27 @@ QString ConfigData::tracksTableName( QString hikeTableName, int trackCount) {
 
   return QString("%1.Track%2").arg(hikeTableName).arg(trackCount);
 }
-
+*/
 
 // ----------------------------------------------------------------------------
 int ConfigData::getGpxFileIndexSetting() {
 
-  QString entryKey = hikeEntryKey();
-  QString tableName = hikeTableName(entryKey);
-  return getSetting( tableName + "/gpxfileindex").toInt();
+  //QString entryKey = hikeEntryKey();
+  //QString tableName = hikeTableName(entryKey);
+  return getSetting( "General/gpxfileindex").toInt();
 }
 
 // ----------------------------------------------------------------------------
 void ConfigData::setGpxFileIndexSetting( int currentIndex ) {
 
-  QString entryKey = hikeEntryKey();
-  QString tableName = hikeTableName(entryKey);
-  setSetting( tableName + "/gpxfileindex", currentIndex);
+  //QString entryKey = hikeEntryKey();
+  //QString tableName = hikeTableName(entryKey);
+  setSetting( "General/gpxfileindex", currentIndex);
 }
 
 // ----------------------------------------------------------------------------
 QString ConfigData::getHtmlPageFilename( QString pageName) {
-
+/*
   QString textPath;
   QString entryKey = this->hikeEntryKey();
   QString tableName = this->hikeTableName(entryKey);
@@ -418,11 +423,14 @@ QString ConfigData::getHtmlPageFilename( QString pageName) {
   }
 
   return textPath;
+*/
+
+  return "qrc:HikeData/Pages/" + pageName;
 }
 
 // ----------------------------------------------------------------------------
 QString ConfigData::getTheme( bool takeHCSettings = false ) {
-
+/*
   QString stylePath;
   QString entryKey = this->hikeEntryKey();
   QString tableName = this->hikeTableName(entryKey);
@@ -456,14 +464,18 @@ QString ConfigData::getTheme( bool takeHCSettings = false ) {
   QString styleText = QLatin1String(stylesheet->readAll());
 
   return styleText;
+*/
+
+  return "qrc:HikeData/theme.json";
 }
 
 
 // ----------------------------------------------------------------------------
+/*
 QString ConfigData::getHCVersion() {
   return HIKING_COMPANION_VERSION;
 }
-
+*/
 // ----------------------------------------------------------------------------
 QString ConfigData::getOsVersion() {
   return QSysInfo::prettyProductName();
@@ -472,7 +484,7 @@ QString ConfigData::getOsVersion() {
 // ----------------------------------------------------------------------------
 // Return the hike title, hike version and program version
 QStringList ConfigData::getHikeVersions() {
-
+/*
   QStringList hikeInfo;
   QString entryKey = this->hikeEntryKey();
   QString tableName = this->hikeTableName(entryKey);
@@ -494,13 +506,24 @@ QStringList ConfigData::getHikeVersions() {
   }
 
   return hikeInfo;
+*/
+
+  QStringList hikeInfo;
+  hikeInfo.append(
+    { this->getSetting("Description/title"),
+      this->getSetting("General/version"),
+      this->getSetting("General/programVersion")
+    }
+    );
+
+  return hikeInfo;
 }
 
 // ----------------------------------------------------------------------------
 QStringList ConfigData::getVersions() {
 
   QStringList vlist;
-  vlist.append(this->getHCVersion());
+  vlist.append("-.-.-");
   vlist.append(this->getHikeVersions());
   vlist.append(this->getOsVersion());
 
@@ -534,6 +557,7 @@ void ConfigData::setWindowSize( int w, int h) {
   _height = h;
 }
 
+/*
 // ----------------------------------------------------------------------------
 void ConfigData::saveUserTrackNames(
     QString hikeTitle, QString hikeDesc, QString hikeKey
@@ -619,7 +643,7 @@ bool ConfigData::saveUserTrack(
 
   return success;
 }
-
+*/
 /*
 // ----------------------------------------------------------------------------
 void ConfigData::_installNewData() {

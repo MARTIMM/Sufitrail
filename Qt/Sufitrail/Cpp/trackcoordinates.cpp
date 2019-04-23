@@ -13,6 +13,7 @@ void TrackCoordinates::addCoordinate( double lon, double lat, double alt) {
   _coordinates.push_back(c);
 }
 
+/*
 // ----------------------------------------------------------------------------
 void TrackCoordinates::saveUserTrackNames(
     QString hikeTitle, QString hikeDesc, QString hikeKey
@@ -30,3 +31,4 @@ bool TrackCoordinates::saveUserTrack(
         hikeKey, trackTitle, trackDesc, trackType, _coordinates
         );
 }
+*/

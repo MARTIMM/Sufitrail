@@ -20,13 +20,14 @@ public:
   Q_INVOKABLE inline std::vector<Coord> getCoordinates() { return _coordinates; }
   Q_INVOKABLE void addCoordinate( double lon, double lat, double alt);
 
+/*
   Q_INVOKABLE void saveUserTrackNames(
       QString hikeTitle, QString hikeDesc, QString hikeKey
       );
   Q_INVOKABLE bool saveUserTrack(
       QString hikeKey, QString trackTitle, QString trackDesc, QString trackType
       );
-
+*/
 signals:
 
 public slots:

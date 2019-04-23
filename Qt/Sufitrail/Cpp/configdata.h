@@ -9,7 +9,7 @@
 #include <QLoggingCategory>
 
 // ----------------------------------------------------------------------------
-#define HIKING_COMPANION_VERSION "0.14.4"
+//#define HIKING_COMPANION_VERSION "0.14.4"
 
 Q_DECLARE_LOGGING_CATEGORY(config)
 Q_DECLARE_LOGGING_CATEGORY(configGetSel)
@@ -33,8 +33,8 @@ public:
   };
   Q_ENUM(Languages)
 
-  inline void defineHikeList() { _hikes->defineHikeList(); }
-  inline QStringList hikeList() { return _hikes->hikeList(); }
+  //inline void defineHikeList() { _hikes->defineHikeList(); }
+  //inline QStringList hikeList() { return _hikes->hikeList(); }
   inline QVariantList trackList() { return _hikes->trackList(); }
   inline void loadCoordinates(int index) {
     return _hikes->loadCoordinates(index);
@@ -70,7 +70,7 @@ public:
   QString getSetting(QString name, QSettings *s = nullptr);
 
   QStringList readKeys( QString group, QSettings *s = nullptr);
-  QString hikeEntryKey(QString hikeKey = "");
+  //QString hikeEntryKey(QString hikeKey = "");
   QString hikeTableName(QString hikeEntryKey);
   QString tracksTableName( QString hikeTableName, int trackCount);
 
@@ -81,7 +81,7 @@ public:
 
   QString getTheme( bool takeHCSettings );
 
-  QString getHCVersion();
+  //QString getHCVersion();
   QString getOsVersion();
   QStringList getHikeVersions();
   QStringList getVersions();
@@ -92,12 +92,13 @@ public:
   int pixels( double fysLength );
   void setWindowSize( int w, int h);
 
+/*
   void saveUserTrackNames( QString hikeTitle, QString hikeDesc, QString hikeKey);
   bool saveUserTrack(
       QString hikeKey, QString trackTitle, QString trackDesc,
       QString trackType, std::vector<Coord> coordinates
       );
-
+*/
   inline QString thunderForestApiKey() { return _thunderForestApiKey; }
 
 signals:

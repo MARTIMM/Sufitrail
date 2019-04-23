@@ -13,6 +13,7 @@
 //Hikes::Hikes(QObject *parent) : QObject(parent) { }
 Q_LOGGING_CATEGORY( hikes, "hc.hikes")
 
+/*
 // -----------------------------------------------------------------------------
 // Get information about hikes directly from the configuration in
 // the HikeList table
@@ -20,7 +21,6 @@ void Hikes::defineHikeList() {
 
   ConfigData *cfg = ConfigData::instance();
 
-  /**/
   // Get all entries from the hike list
   _hikeList.clear();
   QStringList hikeKeys = cfg->readKeys("HikeList");
@@ -33,18 +33,15 @@ void Hikes::defineHikeList() {
     //qDebug() << "Key and table:" << hikeKey << hikeKeyTable;
     _hikeList.append(cfg->getSetting(hikeKeyTable + "/title"));
   }
-
-
-
 }
-
+*//*
 // -----------------------------------------------------------------------------
 QStringList Hikes::hikeList() {
 
   // Return the hike list
   return _hikeList;
 }
-
+*/
 // -----------------------------------------------------------------------------
 // Create a list of tracks directly from the configuration using the
 // Track# tables. The list shows the title of each entry from each table.
@@ -53,13 +50,13 @@ QVariantList Hikes::trackList() {
   ConfigData *cfg = ConfigData::instance();
   _trackList.clear();
 
-  QString entryKey = cfg->hikeEntryKey();
-  QString tableName = cfg->hikeTableName(entryKey);
-  int ntracks = cfg->getSetting(tableName + "/ntracks").toInt();
+  //QString entryKey = cfg->hikeEntryKey();
+  //QString tableName = cfg->hikeTableName(entryKey);
+  int ntracks = cfg->getSetting("Hike/ntracks").toInt();
 
   for ( int ni = 0; ni < ntracks; ni++) {
     QString trackLine;
-    QString tracksTableName = cfg->tracksTableName( tableName, ni);
+    QString tracksTableName = QString("Track%1").arg(ni);
 
     qCDebug(hikes) << "Default font" << qApp->font().family();
 
@@ -79,6 +76,7 @@ QVariantList Hikes::trackList() {
 
     // Get the length of this track
     trackInfo = cfg->getSetting(tracksTableName + "/length");
+/*
     if ( trackInfo == "" or trackInfo == "0" ) {
 //    if ( true ) {
       QString hikeKey = cfg->getSetting("HikeList/" + entryKey);
@@ -96,8 +94,9 @@ QVariantList Hikes::trackList() {
     }
 
     else {
+*/
       trackLine += trackInfo;
-    }
+//    }
 
     // Finally add the track title
     trackLine += ", " + cfg->getSetting(tracksTableName + "/title");
@@ -114,14 +113,15 @@ void Hikes::loadCoordinates(int index) {
 
   ConfigData *cfg = ConfigData::instance();
 
-  QString entryKey = cfg->hikeEntryKey();
-  QString tableName = cfg->hikeTableName(entryKey);
-  QString tracksTableName = cfg->tracksTableName( tableName, index);
+  //QString entryKey = cfg->hikeEntryKey();
+  //QString tableName = cfg->hikeTableName(entryKey);
+  QString tracksTableName = QString("Track%1").arg(index);
 
-  QString hikeName = cfg->getSetting("HikeList/" + entryKey);
-  QString gpxFile =
-      cfg->dataDir() + "/Hikes/" + hikeName + "/Tracks/" +
-      cfg->getSetting(tracksTableName + "/fname");
+  //QString hikeName = cfg->getSetting("HikeList/" + entryKey);
+  //QString gpxFile =
+  //    cfg->dataDir() + "/Hikes/" + hikeName + "/Tracks/" +
+  //    cfg->getSetting(tracksTableName + "/fname");
+  QString gpxFile = cfg->getSetting(tracksTableName + "/fname");
 
   _coordinateList = GpxFile::coordinateList(gpxFile);
   qCDebug(hikes) << _coordinateList.count() << " coordinates found";
