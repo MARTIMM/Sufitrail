@@ -1,0 +1,90 @@
+{ "note01": "Sufitrail colors are: #56af31, #aad196 and #f3d08e, #fae5b2",
+  "stGreen1": "#56af31",
+  "stGreen2": "#aad196",
+  "stYellow1": "#f3d08e",
+  "stYellow2": "#fae5b2",
+
+  "component": {
+    "foreground": "#56af31",
+    "foregroundLight": 0,
+    "foregroundDark": 2,
+    "background": "#ffffff",
+    "backgroundLight": 0,
+    "backgroundDark": 0,
+
+    "okText": "#005f00",
+    "notOkText": "#5f0000",
+
+    "selectedText": "#efa0ca",
+    "selectionText": "#efbfcf"
+  },
+
+  "toolbar": {
+    "background": "#56af31",
+    "backgroundLight": 0,
+    "backgroundDark": 0,
+
+    "border": {
+      "color": "transparent"
+    },
+
+    "button": {
+      "foreground": "#f3d08e",
+      "foregroundLight": 1.2,
+      "foregroundDark": 0,
+      "background": "#56af31",
+      "backgroundLight": 0,
+      "backgroundDark": 1.5,
+
+      "border": {
+        "color": "transparent"
+      }
+    }
+  },
+
+  "buttonrow": {
+    "background": "#56af31",
+    "backgroundLight": 0,
+    "backgroundDark": 0,
+
+    "border": {
+      "color": "transparent"
+    },
+
+    "button": {
+      "foreground": "#f3d08e",
+      "foregroundLight": 1.2,
+      "foregroundDark": 0,
+      "background": "#56af31",
+      "backgroundLight": 0,
+      "backgroundDark": 1.5,
+
+      "border": {
+        "color": "transparent"
+      }
+    }
+  },
+
+  "menu": {
+    "background": "#56af31",
+    "backgroundLight": 0,
+    "backgroundDark": 0,
+
+    "border": {
+      "color": "transparent"
+    },
+
+    "button": {
+      "foreground": "#f3d08e",
+      "foregroundLight": 0,
+      "foregroundDark": 0,
+      "background": "#56af31",
+      "backgroundLight": 0,
+      "backgroundDark": 1.5,
+
+      "border": {
+        "color": "transparent"
+      }
+    }
+  }
+}

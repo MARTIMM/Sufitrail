@@ -1,0 +1,225 @@
+[ General ]
+programVersion="0.6.0"
+version="0.4.0"
+
+supportedlang="en"
+defaultlang="en"
+translationfile=""
+
+[ Description ]
+hike="Sufitrail"
+title="Sufi Trail"
+shortdescr="Ancient trail from Istanbul to Konya"
+www="http://www.sufitrail.nl/"
+owner="Sufi Trail"
+
+[ Releases ]
+'0.0.1'="Setup Sufitrail hike configuration"
+'0.1.0'="Added 40 tracks."
+'0.1.1'="A forgotten underscore must become a dash in a track title"
+'0.2.0'="Added test for theming"
+'0.2.1'="Theme file name changed to SufiTrailTheme.json"
+'0.3.0'="About page text added"
+'0.3.1'="Theme configuration changed"
+'0.3.2'="Front page text modified"
+'0.4.0'="Standalone version"
+
+[ Track0 ]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track01.gpx"
+title="Istanbul City"
+type='W'
+
+[Track1]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track02.gpx"
+title="From Yalova - Gökçedere"
+type='W'
+
+[Track2]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track03.gpx"
+title="Gökçedere - Güneyköy"
+type='W'
+
+[Track3]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track04.gpx"
+title="Güneyköy - Orhangazi"
+type='W'
+
+[Track4]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track05.gpx"
+title="Orhangazi - Çakırlı"
+type='W'
+
+[Track5]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track06.gpx"
+title="Çakırlı - Mahmudiye"
+type='W'
+
+[Track6]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track07.gpx"
+title="Mahmudiyei - İznik"
+type='W'
+
+[Track7]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track08.gpx"
+title="Iznik - Bereket"
+type='W'
+
+[Track8]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track09.gpx"
+title="Bereket - Osmaneli"
+type='W'
+
+[Track9]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track10.gpx"
+title="Osmaneli - Vezirhan"
+type='W'
+
+[Track10]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track11.gpx"
+title="Vezirhan - Bilecik"
+type='W'
+
+[Track11]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track12.gpx"
+title="Bilecik - Küre"
+type='W'
+
+[Track12]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track13.gpx"
+title="Küre - Sögüt"
+type='W'
+
+[Track13]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track14.gpx"
+title="Sögüt - Yeşilyurt"
+type='W'
+
+[Track14]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track15.gpx"
+title="Yeşilyurt - Alınca"
+type='W'
+
+[Track15]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track16.gpx"
+title="Alınca - Eskişehir"
+type='W'
+
+[Track16]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track18.gpx"
+title="Eskişehir - Süpüren"
+type='W'
+
+[Track17]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track19.gpx"
+title="Süpüren - Sarayören"
+type='W'
+
+[Track18]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track20.gpx"
+title="Sarayören - Seyitgazi"
+type='W'
+
+[Track19]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track21.gpx"
+title="Seyitgazi - Sükranlı"
+type='W'
+
+[Track20]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track22.gpx"
+title="Sükranlı - Ağlarca"
+type='W'
+
+[Track21]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track23.gpx"
+title="Ağlarca - Muratkoru"
+type='W'
+
+[Track22]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track24.gpx"
+title="Muratkoru - Gömü"
+type='W'
+
+[Track23]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track25.gpx"
+title="Gömü - Emirdağ"
+type='W'
+
+[Track24]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track26.gpx"
+title="Emirdag - Karacalar"
+type='W'
+
+[Track25]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track27.gpx"
+title="Karacalar - Emirdede Tepesi"
+type='W'
+
+[Track26]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track28.gpx"
+title="Emirdede Tepesi - Kemerkaya"
+type='W'
+
+[Track27]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track29.gpx"
+title="Kemerkaya - Taşağıl"
+type='W'
+
+[Track28]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track30.gpx"
+title="Taşağıl - Çay"
+type='W'
+
+[Track29]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track31.gpx"
+title="Çay - Yakasenek"
+type='W'
+
+[Track30]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track32.gpx"
+title="Yakasenek - Ulupinar"
+type='W'
+
+[Track31]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track33.gpx"
+title="Ulupinar - Akşehir"
+type='W'
+
+[Track32]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track34.gpx"
+title="Akşehir - Çakırlar"
+type='W'
+
+[Track33]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track35.gpx"
+title="Çakırlar - Doganhisarn"
+type='W'
+
+[Track34]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track36.gpx"
+title="Doganhisar - Aşağı Çığıl"
+type='W'
+
+[Track35]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track37.gpx"
+title="Aşağı Çığıl - Derbent"
+type='W'
+
+[Track36]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track38.gpx"
+title="Derbent - Salahattin"
+type='W'
+
+[Track37]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track39.gpx"
+title="Basarakavak - Küçükmuhsine"
+type='W'
+
+[Track38]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track40.gpx"
+title="Küçükmuhsine - Sille"
+type='W'
+
+[Track39]
+fname="Sufitrail_1_Istanbul_Konya_21_december_2017-track41.gpx"
+title="Sille - Konya"
+type='W'
