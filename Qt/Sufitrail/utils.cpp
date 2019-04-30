@@ -77,12 +77,15 @@ bool Utils::work() {
   if ( dd->exists() ) dd->removeRecursively();
   this->mkpath(_dataShareDir);
 
+  // Build the exportable data in the newHikeData dir
+  // get the config file
   QSettings *s = new QSettings(
         QString(":HikeData/hike.conf"),
         QSettings::IniFormat
         );
   qDebug() << "Fn:" << s->fileName();
 
+  // Gather exportable items
   QString tracksDir = s->value("tracksdir").toString();
   dd = new QDir(":HikeData/" + tracksDir);
   QStringList tracks = dd->entryList( QDir::Files, QDir::Name);
@@ -100,13 +103,24 @@ bool Utils::work() {
   dd = new QDir(":HikeData/" + featureDir);
   QStringList features = dd->entryList( QDir::Files, QDir::Name);
 
+  // Pages
   QString textPagesDir = s->value("pagesdir").toString();
   dd = new QDir(":HikeData/" + textPagesDir);
   QStringList textPages = dd->entryList( QDir::Files, QDir::Name);
 
+  // Page style files
+  QString textPagesCssDir = s->value("pagecss").toString();
+  dd = new QDir(":HikeData/" + textPagesCssDir);
+  QStringList textPagesCss = dd->entryList( QDir::Files, QDir::Name);
+
+  // Page images
+  QString textPagesImgDir = s->value("pageimages").toString();
+  dd = new QDir(":HikeData/" + textPagesImgDir);
+  QStringList textPagesImg = dd->entryList( QDir::Files, QDir::Name);
+
+  // Calculate progressbar ticks
   int totalTicks = tracks.count() + photos.count() + notes.count() +
       features.count() + textPages.count() + 3;
-/**/
 
   //int totalTicks = tracks.count() + photos.count() + notes.count() + 3;
   ro->setProperty( "progressTo", totalTicks);
@@ -114,30 +128,41 @@ bool Utils::work() {
   progress = _transportDataToPublicLocation(
         "Copy track: ", progress, tracksDir, tracks
         );
-  std::this_thread::sleep_for(std::chrono::milliseconds(300));
+
+  int nbrSleepMS = 400;
+  std::this_thread::sleep_for(std::chrono::milliseconds(nbrSleepMS));
 
   progress = _transportDataToPublicLocation(
         "Copy photo: ", progress, photoDir, photos
         );
-  std::this_thread::sleep_for(std::chrono::milliseconds(300));
+  std::this_thread::sleep_for(std::chrono::milliseconds(nbrSleepMS));
 
   progress = _transportDataToPublicLocation(
         "Copy note: ", progress, noteDir, notes
         );
-  std::this_thread::sleep_for(std::chrono::milliseconds(300));
+  std::this_thread::sleep_for(std::chrono::milliseconds(nbrSleepMS));
 
   progress = _transportDataToPublicLocation(
         "Copy feature: ", progress, featureDir, features
         );
-  std::this_thread::sleep_for(std::chrono::milliseconds(300));
+  std::this_thread::sleep_for(std::chrono::milliseconds(nbrSleepMS));
 
   progress = _transportDataToPublicLocation(
         "Copy page: ", progress, textPagesDir, textPages
         );
-  std::this_thread::sleep_for(std::chrono::milliseconds(300));
-/**/
+  std::this_thread::sleep_for(std::chrono::milliseconds(nbrSleepMS));
 
-  std::this_thread::sleep_for(std::chrono::milliseconds(600));
+  progress = _transportDataToPublicLocation(
+        "Copy page: ", progress, textPagesCssDir, textPagesCss
+        );
+  std::this_thread::sleep_for(std::chrono::milliseconds(nbrSleepMS));
+
+  progress = _transportDataToPublicLocation(
+        "Copy page: ", progress, textPagesImgDir, textPagesImg
+        );
+  std::this_thread::sleep_for(std::chrono::milliseconds(nbrSleepMS));
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(nbrSleepMS));
 
   ro->setProperty( "progressValue", progress++);
   QFile::copy( ":HikeData/hike.conf", _dataShareDir + "/hike.conf");
@@ -158,7 +183,7 @@ bool Utils::work() {
   //  dd = new QDir(_dataShareDir);
   //  dd->removeRecursively();
 */
-  std::this_thread::sleep_for(std::chrono::milliseconds(500));
+  std::this_thread::sleep_for(std::chrono::milliseconds(nbrSleepMS));
   ro->setProperty( "progressValue", progress++);
   ro->setProperty( "progressText", "Finished");
 

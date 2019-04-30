@@ -13,7 +13,10 @@
         <file>HikeData/Photos</file>
     </qresource>
     <qresource prefix="/">
+        <file>HikeData/Pages/frontPage.html</file>
         <file>HikeData/Pages/aboutText.html</file>
+        <file>HikeData/Pages/Css/sufi.css</file>
+        <file>HikeData/Pages/Images/sufitrail-guide-front.png</file>
     </qresource>
     <qresource prefix="/">
         <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track01.gpx</file>
