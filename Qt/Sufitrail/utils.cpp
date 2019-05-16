@@ -85,42 +85,43 @@ bool Utils::work() {
         );
   qDebug() << "Fn:" << s->fileName();
 
-  // Gather exportable items
-  QString tracksDir = s->value("tracksdir").toString();
-  dd = new QDir(":HikeData/" + tracksDir);
-  QStringList tracks = dd->entryList( QDir::Files, QDir::Name);
-  qDebug() << tracksDir << ",nbr tracks:" << tracks.count();
-
-  QString photoDir = s->value("photodir").toString();
-  dd = new QDir(":HikeData/" + photoDir);
-  QStringList photos = dd->entryList( QDir::Files, QDir::Name);
-
-  QString noteDir = s->value("notedir").toString();
-  dd = new QDir(":HikeData/" + noteDir);
-  QStringList notes = dd->entryList( QDir::Files, QDir::Name);
-
-  QString featureDir = s->value("featuredir").toString();
+  // Gather exportable items. Path names are fixed.
+  QString featureDir = "Features";
   dd = new QDir(":HikeData/" + featureDir);
   QStringList features = dd->entryList( QDir::Files, QDir::Name);
 
+  QString noteDir = "Notes";
+  dd = new QDir(":HikeData/" + noteDir);
+  QStringList notes = dd->entryList( QDir::Files, QDir::Name);
+
+  QString photoDir = "Photos";
+  dd = new QDir(":HikeData/" + photoDir);
+  QStringList photos = dd->entryList( QDir::Files, QDir::Name);
+
   // Pages
-  QString textPagesDir = s->value("pagesdir").toString();
+  QString textPagesDir = "Pages";
   dd = new QDir(":HikeData/" + textPagesDir);
   QStringList textPages = dd->entryList( QDir::Files, QDir::Name);
 
   // Page style files
-  QString textPagesCssDir = s->value("pagecss").toString();
+  QString textPagesCssDir = "Pages/Css";
   dd = new QDir(":HikeData/" + textPagesCssDir);
   QStringList textPagesCss = dd->entryList( QDir::Files, QDir::Name);
 
   // Page images
-  QString textPagesImgDir = s->value("pageimages").toString();
+  QString textPagesImgDir = "Pages/Images";
   dd = new QDir(":HikeData/" + textPagesImgDir);
   QStringList textPagesImg = dd->entryList( QDir::Files, QDir::Name);
 
+  QString tracksDir = "Tracks";
+  dd = new QDir(":HikeData/" + tracksDir);
+  QStringList tracks = dd->entryList( QDir::Files, QDir::Name);
+  qDebug() << tracksDir << ",nbr tracks:" << tracks.count();
+
+
   // Calculate progressbar ticks
   int totalTicks = tracks.count() + photos.count() + notes.count() +
-      features.count() + textPages.count() + 3;
+      features.count() + textPages.count() + 2;
 
   //int totalTicks = tracks.count() + photos.count() + notes.count() + 3;
   ro->setProperty( "progressTo", totalTicks);
