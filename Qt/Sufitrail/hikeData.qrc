@@ -13,9 +13,9 @@
         <file>HikeData/Photos</file>
     </qresource>
     <qresource prefix="/">
-        <file>HikeData/Pages/frontPage.html</file>
         <file>HikeData/Pages/aboutText.html</file>
-        <file>HikeData/Pages/Css/sufi.css</file>
+        <file>HikeData/Pages/homeText.html</file>
+        <!--file>HikeData/Pages/Css/sufi.css</file-->
         <file>HikeData/Pages/Images/background.png</file>
     </qresource>
     <qresource prefix="/">
