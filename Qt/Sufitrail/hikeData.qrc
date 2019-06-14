@@ -14,6 +14,9 @@
     </qresource>
     <qresource prefix="/">
         <file>HikeData/Pages/aboutText.html</file>
+        <file>HikeData/Pages/homeText.html</file>
+        <!--file>HikeData/Pages/Css/sufi.css</file-->
+        <file>HikeData/Pages/Images/background.png</file>
     </qresource>
     <qresource prefix="/">
         <file>HikeData/Tracks/Sufitrail_1_Istanbul_Konya_21_december_2017-track01.gpx</file>
