@@ -21,6 +21,35 @@ ApplicationWindow {
 
   title: qsTr("Sufitrail Data")
 
+  Image {
+    id: backgroundImage
+    source: "qrc:HikeData/Pages/Images/background.png";
+    fillMode: Image.PreserveAspectCrop
+    horizontalAlignment: Image.AlignHCenter
+    verticalAlignment: Image.AlignVCenter
+    width: parent.width
+    height: parent.height
+  }
+
+  Rectangle {
+    color: Qt.rgba(240,240,255,0.90)
+    radius: 7
+
+    width: parent.width
+    height: parent.height
+
+    anchors {
+      top: parent.top
+      topMargin: 8
+      left: parent.left
+      leftMargin: 8
+      right: parent.right
+      rightMargin: 8
+      bottom: parent.bottom
+      bottomMargin: 8
+    }
+  }
+
   Text {
     id: textMessage
     width: parent.width
